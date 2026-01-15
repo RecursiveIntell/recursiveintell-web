@@ -1,7 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
 import matter from "gray-matter";
-import { compileMDX } from "next-mdx-remote/rsc";
 import { z } from "zod";
 
 export type ContentStatus = "active" | "shipping" | "paused" | "archived";
@@ -147,6 +146,7 @@ export async function getContentPage(type: ContentType, slug: string) {
   }
 
   const { content, ...frontmatter } = entry;
+  const { compileMDX } = await import("next-mdx-remote/rsc");
   const compiled = await compileMDX({
     source: content,
     options: {
