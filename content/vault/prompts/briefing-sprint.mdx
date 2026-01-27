@@ -1,13 +1,62 @@
 ---
-title: "Briefing Sprint Prompt"
+title: "Sprint Briefing Prompt"
 date: "2024-11-02"
-summary: "A structured prompt for turning raw notes into a clear sprint brief."
-tags: ["prompt", "planning"]
+summary: "Transform messy notes into a structured sprint brief with clear objectives, risks, and milestones."
+tags: ["planning", "productivity", "team-management"]
 ---
 
-Use this prompt before sprint planning to extract goals, risks, and decision
-points from messy notes.
+## Purpose
 
-1. Summarize the objective in one sentence.
-2. Identify the top three risks.
-3. Define the smallest shippable milestone.
+Before sprint planning, you often have scattered notes, stakeholder requests, and half-formed ideas. This prompt extracts structure from chaos, producing a one-page brief that aligns the team.
+
+## The Prompt
+
+```
+I have rough notes from various sources about what we need to work on. Help me turn these into a clear sprint brief.
+
+Here are my notes:
+[PASTE YOUR NOTES]
+
+Please produce a sprint brief with:
+
+1. **Sprint Objective** (1 sentence)
+   What is the single most important outcome we're trying to achieve?
+
+2. **Key Deliverables** (3-5 items)
+   Concrete things we will ship, with clear done criteria.
+
+3. **Dependencies & Blockers**
+   What do we need from others? What might get in our way?
+
+4. **Top Risks** (ranked)
+   What could go wrong? What are we uncertain about?
+
+5. **Out of Scope**
+   What are we explicitly NOT doing this sprint?
+
+6. **Smallest Shippable Milestone**
+   What's the first thing we can deploy that proves progress?
+
+Keep it concise. Each section should be scannable in under 30 seconds.
+```
+
+## When to Use
+
+- Start of each sprint planning session
+- When stakeholders dump requests on you
+- When returning from vacation to a full inbox
+- Before a team sync where you need to present priorities
+
+## Tips
+
+- Include raw notes even if messy—the LLM handles ambiguity well
+- If the brief doesn't feel right, paste it back with "What's missing?"
+- Save good briefs as examples for future sprints
+
+## Variations
+
+**For solo work:**
+Replace "we" with "I" and remove the team-oriented sections.
+
+**For longer planning horizons:**
+Add sections for "Quarter Context" and "Success Metrics."

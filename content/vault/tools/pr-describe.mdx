@@ -1,0 +1,115 @@
+---
+title: "PR Describe"
+date: "2024-12-01"
+summary: "Automatically generate pull request descriptions from git diffs with context-aware summaries."
+tags: ["cli", "git", "automation"]
+links:
+  github: "https://github.com/recursiveintell/pr-describe"
+---
+
+## Overview
+
+Writing PR descriptions is tedious but important. PR Describe analyzes your git diff, understands the changes in context, and generates a structured description you can edit and submit.
+
+## Installation
+
+```bash
+npm install -g @recursiveintell/pr-describe
+
+# Or via Homebrew
+brew install recursiveintell/tap/pr-describe
+```
+
+## Quick Start
+
+```bash
+# Generate description for current branch vs main
+pr-describe
+
+# Compare against a specific base
+pr-describe --base develop
+
+# Include ticket links from branch name
+pr-describe --ticket-pattern "JIRA-\d+"
+
+# Copy to clipboard
+pr-describe | pbcopy
+```
+
+## What It Generates
+
+PR Describe produces a structured description following best practices:
+
+```markdown
+## Summary
+Brief description of what changed and why.
+
+## Changes
+- Added retry logic to payment processing
+- Increased timeout from 5s to 15s for external API calls
+- Updated error messages to include request IDs
+
+## Testing
+- [ ] Unit tests pass
+- [ ] Integration tests added for retry scenarios
+- [ ] Manual testing in staging
+
+## Related
+- Fixes JIRA-1234
+- See also: #456 (related refactor)
+```
+
+## Configuration
+
+Create `.pr-describe.yaml` in your repo:
+
+```yaml
+# Template for PR descriptions
+template: |
+  ## Summary
+  {{summary}}
+
+  ## Changes
+  {{changes}}
+
+  ## Testing
+  {{testing_checklist}}
+
+  ## Screenshots
+  {{#if has_ui_changes}}
+  [Add screenshots here]
+  {{/if}}
+
+# Auto-detect ticket numbers from branch names
+ticket_patterns:
+  - "JIRA-\\d+"
+  - "GH-\\d+"
+
+# Files that indicate UI changes
+ui_patterns:
+  - "**/*.tsx"
+  - "**/*.css"
+  - "**/*.scss"
+
+# Exclude from analysis (e.g., generated files)
+exclude:
+  - "**/generated/**"
+  - "package-lock.json"
+```
+
+## Integration with Git Hooks
+
+Add to `.git/hooks/prepare-commit-msg` for draft descriptions:
+
+```bash
+#!/bin/sh
+if [ -z "$2" ]; then
+  pr-describe --format commit-msg > "$1"
+fi
+```
+
+## Tips
+
+- Use `--verbose` to see which files influenced the summary
+- Pipe to `gh pr create --body-file -` for one-command PR creation
+- The `--dry-run` flag shows the analysis without generating output

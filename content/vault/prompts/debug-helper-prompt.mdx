@@ -1,0 +1,66 @@
+---
+title: "Debug Helper Prompt"
+date: "2025-01-05"
+summary: "Systematically debug issues by providing structured context and getting actionable hypotheses."
+tags: ["debugging", "troubleshooting", "development"]
+---
+
+## Purpose
+
+Debugging is hypothesis-driven. This prompt structures the debugging conversation to generate and test hypotheses efficiently, rather than going in circles.
+
+## The Prompt
+
+```
+I'm debugging an issue and need help forming hypotheses.
+
+**What I expected:**
+[Describe the expected behavior]
+
+**What actually happened:**
+[Describe the actual behavior, including error messages]
+
+**What I've tried:**
+[List what you've already checked or attempted]
+
+**Relevant context:**
+- Environment: [local/staging/production]
+- Recent changes: [Any deploys, config changes, or code changes]
+- Reproducibility: [Always/sometimes/rarely]
+- Related code: [paste if helpful]
+
+Based on this, please:
+1. List 3-5 hypotheses for what might be wrong, ordered by likelihood
+2. For each hypothesis, suggest a quick way to test it
+3. Identify any information I should gather that would help narrow down the cause
+```
+
+## When to Use
+
+- Stuck on a bug for more than 15 minutes
+- Production incident that needs structured investigation
+- Complex issues with multiple possible causes
+- When you need a second opinion before going down a rabbit hole
+
+## Tips
+
+- Be specific about error messages—copy them exactly
+- Include the "What I've tried" section to avoid redundant suggestions
+- If the first set of hypotheses don't pan out, update context and ask again
+
+## Variations
+
+**Quick hypothesis:**
+```
+This code is throwing [ERROR]. It was working before. What could cause this?
+```
+
+**Post-incident analysis:**
+```
+We had an incident with [SYMPTOMS]. It resolved after [ACTION]. Help me understand root cause and how to prevent recurrence.
+```
+
+**Performance debugging:**
+```
+This operation is slow (Xms, expecting <Yms). Here's what it does: [describe]. What are the likely bottlenecks?
+```

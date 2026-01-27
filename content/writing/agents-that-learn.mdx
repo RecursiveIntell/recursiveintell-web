@@ -1,0 +1,164 @@
+---
+title: "Building Agents That Learn From Use"
+date: "2025-01-10"
+summary: "How to design AI agents that improve through deployment rather than just training, with practical patterns for feedback loops."
+tags: ["ai", "agents", "machine-learning", "architecture"]
+featured: true
+---
+
+## The Deployment Cliff
+
+There's a pattern I see in AI projects: months of development, a promising demo, then a slow decline after launch. The model that seemed brilliant in testing turns mediocre in production. Users drift away. The team wonders what went wrong.
+
+The problem is the deployment cliff. Traditional software improves after launch: bugs get fixed, features get polished, performance gets optimized. But ML models freeze at deployment. The world changes; the model doesn't.
+
+Agents—systems that take actions and observe results—have an opportunity to break this pattern. Every interaction is potential training data. Every failure is a lesson. But capturing that learning requires intentional architecture.
+
+## What Learning Means
+
+An agent that learns from use should:
+
+1. **Track outcomes.** Did the action succeed? Was the user satisfied? Did the task complete correctly?
+2. **Attribute credit.** Which decisions led to good outcomes? Which led to bad ones?
+3. **Update behavior.** Adjust future decisions based on observed outcomes.
+4. **Preserve alignment.** Improve performance without drifting from intended behavior.
+
+This is harder than it sounds. Outcomes are often delayed, ambiguous, or influenced by factors outside the agent's control.
+
+## Practical Patterns
+
+### Pattern 1: Explicit Feedback Hooks
+
+The simplest approach: ask users to rate outcomes. Thumbs up/down on responses. Star ratings on completed tasks. Brief surveys after workflows.
+
+**What works:**
+- Low implementation cost
+- Clear signal when users engage
+- Aligns with user perception, not just task metrics
+
+**What doesn't:**
+- Low response rates (often under 5%)
+- Biased toward extreme outcomes (people rate when angry or delighted)
+- Delayed feedback loops if learning requires enough samples
+
+**Implementation tip:** Make feedback frictionless. A single click is better than a form. Ask immediately after the relevant action, not at session end.
+
+### Pattern 2: Implicit Signals
+
+Users tell you what worked through their behavior: Did they use the output? Edit it? Discard it? Ask for a redo?
+
+- **Acceptance signals:** User copies text, applies suggestion, proceeds to next step
+- **Rejection signals:** User immediately requests retry, reverts change, abandons workflow
+- **Effort signals:** Time spent editing output correlates with output quality
+
+**What works:**
+- 100% coverage (every interaction has implicit signals)
+- No user effort required
+- Captures actual utility, not reported satisfaction
+
+**What doesn't:**
+- Signals are noisy (user might accept bad output out of laziness)
+- Attribution is hard (rejection might be the task, not the agent)
+- Requires careful instrumentation
+
+**Implementation tip:** Log everything you might need, then analyze later. It's easier to discard data than to wish you had it.
+
+### Pattern 3: Self-Evaluation
+
+The agent evaluates its own outputs before and after user interaction. Compare self-assessment to actual outcomes.
+
+For example:
+- Before: "I'm 80% confident this code is correct"
+- After: "The code ran without errors" (success) or "The user had to fix a bug" (failure)
+
+Over time, the agent calibrates its confidence and learns when to ask for help versus act autonomously.
+
+**What works:**
+- Creates well-calibrated uncertainty estimates
+- Enables smarter autonomy decisions
+- Catches systematic overconfidence
+
+**What doesn't:**
+- Requires a way to measure ground truth
+- Self-evaluation itself can be wrong
+- Adds latency if done synchronously
+
+### Pattern 4: Demonstration Replay
+
+When a user corrects the agent, save the correction as a demonstration. Use demonstrations for:
+
+- Few-shot examples in future prompts
+- Fine-tuning data if you have enough volume
+- Pattern analysis to identify systematic failures
+
+**What works:**
+- High-quality signal (user invested effort to correct)
+- Directly actionable (demonstrations show the right answer)
+- Builds a growing corpus of task-specific examples
+
+**What doesn't:**
+- Volume is limited (users don't correct every mistake)
+- May capture user preferences, not objective quality
+- Risk of overfitting to specific users
+
+## The Learning Architecture
+
+Putting these patterns together:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                     AGENT LOOP                          │
+│  ┌──────┐    ┌──────────┐    ┌────────┐    ┌────────┐  │
+│  │Input │───▶│ Reasoning │───▶│ Action │───▶│ Output │  │
+│  └──────┘    └──────────┘    └────────┘    └────────┘  │
+│       │            │              │             │       │
+│       ▼            ▼              ▼             ▼       │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │              Observation Store                    │  │
+│  │  (inputs, reasoning traces, actions, outputs)     │  │
+│  └──────────────────────────────────────────────────┘  │
+└───────────────────────┬─────────────────────────────────┘
+                        │
+                        ▼
+┌───────────────────────────────────────────────────────────┐
+│                  FEEDBACK COLLECTION                       │
+│  ┌─────────────┐  ┌──────────────┐  ┌──────────────────┐  │
+│  │  Explicit   │  │   Implicit   │  │ Self-evaluation  │  │
+│  │  (ratings)  │  │  (behavior)  │  │  (calibration)   │  │
+│  └─────────────┘  └──────────────┘  └──────────────────┘  │
+└───────────────────────┬───────────────────────────────────┘
+                        │
+                        ▼
+┌───────────────────────────────────────────────────────────┐
+│                   LEARNING LAYER                           │
+│  ┌─────────────────┐  ┌────────────────┐  ┌────────────┐  │
+│  │ Prompt Updates  │  │ Retrieval Index│  │ Fine-tuning│  │
+│  │ (few-shot bank) │  │ (demonstrations)│  │ (if scale) │  │
+│  └─────────────────┘  └────────────────┘  └────────────┘  │
+└───────────────────────────────────────────────────────────┘
+```
+
+## Alignment Concerns
+
+Learning from use introduces risks:
+
+**Reward hacking.** The agent learns to get good ratings rather than good outcomes. Mitigation: diversify signals, include objective metrics.
+
+**Distribution shift.** If the agent changes user behavior, feedback becomes non-IID. Mitigation: holdout evaluation, periodic reset experiments.
+
+**Bias amplification.** If certain users provide more feedback, the agent optimizes for them. Mitigation: weight by user diversity, not engagement.
+
+**Catastrophic forgetting.** New learning overwrites old capabilities. Mitigation: evaluation suites for critical behaviors, rollback mechanisms.
+
+## Starting Small
+
+You don't need all of this on day one. A reasonable progression:
+
+1. **Week 1:** Add logging for all inputs, outputs, and observable outcomes
+2. **Week 2:** Implement one explicit feedback mechanism (thumbs up/down)
+3. **Week 4:** Analyze logs for implicit signals (acceptance, rejection, effort)
+4. **Month 2:** Build a few-shot example bank from corrections
+5. **Month 3:** Connect feedback to prompt updates in a testing environment
+6. **Month 6:** If volume supports it, consider fine-tuning
+
+The key is closing the loop. An agent that deploys and never changes is a static model with extra steps. An agent that learns from every interaction compounds its intelligence over time.

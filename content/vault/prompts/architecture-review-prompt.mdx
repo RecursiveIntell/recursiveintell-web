@@ -1,0 +1,79 @@
+---
+title: "Architecture Review Prompt"
+date: "2024-10-20"
+summary: "Evaluate system designs for scalability, maintainability, and operational concerns before building."
+tags: ["architecture", "design", "systems"]
+---
+
+## Purpose
+
+Before building, get a structured critique of your architecture. This prompt surfaces issues that are expensive to fix later: scaling limits, operational complexity, and hidden assumptions.
+
+## The Prompt
+
+```
+I'm designing a system and want to identify potential issues before building. Here's the design:
+
+[DESCRIBE YOUR ARCHITECTURE]
+- Components and their responsibilities
+- How data flows between components
+- Key technologies/infrastructure choices
+- Expected scale (users, requests, data size)
+
+Please evaluate this design across:
+
+1. **Scalability**
+   - Where are the bottlenecks as we grow?
+   - What's the first thing that will break at 10x scale?
+   - Are there single points of failure?
+
+2. **Operational Complexity**
+   - How hard is this to deploy and monitor?
+   - What will on-call engineers struggle with?
+   - What failure modes are hard to detect or recover from?
+
+3. **Data Integrity**
+   - What happens if a component fails mid-operation?
+   - Are there consistency issues in the design?
+   - How is data validated at boundaries?
+
+4. **Evolutionary Flexibility**
+   - What changes would require significant rework?
+   - What assumptions might not hold in 2 years?
+
+5. **Simpler Alternatives**
+   - Is there a simpler design that meets the requirements?
+   - Are we over-engineering for hypothetical scale?
+
+Be direct. I'd rather know the problems now than discover them in production.
+```
+
+## When to Use
+
+- Before starting a new system
+- When reviewing an RFC or design doc
+- After sketching an architecture on a whiteboard
+- When inheriting a system you need to understand
+
+## Tips
+
+- Include concrete numbers (expected QPS, data size, latency requirements)
+- Mention constraints (budget, team size, existing infrastructure)
+- Ask follow-up questions about specific concerns
+
+## Variations
+
+**Quick sanity check:**
+```
+Here's a system design. Is there anything obviously wrong or risky about this approach?
+```
+
+**Comparison mode:**
+```
+I'm choosing between two approaches for [problem]. Here they are: [A] and [B]. Which would you recommend and why?
+```
+
+**Migration planning:**
+```
+We need to migrate from [current system] to [new approach]. What's the safest migration path?
+```

@@ -1,0 +1,339 @@
+{
+  "ai": {
+    "count": 2,
+    "types": [
+      "projects",
+      "writing"
+    ]
+  },
+  "agents": {
+    "count": 3,
+    "types": [
+      "projects",
+      "lab",
+      "writing"
+    ]
+  },
+  "automation": {
+    "count": 2,
+    "types": [
+      "projects",
+      "vault-tools"
+    ]
+  },
+  "python": {
+    "count": 4,
+    "types": [
+      "projects",
+      "lab"
+    ]
+  },
+  "computer-use": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "observability": {
+    "count": 3,
+    "types": [
+      "projects",
+      "lab",
+      "vault-tools"
+    ]
+  },
+  "platform": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "typescript": {
+    "count": 3,
+    "types": [
+      "projects",
+      "lab"
+    ]
+  },
+  "real-time": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "ml-infrastructure": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "distributed-systems": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "rust": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "optimization": {
+    "count": 2,
+    "types": [
+      "projects",
+      "lab"
+    ]
+  },
+  "rag": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "llm": {
+    "count": 4,
+    "types": [
+      "projects",
+      "lab",
+      "vault-tools"
+    ]
+  },
+  "embeddings": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "analytics": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "react": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "data": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "prompting": {
+    "count": 1,
+    "types": [
+      "lab"
+    ]
+  },
+  "memory": {
+    "count": 1,
+    "types": [
+      "lab"
+    ]
+  },
+  "knowledge-graph": {
+    "count": 1,
+    "types": [
+      "lab"
+    ]
+  },
+  "systems": {
+    "count": 2,
+    "types": [
+      "lab",
+      "vault-prompts"
+    ]
+  },
+  "queues": {
+    "count": 1,
+    "types": [
+      "lab"
+    ]
+  },
+  "visualization": {
+    "count": 1,
+    "types": [
+      "lab"
+    ]
+  },
+  "code-review": {
+    "count": 2,
+    "types": [
+      "lab",
+      "vault-prompts"
+    ]
+  },
+  "developer-tools": {
+    "count": 2,
+    "types": [
+      "lab",
+      "vault-tools"
+    ]
+  },
+  "machine-learning": {
+    "count": 1,
+    "types": [
+      "writing"
+    ]
+  },
+  "architecture": {
+    "count": 2,
+    "types": [
+      "writing",
+      "vault-prompts"
+    ]
+  },
+  "engineering-leadership": {
+    "count": 1,
+    "types": [
+      "writing"
+    ]
+  },
+  "productivity": {
+    "count": 2,
+    "types": [
+      "writing",
+      "vault-prompts"
+    ]
+  },
+  "teams": {
+    "count": 1,
+    "types": [
+      "writing"
+    ]
+  },
+  "platform-engineering": {
+    "count": 1,
+    "types": [
+      "writing"
+    ]
+  },
+  "developer-experience": {
+    "count": 1,
+    "types": [
+      "writing"
+    ]
+  },
+  "systems-design": {
+    "count": 1,
+    "types": [
+      "writing"
+    ]
+  },
+  "reliability": {
+    "count": 1,
+    "types": [
+      "writing"
+    ]
+  },
+  "operations": {
+    "count": 2,
+    "types": [
+      "writing",
+      "vault-downloads"
+    ]
+  },
+  "engineering-culture": {
+    "count": 1,
+    "types": [
+      "writing"
+    ]
+  },
+  "debugging": {
+    "count": 1,
+    "types": [
+      "vault-prompts"
+    ]
+  },
+  "troubleshooting": {
+    "count": 1,
+    "types": [
+      "vault-prompts"
+    ]
+  },
+  "development": {
+    "count": 2,
+    "types": [
+      "vault-prompts"
+    ]
+  },
+  "quality": {
+    "count": 1,
+    "types": [
+      "vault-prompts"
+    ]
+  },
+  "planning": {
+    "count": 2,
+    "types": [
+      "vault-prompts",
+      "vault-downloads"
+    ]
+  },
+  "team-management": {
+    "count": 1,
+    "types": [
+      "vault-prompts"
+    ]
+  },
+  "design": {
+    "count": 1,
+    "types": [
+      "vault-prompts"
+    ]
+  },
+  "cli": {
+    "count": 3,
+    "types": [
+      "vault-tools"
+    ]
+  },
+  "git": {
+    "count": 1,
+    "types": [
+      "vault-tools"
+    ]
+  },
+  "devops": {
+    "count": 2,
+    "types": [
+      "vault-tools",
+      "vault-downloads"
+    ]
+  },
+  "project-management": {
+    "count": 1,
+    "types": [
+      "vault-downloads"
+    ]
+  },
+  "template": {
+    "count": 2,
+    "types": [
+      "vault-downloads"
+    ]
+  },
+  "incident-response": {
+    "count": 1,
+    "types": [
+      "vault-downloads"
+    ]
+  },
+  "checklist": {
+    "count": 1,
+    "types": [
+      "vault-downloads"
+    ]
+  },
+  "release": {
+    "count": 1,
+    "types": [
+      "vault-downloads"
+    ]
+  }
+}

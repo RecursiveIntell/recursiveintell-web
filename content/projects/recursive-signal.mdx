@@ -1,23 +1,53 @@
 ---
 title: "Recursive Signal"
 date: "2024-12-05"
-summary: "A modular observability stack that turns noisy telemetry into calm, actionable insight."
-tags: ["observability", "platform", "design"]
+summary: "A modular observability stack that transforms noisy telemetry into calm, actionable insights through intelligent signal aggregation."
+tags: ["observability", "platform", "typescript", "real-time"]
 status: "active"
 featured: true
 links:
-  github: "https://example.com/recursive-signal"
-  demo: "https://example.com/recursive-signal/demo"
+  github: "https://github.com/recursiveintell/recursive-signal"
+  demo: "https://signal.recursiveintell.dev"
 ---
 
 ## Overview
 
-Recursive Signal is a lightweight observability layer that standardizes how
-services report health. The focus is on clarity, not volume: a few strong
-signals with strict ownership beats a sea of dashboards.
+Recursive Signal is a lightweight observability layer that standardizes how services report health. Rather than drowning teams in metrics, it distills telemetry into a few strong signals with strict ownership—because clarity beats volume every time.
 
-## Highlights
+The system ingests traces, logs, and metrics from distributed services, applies intelligent aggregation rules, and surfaces only what matters. On-call engineers see one dashboard, not twenty.
 
-- Unified runbook per service with live metrics links.
-- Alert budgets that roll up to quarterly objectives.
-- A narrative feed that shows what changed and why.
+## Architecture
+
+The stack is built on three core primitives:
+
+**Signal Collectors** — Lightweight agents that run alongside each service, capturing OpenTelemetry data and forwarding it to the aggregation layer. Written in Rust for minimal overhead.
+
+**Aggregation Engine** — A streaming processor built on Apache Flink that applies configurable rules to compress raw telemetry into meaningful signals. Supports custom signal definitions via a declarative YAML spec.
+
+**Narrative Feed** — A real-time changelog that shows what changed and why, linking every shift in system behavior to its root cause. Powered by a custom causal inference model trained on historical incident data.
+
+## Key Features
+
+- **Unified runbooks** — Each service maps to a single runbook with live metrics links, reducing context-switching during incidents
+- **Alert budgets** — Rolling error budgets that tie directly to quarterly reliability objectives, giving teams agency over their own risk tolerance
+- **Causal linking** — Automatic correlation between deploys, config changes, and metric anomalies
+- **Slack-native alerts** — Context-rich notifications that include suggested actions and historical patterns
+
+## Technical Stack
+
+- **Backend**: Rust (collectors), Java (Flink jobs), TypeScript (API layer)
+- **Frontend**: Next.js with real-time WebSocket updates
+- **Storage**: ClickHouse for time-series, PostgreSQL for metadata
+- **Infrastructure**: Kubernetes with custom operators for auto-scaling
+
+## Results
+
+After rolling out to three internal platform teams:
+
+- Mean-time-to-detection dropped from 12 minutes to under 90 seconds
+- On-call escalation rate decreased by 40%
+- Dashboard count reduced from 47 to 8 standardized views
+
+## What's Next
+
+Currently building a natural language query interface that lets engineers ask questions like "why did checkout latency spike yesterday?" and get grounded, data-backed answers.

@@ -1,0 +1,98 @@
+---
+title: "Prompt Compiler"
+date: "2024-12-20"
+summary: "An experimental system that compiles high-level intent into optimized, model-specific prompts through iterative refinement."
+tags: ["prompting", "llm", "optimization", "python"]
+status: "active"
+links:
+  github: "https://github.com/recursiveintell/prompt-compiler"
+---
+
+## Hypothesis
+
+What if we treated prompt engineering like compiler optimization? Write your intent in a high-level "language," and let a system compile it into the most effective prompt for your target model.
+
+This experiment explores that idea.
+
+## The Problem
+
+Prompts that work well for GPT-4 often underperform on Claude, and vice versa. The same task might need chain-of-thought for one model and few-shot examples for another. Maintaining prompt variants for each model is tedious and error-prone.
+
+## Approach
+
+The prompt compiler takes three inputs:
+
+1. **Task specification** — What you want the model to do, written in natural language
+2. **Test cases** — Input/output pairs that define success
+3. **Target model** — Which LLM will execute the final prompt
+
+It then:
+
+1. Generates candidate prompts using a meta-model
+2. Evaluates each candidate against the test cases
+3. Analyzes failures and generates refined candidates
+4. Repeats until accuracy meets a threshold or budget is exhausted
+
+The output is a tested, optimized prompt ready for production use.
+
+## Example
+
+**Input task:**
+```
+Extract structured data from restaurant reviews.
+Return JSON with: restaurant_name, cuisine_type, rating (1-5), key_pros, key_cons
+```
+
+**Test cases:**
+```
+"Went to Mario's last night. Best Italian in the city! Pasta was perfect but service was slow."
+→ { restaurant_name: "Mario's", cuisine_type: "Italian", rating: 5, key_pros: ["pasta"], key_cons: ["slow service"] }
+```
+
+**Compiled output (for Claude):**
+A prompt with specific instructions for JSON formatting, handling of ambiguous ratings, and examples calibrated to Claude's extraction patterns.
+
+## Observations
+
+After running ~200 compilation cycles across different task types:
+
+**Model-specific patterns emerge:**
+- Claude responds well to explicit reasoning steps before the final answer
+- GPT-4 benefits from role-setting in the system prompt
+- Smaller models need more examples; larger models need fewer but more precise instructions
+
+**Compilation is expensive but worth it:**
+- Average compilation uses 50-100 API calls (mostly cheap evaluation runs)
+- Compiled prompts outperform hand-written prompts by 15-25% on accuracy
+- ROI is positive for prompts that will run thousands of times
+
+**Some tasks don't compile well:**
+- Creative tasks with subjective outputs are hard to evaluate automatically
+- Tasks requiring real-time information need different approaches
+
+## Architecture
+
+```
+┌─────────────────┐
+│ Task Spec       │──┐
+├─────────────────┤  │    ┌──────────────┐
+│ Test Cases      │──┼───▶│ Compiler     │───▶ Optimized Prompt
+├─────────────────┤  │    │ (meta-model) │
+│ Target Model    │──┘    └──────────────┘
+└─────────────────┘              │
+                                 ▼
+                          ┌──────────────┐
+                          │ Evaluator    │
+                          │ (test runs)  │
+                          └──────────────┘
+```
+
+## Current Limitations
+
+- Requires good test cases (garbage in, garbage out)
+- Compilation time is minutes, not seconds
+- Doesn't handle multi-turn conversations well yet
+
+## What's Next
+
+Exploring whether compilation artifacts (learned patterns) can transfer across similar tasks, reducing cold-start cost for new prompts.

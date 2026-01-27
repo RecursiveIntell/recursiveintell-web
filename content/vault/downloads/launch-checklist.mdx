@@ -1,10 +1,102 @@
 ---
-title: "Launch Checklist"
+title: "Production Launch Checklist"
 date: "2024-07-15"
-summary: "A downloadable checklist for final pre-launch validation."
-tags: ["checklist", "release"]
+summary: "A comprehensive pre-launch validation checklist covering QA, observability, rollback plans, and stakeholder communication."
+tags: ["checklist", "release", "devops"]
 links:
-  pdf: "https://example.com/launch-checklist.pdf"
+  pdf: "/downloads/launch-checklist.pdf"
+  notion: "https://notion.so/recursiveintell/launch-checklist"
 ---
 
-A structured list covering QA, telemetry, rollback, and stakeholder comms.
+## Overview
+
+This checklist covers everything you should verify before pushing code to production. It's designed for feature launches, major refactors, and any deployment that makes you nervous.
+
+## The Checklist
+
+### Pre-Deployment
+
+**Code Quality**
+- [ ] All tests passing in CI
+- [ ] No new linting warnings or errors
+- [ ] Code reviewed and approved
+- [ ] No TODO comments in shipped code
+- [ ] Security scan completed (dependencies, secrets)
+
+**Documentation**
+- [ ] API changes documented
+- [ ] Runbook updated for new failure modes
+- [ ] Release notes drafted
+- [ ] User-facing docs updated (if applicable)
+
+**Feature Flags**
+- [ ] Feature behind flag (if applicable)
+- [ ] Flag default is OFF for gradual rollout
+- [ ] Kill switch tested and documented
+
+### Observability
+
+**Monitoring**
+- [ ] Dashboards created for new metrics
+- [ ] Key metrics identified and baselined
+- [ ] Alerts configured with appropriate thresholds
+- [ ] Alert routing verified (right team, right channel)
+
+**Logging**
+- [ ] New log statements at appropriate levels
+- [ ] Request IDs included for tracing
+- [ ] No sensitive data in logs
+- [ ] Log aggregation verified in staging
+
+### Rollback
+
+**Rollback Plan**
+- [ ] Rollback procedure documented
+- [ ] Database migrations reversible (or forward-only plan documented)
+- [ ] Previous version deployment verified
+- [ ] Estimated rollback time documented
+
+**Data Safety**
+- [ ] Backup created before migration
+- [ ] Data validation queries prepared
+- [ ] Recovery procedure tested in staging
+
+### Communication
+
+**Stakeholders**
+- [ ] Engineering team notified
+- [ ] On-call engineer aware
+- [ ] Product/PM aware of launch timing
+- [ ] Customer-facing teams briefed (if user-visible)
+
+**Timing**
+- [ ] Deploy window scheduled (avoid Fridays)
+- [ ] No conflicting deployments
+- [ ] Support coverage confirmed
+
+### Post-Deployment
+
+**Verification**
+- [ ] Smoke tests passing
+- [ ] Key user flows verified
+- [ ] Metrics within expected range
+- [ ] No new errors in logs
+
+**Monitoring Period**
+- [ ] Stay online for 15-30 minutes post-deploy
+- [ ] Watch for error rate changes
+- [ ] Check downstream service health
+- [ ] Verify feature flag gradual rollout
+
+## How to Use
+
+1. Copy this checklist to your deployment ticket
+2. Check items as you complete them
+3. Get explicit sign-off before proceeding to next section
+4. Keep the completed checklist in your incident response docs
+
+## Variations
+
+**Hotfix Checklist** — Abbreviated version for urgent fixes: focus on rollback plan, minimal verification, immediate monitoring.
+
+**Database Migration Checklist** — Extended version with additional data safety steps, performance testing requirements, and maintenance window coordination.

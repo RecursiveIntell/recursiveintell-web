@@ -1,0 +1,115 @@
+---
+title: "Context Dump"
+date: "2024-10-12"
+summary: "A CLI that exports relevant codebase context for LLM prompts—files, dependencies, and structure in one command."
+tags: ["cli", "llm", "developer-tools"]
+links:
+  github: "https://github.com/recursiveintell/context-dump"
+---
+
+## Overview
+
+When asking an LLM about your code, context is everything. Context Dump intelligently selects relevant files, includes dependency info, and formats everything for optimal LLM consumption—all from one command.
+
+## Installation
+
+```bash
+npm install -g @recursiveintell/context-dump
+```
+
+## Quick Start
+
+```bash
+# Dump context around a specific file
+context-dump src/auth/middleware.ts
+
+# Include related tests and types
+context-dump src/auth/middleware.ts --include-tests --include-types
+
+# Dump an entire feature area
+context-dump src/checkout/ --depth 2
+
+# Output with token count estimate
+context-dump src/auth/ --tokens
+```
+
+## What It Includes
+
+**Smart file selection:**
+- The target file(s) you specify
+- Files that import the target
+- Files that the target imports
+- Related test files (if `--include-tests`)
+- Type definitions (if `--include-types`)
+
+**Structural context:**
+- Directory tree of relevant paths
+- Package.json dependencies
+- Key config files (tsconfig, etc.)
+
+**Metadata:**
+- File paths with line counts
+- Token count estimates for LLM budgets
+- Git status of included files
+
+## Output Format
+
+Context Dump produces a structured markdown document optimized for LLM parsing:
+
+```markdown
+# Context Dump
+Generated: 2024-10-12 09:15
+Files: 7 | Lines: 423 | Est. Tokens: ~3,200
+
+## Structure
+src/
+├── auth/
+│   ├── middleware.ts (target)
+│   ├── types.ts
+│   └── __tests__/
+│       └── middleware.test.ts
+├── config/
+│   └── auth.ts
+└── utils/
+    └── jwt.ts
+
+## Files
+
+### src/auth/middleware.ts
+[Full file contents with line numbers]
+
+### src/auth/types.ts
+[Full file contents with line numbers]
+
+[... additional files ...]
+```
+
+## Configuration
+
+Create `.context-dump.yaml` to customize behavior:
+
+```yaml
+# Always exclude these patterns
+exclude:
+  - "**/*.test.ts"
+  - "**/node_modules/**"
+  - "**/__mocks__/**"
+
+# Include these config files when relevant
+configs:
+  - tsconfig.json
+  - package.json
+  - .env.example
+
+# Maximum depth for directory traversal
+max_depth: 3
+
+# Token limit warning threshold
+token_warning: 8000
+```
+
+## Tips
+
+- Pipe output directly to clipboard: `context-dump src/api/ | pbcopy`
+- Use `--summary` for a condensed view that fits smaller context windows
+- Combine with grep: `context-dump src/ | grep -A 5 "function handleAuth"`

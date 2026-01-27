@@ -1,0 +1,98 @@
+---
+title: "What On-Call Taught Me About Systems"
+date: "2024-07-22"
+summary: "Lessons from carrying a pager: how production incidents reshape your understanding of reliability, ownership, and building for failure."
+tags: ["reliability", "operations", "engineering-culture"]
+---
+
+## The Pager Changes Everything
+
+I didn't understand my own systems until I was responsible for them at 3 AM. You can read architecture docs, review code, even deploy services—but the pager teaches lessons that documentation can't.
+
+After three years of on-call rotations, here's what I've learned about building systems that don't break me.
+
+## Lesson 1: Everything Fails, But Not Everything Matters
+
+Early in my career, I treated every error as a crisis. A spike in 500s? Drop everything. A slow query? Investigate immediately. A warning in the logs? Better page someone.
+
+The pager teaches proportionality. Not all failures are equal. A 5% error rate for one endpoint might be critical; for another, it might be normal. A slow query matters during checkout; it doesn't matter during a nightly batch job.
+
+The skill is knowing which failures matter right now. This requires:
+
+- **SLOs, not just metrics.** An SLO answers "are we okay?" A metric just says "here's a number."
+- **Context in alerts.** An alert that says "error rate high" wastes on-call time. An alert that says "checkout error rate exceeds budget, affecting approximately 200 orders/hour" enables triage.
+- **Runbook links.** Every alert should link to a document that explains what this alert means and what to do first.
+
+## Lesson 2: Complexity Is Debt Paid at 3 AM
+
+That clever architecture decision? The abstraction that saved a week of development? The config system that handles every edge case?
+
+At 3 AM, with an incident in progress and your heart racing, complexity is your enemy. You need to understand what's happening, why, and what to do. Every layer of indirection, every conditional branch, every "it depends" makes that harder.
+
+Build for debuggability:
+
+- **Linear flows are easier to trace than branching flows.** Even if they're less elegant.
+- **Explicit is better than implicit.** Magic is hard to debug under pressure.
+- **Fewer services are easier to reason about than more services.** The microservices aren't free.
+- **Observability is not optional.** If you can't see what a system is doing, you can't fix it when it breaks.
+
+## Lesson 3: Ownership Means Waking Up
+
+"Ownership" is an overused word in engineering culture, but on-call gives it teeth. When you own a service, you answer for it. Not in a performance review six months later—tonight, while you're trying to sleep.
+
+This changes how you build:
+
+- **You test edge cases** because you'll be the one debugging them.
+- **You write good error messages** because you'll be the one reading them.
+- **You document failure modes** because you'll be the one recovering from them.
+- **You resist adding complexity** because you'll be the one paged about it.
+
+Teams that separate building from operating—"throw it over the wall to SRE"—miss this feedback loop. The people who build should carry the pager, at least sometimes.
+
+## Lesson 4: The Blast Radius Is Everything
+
+Some incidents affect one user. Some affect one customer. Some affect everyone. The difference isn't always predictable from the code.
+
+After a few incidents, you develop intuition for blast radius:
+
+- **Shared dependencies are scary.** That authentication service? If it goes down, everything does.
+- **Sync calls are scary.** If your dependency is slow, you're slow. If your dependency is down, you're down.
+- **Single points of failure are scary.** Even with failover, you're trusting the failover mechanism.
+- **Data corruption is scarier than downtime.** You can recover from being down. Recovering from wrong data is much harder.
+
+Build with blast radius in mind:
+
+- **Isolate failure domains.** A problem in one customer's data shouldn't affect other customers.
+- **Prefer async communication.** A queue provides buffering that sync calls don't.
+- **Default to fail-open or fail-safe**, depending on the context. Decide in advance, not during the incident.
+
+## Lesson 5: Incidents Are Learning Opportunities
+
+A healthy on-call culture treats incidents as data, not blame. Every incident is a chance to learn something you couldn't have learned otherwise.
+
+The postmortem process matters:
+
+- **Blameless.** Focus on systems, not people. "Why did the system allow this?" not "Who made this mistake?"
+- **Action items.** If the postmortem doesn't produce concrete improvements, it was a waste of time.
+- **Shared.** Incidents often reveal problems that affect multiple teams. Share lessons broadly.
+
+I've learned more from incident reviews than from any technical book. The lessons are specific, concrete, and emotionally memorable.
+
+## Lesson 6: Sleep Is Not Negotiable
+
+On-call taught me that sustainable pace matters. You can't make good decisions when exhausted. You can't debug complex systems when sleep-deprived. You can't learn from incidents when burned out.
+
+Good on-call practices:
+
+- **Reasonable thresholds.** Not every metric deviation needs a page.
+- **Handoff rituals.** Clear transitions between on-call engineers, including context about ongoing issues.
+- **Follow-the-sun.** If your team spans time zones, use them. Nobody should be paged at night if someone else is awake.
+- **Compensation.** On-call is real work. It should be acknowledged and compensated as such.
+
+## The Transformation
+
+On-call transforms how you think about engineering. You stop seeing systems as static artifacts and start seeing them as living things that will misbehave. You stop optimizing for building and start optimizing for operating.
+
+Every system I build now, I imagine carrying the pager for. Would I be able to debug this at 3 AM? Would I resent the engineer who built this? Would I know what to do when it fails?
+
+The pager is a teacher. A demanding one. But the lessons it teaches make you a better engineer.

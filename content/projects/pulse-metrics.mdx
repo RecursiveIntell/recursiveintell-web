@@ -1,0 +1,78 @@
+---
+title: "Pulse Metrics"
+date: "2024-08-15"
+summary: "A developer-first analytics platform that tracks product health through custom events, cohorts, and real-time dashboards."
+tags: ["analytics", "typescript", "react", "data"]
+status: "paused"
+links:
+  github: "https://github.com/recursiveintell/pulse-metrics"
+---
+
+## Overview
+
+Pulse Metrics is a lightweight analytics platform built for engineering teams who want to understand their product without the complexity of enterprise tools. It focuses on three things: easy instrumentation, fast queries, and dashboards that don't require a PhD to configure.
+
+## Motivation
+
+Existing analytics tools fall into two camps:
+
+1. **Enterprise platforms** (Amplitude, Mixpanel) — Powerful but complex, expensive, and often overkill for smaller teams
+2. **Simple counters** (Plausible, Fathom) — Privacy-friendly but too limited for product analytics
+
+Pulse Metrics sits in the middle: powerful enough for cohort analysis and funnels, simple enough to self-host and configure in an afternoon.
+
+## Features
+
+**Event Tracking** — A tiny JavaScript SDK (3KB gzipped) that captures custom events with arbitrary properties. Automatic batching and retry logic for reliability.
+
+```javascript
+pulse.track("checkout_started", {
+  cart_value: 149.99,
+  item_count: 3,
+  coupon_applied: true,
+});
+```
+
+**Cohort Analysis** — Group users by behavior, properties, or time of first action. Track how cohorts behave over time with retention curves and engagement metrics.
+
+**Funnel Visualization** — Define multi-step funnels and see where users drop off. Drill down into specific segments to understand why.
+
+**Real-time Dashboard** — Live-updating charts for current session counts, active users, and event streams. Perfect for launch days and feature releases.
+
+**SQL Access** — For complex queries, drop into raw SQL against the event store. Export results as CSV or JSON.
+
+## Architecture
+
+**Ingestion API** — A Rust service that receives events over HTTP, validates schemas, and writes to a Kafka topic. Handles 100k+ events/second on modest hardware.
+
+**Event Store** — ClickHouse for columnar storage optimized for analytical queries. Events are partitioned by day and compressed aggressively.
+
+**Query Engine** — A TypeScript service that translates dashboard queries into optimized ClickHouse SQL. Includes query caching and result materialization for common patterns.
+
+**Dashboard UI** — React with Recharts for visualization. Supports saved dashboards, scheduled reports, and embeddable iframes.
+
+## Self-Hosting
+
+Designed for easy deployment:
+
+```bash
+docker-compose up -d
+```
+
+The full stack runs comfortably on a $20/month VPS for most use cases. Includes automatic backups and a simple admin UI for configuration.
+
+## Current Status
+
+Development is paused while I focus on other projects. The core functionality is stable and running in production for two internal applications. Planning to resume development with a focus on:
+
+- Improved funnel builder UI
+- Alerting and anomaly detection
+- Privacy controls (data retention, anonymization)
+
+## Lessons Learned
+
+Building this reinforced a few beliefs:
+
+- ClickHouse is remarkably capable for time-series analytics at small to medium scale
+- Most dashboard complexity comes from supporting arbitrary queries—constraining the query space simplifies everything
+- Developer experience matters: if instrumentation is painful, nobody does it

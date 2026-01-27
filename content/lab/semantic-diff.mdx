@@ -1,0 +1,92 @@
+---
+title: "Semantic Diff"
+date: "2024-09-25"
+summary: "A code review tool that explains what changed in plain English, focusing on behavior rather than syntax."
+tags: ["code-review", "llm", "developer-tools", "typescript"]
+status: "shipping"
+links:
+  github: "https://github.com/recursiveintell/semantic-diff"
+---
+
+## Experiment
+
+Traditional diffs show line-by-line changes. But reviewers don't care about whitespace or variable renames—they care about behavior: What does this code do differently than before?
+
+Semantic Diff uses LLMs to generate human-readable summaries of code changes, focusing on functional impact rather than textual differences.
+
+## How It Works
+
+Given a git diff, the tool:
+
+1. **Parses the diff** into structured change units (functions modified, added, removed)
+2. **Analyzes each unit** with context (the full function, its callers, its tests)
+3. **Generates a summary** explaining the behavioral change in plain English
+4. **Flags concerns** like breaking changes, security implications, or missing tests
+
+## Example Output
+
+**Git diff** (50 lines of changes across 3 files)
+
+**Semantic summary:**
+```
+## Authentication Middleware (auth.ts)
+
+BEHAVIOR CHANGE: Token expiration handling
+- Previously: Expired tokens returned 401 immediately
+- Now: Expired tokens trigger a refresh attempt before failing
+- Impact: Users with expired tokens may stay logged in longer
+
+ADDED: Rate limiting for refresh attempts
+- New: Max 3 refresh attempts per minute per user
+- Prevents: Refresh token abuse in compromised scenarios
+
+## User Model (user.ts)
+
+REFACTOR: No behavioral change
+- Renamed internal variable `usr` to `user` for clarity
+- Extracted validation into helper function
+
+## Tests (auth.test.ts)
+
+ADDED: 2 new test cases for refresh flow
+MISSING: No tests for rate limiting logic ⚠️
+```
+
+## Integration
+
+Currently works as:
+
+- **CLI tool**: `semantic-diff HEAD~1..HEAD`
+- **GitHub Action**: Posts summary as PR comment
+- **VS Code extension**: Sidebar panel showing semantic changes
+
+## Technical Notes
+
+- Uses tree-sitter for language-aware diff parsing
+- Retrieves context (callers, tests) from local codebase analysis
+- Summarization via Claude with structured output schemas
+- Caches analysis results to avoid re-processing unchanged functions
+
+## Observations
+
+After dogfooding on our own repos:
+
+**What works well:**
+- Catches breaking changes that are easy to miss in large diffs
+- Reduces review time by surfacing what matters
+- Improves commit messages (reviewers suggest changes based on the summary)
+
+**What needs work:**
+- Large refactors generate verbose summaries; need better compression
+- Cross-file changes are harder to summarize coherently
+- Performance is slow on diffs with 100+ changed functions
+
+## Open Questions
+
+- Should summaries be generated at commit time or review time?
+- How to handle diffs that are intentionally cryptic (security fixes)?
+- Can this replace traditional diffs for non-technical stakeholders?
+
+## Status
+
+Shipping internally. Collecting feedback before public release. The GitHub Action is the most polished interface; CLI needs better error handling.

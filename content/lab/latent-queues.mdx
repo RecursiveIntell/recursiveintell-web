@@ -1,18 +1,59 @@
 ---
 title: "Latent Queue Maps"
 date: "2024-10-17"
-summary: "Mapping async backlogs into a single, human-readable signal."
-tags: ["systems", "queues", "ux"]
+summary: "Visualizing how async backlogs compound across services to help on-call engineers spot bottlenecks before they cascade into incidents."
+tags: ["systems", "queues", "visualization", "observability"]
 status: "shipping"
+links:
+  github: "https://github.com/recursiveintell/latent-queue-maps"
 ---
 
 ## Experiment
 
-Built a small visualization to show how queue latency compounds across
-services. The goal is to help on-call engineers see bottlenecks before they
-turn into incidents.
+Modern distributed systems communicate through message queues—Kafka, SQS, RabbitMQ. When one queue backs up, downstream services feel the pressure, but the root cause is often invisible until it's too late.
 
-## Notes
+This experiment builds a visualization that shows queue latency propagation in real-time. Think of it as a weather map for your async infrastructure.
 
-- Useful for on-call retrospectives.
-- Needs a faster sampling strategy for large queues.
+## The Insight
+
+Queue depth alone is misleading. A queue with 10,000 messages might be fine (high throughput, fast processing) while a queue with 100 messages might be a crisis (stalled consumer, growing latency).
+
+What matters is **latent time**: how long messages sit in the queue before processing. When latent time compounds across multiple queues in a dependency chain, you get cascading delays that are hard to debug.
+
+## Implementation
+
+The visualization connects to queue metrics (currently Kafka and SQS) and builds a directed graph of data flow. Each edge shows:
+
+- Current queue depth
+- P50 and P99 latent time
+- Processing rate (messages/second)
+- Trend direction (improving, stable, degrading)
+
+The graph uses force-directed layout to cluster related services, with edge thickness representing message volume and color indicating health (green → yellow → red based on latent time thresholds).
+
+## Technical Details
+
+- **Data collection**: Prometheus queries via PromQL, aggregated at 10-second intervals
+- **Graph layout**: D3-force with custom collision detection for labels
+- **Backend**: Node.js WebSocket server that pushes updates to connected clients
+- **Frontend**: React with SVG rendering for smooth animations
+
+## Findings
+
+After running this on our production Kafka cluster:
+
+1. **Cascade patterns are predictable** — Most incidents follow the same propagation paths. Once you see these paths, you can set targeted alerts.
+
+2. **Small queues cause big problems** — The queues that caused incidents weren't the busiest ones; they were small queues with bursty traffic patterns and no autoscaling.
+
+3. **Time-of-day effects are dramatic** — Queue health varies significantly by hour. A dashboard that looks fine at 2 PM might be screaming at 10 AM.
+
+## Next Steps
+
+- Add predictive overlay showing estimated propagation if current trends continue
+- Integration with PagerDuty to highlight queues involved in recent incidents
+- Recorded playback mode for post-incident review
+
+## Screenshots
+
+Working on a public demo instance. For now, the repo includes sample data and a local dev mode.

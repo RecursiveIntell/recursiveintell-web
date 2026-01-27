@@ -1,0 +1,71 @@
+---
+title: "Code Review Prompt"
+date: "2024-12-08"
+summary: "Get thorough, actionable code reviews focused on correctness, readability, and edge cases."
+tags: ["code-review", "development", "quality"]
+---
+
+## Purpose
+
+When reviewing code with an LLM, generic prompts produce generic feedback. This prompt focuses the review on what matters: correctness, edge cases, and maintainability—not style nitpicks.
+
+## The Prompt
+
+```
+Review this code change. Focus on:
+
+1. **Correctness**
+   - Does it do what it's supposed to do?
+   - Are there logic errors or off-by-one mistakes?
+   - Are error conditions handled?
+
+2. **Edge Cases**
+   - What inputs could break this?
+   - What happens with empty collections, null values, or extreme sizes?
+   - Are there race conditions or timing issues?
+
+3. **Maintainability**
+   - Will future developers understand this code?
+   - Are there hidden assumptions that should be documented?
+   - Is there unnecessary complexity?
+
+4. **Security (if applicable)**
+   - Any injection vulnerabilities?
+   - Proper input validation?
+   - Secrets or credentials exposed?
+
+For each issue found:
+- Quote the relevant code
+- Explain the problem
+- Suggest a fix
+
+Skip style issues unless they affect readability significantly.
+
+Here's the code:
+[PASTE CODE]
+```
+
+## When to Use
+
+- Self-review before opening a PR
+- When you're the only reviewer on a change
+- Learning a new codebase through review
+- Before merging a significant refactor
+
+## Tips
+
+- Include relevant context (function being called, types involved)
+- For large changes, review in chunks with "[Part 1 of 3]" markers
+- Follow up with "What did I miss?" to catch second-order issues
+
+## Variations
+
+**Quick sanity check:**
+```
+Quick review—any obvious bugs or issues in this code? Don't nitpick, just flag anything that would break in production.
+```
+
+**Security-focused:**
+```
+Security review only. Assume this code handles untrusted input. What are the attack vectors?
+```

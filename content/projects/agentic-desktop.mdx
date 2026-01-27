@@ -1,0 +1,67 @@
+---
+title: "Agentic Desktop"
+date: "2025-01-15"
+summary: "An autonomous AI agent that controls an entire Linux desktop—from browser to terminal—enabling end-to-end task automation through natural language."
+tags: ["ai", "agents", "automation", "python", "computer-use"]
+status: "active"
+featured: true
+links:
+  github: "https://github.com/recursiveintell/agentic-desktop"
+---
+
+## Overview
+
+Agentic Desktop is a fully autonomous agent system that can operate a Linux computer the way a human would—clicking, typing, navigating browsers, running terminal commands, and managing files. Give it a goal in natural language, and it figures out the rest.
+
+This isn't remote desktop automation or simple scripting. The agent perceives the screen through vision, reasons about what it sees, plans multi-step workflows, and executes them with human-like interaction patterns.
+
+## How It Works
+
+The system combines several specialized components:
+
+**Vision Layer** — A fine-tuned vision model that interprets screenshots, identifying UI elements, reading text, and understanding spatial relationships. Built on a custom dataset of annotated desktop screenshots across multiple Linux distributions.
+
+**Action Space** — A constrained set of primitives: mouse movement, clicks, keyboard input, and shell commands. The agent composes these into complex behaviors without needing application-specific APIs.
+
+**Planning Engine** — A reasoning module that breaks high-level goals into executable steps, maintains state across actions, and handles errors gracefully. Uses a combination of chain-of-thought prompting and reinforcement learning from human feedback.
+
+**Memory System** — Persistent context that tracks what the agent has done, what it's learned about the current environment, and what constraints apply to the task.
+
+## Capabilities
+
+The agent can currently:
+
+- Browse the web, fill forms, and extract structured data from pages
+- Manage files and directories through the file manager or terminal
+- Install and configure software packages
+- Write, edit, and debug code across multiple editors
+- Compose and send emails with appropriate formatting
+- Create documents and presentations from rough outlines
+- Run and interpret shell commands, including complex pipelines
+
+## Safety Architecture
+
+Autonomous computer control demands rigorous safety constraints:
+
+- **Sandboxed execution** — All actions run in an isolated VM with snapshot/rollback capabilities
+- **Action confirmation** — High-risk operations (file deletion, network requests, installations) require explicit approval
+- **Audit logging** — Complete trace of every action, perception, and decision for post-hoc review
+- **Kill switch** — Instant termination with state preservation for debugging
+
+## Technical Stack
+
+- **Agent Core**: Python with async task orchestration
+- **Vision**: Fine-tuned Florence-2 + custom UI element detection
+- **Reasoning**: Claude API with structured output schemas
+- **Execution**: PyAutoGUI + subprocess for system interaction
+- **Infrastructure**: QEMU/KVM for sandboxed environments
+
+## Current Status
+
+The agent reliably completes multi-step workflows in controlled environments. Current focus is on improving robustness to UI variations and reducing the number of interactions needed for common tasks.
+
+## Research Directions
+
+- Training on recorded human workflows to improve efficiency
+- Multi-agent coordination for parallel task execution
+- Self-improvement through automated testing and feedback loops

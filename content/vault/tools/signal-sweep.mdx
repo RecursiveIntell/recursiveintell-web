@@ -1,17 +1,103 @@
 ---
 title: "Signal Sweep"
 date: "2024-08-28"
-summary: "A CLI workflow that gathers logs, traces, and error budgets in one pass."
-tags: ["tooling", "cli"]
+summary: "A CLI that aggregates logs, traces, metrics, and error budgets for any service into a single incident-ready report."
+tags: ["cli", "observability", "devops"]
 links:
-  repo: "https://example.com/signal-sweep"
+  github: "https://github.com/recursiveintell/signal-sweep"
 ---
 
-Signal Sweep is a lightweight command that collects the most important
-observability signals for a service and formats them as a single report.
+## Overview
 
-## Usage
+Signal Sweep is a command-line tool that gathers the most important observability signals for a service and formats them as a single, readable report. Instead of jumping between Grafana, Datadog, and CloudWatch, run one command and get everything you need for incident response or weekly reviews.
 
-- Pass the service name.
-- Choose the time window.
-- Export as markdown or JSON.
+## Installation
+
+```bash
+# Via npm
+npm install -g @recursiveintell/signal-sweep
+
+# Or download the binary
+curl -sSL https://get.recursiveintell.dev/signal-sweep | sh
+```
+
+## Quick Start
+
+```bash
+# Basic usage - sweep signals for a service
+signal-sweep --service checkout-api --window 1h
+
+# Output to file
+signal-sweep --service checkout-api --format markdown -o report.md
+
+# Sweep during an incident (includes more detail)
+signal-sweep --service checkout-api --incident --window 15m
+```
+
+## What It Collects
+
+- **Error rates and latency** — P50, P95, P99 latencies plus error budget burn rate
+- **Recent logs** — Filtered for errors and warnings, grouped by pattern
+- **Active alerts** — Any firing or recently resolved alerts for the service
+- **Recent deploys** — Last 5 deploys with commit messages and authors
+- **Dependencies** — Health status of downstream services
+
+## Configuration
+
+Signal Sweep reads from `~/.signal-sweep.yaml` or a project-local config:
+
+```yaml
+providers:
+  metrics: prometheus
+  logs: loki
+  alerts: pagerduty
+  deploys: github
+
+services:
+  checkout-api:
+    prometheus_job: checkout
+    loki_labels: { app: checkout-api }
+    pagerduty_service: PXXXXXX
+    github_repo: company/checkout-api
+```
+
+## Output Formats
+
+- **Markdown** — Human-readable, perfect for pasting into Slack or incident docs
+- **JSON** — Machine-readable for automation and dashboards
+- **Terminal** — Colorized output for quick review
+
+## Example Output
+
+```markdown
+# Signal Sweep: checkout-api
+Generated: 2024-08-28 14:32 UTC | Window: 1h
+
+## Health Summary
+Status: DEGRADED
+Error Rate: 2.3% (budget: 1%)
+P99 Latency: 890ms (target: 500ms)
+
+## Active Alerts
+- [FIRING] High error rate on /api/checkout (since 14:15)
+
+## Error Patterns (top 3)
+1. "connection refused to payment-gateway" (47 occurrences)
+2. "timeout waiting for inventory-service" (23 occurrences)
+3. "invalid card token format" (12 occurrences)
+
+## Recent Deploys
+- 14:10 | abc123 | "Add retry logic for payments" (@alice)
+- 11:45 | def456 | "Update timeout config" (@bob)
+
+## Dependencies
+- payment-gateway: HEALTHY
+- inventory-service: DEGRADED (high latency)
+- user-service: HEALTHY
+```
+
+## Tips
+
+- Run `signal-sweep --init` to generate a config file interactively
+- Use `--compare 1d` to see how current signals compare to yesterday
+- Pipe JSON output to `jq` for custom filtering

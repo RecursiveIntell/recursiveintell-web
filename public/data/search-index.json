@@ -1,0 +1,312 @@
+[
+  {
+    "id": "projects:agentic-desktop",
+    "title": "Agentic Desktop",
+    "summary": "An autonomous AI agent that controls an entire Linux desktop—from browser to terminal—enabling end-to-end task automation through natural language.",
+    "tags": [
+      "ai",
+      "agents",
+      "automation",
+      "python",
+      "computer-use"
+    ],
+    "date": "2025-01-15",
+    "type": "projects",
+    "href": "/projects/agentic-desktop"
+  },
+  {
+    "id": "projects:recursive-signal",
+    "title": "Recursive Signal",
+    "summary": "A modular observability stack that transforms noisy telemetry into calm, actionable insights through intelligent signal aggregation.",
+    "tags": [
+      "observability",
+      "platform",
+      "typescript",
+      "real-time"
+    ],
+    "date": "2024-12-05",
+    "type": "projects",
+    "href": "/projects/recursive-signal"
+  },
+  {
+    "id": "projects:inference-mesh",
+    "title": "Inference Mesh",
+    "summary": "A distributed inference orchestration layer that routes AI model requests across heterogeneous hardware for optimal cost and latency.",
+    "tags": [
+      "ml-infrastructure",
+      "distributed-systems",
+      "rust",
+      "optimization"
+    ],
+    "date": "2024-11-20",
+    "type": "projects",
+    "href": "/projects/inference-mesh"
+  },
+  {
+    "id": "projects:context-weaver",
+    "title": "Context Weaver",
+    "summary": "A retrieval-augmented generation pipeline that builds rich, hierarchical context from codebases, documents, and conversations.",
+    "tags": [
+      "rag",
+      "llm",
+      "embeddings",
+      "python"
+    ],
+    "date": "2024-10-08",
+    "type": "projects",
+    "href": "/projects/context-weaver"
+  },
+  {
+    "id": "projects:pulse-metrics",
+    "title": "Pulse Metrics",
+    "summary": "A developer-first analytics platform that tracks product health through custom events, cohorts, and real-time dashboards.",
+    "tags": [
+      "analytics",
+      "typescript",
+      "react",
+      "data"
+    ],
+    "date": "2024-08-15",
+    "type": "projects",
+    "href": "/projects/pulse-metrics"
+  },
+  {
+    "id": "lab:prompt-compiler",
+    "title": "Prompt Compiler",
+    "summary": "An experimental system that compiles high-level intent into optimized, model-specific prompts through iterative refinement.",
+    "tags": [
+      "prompting",
+      "llm",
+      "optimization",
+      "python"
+    ],
+    "date": "2024-12-20",
+    "type": "lab",
+    "href": "/lab/prompt-compiler"
+  },
+  {
+    "id": "lab:memory-graph",
+    "title": "Memory Graph",
+    "summary": "An experiment in giving AI assistants persistent, structured memory that grows over time and supports complex recall.",
+    "tags": [
+      "memory",
+      "agents",
+      "knowledge-graph",
+      "python"
+    ],
+    "date": "2024-11-08",
+    "type": "lab",
+    "href": "/lab/memory-graph"
+  },
+  {
+    "id": "lab:latent-queues",
+    "title": "Latent Queue Maps",
+    "summary": "Visualizing how async backlogs compound across services to help on-call engineers spot bottlenecks before they cascade into incidents.",
+    "tags": [
+      "systems",
+      "queues",
+      "visualization",
+      "observability"
+    ],
+    "date": "2024-10-17",
+    "type": "lab",
+    "href": "/lab/latent-queues"
+  },
+  {
+    "id": "lab:semantic-diff",
+    "title": "Semantic Diff",
+    "summary": "A code review tool that explains what changed in plain English, focusing on behavior rather than syntax.",
+    "tags": [
+      "code-review",
+      "llm",
+      "developer-tools",
+      "typescript"
+    ],
+    "date": "2024-09-25",
+    "type": "lab",
+    "href": "/lab/semantic-diff"
+  },
+  {
+    "id": "writing:agents-that-learn",
+    "title": "Building Agents That Learn From Use",
+    "summary": "How to design AI agents that improve through deployment rather than just training, with practical patterns for feedback loops.",
+    "tags": [
+      "ai",
+      "agents",
+      "machine-learning",
+      "architecture"
+    ],
+    "date": "2025-01-10",
+    "type": "writing",
+    "href": "/writing/agents-that-learn"
+  },
+  {
+    "id": "writing:velocity-vs-momentum",
+    "title": "Velocity Is Not Momentum",
+    "summary": "Why shipping fast matters less than shipping in a direction, and how to build sustainable speed without burning out your team.",
+    "tags": [
+      "engineering-leadership",
+      "productivity",
+      "teams"
+    ],
+    "date": "2024-11-15",
+    "type": "writing",
+    "href": "/writing/velocity-vs-momentum"
+  },
+  {
+    "id": "writing:quiet-systems",
+    "title": "Quiet Systems, Loud Results",
+    "summary": "Why the best internal platforms feel invisible to the teams who use them, and how to build systems that fade into the background.",
+    "tags": [
+      "platform-engineering",
+      "developer-experience",
+      "systems-design"
+    ],
+    "date": "2024-09-08",
+    "type": "writing",
+    "href": "/writing/quiet-systems"
+  },
+  {
+    "id": "writing:on-call-engineering",
+    "title": "What On-Call Taught Me About Systems",
+    "summary": "Lessons from carrying a pager: how production incidents reshape your understanding of reliability, ownership, and building for failure.",
+    "tags": [
+      "reliability",
+      "operations",
+      "engineering-culture"
+    ],
+    "date": "2024-07-22",
+    "type": "writing",
+    "href": "/writing/on-call-engineering"
+  },
+  {
+    "id": "vault-prompts:debug-helper-prompt",
+    "title": "Debug Helper Prompt",
+    "summary": "Systematically debug issues by providing structured context and getting actionable hypotheses.",
+    "tags": [
+      "debugging",
+      "troubleshooting",
+      "development"
+    ],
+    "date": "2025-01-05",
+    "type": "vault-prompts",
+    "href": "/vault/prompts/debug-helper-prompt"
+  },
+  {
+    "id": "vault-prompts:code-review-prompt",
+    "title": "Code Review Prompt",
+    "summary": "Get thorough, actionable code reviews focused on correctness, readability, and edge cases.",
+    "tags": [
+      "code-review",
+      "development",
+      "quality"
+    ],
+    "date": "2024-12-08",
+    "type": "vault-prompts",
+    "href": "/vault/prompts/code-review-prompt"
+  },
+  {
+    "id": "vault-prompts:briefing-sprint",
+    "title": "Sprint Briefing Prompt",
+    "summary": "Transform messy notes into a structured sprint brief with clear objectives, risks, and milestones.",
+    "tags": [
+      "planning",
+      "productivity",
+      "team-management"
+    ],
+    "date": "2024-11-02",
+    "type": "vault-prompts",
+    "href": "/vault/prompts/briefing-sprint"
+  },
+  {
+    "id": "vault-prompts:architecture-review-prompt",
+    "title": "Architecture Review Prompt",
+    "summary": "Evaluate system designs for scalability, maintainability, and operational concerns before building.",
+    "tags": [
+      "architecture",
+      "design",
+      "systems"
+    ],
+    "date": "2024-10-20",
+    "type": "vault-prompts",
+    "href": "/vault/prompts/architecture-review-prompt"
+  },
+  {
+    "id": "vault-tools:pr-describe",
+    "title": "PR Describe",
+    "summary": "Automatically generate pull request descriptions from git diffs with context-aware summaries.",
+    "tags": [
+      "cli",
+      "git",
+      "automation"
+    ],
+    "date": "2024-12-01",
+    "type": "vault-tools",
+    "href": "/vault/tools/pr-describe"
+  },
+  {
+    "id": "vault-tools:context-dump",
+    "title": "Context Dump",
+    "summary": "A CLI that exports relevant codebase context for LLM prompts—files, dependencies, and structure in one command.",
+    "tags": [
+      "cli",
+      "llm",
+      "developer-tools"
+    ],
+    "date": "2024-10-12",
+    "type": "vault-tools",
+    "href": "/vault/tools/context-dump"
+  },
+  {
+    "id": "vault-tools:signal-sweep",
+    "title": "Signal Sweep",
+    "summary": "A CLI that aggregates logs, traces, metrics, and error budgets for any service into a single incident-ready report.",
+    "tags": [
+      "cli",
+      "observability",
+      "devops"
+    ],
+    "date": "2024-08-28",
+    "type": "vault-tools",
+    "href": "/vault/tools/signal-sweep"
+  },
+  {
+    "id": "vault-downloads:project-kickoff-template",
+    "title": "Project Kickoff Template",
+    "summary": "A one-page template for aligning teams on new projects: goals, scope, risks, and success criteria.",
+    "tags": [
+      "planning",
+      "project-management",
+      "template"
+    ],
+    "date": "2024-11-25",
+    "type": "vault-downloads",
+    "href": "/vault/downloads#project-kickoff-template"
+  },
+  {
+    "id": "vault-downloads:incident-template",
+    "title": "Incident Response Template",
+    "summary": "A structured template for managing incidents from detection through postmortem, with roles and communication guidelines.",
+    "tags": [
+      "incident-response",
+      "operations",
+      "template"
+    ],
+    "date": "2024-09-10",
+    "type": "vault-downloads",
+    "href": "/vault/downloads#incident-template"
+  },
+  {
+    "id": "vault-downloads:launch-checklist",
+    "title": "Production Launch Checklist",
+    "summary": "A comprehensive pre-launch validation checklist covering QA, observability, rollback plans, and stakeholder communication.",
+    "tags": [
+      "checklist",
+      "release",
+      "devops"
+    ],
+    "date": "2024-07-15",
+    "type": "vault-downloads",
+    "href": "/vault/downloads#launch-checklist"
+  }
+]

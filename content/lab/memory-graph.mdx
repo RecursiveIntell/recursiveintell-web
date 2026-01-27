@@ -1,0 +1,96 @@
+---
+title: "Memory Graph"
+date: "2024-11-08"
+summary: "An experiment in giving AI assistants persistent, structured memory that grows over time and supports complex recall."
+tags: ["memory", "agents", "knowledge-graph", "python"]
+status: "active"
+links:
+  github: "https://github.com/recursiveintell/memory-graph"
+---
+
+## Motivation
+
+Current AI assistants have goldfish memory—each conversation starts fresh. Systems like ChatGPT's memory feature help, but they're limited to flat key-value pairs. What if an AI could build a rich, structured understanding of you over time?
+
+This experiment explores memory as a knowledge graph that grows, connects, and evolves.
+
+## Core Concept
+
+Instead of storing memory as "user likes coffee" (flat), we build a graph:
+
+```
+[User] --prefers--> [Coffee]
+           |
+           +--specifically--> [Oat milk lattes]
+           +--usually-at--> [Morning, 7-8 AM]
+           +--exception--> [Tea when sick]
+
+[Coffee] --relates-to--> [Productivity]
+         --conflicts-with--> [Sleep before 10 PM]
+```
+
+The graph captures not just facts but relationships, conditions, and contradictions.
+
+## How It Works
+
+**Memory Formation**
+- After each conversation, an extraction model identifies new facts, preferences, and relationships
+- Facts are matched against existing nodes (deduplication, merging)
+- New edges are created with confidence scores and timestamps
+- Contradictions are flagged for resolution (ask user or mark as context-dependent)
+
+**Memory Retrieval**
+- Before responding, relevant subgraph is retrieved based on current context
+- Retrieval uses semantic similarity + graph traversal
+- Recency and confidence weighting prioritize reliable, recent memories
+
+**Memory Decay**
+- Unused memories fade over time (lower confidence)
+- Contradicted memories are deprecated, not deleted
+- Important memories can be pinned by the user
+
+## Implementation
+
+- **Graph store**: Neo4j with custom schema for memory nodes and edges
+- **Extraction**: Fine-tuned model for entity/relationship extraction from conversation
+- **Retrieval**: Hybrid search combining embedding similarity and Cypher queries
+- **API**: Python library that wraps any LLM with memory capabilities
+
+## Example Session
+
+**Week 1:**
+User: "I'm working on a Rust project for work"
+→ Memory: [User] --working-on--> [Rust project] --context--> [Work]
+
+**Week 3:**
+User: "I'm stuck on a bug"
+→ Assistant recalls Rust project, asks: "Is this the Rust project you mentioned? What's the bug?"
+
+**Week 5:**
+User: "I switched to Python for this"
+→ Memory: [Rust project] --status--> [Abandoned], [User] --working-on--> [Python project]
+→ Edge created: [Rust project] --replaced-by--> [Python project]
+
+## Findings
+
+After 30 days of testing with 5 users:
+
+**Positive:**
+- Users felt "understood" in ways they didn't expect
+- Reduced repetition in conversations significantly
+- Graph structure enabled surprisingly good inference ("you tend to procrastinate on documentation")
+
+**Challenges:**
+- Privacy is paramount—users want to see, edit, and delete memories
+- Extraction accuracy is ~85%; the 15% errors are frustrating
+- Graph can grow unwieldy; need better summarization/pruning
+
+## Open Questions
+
+- How to handle shared memories across users (teams)?
+- When should the assistant surface memories proactively vs. wait to be asked?
+- What's the right UI for memory inspection and editing?
+
+## Next Steps
+
+Building a minimal UI for memory visualization and editing. The graph without transparency feels creepy; the graph with good UX feels helpful.

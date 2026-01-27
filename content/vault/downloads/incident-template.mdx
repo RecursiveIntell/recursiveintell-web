@@ -1,0 +1,139 @@
+---
+title: "Incident Response Template"
+date: "2024-09-10"
+summary: "A structured template for managing incidents from detection through postmortem, with roles and communication guidelines."
+tags: ["incident-response", "operations", "template"]
+links:
+  pdf: "/downloads/incident-template.pdf"
+  notion: "https://notion.so/recursiveintell/incident-template"
+---
+
+## Overview
+
+When production breaks, you need structure—not improvisation. This template provides a framework for incident response that scales from minor issues to major outages.
+
+## The Template
+
+### Incident Header
+
+```markdown
+# Incident: [Brief Title]
+
+**Severity:** SEV-1 / SEV-2 / SEV-3
+**Status:** Investigating / Identified / Monitoring / Resolved
+**Started:** YYYY-MM-DD HH:MM UTC
+**Resolved:** YYYY-MM-DD HH:MM UTC (or "Ongoing")
+**Duration:** X hours Y minutes
+
+**Incident Commander:** @name
+**Communications Lead:** @name
+**Technical Lead:** @name
+```
+
+### Timeline
+
+```markdown
+## Timeline (reverse chronological)
+
+HH:MM - [Status change or action taken]
+HH:MM - [Status change or action taken]
+HH:MM - [First detection or alert]
+```
+
+### Impact
+
+```markdown
+## Impact
+
+**Affected Systems:**
+- [Service/feature name]: [Description of impact]
+
+**User Impact:**
+- Estimated users affected: X
+- User-visible symptoms: [Description]
+- Workaround available: Yes/No
+
+**Business Impact:**
+- Revenue impact: [Estimated if known]
+- SLA breach: Yes/No
+```
+
+### Root Cause
+
+```markdown
+## Root Cause
+
+**What happened:**
+[Technical description of the failure]
+
+**Why it happened:**
+[Contributing factors, not blame]
+
+**Why we didn't catch it earlier:**
+[Detection gaps, if applicable]
+```
+
+### Resolution
+
+```markdown
+## Resolution
+
+**Immediate fix:**
+[What was done to stop the bleeding]
+
+**Permanent fix:**
+[What will prevent recurrence, with links to tickets]
+```
+
+### Action Items
+
+```markdown
+## Action Items
+
+| Action | Owner | Priority | Due Date | Status |
+|--------|-------|----------|----------|--------|
+| [Description] | @name | P1/P2/P3 | YYYY-MM-DD | Open/Done |
+```
+
+## Severity Definitions
+
+**SEV-1: Critical**
+- Complete service outage
+- Data loss or corruption
+- Security breach
+- Response: All hands, 24/7 attention
+
+**SEV-2: Major**
+- Significant feature degradation
+- Affecting large percentage of users
+- Response: Dedicated responders, frequent updates
+
+**SEV-3: Minor**
+- Limited user impact
+- Workaround available
+- Response: Normal working hours, periodic updates
+
+## Communication Templates
+
+**Initial Notification:**
+```
+[SEV-X] [Service] - [Brief description]
+Impact: [Who/what is affected]
+Status: Investigating
+Updates: Every [X] minutes in #incident-channel
+```
+
+**Resolution Notification:**
+```
+[RESOLVED] [Service] - [Brief description]
+Duration: [X hours Y minutes]
+Root cause: [One sentence]
+Postmortem: [Link] (within 48 hours)
+```
+
+## Tips
+
+- Start the doc immediately, even with incomplete info
+- Update the timeline as things happen, not from memory later
+- Assign roles explicitly—confusion wastes time
+- Communicate status even when there's no new information

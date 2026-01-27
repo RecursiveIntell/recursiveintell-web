@@ -1,0 +1,65 @@
+---
+title: "Inference Mesh"
+date: "2024-11-20"
+summary: "A distributed inference orchestration layer that routes AI model requests across heterogeneous hardware for optimal cost and latency."
+tags: ["ml-infrastructure", "distributed-systems", "rust", "optimization"]
+status: "active"
+links:
+  github: "https://github.com/recursiveintell/inference-mesh"
+  docs: "https://docs.recursiveintell.dev/inference-mesh"
+---
+
+## Overview
+
+Inference Mesh solves a specific problem: when you have multiple AI models running across different hardware (GPUs, TPUs, CPU clusters), how do you route requests to minimize latency while controlling costs?
+
+The system acts as an intelligent load balancer that understands model characteristics, hardware capabilities, and request priorities. It makes millisecond-level routing decisions that would be impossible to manage manually.
+
+## The Problem
+
+Modern AI applications often need multiple models:
+
+- A fast, cheap model for simple queries
+- A powerful, expensive model for complex reasoning
+- Specialized models for specific domains (code, images, embeddings)
+
+Each model might be deployed across different hardware with varying availability, queue depths, and pricing. Manually managing this complexity leads to either over-provisioning (wasted money) or under-provisioning (degraded user experience).
+
+## Architecture
+
+**Router Core** — A Rust service that receives inference requests and makes routing decisions in under 1ms. Uses a combination of real-time telemetry and predictive models to estimate latency for each available endpoint.
+
+**Endpoint Registry** — Tracks all available model deployments with their current status, queue depth, and capabilities. Supports automatic discovery for Kubernetes-based deployments.
+
+**Cost Controller** — Enforces budget constraints at multiple granularities (per-request, hourly, daily). Can degrade to cheaper models gracefully when approaching limits.
+
+**Quality Monitor** — Samples responses to detect model degradation or drift, triggering alerts or automatic failover when quality drops below thresholds.
+
+## Key Features
+
+- **Latency-aware routing** — Predicts end-to-end latency including queue wait time, not just model inference time
+- **Semantic caching** — Caches responses for semantically similar queries, reducing redundant computation
+- **Request coalescing** — Batches similar requests to improve GPU utilization without sacrificing latency
+- **Graceful degradation** — Automatically falls back to faster/cheaper models under load
+- **A/B testing** — Built-in support for routing subsets of traffic to experimental model versions
+
+## Technical Details
+
+- Written in Rust for predictable low-latency performance
+- gRPC for endpoint communication, HTTP/2 for client API
+- Redis for distributed state (endpoint health, cache)
+- Prometheus metrics with custom Grafana dashboards
+- Helm charts for Kubernetes deployment
+
+## Performance
+
+Benchmarked against direct endpoint access:
+
+- P50 routing overhead: 0.3ms
+- P99 routing overhead: 1.2ms
+- Cost reduction through smart routing: 25-40% depending on traffic patterns
+- Cache hit rate for semantic caching: 15-30% on typical workloads
+
+## Deployment
+
+Currently running in production, handling 50M+ inference requests daily across a fleet of GPU instances spanning three cloud providers.
