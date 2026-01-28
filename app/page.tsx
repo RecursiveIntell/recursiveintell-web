@@ -1,99 +1,100 @@
-import Link from "next/link";
 import { Container } from "@/components/Container";
+import { ExcerptTicker } from "@/components/excerpts/ExcerptTicker";
+import { HeroSection } from "@/components/home/HeroSection";
+import { ProjectShowcase } from "@/components/home/ProjectShowcase";
+import { TechStackCloud } from "@/components/home/TechStackCloud";
+import { SecondaryNav } from "@/components/home/SecondaryNav";
+import { getAllContent, contentHref } from "@/lib/content";
+import excerptsData from "@/data/rag/excerpts.json";
 
-export default function Home() {
+type Excerpt = {
+  text: string;
+  category: "skill" | "project" | "achievement";
+};
+
+const excerpts = excerptsData as Excerpt[];
+import tagMap from "@/public/data/tag-map.json";
+
+export default async function Home() {
+  const projects = await getAllContent("projects");
+
+  const featuredProjects = projects
+    .filter((p) => p.featured)
+    .map((p) => ({
+      title: p.title,
+      summary: p.summary,
+      date: p.date,
+      href: contentHref("projects", p.slug),
+      tags: p.tags,
+      status: p.status,
+    }));
+
+  const allProjects = projects.map((p) => ({
+    title: p.title,
+    summary: p.summary,
+    date: p.date,
+    href: contentHref("projects", p.slug),
+    tags: p.tags,
+    status: p.status,
+    featured: p.featured,
+    links: p.links,
+  }));
+
   return (
-    <div className="py-16">
-      <Container>
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div className="space-y-6">
-            <p className="text-sm uppercase tracking-[0.3em] text-[color:var(--color-muted)]">
-              JSense / RecursiveIntell
-            </p>
-            <h1 className="text-4xl leading-tight sm:text-5xl">
-              A living portfolio, lab notebook, and vault for building in
-              public.
-            </h1>
-            <p className="max-w-xl text-lg text-[color:var(--color-muted)]">
-              This site is the daily workbench: projects in motion, experiments
-              in the lab, writing on systems and strategy, plus a curated vault
-              of prompts, tools, and downloads.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                className="rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-card)] px-5 py-2 text-sm font-semibold uppercase tracking-[0.16em] text-[color:var(--color-muted)]"
-                href="/projects"
-              >
-                Explore projects
-              </Link>
-              <Link
-                className="rounded-full border border-transparent bg-[color:var(--color-accent)] px-5 py-2 text-sm font-semibold uppercase tracking-[0.16em] text-white"
-                href="/lab"
-              >
-                Visit the lab
-              </Link>
-            </div>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {[
-              {
-                title: "Projects",
-                description: "Shipping work, roadmap notes, and live demos.",
-                href: "/projects",
-              },
-              {
-                title: "Lab",
-                description: "Experiments, prototypes, and technical deep dives.",
-                href: "/lab",
-              },
-              {
-                title: "Writing",
-                description: "Essays and guides on building resilient systems.",
-                href: "/writing",
-              },
-              {
-                title: "Vault",
-                description: "Prompts, tools, and reusable downloads.",
-                href: "/vault",
-              },
-            ].map((item) => (
-              <Link
-                key={item.title}
-                href={item.href}
-                className="group rounded-3xl border border-[color:var(--color-border)] bg-[color:var(--color-card)] p-6 transition hover:-translate-y-1 hover:border-[color:var(--color-accent)]"
-              >
-                <h2 className="text-xl font-semibold">{item.title}</h2>
-                <p className="mt-3 text-sm text-[color:var(--color-muted)]">
-                  {item.description}
+    <>
+      <ExcerptTicker excerpts={excerpts} />
+      <div className="py-8">
+        <Container>
+          <HeroSection featuredProjects={featuredProjects} />
+          <ProjectShowcase projects={allProjects} />
+          <TechStackCloud tagMap={tagMap} />
+          <SecondaryNav />
+
+          {/* AI Chat Feature Callout */}
+          <section className="mt-16 rounded-2xl border border-[color:var(--color-border)] bg-gradient-to-br from-[color:var(--color-card)] to-white p-8">
+            <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:text-left">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[color:var(--color-accent)]/10">
+                <svg
+                  className="h-8 w-8 text-[color:var(--color-accent)]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"
+                  />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-xl font-semibold text-[color:var(--color-ink)]">
+                  Ask Me Anything
+                </h3>
+                <p className="mt-2 text-[color:var(--color-muted)]">
+                  Have questions? Click the chat button in the{" "}
+                  <span className="font-medium text-[color:var(--color-accent)]">
+                    bottom-right corner
+                  </span>{" "}
+                  to talk with an AI assistant about my projects, tech stack, experience, or anything else on this site.
                 </p>
-                <span className="mt-6 inline-flex text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--color-accent)]">
-                  Open
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div className="mt-16 grid gap-6 rounded-3xl border border-[color:var(--color-border)] bg-white/60 p-8 backdrop-blur sm:grid-cols-2">
-          <div>
-            <h3 className="text-2xl">Now</h3>
-            <p className="mt-2 text-sm text-[color:var(--color-muted)]">
-              Current focus, active systems, and what is shipping next.
-            </p>
-            <Link className="mt-4 inline-flex text-sm font-semibold" href="/now">
-              View now page
-            </Link>
-          </div>
-          <div>
-            <h3 className="text-2xl">About</h3>
-            <p className="mt-2 text-sm text-[color:var(--color-muted)]">
-              The operating philosophy, tooling, and values behind the work.
-            </p>
-            <Link className="mt-4 inline-flex text-sm font-semibold" href="/about">
-              Meet JSense
-            </Link>
-          </div>
-        </div>
-      </Container>
-    </div>
+                <div className="mt-4 flex flex-wrap justify-center gap-2 sm:justify-start">
+                  <span className="rounded-full bg-[color:var(--color-accent)]/10 px-3 py-1 text-xs font-medium text-[color:var(--color-accent)]">
+                    Projects & Tech
+                  </span>
+                  <span className="rounded-full bg-[color:var(--color-accent)]/10 px-3 py-1 text-xs font-medium text-[color:var(--color-accent)]">
+                    Skills & Experience
+                  </span>
+                  <span className="rounded-full bg-[color:var(--color-accent)]/10 px-3 py-1 text-xs font-medium text-[color:var(--color-accent)]">
+                    Recommendations
+                  </span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </Container>
+      </div>
+    </>
   );
 }

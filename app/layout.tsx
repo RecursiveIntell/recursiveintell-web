@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Fraunces, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { ChatProvider } from "@/components/chat/ChatProvider";
+import { ChatWidget } from "@/components/chat/ChatWidget";
+import { SettingsProvider } from "@/lib/settings/context";
 import "./globals.css";
 
 const display = Fraunces({
@@ -35,11 +38,16 @@ export default function RootLayout({
       <body
         className={`${display.variable} ${sans.variable} ${mono.variable} antialiased`}
       >
-        <div className="min-h-screen flex flex-col">
-          <SiteHeader />
-          <main className="flex-1 pb-16">{children}</main>
-          <SiteFooter />
-        </div>
+        <SettingsProvider>
+          <ChatProvider>
+            <div className="min-h-screen flex flex-col">
+              <SiteHeader />
+              <main className="flex-1 pb-16">{children}</main>
+              <SiteFooter />
+            </div>
+            <ChatWidget />
+          </ChatProvider>
+        </SettingsProvider>
       </body>
     </html>
   );
