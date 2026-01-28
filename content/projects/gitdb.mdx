@@ -1,0 +1,43 @@
+---
+title: "GitDB"
+date: "2026-01-16"
+summary: "A GitHub repository showcase tool that curates and presents your best work with smart filtering and metadata enrichment."
+tags: ["typescript", "react", "nextjs", "web", "devtools"]
+status: "active"
+featured: true
+---
+
+## Overview
+
+GitDB transforms a cluttered GitHub profile into a curated portfolio. It fetches repository data, enriches it with additional metadata, and presents your best projects through a clean, filterable interface. Smart curation helps highlight significant work while filtering out forks, experiments, and archived projects.
+
+## Key Features
+
+- **Smart Curation**: Automatically identifies significant projects based on activity, stars, and code quality signals.
+- **Metadata Enrichment**: Extracts and displays languages, frameworks, and topics from repository content.
+- **Filterable Interface**: Search and filter by language, topic, activity, and custom tags.
+- **Portfolio Mode**: Curated view designed for sharing with potential employers or clients.
+- **Stats Dashboard**: Aggregate statistics across all repositories.
+- **Sync Scheduling**: Automatic updates when GitHub data changes.
+
+## Technical Architecture
+
+GitDB uses Next.js for server-side rendering and API routes, with SQLite for local data storage. The curation pipeline runs on a schedule, fetching repository data from the GitHub API and applying scoring algorithms to rank significance.
+
+Core systems:
+- **Fetch Pipeline**: Rate-limited GitHub API client with caching.
+- **Curation Engine**: Multi-factor scoring for project significance.
+- **Search Index**: Full-text search across repository names, descriptions, and READMEs.
+- **Render Layer**: Next.js pages with ISR for fast, fresh content.
+
+## Technology Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript throughout
+- **Database**: SQLite with Drizzle ORM
+- **Styling**: TailwindCSS with custom components
+- **API**: GitHub REST and GraphQL APIs
+
+## Current Status
+
+Active development with core fetching and display features complete. The curation pipeline successfully identifies significant projects. Currently improving the portfolio mode and adding support for organization repositories.

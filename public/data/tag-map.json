@@ -1,0 +1,212 @@
+{
+  "python": {
+    "count": 10,
+    "types": [
+      "projects"
+    ]
+  },
+  "fastapi": {
+    "count": 4,
+    "types": [
+      "projects"
+    ]
+  },
+  "svelte": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "typescript": {
+    "count": 4,
+    "types": [
+      "projects"
+    ]
+  },
+  "web": {
+    "count": 5,
+    "types": [
+      "projects"
+    ]
+  },
+  "devtools": {
+    "count": 4,
+    "types": [
+      "projects"
+    ]
+  },
+  "rust": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "tauri": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "desktop": {
+    "count": 6,
+    "types": [
+      "projects"
+    ]
+  },
+  "react": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "nextjs": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "healthcare": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "offline-first": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "ai": {
+    "count": 5,
+    "types": [
+      "projects"
+    ]
+  },
+  "agents": {
+    "count": 3,
+    "types": [
+      "projects"
+    ]
+  },
+  "langgraph": {
+    "count": 3,
+    "types": [
+      "projects"
+    ]
+  },
+  "pyside6": {
+    "count": 5,
+    "types": [
+      "projects"
+    ]
+  },
+  "langchain": {
+    "count": 4,
+    "types": [
+      "projects"
+    ]
+  },
+  "multi-provider": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "graphics": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "linux": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "flask": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "javascript": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "systems": {
+    "count": 1,
+    "types": [
+      "lab"
+    ]
+  },
+  "queues": {
+    "count": 1,
+    "types": [
+      "lab"
+    ]
+  },
+  "ux": {
+    "count": 1,
+    "types": [
+      "lab"
+    ]
+  },
+  "platform": {
+    "count": 1,
+    "types": [
+      "writing"
+    ]
+  },
+  "leadership": {
+    "count": 1,
+    "types": [
+      "writing"
+    ]
+  },
+  "craft": {
+    "count": 1,
+    "types": [
+      "writing"
+    ]
+  },
+  "prompt": {
+    "count": 1,
+    "types": [
+      "vault-prompts"
+    ]
+  },
+  "planning": {
+    "count": 1,
+    "types": [
+      "vault-prompts"
+    ]
+  },
+  "tooling": {
+    "count": 1,
+    "types": [
+      "vault-tools"
+    ]
+  },
+  "cli": {
+    "count": 1,
+    "types": [
+      "vault-tools"
+    ]
+  },
+  "checklist": {
+    "count": 1,
+    "types": [
+      "vault-downloads"
+    ]
+  },
+  "release": {
+    "count": 1,
+    "types": [
+      "vault-downloads"
+    ]
+  }
+}

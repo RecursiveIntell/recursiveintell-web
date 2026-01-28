@@ -1,0 +1,253 @@
+[
+  {
+    "id": "projects:recursiveops",
+    "title": "RecursiveOps",
+    "summary": "A server management platform that brings clarity to infrastructure through intuitive dashboards and smart automation.",
+    "tags": [
+      "python",
+      "fastapi",
+      "svelte",
+      "typescript",
+      "web",
+      "devtools"
+    ],
+    "date": "2026-01-23",
+    "type": "projects",
+    "href": "/projects/recursiveops"
+  },
+  {
+    "id": "projects:recursiveops-companion",
+    "title": "RecursiveOps Companion",
+    "summary": "A native desktop client that brings server management to your taskbar with offline support and secure credential storage.",
+    "tags": [
+      "rust",
+      "tauri",
+      "svelte",
+      "typescript",
+      "desktop",
+      "devtools"
+    ],
+    "date": "2026-01-22",
+    "type": "projects",
+    "href": "/projects/recursiveops-companion"
+  },
+  {
+    "id": "projects:gitdb",
+    "title": "GitDB",
+    "summary": "A GitHub repository showcase tool that curates and presents your best work with smart filtering and metadata enrichment.",
+    "tags": [
+      "typescript",
+      "react",
+      "nextjs",
+      "web",
+      "devtools"
+    ],
+    "date": "2026-01-16",
+    "type": "projects",
+    "href": "/projects/gitdb"
+  },
+  {
+    "id": "projects:medicine",
+    "title": "Medicine",
+    "summary": "A medication management system that helps users track doses, manage refills, and never miss critical medications.",
+    "tags": [
+      "react",
+      "typescript",
+      "fastapi",
+      "python",
+      "web",
+      "healthcare",
+      "offline-first"
+    ],
+    "date": "2026-01-16",
+    "type": "projects",
+    "href": "/projects/medicine"
+  },
+  {
+    "id": "projects:director",
+    "title": "Director",
+    "summary": "A proactive meta-orchestrator that coordinates multiple AI systems and anticipates needs before you ask.",
+    "tags": [
+      "python",
+      "ai",
+      "agents",
+      "langgraph",
+      "fastapi",
+      "pyside6",
+      "desktop"
+    ],
+    "date": "2026-01-09",
+    "type": "projects",
+    "href": "/projects/director"
+  },
+  {
+    "id": "projects:dodger",
+    "title": "Dodger",
+    "summary": "A multi-provider AI chat application that unifies access to leading language models in one elegant interface.",
+    "tags": [
+      "python",
+      "ai",
+      "langchain",
+      "pyside6",
+      "fastapi",
+      "desktop",
+      "multi-provider"
+    ],
+    "date": "2026-01-01",
+    "type": "projects",
+    "href": "/projects/dodger"
+  },
+  {
+    "id": "projects:agent",
+    "title": "Agentic Browser",
+    "summary": "A 13-agent orchestration system that transforms web browsing into an autonomous, AI-driven experience.",
+    "tags": [
+      "python",
+      "ai",
+      "agents",
+      "langgraph",
+      "langchain",
+      "pyside6",
+      "desktop"
+    ],
+    "date": "2025-12-30",
+    "type": "projects",
+    "href": "/projects/agent"
+  },
+  {
+    "id": "projects:agentic-framework",
+    "title": "Agentic Framework",
+    "summary": "A Python library for building multi-agent AI systems with built-in coordination, memory, and safety patterns.",
+    "tags": [
+      "python",
+      "ai",
+      "agents",
+      "langgraph",
+      "langchain"
+    ],
+    "date": "2025-12-30",
+    "type": "projects",
+    "href": "/projects/agentic-framework"
+  },
+  {
+    "id": "projects:aphelion",
+    "title": "Aphelion",
+    "summary": "A professional-grade image editor with 48 effects, 21 tools, and a plugin system for endless extensibility.",
+    "tags": [
+      "python",
+      "pyside6",
+      "desktop",
+      "graphics",
+      "linux"
+    ],
+    "date": "2025-12-14",
+    "type": "projects",
+    "href": "/projects/aphelion"
+  },
+  {
+    "id": "projects:cat-info-app",
+    "title": "Cat Info App",
+    "summary": "A pet tracker with AI-generated memes that makes managing your cat's information surprisingly fun.",
+    "tags": [
+      "python",
+      "flask",
+      "ai",
+      "langchain",
+      "web"
+    ],
+    "date": "2025-12-10",
+    "type": "projects",
+    "href": "/projects/cat-info-app"
+  },
+  {
+    "id": "projects:minesweeper",
+    "title": "Minesweeper",
+    "summary": "A classic Minesweeper clone with multiple difficulty levels and a clean, responsive web interface.",
+    "tags": [
+      "python",
+      "flask",
+      "javascript",
+      "web"
+    ],
+    "date": "2025-01-14",
+    "type": "projects",
+    "href": "/projects/minesweeper"
+  },
+  {
+    "id": "projects:portal-doctor",
+    "title": "Portal Doctor",
+    "summary": "A diagnostic tool that helps Linux users troubleshoot Wayland screen-sharing issues with guided fixes.",
+    "tags": [
+      "python",
+      "pyside6",
+      "desktop",
+      "linux",
+      "devtools"
+    ],
+    "date": "2024-12-13",
+    "type": "projects",
+    "href": "/projects/portal-doctor"
+  },
+  {
+    "id": "lab:latent-queues",
+    "title": "Latent Queue Maps",
+    "summary": "Mapping async backlogs into a single, human-readable signal.",
+    "tags": [
+      "systems",
+      "queues",
+      "ux"
+    ],
+    "date": "2024-10-17",
+    "type": "lab",
+    "href": "/lab/latent-queues"
+  },
+  {
+    "id": "writing:quiet-systems",
+    "title": "Quiet Systems, Loud Results",
+    "summary": "Why the best internal platforms feel invisible to the teams who use them.",
+    "tags": [
+      "platform",
+      "leadership",
+      "craft"
+    ],
+    "date": "2024-09-08",
+    "type": "writing",
+    "href": "/writing/quiet-systems"
+  },
+  {
+    "id": "vault-prompts:briefing-sprint",
+    "title": "Briefing Sprint Prompt",
+    "summary": "A structured prompt for turning raw notes into a clear sprint brief.",
+    "tags": [
+      "prompt",
+      "planning"
+    ],
+    "date": "2024-11-02",
+    "type": "vault-prompts",
+    "href": "/vault/prompts/briefing-sprint"
+  },
+  {
+    "id": "vault-tools:signal-sweep",
+    "title": "Signal Sweep",
+    "summary": "A CLI workflow that gathers logs, traces, and error budgets in one pass.",
+    "tags": [
+      "tooling",
+      "cli"
+    ],
+    "date": "2024-08-28",
+    "type": "vault-tools",
+    "href": "/vault/tools/signal-sweep"
+  },
+  {
+    "id": "vault-downloads:launch-checklist",
+    "title": "Launch Checklist",
+    "summary": "A downloadable checklist for final pre-launch validation.",
+    "tags": [
+      "checklist",
+      "release"
+    ],
+    "date": "2024-07-15",
+    "type": "vault-downloads",
+    "href": "/vault/downloads#launch-checklist"
+  }
+]

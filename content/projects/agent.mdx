@@ -1,0 +1,42 @@
+---
+title: "Agentic Browser"
+date: "2025-12-30"
+summary: "A 13-agent orchestration system that transforms web browsing into an autonomous, AI-driven experience."
+tags: ["python", "ai", "agents", "langgraph", "langchain", "pyside6", "desktop"]
+status: "active"
+featured: true
+---
+
+## Overview
+
+Agentic Browser is a sophisticated multi-agent system that reimagines web browsing through AI orchestration. Rather than manually navigating websites, users describe their goals and watch as 13 specialized agents collaborate to research, analyze, and execute complex web tasks autonomously.
+
+## Key Features
+
+- **13 Specialized Agents**: Coordinator, browser control, navigation, research, content analysis, data extraction, form filling, authentication, file handling, task planning, error recovery, memory management, and reporting agents.
+- **Planning-First Architecture**: Every task begins with strategic planning, breaking complex goals into executable steps.
+- **Multi-Provider LLM Support**: Works with OpenAI, Anthropic, Google, and local models through a unified interface.
+- **Safety Guardrails**: Built-in protections prevent agents from taking harmful actions or accessing sensitive data without approval.
+- **Strategy Bank**: Learns from successful task completions to improve future performance.
+- **Real-Time Visualization**: Watch agents work through a PySide6 desktop interface with live status updates.
+
+## Technical Architecture
+
+The system is built on LangGraph for agent orchestration, with each agent maintaining its own state and communicating through a central message bus. The coordinator agent acts as the primary decision-maker, delegating tasks to specialized agents based on the current objective.
+
+Key architectural decisions:
+- **State Graph**: LangGraph manages complex agent state transitions and rollback capabilities.
+- **Tool Registry**: Agents access browser automation, file I/O, and external APIs through a controlled tool system.
+- **Memory Layer**: Persistent memory allows agents to learn from past interactions and build context over sessions.
+
+## Technology Stack
+
+- **Core**: Python 3.11+, LangGraph, LangChain
+- **LLM Providers**: OpenAI, Anthropic Claude, Google Gemini, Ollama (local)
+- **Browser Automation**: Playwright for headless and headed browser control
+- **Desktop UI**: PySide6 with custom widgets for agent visualization
+- **Storage**: SQLite for persistent state, ChromaDB for vector memory
+
+## Current Status
+
+Active development with core agent framework complete. The coordinator, browser control, and research agents are fully functional. Currently expanding the strategy bank and improving multi-step task reliability.

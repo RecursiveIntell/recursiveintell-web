@@ -1,0 +1,43 @@
+---
+title: "Medicine"
+date: "2026-01-16"
+summary: "A medication management system that helps users track doses, manage refills, and never miss critical medications."
+tags: ["react", "typescript", "fastapi", "python", "web", "healthcare", "offline-first"]
+status: "active"
+featured: true
+---
+
+## Overview
+
+Medicine is a medication operations center designed for people managing complex medication regimens. It tracks doses, sends reminders, monitors for interactions, and helps coordinate refills—all with an offline-first design that works even without internet connectivity.
+
+## Key Features
+
+- **Dose Tracking**: Log medications with timestamps and notes.
+- **Smart Reminders**: Configurable notifications that adapt to your schedule.
+- **Interaction Checking**: Warns about potential drug interactions.
+- **Refill Management**: Tracks supply levels and reminds when refills are due.
+- **Offline-First**: Full functionality without internet, syncs when connected.
+- **Caregiver Support**: Share medication schedules with family or healthcare providers.
+
+## Technical Architecture
+
+Medicine is built as a Progressive Web App (PWA) with a React frontend that works offline through service workers and IndexedDB. The FastAPI backend handles sync, interaction checking, and caregiver sharing features.
+
+Design principles:
+- **Offline-First**: All core features work without connectivity.
+- **Privacy-Focused**: Health data stored locally by default, optional cloud sync.
+- **Accessible**: Designed for users with varying technical abilities and accessibility needs.
+- **Reliable**: Critical reminder system with multiple fallback mechanisms.
+
+## Technology Stack
+
+- **Frontend**: React with TypeScript, PWA with service workers
+- **Backend**: FastAPI with Python for API and sync services
+- **Database**: PostgreSQL (server), IndexedDB (client)
+- **Notifications**: Web Push API with fallback to email/SMS
+- **Sync**: Custom conflict resolution for offline-first data sync
+
+## Current Status
+
+Active development with core tracking and reminder features complete. Offline support is fully functional. Currently adding interaction checking powered by drug database APIs and improving the caregiver sharing experience.

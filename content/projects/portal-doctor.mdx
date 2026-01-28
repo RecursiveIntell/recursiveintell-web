@@ -1,0 +1,43 @@
+---
+title: "Portal Doctor"
+date: "2024-12-13"
+summary: "A diagnostic tool that helps Linux users troubleshoot Wayland screen-sharing issues with guided fixes."
+tags: ["python", "pyside6", "desktop", "linux", "devtools"]
+status: "active"
+featured: true
+---
+
+## Overview
+
+Portal Doctor diagnoses and fixes the notoriously frustrating screen-sharing problems on Wayland Linux systems. It checks XDG Desktop Portal configurations, PipeWire status, and compositor settings, then provides clear explanations and one-click fixes for common issues.
+
+## Key Features
+
+- **Comprehensive Diagnostics**: Checks portal configuration, PipeWire status, D-Bus services, and compositor compatibility.
+- **Guided Troubleshooting**: Step-by-step explanations of what's wrong and why.
+- **One-Click Fixes**: Automated repair for common misconfigurations.
+- **Compositor Detection**: Identifies GNOME, KDE, Sway, Hyprland, and other Wayland compositors.
+- **Service Management**: Start, stop, and restart portal-related systemd services.
+- **Configuration Backup**: Saves current config before making changes.
+
+## Technical Architecture
+
+Portal Doctor interacts with the Linux desktop stack through D-Bus to query portal status, systemd for service management, and direct file access for configuration inspection. The diagnostic engine runs checks in dependency order to identify root causes.
+
+Key components:
+- **D-Bus Interface**: Queries xdg-desktop-portal and PipeWire for real-time status.
+- **Diagnostic Engine**: Rule-based system that identifies issues from symptoms.
+- **Fix Library**: Curated collection of tested fixes for common problems.
+- **Compositor Adapters**: Compositor-specific checks and fixes.
+
+## Technology Stack
+
+- **UI Framework**: PySide6 for native Linux desktop integration
+- **System Integration**: D-Bus (dbus-python) for portal communication
+- **Service Control**: systemd integration for service management
+- **Configuration**: INI and TOML parsers for portal config files
+- **Logging**: Structured logging for diagnostic history
+
+## Current Status
+
+Active development with core diagnostics complete for major compositors. The fix library covers the most common screen-sharing issues. Currently adding support for more obscure compositor configurations and improving the diagnostic accuracy.

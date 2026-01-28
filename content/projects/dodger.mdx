@@ -1,0 +1,43 @@
+---
+title: "Dodger"
+date: "2026-01-01"
+summary: "A multi-provider AI chat application that unifies access to leading language models in one elegant interface."
+tags: ["python", "ai", "langchain", "pyside6", "fastapi", "desktop", "multi-provider"]
+status: "active"
+featured: true
+---
+
+## Overview
+
+Dodger is a desktop AI chat application that eliminates the need to switch between different AI services. It provides a unified interface to OpenAI, Anthropic, Google, Mistral, Groq, and local models, with advanced features like file processing, web search integration, and conversation management.
+
+## Key Features
+
+- **6+ LLM Providers**: OpenAI GPT-4, Anthropic Claude, Google Gemini, Mistral, Groq, and Ollama for local models.
+- **File Processing**: Drag and drop documents, images, and code files for AI analysis.
+- **Web Search Integration**: Augment conversations with real-time web search results.
+- **Conversation History**: Persistent chat history with search and organization features.
+- **Model Switching**: Seamlessly switch providers mid-conversation to compare responses.
+- **Custom System Prompts**: Save and apply custom personas and instruction sets.
+
+## Technical Architecture
+
+Dodger separates the UI layer from the AI backend, allowing the desktop application to communicate with a local FastAPI server that handles provider connections. This architecture enables future expansion to web and mobile clients.
+
+Design principles:
+- **Provider Abstraction**: LangChain provides a unified interface across all LLM providers.
+- **Async Processing**: Non-blocking UI with streaming responses from all providers.
+- **Local-First**: All data stored locally with optional cloud sync.
+- **Plugin Ready**: Extensible architecture for adding new providers and features.
+
+## Technology Stack
+
+- **Desktop**: PySide6 with custom theming and responsive layouts
+- **Backend**: FastAPI server handling provider connections
+- **AI Layer**: LangChain for provider abstraction and chain composition
+- **Storage**: SQLite for conversations, file-based config management
+- **Search**: Integration with web search APIs for RAG capabilities
+
+## Current Status
+
+Active development with core chat functionality complete across all major providers. File processing works for text, code, and common document formats. Currently adding image generation support and improving the conversation search system.
