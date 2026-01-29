@@ -102,7 +102,7 @@ export function ChatProvider({ children }: ChatProviderProps) {
           body: JSON.stringify({
             message: content,
             sessionId,
-            stream: false,
+            stream: true,
           }),
         });
 
@@ -111,16 +111,57 @@ export function ChatProvider({ children }: ChatProviderProps) {
           throw new Error(errorData.message || "Failed to send message");
         }
 
-        const data = await response.json();
-
+        // Create a placeholder message for streaming
+        const assistantMessageId = generateId();
         const assistantMessage: Message = {
-          id: generateId(),
+          id: assistantMessageId,
           role: "assistant",
-          content: data.response,
+          content: "",
           timestamp: Date.now(),
         };
 
         setMessages((prev) => [...prev, assistantMessage]);
+
+        // Read the streaming response
+        const reader = response.body?.getReader();
+        const decoder = new TextDecoder();
+
+        if (!reader) {
+          throw new Error("No response body");
+        }
+
+        let accumulatedContent = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split("\n");
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              try {
+                const data = JSON.parse(line.slice(6));
+                if (data.type === "chunk") {
+                  accumulatedContent += data.content;
+                  // Update the message content as we receive chunks
+                  setMessages((prev) =>
+                    prev.map((msg) =>
+                      msg.id === assistantMessageId
+                        ? { ...msg, content: accumulatedContent }
+                        : msg
+                    )
+                  );
+                } else if (data.type === "error") {
+                  throw new Error(data.message);
+                }
+              } catch (parseError) {
+                // Ignore JSON parse errors for incomplete chunks
+              }
+            }
+          }
+        }
 
         // Increment unread if chat is closed
         if (!isOpen) {
