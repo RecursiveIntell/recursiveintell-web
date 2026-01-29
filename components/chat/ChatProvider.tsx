@@ -8,7 +8,6 @@ import {
   useEffect,
   type ReactNode,
 } from "react";
-import { useSettings } from "@/lib/settings/context";
 
 type Message = {
   id: string;
@@ -53,7 +52,9 @@ export function ChatProvider({ children }: ChatProviderProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [unreadCount, setUnreadCount] = useState(0);
-  const { settings, isConfigured } = useSettings();
+
+  // Chat is always configured since API key is server-side
+  const isConfigured = true;
 
   // Generate session ID on mount
   useEffect(() => {
@@ -92,12 +93,6 @@ export function ChatProvider({ children }: ChatProviderProps) {
       setMessages((prev) => [...prev, userMessage]);
       setIsLoading(true);
 
-      // Get the appropriate API key based on provider
-      const apiKey =
-        settings.provider === "anthropic"
-          ? settings.anthropicApiKey
-          : settings.openaiApiKey;
-
       try {
         const response = await fetch("/api/chat", {
           method: "POST",
@@ -108,9 +103,6 @@ export function ChatProvider({ children }: ChatProviderProps) {
             message: content,
             sessionId,
             stream: false,
-            provider: settings.provider,
-            model: settings.model,
-            apiKey,
           }),
         });
 
@@ -150,7 +142,7 @@ export function ChatProvider({ children }: ChatProviderProps) {
         setIsLoading(false);
       }
     },
-    [isLoading, sessionId, isOpen, settings]
+    [isLoading, sessionId, isOpen]
   );
 
   const clearChat = useCallback(() => {

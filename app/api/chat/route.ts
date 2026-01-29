@@ -9,10 +9,13 @@ const messageSchema = z.object({
   message: z.string().min(1).max(1000),
   sessionId: z.string().optional(),
   stream: z.boolean().optional().default(false),
-  provider: z.enum(["openai", "anthropic"]).optional().default("openai"),
-  model: z.string().optional(),
-  apiKey: z.string().optional(),
 });
+
+// Server-side configuration - uses environment variables
+const CHAT_CONFIG = {
+  provider: "openai" as const,
+  model: "gpt-4o-mini",
+};
 
 let ratelimit: Ratelimit | null = null;
 
@@ -93,24 +96,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { message, sessionId: providedSessionId, stream, provider, model, apiKey } = parsed.data;
+    const { message, sessionId: providedSessionId, stream } = parsed.data;
     const sessionId = providedSessionId || generateSessionId();
 
-    // Use provided API key or fall back to environment variable
-    const effectiveApiKey = apiKey ||
-      (provider === "anthropic" ? process.env.ANTHROPIC_API_KEY : process.env.OPENAI_API_KEY);
+    // Use server-side API key from environment variable
+    const apiKey = process.env.OPENAI_API_KEY;
 
-    if (!effectiveApiKey) {
+    if (!apiKey) {
       return NextResponse.json(
         {
-          error: "API key required",
-          message: `Please provide an API key for ${provider} in settings.`,
+          error: "Server configuration error",
+          message: "Chat service is not configured. Please contact the site owner.",
         },
-        { status: 401 }
+        { status: 503 }
       );
     }
 
-    const chatOptions = { provider, model, apiKey: effectiveApiKey };
+    const chatOptions = {
+      provider: CHAT_CONFIG.provider,
+      model: CHAT_CONFIG.model,
+      apiKey,
+    };
 
     if (stream) {
       // Return streaming response using Server-Sent Events
