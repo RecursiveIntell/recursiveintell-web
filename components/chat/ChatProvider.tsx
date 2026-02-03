@@ -23,9 +23,12 @@ type ChatContextType = {
   sessionId: string | null;
   unreadCount: number;
   isConfigured: boolean;
+  pendingQuestion: string | null;
   toggleChat: () => void;
   sendMessage: (content: string) => Promise<void>;
   clearChat: () => void;
+  openChatWithQuestion: (question: string) => void;
+  clearPendingQuestion: () => void;
 };
 
 const ChatContext = createContext<ChatContextType | null>(null);
@@ -52,6 +55,7 @@ export function ChatProvider({ children }: ChatProviderProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [pendingQuestion, setPendingQuestion] = useState<string | null>(null);
 
   // Chat is always configured since API key is server-side
   const isConfigured = true;
@@ -193,6 +197,32 @@ export function ChatProvider({ children }: ChatProviderProps) {
     setSessionId(newSessionId);
   }, []);
 
+  const openChatWithQuestion = useCallback((question: string) => {
+    setPendingQuestion(question);
+    setIsOpen(true);
+  }, []);
+
+  const clearPendingQuestion = useCallback(() => {
+    setPendingQuestion(null);
+  }, []);
+
+  // Listen for clicks on question buttons throughout the page
+  useEffect(() => {
+    const handleQuestionClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      const button = target.closest('.chat-question-btn');
+      if (button) {
+        const question = button.getAttribute('data-question');
+        if (question) {
+          openChatWithQuestion(question);
+        }
+      }
+    };
+
+    document.addEventListener('click', handleQuestionClick);
+    return () => document.removeEventListener('click', handleQuestionClick);
+  }, [openChatWithQuestion]);
+
   return (
     <ChatContext.Provider
       value={{
@@ -202,9 +232,12 @@ export function ChatProvider({ children }: ChatProviderProps) {
         sessionId,
         unreadCount,
         isConfigured,
+        pendingQuestion,
         toggleChat,
         sendMessage,
         clearChat,
+        openChatWithQuestion,
+        clearPendingQuestion,
       }}
     >
       {children}

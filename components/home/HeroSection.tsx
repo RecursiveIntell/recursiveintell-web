@@ -30,14 +30,23 @@ export function HeroSection({ featuredProjects }: HeroSectionProps) {
           </h1>
         </div>
         <div className="flex flex-wrap gap-3">
+          <a
+            className="inline-flex items-center gap-2 rounded-full border border-transparent bg-[color:var(--color-accent)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition-all hover:bg-[color:var(--color-accent-2)] hover:scale-105"
+            href="mailto:josh@recursiveintell.com"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Hire Me
+          </a>
           <Link
-            className="rounded-full border border-transparent bg-[color:var(--color-accent)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition-all hover:bg-[color:var(--color-accent-2)]"
+            className="rounded-full border border-transparent bg-[color:var(--color-accent-2)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition-all hover:opacity-90 hover:scale-105"
             href="/projects"
           >
             Explore Projects
           </Link>
           <Link
-            className="rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-card)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[color:var(--color-muted)] transition-all hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
+            className="rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-card)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[color:var(--color-muted)] transition-all hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)] hover:scale-105"
             href="/about"
           >
             About

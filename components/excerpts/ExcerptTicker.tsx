@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 type Excerpt = {
   text: string;
@@ -21,7 +21,7 @@ export function ExcerptTicker({ excerpts }: ExcerptTickerProps) {
 
   return (
     <div
-      className="relative overflow-hidden border-b border-[color:var(--color-border)] bg-white/40 py-3 backdrop-blur"
+      className="relative overflow-hidden border-b border-[color:var(--color-border)] bg-[color:var(--color-card)]/40 py-3 backdrop-blur"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

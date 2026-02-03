@@ -43,9 +43,19 @@ const baseFrontmatterSchema = z.object({
 
 const projectLabSchema = baseFrontmatterSchema.extend({
   status: statusSchema,
+  // Case study fields (optional)
+  problem: z.string().optional(),
+  solution: z.string().optional(),
+  results: z.array(z.string()).optional(),
+  role: z.string().optional(),
+  metrics: z.array(z.object({
+    label: z.string(),
+    value: z.string(),
+  })).optional(),
 });
 
 export type ContentFrontmatter = z.infer<typeof baseFrontmatterSchema>;
+export type ProjectFrontmatter = z.infer<typeof projectLabSchema>;
 
 export type ContentItem = ContentFrontmatter & {
   slug: string;

@@ -8,6 +8,11 @@ export type RetrievalOptions = {
   useMmr?: boolean;
 };
 
+export type RetrievedDocument = Document & {
+  citationIndex?: number;
+  href?: string;
+};
+
 export async function retrieve(
   query: string,
   options: RetrievalOptions = {}
@@ -35,14 +40,14 @@ export async function retrieve(
 export async function retrieveWithMmr(
   query: string,
   options: RetrievalOptions = {}
-): Promise<Document[]> {
+): Promise<RetrievedDocument[]> {
   const { topK = 5 } = options;
 
   // Fetch more documents for MMR reranking
   const candidates = await retrieve(query, { ...options, topK: topK * 2 });
 
   if (candidates.length <= topK) {
-    return candidates;
+    return addCitationMetadata(candidates);
   }
 
   // Simple MMR: diversify by penalizing documents similar to already selected ones
@@ -86,23 +91,78 @@ export async function retrieveWithMmr(
     selected.push(remaining.splice(bestIdx, 1)[0]);
   }
 
-  return selected;
+  return addCitationMetadata(selected);
 }
 
-export function formatRetrievedContext(documents: Document[]): string {
+function addCitationMetadata(documents: Document[]): RetrievedDocument[] {
+  return documents.map((doc, idx) => {
+    const type = doc.metadata.type as string;
+    const slug = doc.metadata.slug as string;
+
+    // Generate href based on content type
+    let href = "/";
+    switch (type) {
+      case "projects":
+        href = `/projects/${slug}`;
+        break;
+      case "lab":
+        href = `/lab/${slug}`;
+        break;
+      case "writing":
+        href = `/writing/${slug}`;
+        break;
+      case "vault-prompts":
+        href = `/vault/prompts/${slug}`;
+        break;
+      case "vault-tools":
+        href = `/vault/tools/${slug}`;
+        break;
+      default:
+        href = `/`;
+    }
+
+    return {
+      ...doc,
+      citationIndex: idx + 1,
+      href,
+    };
+  });
+}
+
+export function formatRetrievedContext(documents: RetrievedDocument[]): string {
   if (documents.length === 0) {
     return "No relevant context found.";
   }
 
   return documents
-    .map((doc, idx) => {
+    .map((doc) => {
       const title = doc.metadata.title || "Untitled";
       const type = doc.metadata.type || "unknown";
       const tags = (doc.metadata.tags as string[])?.join(", ") || "";
+      const idx = doc.citationIndex || 1;
+      const href = doc.href || "/";
 
-      return `[${idx + 1}] ${title} (${type})
+      return `[${idx}] ${title} (${type})
+URL: ${href}
 Tags: ${tags}
 ${doc.pageContent.slice(0, 500)}${doc.pageContent.length > 500 ? "..." : ""}`;
     })
     .join("\n\n---\n\n");
+}
+
+export function formatCitationFooter(documents: RetrievedDocument[]): string {
+  if (documents.length === 0) {
+    return "";
+  }
+
+  const citations = documents
+    .map((doc) => {
+      const title = doc.metadata.title || "Untitled";
+      const idx = doc.citationIndex || 1;
+      const href = doc.href || "/";
+      return `[${idx}] [${title}](${href})`;
+    })
+    .join("\n");
+
+  return `\n\n**Sources:**\n${citations}`;
 }

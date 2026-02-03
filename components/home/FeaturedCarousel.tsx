@@ -99,7 +99,7 @@ export function FeaturedCarousel({ projects }: FeaturedCarouselProps) {
         <>
           <button
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-[color:var(--color-border)] bg-white/90 p-2 text-[color:var(--color-muted)] transition-all hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
+            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-card)]/90 p-2 text-[color:var(--color-muted)] transition-all hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
             aria-label="Previous project"
           >
             <svg
@@ -118,7 +118,7 @@ export function FeaturedCarousel({ projects }: FeaturedCarouselProps) {
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-[color:var(--color-border)] bg-white/90 p-2 text-[color:var(--color-muted)] transition-all hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
+            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-card)]/90 p-2 text-[color:var(--color-muted)] transition-all hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
             aria-label="Next project"
           >
             <svg

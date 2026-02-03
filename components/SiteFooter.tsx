@@ -3,10 +3,10 @@ import { Container } from "@/components/Container";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[color:var(--color-border)] bg-white/70 py-10 text-sm text-[color:var(--color-muted)]">
+    <footer className="border-t border-[color:var(--color-border)] bg-[color:var(--color-card)]/70 py-10 text-sm text-[color:var(--color-muted)]">
       <Container className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p className="text-base font-semibold text-[color:var(--color-ink)]">
+          <p className="text-base font-semibold text-[color:var(--color-text)]">
             JSense / RecursiveIntell
           </p>
           <p className="mt-2">Built for daily use. Published to share the work.</p>

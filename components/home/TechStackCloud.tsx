@@ -49,7 +49,7 @@ export function TechStackCloud({ tagMap, onTagClick }: TechStackCloudProps) {
         </p>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-4 rounded-3xl border border-[color:var(--color-border)] bg-white/60 p-8 backdrop-blur">
+      <div className="flex flex-wrap items-center justify-center gap-4 rounded-3xl border border-[color:var(--color-border)] bg-[color:var(--color-card)]/60 p-8 backdrop-blur">
         {sortedTags.map(([tag, data]) => (
           <button
             key={tag}

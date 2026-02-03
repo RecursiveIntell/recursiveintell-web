@@ -1,0 +1,13 @@
+# robots.txt for JSense / RecursiveIntell Portfolio
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://recursiveintell.com/sitemap.xml
+
+# Crawl-delay (optional, for politeness)
+Crawl-delay: 1
+
+# Disallow API routes
+Disallow: /api/

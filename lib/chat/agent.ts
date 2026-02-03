@@ -2,7 +2,7 @@ import { StateGraph, Annotation } from "@langchain/langgraph";
 import { ChatOpenAI } from "@langchain/openai";
 import { ChatAnthropic } from "@langchain/anthropic";
 import { HumanMessage, SystemMessage, AIMessage, type BaseMessage } from "@langchain/core/messages";
-import { retrieveWithMmr, formatRetrievedContext } from "../rag/retriever";
+import { retrieveWithMmr, formatRetrievedContext, formatCitationFooter, type RetrievedDocument } from "../rag/retriever";
 import { addMessage, getMessages, formatMessagesForContext } from "./memory";
 
 export type ChatOptions = {
@@ -16,9 +16,11 @@ const StateAnnotation = Annotation.Root({
   userMessage: Annotation<string>,
   needsRetrieval: Annotation<boolean>,
   context: Annotation<string>,
+  citations: Annotation<string>,
   response: Annotation<string>,
   conversationHistory: Annotation<string>,
   chatOptions: Annotation<ChatOptions>,
+  retrievedDocs: Annotation<RetrievedDocument[]>,
 });
 
 type AgentState = typeof StateAnnotation.State;
@@ -29,9 +31,11 @@ You help visitors learn about projects, skills, technologies, and work experienc
 Guidelines:
 - Be concise, friendly, and professional
 - Answer based on the provided context when available
+- When using information from the context, reference it using citation numbers like [1], [2], etc.
 - If you don't have specific information, say so politely
 - Reference specific projects by name when relevant
 - For technical questions, provide accurate details from the context
+- Include relevant internal links when mentioning projects (use markdown format)
 
 Current conversation context will be provided along with any retrieved information.`;
 
@@ -42,12 +46,13 @@ Messages that NEED retrieval:
 - Questions about technologies or skills
 - Questions about work or experience
 - Requests for project recommendations
+- Follow-up questions about previously discussed topics that need more detail
 
 Messages that DON'T need retrieval:
 - Greetings ("Hi", "Hello", "Hey")
 - Thanks ("Thank you", "Thanks!")
 - Farewells ("Bye", "Goodbye")
-- Simple clarifications of previous responses
+- Simple clarifications of previous responses that don't need new info
 - General chat
 
 User message: "{message}"
@@ -91,13 +96,14 @@ async function classifyNode(state: AgentState): Promise<Partial<AgentState>> {
 
 async function retrieveNode(state: AgentState): Promise<Partial<AgentState>> {
   if (!state.needsRetrieval) {
-    return { context: "" };
+    return { context: "", citations: "", retrievedDocs: [] };
   }
 
   const docs = await retrieveWithMmr(state.userMessage, { topK: 5 });
   const context = formatRetrievedContext(docs);
+  const citations = formatCitationFooter(docs);
 
-  return { context };
+  return { context, citations, retrievedDocs: docs };
 }
 
 async function generateNode(state: AgentState): Promise<Partial<AgentState>> {
@@ -107,7 +113,12 @@ async function generateNode(state: AgentState): Promise<Partial<AgentState>> {
 
   let userPrompt = state.userMessage;
   if (state.context) {
-    userPrompt = `Context from portfolio:\n${state.context}\n\nUser question: ${state.userMessage}`;
+    userPrompt = `Context from portfolio (use [1], [2], etc. to cite sources):
+${state.context}
+
+User question: ${state.userMessage}
+
+Remember to cite sources using [1], [2], etc. when referencing information from the context.`;
   }
 
   const messages: BaseMessage[] = [
@@ -127,10 +138,15 @@ async function generateNode(state: AgentState): Promise<Partial<AgentState>> {
   messages.push(new HumanMessage(userPrompt));
 
   const response = await llm.invoke(messages);
-  const responseText =
+  let responseText =
     typeof response.content === "string"
       ? response.content
       : JSON.stringify(response.content);
+
+  // Append citations if we have them and the response doesn't already include sources
+  if (state.citations && !responseText.toLowerCase().includes("sources:")) {
+    responseText += state.citations;
+  }
 
   return {
     response: responseText,
@@ -173,9 +189,11 @@ export async function chat(
     userMessage: message,
     needsRetrieval: false,
     context: "",
+    citations: "",
     response: "",
     conversationHistory: "",
     chatOptions: options,
+    retrievedDocs: [],
   });
 
   // Record assistant response
@@ -200,9 +218,11 @@ export async function* streamChat(
     userMessage: message,
     needsRetrieval: false,
     context: "",
+    citations: "",
     response: "",
     conversationHistory: "",
     chatOptions: options,
+    retrievedDocs: [],
   });
 
   let fullResponse = "";

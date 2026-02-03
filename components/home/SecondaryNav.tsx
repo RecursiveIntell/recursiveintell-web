@@ -97,7 +97,7 @@ export function SecondaryNav() {
           <Link
             key={section.title}
             href={section.href}
-            className="group flex items-start gap-4 rounded-2xl border border-[color:var(--color-border)] bg-white/60 p-5 backdrop-blur transition-all hover:-translate-y-1 hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-card)]"
+            className="group flex items-start gap-4 rounded-2xl border border-[color:var(--color-border)] bg-[color:var(--color-card)]/60 p-5 backdrop-blur transition-all hover:-translate-y-1 hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-card)]"
           >
             <div className="flex-shrink-0 text-[color:var(--color-muted)] transition-colors group-hover:text-[color:var(--color-accent)]">
               {section.icon}

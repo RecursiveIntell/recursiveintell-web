@@ -56,7 +56,7 @@ export function LargeProjectCard({
           <TagChip key={tag} tag={tag} />
         ))}
         {tags.length > 5 && (
-          <span className="rounded-full border border-[color:var(--color-border)] bg-white/70 px-3 py-1 text-xs font-semibold text-[color:var(--color-muted)]">
+          <span className="rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-card)]/70 px-3 py-1 text-xs font-semibold text-[color:var(--color-muted)]">
             +{tags.length - 5}
           </span>
         )}
