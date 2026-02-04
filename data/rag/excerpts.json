@@ -1,82 +1,110 @@
 [
   {
-    "text": "Built 12+ production applications with Python, TypeScript, and Rust",
+    "text": "Built an AI-driven web browsing experience with a 13-agent system.",
+    "category": "project"
+  },
+  {
+    "text": "Expert in Python, leveraging AI for innovative solutions.",
+    "category": "skill"
+  },
+  {
+    "text": "Created a Python library for multi-agent AI systems with safety features.",
+    "category": "project"
+  },
+  {
+    "text": "Designed a professional-grade image editor featuring 48 effects.",
+    "category": "project"
+  },
+  {
+    "text": "Developed a proactive meta-orchestrator for responsive AI coordination.",
+    "category": "project"
+  },
+  {
+    "text": "Unified access to AI language models with a multi-provider chat app.",
+    "category": "project"
+  },
+  {
+    "text": "Crafted an intelligent GitHub showcase tool with smart filtering.",
+    "category": "project"
+  },
+  {
+    "text": "Engineered a medication management system for critical dose tracking.",
+    "category": "project"
+  },
+  {
+    "text": "Recreated a classic Minesweeper game with responsive web design.",
+    "category": "project"
+  },
+  {
+    "text": "Created a diagnostic tool for troubleshooting Linux screen-sharing issues.",
+    "category": "project"
+  },
+  {
+    "text": "Developed a native desktop client for secure server management.",
+    "category": "project"
+  },
+  {
+    "text": "Designed a server management platform with intuitive dashboards.",
+    "category": "project"
+  },
+  {
+    "text": "Expert in React and TypeScript for web development projects.",
+    "category": "skill"
+  },
+  {
+    "text": "Mapped async backlogs into clear, human-readable signals.",
     "category": "achievement"
   },
   {
-    "text": "Specializes in LangGraph and multi-agent AI orchestration systems",
-    "category": "skill"
-  },
-  {
-    "text": "RecursiveOps: Server management platform with intuitive dashboards",
-    "category": "project"
-  },
-  {
-    "text": "Created a 13-agent autonomous browsing system",
-    "category": "project"
-  },
-  {
-    "text": "Expertise in FastAPI for high-performance backend development",
-    "category": "skill"
-  },
-  {
-    "text": "Aphelion: Professional image editor with 48 effects and 21 tools",
-    "category": "project"
-  },
-  {
-    "text": "Deep experience with PySide6 desktop application development",
-    "category": "skill"
-  },
-  {
-    "text": "Director: Meta-orchestrator that coordinates multiple AI systems",
-    "category": "project"
-  },
-  {
-    "text": "Building intelligent systems that work offline-first",
-    "category": "skill"
-  },
-  {
-    "text": "Open source contributor focused on developer tooling",
+    "text": "Authored a structured prompt for effective sprint planning.",
     "category": "achievement"
   },
   {
-    "text": "Dodger: Multi-provider AI chat unifying leading language models",
+    "text": "Created a CLI workflow to streamline log and error collection.",
     "category": "project"
   },
   {
-    "text": "Strong focus on observability and structured logging",
-    "category": "skill"
-  },
-  {
-    "text": "Healthcare software: Medication tracking that never misses doses",
+    "text": "Developed a handy pre-launch validation checklist for releases.",
     "category": "project"
   },
   {
-    "text": "Combines Svelte, React, and Next.js for modern web experiences",
+    "text": "Leveraged Flask and JavaScript for modern web applications.",
     "category": "skill"
   },
   {
-    "text": "Linux-native development with Wayland and desktop integration",
-    "category": "skill"
-  },
-  {
-    "text": "GitDB: GitHub repository showcase with smart filtering",
+    "text": "Built a fun pet tracker app with AI-generated content for cat owners.",
     "category": "project"
   },
   {
-    "text": "Agentic Framework: Library for building multi-agent AI systems",
-    "category": "project"
-  },
-  {
-    "text": "Focus on developer experience and intuitive interfaces",
+    "text": "Specialized in creating desktop applications using PySide6.",
     "category": "skill"
   },
   {
-    "text": "Rust and Tauri for cross-platform desktop applications",
+    "text": "Implemented smart automation in server management for clarity.",
+    "category": "achievement"
+  },
+  {
+    "text": "Designed tools that enhance developer productivity and efficiency.",
+    "category": "achievement"
+  },
+  {
+    "text": "Utilized FastAPI for building fast, reliable web applications.",
     "category": "skill"
   },
   {
-    "text": "Building in public with transparent development processes",
+    "text": "Focused on creating user-friendly interfaces in all projects.",
+    "category": "achievement"
+  },
+  {
+    "text": "Expertise in Linux development with desktop applications for troubleshooting.",
+    "category": "skill"
+  },
+  {
+    "text": "Created engaging user experiences through effective UX design.",
+    "category": "achievement"
+  },
+  {
+    "text": "Pioneered the use of agents in AI systems for enhanced functionality.",
     "category": "achievement"
   }
 ]
