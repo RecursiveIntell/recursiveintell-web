@@ -3,7 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { z } from "zod";
 
-export type ContentStatus = "active" | "shipping" | "paused" | "archived";
+export type ContentStatus = "active" | "shipping" | "paused" | "archived" | "prototype";
 
 export type ContentType =
   | "projects"
@@ -22,7 +22,7 @@ const contentDirMap: Record<ContentType, string> = {
   "vault-downloads": "vault/downloads",
 };
 
-const statusSchema = z.enum(["active", "shipping", "paused", "archived"]);
+const statusSchema = z.enum(["active", "shipping", "paused", "archived", "prototype"]);
 
 const baseFrontmatterSchema = z.object({
   title: z.string().min(1, "Title is required"),

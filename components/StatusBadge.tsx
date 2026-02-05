@@ -1,4 +1,4 @@
-export type ContentStatus = "active" | "shipping" | "paused" | "archived";
+export type ContentStatus = "active" | "shipping" | "paused" | "archived" | "prototype";
 
 type StatusBadgeProps = {
   status: ContentStatus;
@@ -9,6 +9,7 @@ const statusStyles: Record<ContentStatus, string> = {
   shipping: "bg-[color:var(--color-accent-2)] text-white",
   paused: "bg-neutral-200 text-neutral-700",
   archived: "bg-neutral-100 text-neutral-500",
+  prototype: "bg-amber-500 text-white",
 };
 
 export function StatusBadge({ status }: StatusBadgeProps) {
