@@ -228,6 +228,7 @@
       "runCommand": "forge; forge-gui",
       "manifest": "pyproject.toml",
       "path": "agent-forge/",
+      "github": "https://github.com/RecursiveIntell/Agent-Forge",
       "hasReadme": false,
       "hasTests": true,
       "lastReviewed": "2026-02-05",
