@@ -1,0 +1,45 @@
+---
+title: "Agent Forge"
+date: "2026-02-05"
+summary: "A multi-agent orchestrator for Claude Code that decomposes projects into parallel agent workstreams."
+tags: ["python", "ai", "agents", "pyside6", "desktop", "cli"]
+status: "active"
+featured: true
+---
+
+> **Note:** This project is not yet available on GitHub.
+
+## Overview
+
+Agent Forge is a meta-layer for Claude Code that coordinates multiple AI agents working on the same project. It breaks down complex tasks into parallel workstreams, assigns them to specialized agents, and manages their coordination—turning a single developer into an orchestrated team.
+
+## Key Features
+
+- **Project Decomposition**: Analyzes codebases and breaks tasks into parallelizable units.
+- **Workstream Management**: Tracks multiple agent sessions working on related tasks.
+- **Conflict Resolution**: Detects and resolves overlapping changes between agents.
+- **CLI Interface**: Command-line tool for quick task delegation.
+- **GUI Dashboard**: PySide6 interface for visualizing agent progress and managing workstreams.
+- **Session Persistence**: Maintains context across agent sessions for continuity.
+
+## Technical Architecture
+
+Agent Forge operates as a supervisor layer above Claude Code sessions. It maintains a project model, tracks file ownership, and coordinates handoffs between agents to prevent conflicts.
+
+Core components:
+- **Task Analyzer**: Examines project structure and task descriptions to plan decomposition.
+- **Agent Pool**: Manages multiple Claude Code sessions with isolated contexts.
+- **Merge Coordinator**: Handles file changes from multiple agents.
+- **Progress Tracker**: Monitors completion status across workstreams.
+
+## Technology Stack
+
+- **Core**: Python 3.11+ with async support
+- **CLI**: Click-based command interface
+- **GUI**: PySide6 for desktop visualization
+- **Integration**: Claude Code CLI wrapper
+- **State**: File-based project and session state
+
+## Current Status
+
+Active development with core orchestration working. Successfully coordinates 2-4 parallel agents on medium-sized projects. Currently improving conflict detection and adding smarter task decomposition.

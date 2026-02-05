@@ -1,0 +1,36 @@
+---
+title: "LLM Config"
+date: "2026-02-05"
+summary: "A shared Python library for consistent LLM configuration across projects."
+tags: ["python", "ai", "library"]
+status: "active"
+featured: false
+---
+
+> **Note:** This project is not yet available on GitHub.
+
+## Overview
+
+LLM Config is a utility library that provides consistent configuration patterns for LLM-powered applications. Instead of duplicating configuration logic across projects, this library centralizes provider setup, API key management, and common settings.
+
+## Key Features
+
+- **Provider Abstraction**: Unified configuration for OpenAI, Anthropic, Google, and Ollama.
+- **Environment Loading**: Automatic loading of API keys from environment variables.
+- **Default Presets**: Sensible defaults for common use cases.
+- **Validation**: Configuration validation before use.
+- **Import as Library**: Simple `import llm_config` usage.
+
+## Technical Architecture
+
+The library provides a simple configuration interface that reads from environment variables and configuration files, returning properly initialized client configurations for supported providers.
+
+## Technology Stack
+
+- **Language**: Python 3.11+
+- **Dependencies**: Minimal—designed to be a lightweight utility
+- **Distribution**: pyproject.toml for modern Python packaging
+
+## Current Status
+
+Active and stable. Used across multiple projects in this ecosystem for consistent LLM setup.

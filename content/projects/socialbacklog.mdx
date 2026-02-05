@@ -1,0 +1,44 @@
+---
+title: "SocialBacklog"
+date: "2026-02-05"
+summary: "A productivity app that transforms browser history into an actionable backlog of things to revisit."
+tags: ["python", "typescript", "vue", "fastapi", "web"]
+status: "active"
+featured: false
+---
+
+> **Note:** This project is not yet available on GitHub.
+
+## Overview
+
+SocialBacklog addresses the problem of interesting links lost to browser history. It analyzes your browsing patterns, identifies content worth revisiting, and surfaces it as an organized backlog. The daily_wake script helps start each day with a curated list of items to explore.
+
+## Key Features
+
+- **History Analysis**: Scans browser history to find meaningful content.
+- **Smart Filtering**: Distinguishes browsing noise from items worth saving.
+- **Backlog Queue**: Organized list of items to revisit with priority levels.
+- **Daily Wake**: Morning script that surfaces relevant items for the day.
+- **Category Tagging**: Automatic categorization of saved items.
+- **Progress Tracking**: Mark items as read, saved, or dismissed.
+
+## Technical Architecture
+
+The system consists of a FastAPI backend that processes browser history exports and a Vue/Vite frontend for managing the backlog. SQLite stores the processed items and user interactions.
+
+Core components:
+- **History Parser**: Reads and normalizes browser history from multiple sources.
+- **Content Classifier**: Determines item relevance and category.
+- **Queue Manager**: Handles backlog ordering and surfacing logic.
+- **Daily Digest**: Generates morning summaries of items to review.
+
+## Technology Stack
+
+- **Backend**: Python, FastAPI
+- **Frontend**: Vue 3, TypeScript, Vite
+- **Database**: SQLite
+- **Automation**: Shell scripts for daily wake routine
+
+## Current Status
+
+Active development with core backlog features working. History import and classification functional. Currently improving the daily wake algorithm and adding browser extension support.
