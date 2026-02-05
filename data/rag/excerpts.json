@@ -1,110 +1,114 @@
 [
   {
-    "text": "Built an AI-driven web browsing experience with a 13-agent system.",
-    "category": "project"
-  },
-  {
-    "text": "Expert in Python, leveraging AI for innovative solutions.",
+    "text": "Expert in Python, AI, and multi-agent systems.",
     "category": "skill"
   },
   {
-    "text": "Created a Python library for multi-agent AI systems with safety features.",
+    "text": "Created Agent Forge to decompose projects into parallel workflows.",
     "category": "project"
   },
   {
-    "text": "Designed a professional-grade image editor featuring 48 effects.",
+    "text": "Developed a 13-agent system with Agentic Browser for autonomous browsing.",
     "category": "project"
   },
   {
-    "text": "Developed a proactive meta-orchestrator for responsive AI coordination.",
+    "text": "Built Aphelion, an image editor with 48 effects and extensibility.",
     "category": "project"
   },
   {
-    "text": "Unified access to AI language models with a multi-provider chat app.",
+    "text": "Designed Cat Info App for fun and informative pet management.",
     "category": "project"
   },
   {
-    "text": "Crafted an intelligent GitHub showcase tool with smart filtering.",
+    "text": "Developed Codex, a lightweight AI chat client for local conversations.",
     "category": "project"
   },
   {
-    "text": "Engineered a medication management system for critical dose tracking.",
+    "text": "Created Director, a proactive meta-orchestrator for AI systems.",
     "category": "project"
   },
   {
-    "text": "Recreated a classic Minesweeper game with responsive web design.",
+    "text": "Launched Dodger to unify access to multiple AI chat providers.",
     "category": "project"
   },
   {
-    "text": "Created a diagnostic tool for troubleshooting Linux screen-sharing issues.",
+    "text": "Crafted GitDB, a tool for curating GitHub repository showcases.",
     "category": "project"
   },
   {
-    "text": "Developed a native desktop client for secure server management.",
-    "category": "project"
-  },
-  {
-    "text": "Designed a server management platform with intuitive dashboards.",
-    "category": "project"
-  },
-  {
-    "text": "Expert in React and TypeScript for web development projects.",
+    "text": "Shared LLM Config library standardizes AI project configurations.",
     "category": "skill"
   },
   {
-    "text": "Mapped async backlogs into clear, human-readable signals.",
-    "category": "achievement"
-  },
-  {
-    "text": "Authored a structured prompt for effective sprint planning.",
-    "category": "achievement"
-  },
-  {
-    "text": "Created a CLI workflow to streamline log and error collection.",
+    "text": "Designed Medicine, a system for managing medication schedules.",
     "category": "project"
   },
   {
-    "text": "Developed a handy pre-launch validation checklist for releases.",
+    "text": "Recreated Minesweeper with responsive design and various difficulty levels.",
     "category": "project"
   },
   {
-    "text": "Leveraged Flask and JavaScript for modern web applications.",
-    "category": "skill"
-  },
-  {
-    "text": "Built a fun pet tracker app with AI-generated content for cat owners.",
+    "text": "Developed Portal Doctor for troubleshooting Linux screen-sharing issues.",
     "category": "project"
   },
   {
-    "text": "Specialized in creating desktop applications using PySide6.",
+    "text": "Launched PromptKart, a comprehensive prompt engineering suite.",
+    "category": "project"
+  },
+  {
+    "text": "Created RecursiveOps, enhancing server management through automation.",
+    "category": "project"
+  },
+  {
+    "text": "Built RokoTools for efficient browser history processing utilities.",
+    "category": "project"
+  },
+  {
+    "text": "Developed SocialBacklog to turn browser history into actionable tasks.",
+    "category": "project"
+  },
+  {
+    "text": "Explored procedural generation in The Lattice game using Godot.",
+    "category": "project"
+  },
+  {
+    "text": "VisionTagger automatically tags images using local AI technology.",
+    "category": "project"
+  },
+  {
+    "text": "Mapped async backlogs with Latent Queue Maps for clarity.",
+    "category": "project"
+  },
+  {
+    "text": "Published 'Quiet Systems, Loud Results' on internal platform design.",
+    "category": "achievement"
+  },
+  {
+    "text": "Crafted a structured sprint brief prompt for better planning.",
+    "category": "project"
+  },
+  {
+    "text": "Created Signal Sweep CLI for comprehensive log and trace gathering.",
+    "category": "project"
+  },
+  {
+    "text": "Produced a downloadable Launch Checklist for pre-launch validation.",
+    "category": "project"
+  },
+  {
+    "text": "Proficient in building desktop applications with PySide6 and Python.",
     "category": "skill"
   },
   {
-    "text": "Implemented smart automation in server management for clarity.",
-    "category": "achievement"
-  },
-  {
-    "text": "Designed tools that enhance developer productivity and efficiency.",
-    "category": "achievement"
-  },
-  {
-    "text": "Utilized FastAPI for building fast, reliable web applications.",
+    "text": "Skilled in developing web applications using React and TypeScript.",
     "category": "skill"
   },
   {
-    "text": "Focused on creating user-friendly interfaces in all projects.",
-    "category": "achievement"
-  },
-  {
-    "text": "Expertise in Linux development with desktop applications for troubleshooting.",
+    "text": "Experience in AI integration across various tools and platforms.",
     "category": "skill"
   },
   {
-    "text": "Created engaging user experiences through effective UX design.",
-    "category": "achievement"
-  },
-  {
-    "text": "Pioneered the use of agents in AI systems for enhanced functionality.",
+    "text": "Created innovative tools for enhancing productivity and user experience.",
     "category": "achievement"
   }
 ]
