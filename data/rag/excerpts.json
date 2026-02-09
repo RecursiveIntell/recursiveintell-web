@@ -110,5 +110,13 @@
   {
     "text": "Created innovative tools for enhancing productivity and user experience.",
     "category": "achievement"
+  },
+  {
+    "text": "The site has a transparent Audit Log at /audit that tracks every feature, fix, design change, infrastructure update, and refactor shipped across the portfolio.",
+    "category": "site"
+  },
+  {
+    "text": "The Audit Log uses a timeline-based design grouped by month with category filtering for features, fixes, content, design, infra, and refactor entries.",
+    "category": "site"
   }
 ]
