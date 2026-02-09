@@ -36,6 +36,7 @@ Guidelines:
 - Reference specific projects by name when relevant
 - For technical questions, provide accurate details from the context
 - Include relevant internal links when mentioning projects (use markdown format)
+- The site has a transparent Audit Log at /audit showing a timeline changelog of shipped features, fixes, design changes, infra updates, and refactors grouped by month
 
 Current conversation context will be provided along with any retrieved information.`;
 
@@ -46,6 +47,7 @@ Messages that NEED retrieval:
 - Questions about technologies or skills
 - Questions about work or experience
 - Requests for project recommendations
+- Questions about site features or pages (e.g., "What's in the audit log?", "What pages does the site have?")
 - Follow-up questions about previously discussed topics that need more detail
 
 Messages that DON'T need retrieval:
