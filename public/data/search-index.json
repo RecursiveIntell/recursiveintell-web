@@ -1,5 +1,191 @@
 [
   {
+    "id": "projects:dvddvd",
+    "title": "dvddvd",
+    "summary": "An Electron desktop app wrapping dvda-author for DVD-Audio creation with a modern React interface.",
+    "tags": [
+      "electron",
+      "react",
+      "typescript",
+      "desktop",
+      "audio",
+      "media"
+    ],
+    "date": "2026-02-09",
+    "type": "projects",
+    "href": "/projects/dvddvd"
+  },
+  {
+    "id": "projects:hootie",
+    "title": "Hootie",
+    "summary": "A desktop GUI for DVD-Audio authoring on Linux—drag-and-drop disc building with format conversion and optical burning.",
+    "tags": [
+      "python",
+      "pyqt6",
+      "desktop",
+      "linux",
+      "audio",
+      "media"
+    ],
+    "date": "2026-02-09",
+    "type": "projects",
+    "href": "/projects/hootie"
+  },
+  {
+    "id": "projects:palisade",
+    "title": "Palisade",
+    "summary": "A native Linux desktop GUI for managing nftables firewall rules directly—no abstraction layers, no feature loss.",
+    "tags": [
+      "rust",
+      "tauri",
+      "react",
+      "typescript",
+      "linux",
+      "nftables",
+      "dbus",
+      "security",
+      "desktop"
+    ],
+    "date": "2026-02-09",
+    "type": "projects",
+    "href": "/projects/palisade"
+  },
+  {
+    "id": "projects:voxelcraft",
+    "title": "VoxelCraft",
+    "summary": "A browser-based Minecraft clone built with Three.js featuring chunk-based voxel rendering, greedy meshing, and procedural terrain.",
+    "tags": [
+      "typescript",
+      "threejs",
+      "webgl",
+      "game",
+      "voxel",
+      "web-workers"
+    ],
+    "date": "2026-02-09",
+    "type": "projects",
+    "href": "/projects/voxelcraft"
+  },
+  {
+    "id": "projects:agent-forge",
+    "title": "Agent Forge",
+    "summary": "A multi-agent orchestrator for Claude Code that decomposes projects into parallel agent workstreams.",
+    "tags": [
+      "python",
+      "ai",
+      "agents",
+      "pyside6",
+      "desktop",
+      "cli"
+    ],
+    "date": "2026-02-05",
+    "type": "projects",
+    "href": "/projects/agent-forge"
+  },
+  {
+    "id": "projects:codex",
+    "title": "Codex",
+    "summary": "A lightweight desktop AI chat client built with Tkinter for quick local conversations.",
+    "tags": [
+      "python",
+      "tkinter",
+      "ai",
+      "langchain",
+      "desktop"
+    ],
+    "date": "2026-02-05",
+    "type": "projects",
+    "href": "/projects/codex"
+  },
+  {
+    "id": "projects:llm-config",
+    "title": "LLM Config",
+    "summary": "A shared Python library for consistent LLM configuration across projects.",
+    "tags": [
+      "python",
+      "ai",
+      "library"
+    ],
+    "date": "2026-02-05",
+    "type": "projects",
+    "href": "/projects/llm-config"
+  },
+  {
+    "id": "projects:promptkart",
+    "title": "PromptKart",
+    "summary": "A prompt engineering and evaluation suite with tracks, heats, and leaderboards for systematic LLM testing.",
+    "tags": [
+      "python",
+      "typescript",
+      "react",
+      "fastapi",
+      "ai",
+      "docker",
+      "web"
+    ],
+    "date": "2026-02-05",
+    "type": "projects",
+    "href": "/projects/promptkart"
+  },
+  {
+    "id": "projects:rokotools",
+    "title": "RokoTools",
+    "summary": "A collection of small local utilities for browser history processing and system maintenance.",
+    "tags": [
+      "python",
+      "shell",
+      "utilities",
+      "fastapi"
+    ],
+    "date": "2026-02-05",
+    "type": "projects",
+    "href": "/projects/rokotools"
+  },
+  {
+    "id": "projects:socialbacklog",
+    "title": "SocialBacklog",
+    "summary": "A productivity app that transforms browser history into an actionable backlog of things to revisit.",
+    "tags": [
+      "python",
+      "typescript",
+      "vue",
+      "fastapi",
+      "web"
+    ],
+    "date": "2026-02-05",
+    "type": "projects",
+    "href": "/projects/socialbacklog"
+  },
+  {
+    "id": "projects:the-lattice",
+    "title": "The Lattice",
+    "summary": "A game project built in Godot 4.5, exploring procedural generation and interconnected systems.",
+    "tags": [
+      "godot",
+      "gdscript",
+      "game",
+      "desktop"
+    ],
+    "date": "2026-02-05",
+    "type": "projects",
+    "href": "/projects/the-lattice"
+  },
+  {
+    "id": "projects:visiontagger",
+    "title": "VisionTagger",
+    "summary": "A desktop app that uses local AI to automatically tag and rename images based on their content.",
+    "tags": [
+      "python",
+      "flet",
+      "ai",
+      "ollama",
+      "desktop"
+    ],
+    "date": "2026-02-05",
+    "type": "projects",
+    "href": "/projects/visiontagger"
+  },
+  {
     "id": "projects:recursiveops",
     "title": "RecursiveOps",
     "summary": "A server management platform that brings clarity to infrastructure through intuitive dashboards and smart automation.",
@@ -14,22 +200,6 @@
     "date": "2026-01-23",
     "type": "projects",
     "href": "/projects/recursiveops"
-  },
-  {
-    "id": "projects:recursiveops-companion",
-    "title": "RecursiveOps Companion",
-    "summary": "A native desktop client that brings server management to your taskbar with offline support and secure credential storage.",
-    "tags": [
-      "rust",
-      "tauri",
-      "svelte",
-      "typescript",
-      "desktop",
-      "devtools"
-    ],
-    "date": "2026-01-22",
-    "type": "projects",
-    "href": "/projects/recursiveops-companion"
   },
   {
     "id": "projects:gitdb",
@@ -113,21 +283,6 @@
     "date": "2025-12-30",
     "type": "projects",
     "href": "/projects/agent"
-  },
-  {
-    "id": "projects:agentic-framework",
-    "title": "Agentic Framework",
-    "summary": "A Python library for building multi-agent AI systems with built-in coordination, memory, and safety patterns.",
-    "tags": [
-      "python",
-      "ai",
-      "agents",
-      "langgraph",
-      "langchain"
-    ],
-    "date": "2025-12-30",
-    "type": "projects",
-    "href": "/projects/agentic-framework"
   },
   {
     "id": "projects:aphelion",

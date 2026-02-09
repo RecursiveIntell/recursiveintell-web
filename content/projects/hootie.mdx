@@ -1,0 +1,34 @@
+---
+title: "Hootie"
+date: "2026-02-09"
+summary: "A desktop GUI for DVD-Audio authoring on Linux—drag-and-drop disc building with format conversion and optical burning."
+tags: ["python", "pyqt6", "desktop", "linux", "audio", "media"]
+status: "active"
+featured: false
+links:
+  GitHub: "https://github.com/RecursiveIntell/Hootie"
+---
+
+## Overview
+
+Hootie is a PyQt6 desktop application for creating DVD-Audio discs on Linux. It wraps the complexity of audio format conversion, disc capacity estimation, and optical burning behind a drag-and-drop interface with quality presets and metadata management.
+
+## Key Features
+
+- **Drag-and-Drop Track Management**: Build disc layouts by dragging audio files into groups with automatic format detection via ffprobe.
+- **Quality Presets**: Pre-configured profiles for different audio quality targets with real-time disc capacity estimation.
+- **Format Conversion**: Handles transcoding between audio formats as needed for DVD-Audio compliance.
+- **Optical Burning**: Integrated disc burning using growisofs/wodim with progress tracking.
+- **Project Save/Load**: Persistent `.hoot` project format for saving and resuming disc builds.
+- **Dependency Checking**: Validates that all required system tools are available at startup.
+
+## Technology Stack
+
+- **GUI**: Python 3.11+, PyQt6
+- **Audio**: ffprobe for analysis, ffmpeg for conversion
+- **Burning**: growisofs, wodim
+- **Platform**: Linux-specific tooling
+
+## Current Status
+
+Active development with core authoring workflow functional. Track management, format conversion, and disc burning operational.

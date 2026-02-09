@@ -1,0 +1,47 @@
+---
+title: "Palisade"
+date: "2026-02-09"
+summary: "A native Linux desktop GUI for managing nftables firewall rules directly—no abstraction layers, no feature loss."
+tags: ["rust", "tauri", "react", "typescript", "linux", "nftables", "dbus", "security", "desktop"]
+status: "active"
+featured: true
+links:
+  GitHub: "https://github.com/RecursiveIntell/Palisade"
+---
+
+## Overview
+
+Palisade is a split-process nftables firewall GUI that fills a critical gap on Linux: there is no production-quality graphical tool for direct nftables management. Every existing option—firewalld, UFW, Cockpit—uses lossy abstractions that throw away nftables' most powerful features. Palisade talks to nftables natively through its JSON API, giving you full control without compromises.
+
+## Key Features
+
+- **Split-Process Architecture**: A privileged daemon (`palisade-daemon`) handles all nftables interaction via D-Bus, while the unprivileged Tauri GUI runs in your user session. Clean security boundary, no sudo prompts.
+- **Full Safety Pipeline**: Every mutation goes through validate → snapshot → apply → confirm/rollback. Includes dry-run validation, dead man's switch (auto-rollback timer), anti-lockout checks, and atomic transactions.
+- **Table Ownership Enforcement**: Palisade never touches tables it doesn't own. Docker, Tailscale, fail2ban, and WireGuard rules are displayed read-only with service badges.
+- **Service Detection**: Automatically identifies Docker, Tailscale, fail2ban, firewalld, and WireGuard by inspecting interfaces and table naming conventions.
+- **Traffic Monitoring**: Live bandwidth sparklines, top talkers, filterable flow feed, and per-rule hit rate counters via conntrack streaming over a Unix socket.
+- **Snapshots & Rollback**: Chronological snapshot list with side-by-side diffs, one-click restore, and export.
+- **Templates**: Pre-built rulesets (stateful baseline, SSH hardening, web server, Docker coexistence, Tailscale integration) with parameter forms and live nft syntax preview.
+- **firewalld Compatibility Shim**: Optional `palisade-firewalld-compat` binary owns the firewalld D-Bus name, translating zone/port/service requests into Palisade's service registration API. Drop-in replacement for apps that expect firewalld.
+- **Zone Migration Wizard**: Reads existing firewalld zone XML files and generates Palisade changesets with a side-by-side preview before migration.
+
+## Technical Architecture
+
+The daemon is the single source of truth. It exposes D-Bus methods for listing rulesets, validating changesets, applying rules, managing snapshots, and streaming traffic data. The GUI never talks to `nft` directly.
+
+Core components:
+- **nftables JSON Engine**: All interaction uses `nft -j list ruleset`, `nft -j -f` (apply), and `nft -c -j -f` (dry-run). No shell parsing.
+- **Changeset System**: Typed operations (AddRule, ReplaceRule, DeleteRule, MoveRule, etc.) with position semantics.
+- **Monitor Socket**: Unix socket at `/run/palisade/monitor.sock` streaming conntrack events via MessagePack serialization.
+- **Service Registration API**: External services can dynamically register/deregister firewall port openings via D-Bus with SQLite persistence.
+
+## Technology Stack
+
+- **Daemon**: Rust 2021, Tokio, zbus 5.x (D-Bus), nftables-rs, neli (netlink), rusqlite, systemd integration
+- **GUI Backend**: Tauri 2.0, zbus, russh (SSH for remote hosts), rmp-serde (MessagePack)
+- **GUI Frontend**: React 19, TypeScript 5, Vite 6, Tailwind CSS 4, Zustand, TanStack Table v8, dnd-kit (drag-drop rule reorder), Recharts
+- **Packaging**: systemd service units, D-Bus policy files, TOML configuration
+
+## Current Status
+
+Active development with daemon fully functional and GUI views for rules, traffic, snapshots, and templates implemented. Safety pipeline operational with dry-run, dead man's switch, anti-lockout, and table ownership enforcement all working. firewalld compatibility shim complete. Currently polishing the rule editor and preparing for v0.1.0 MVP release.

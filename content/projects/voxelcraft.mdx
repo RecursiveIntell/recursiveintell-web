@@ -1,0 +1,35 @@
+---
+title: "VoxelCraft"
+date: "2026-02-09"
+summary: "A browser-based Minecraft clone built with Three.js featuring chunk-based voxel rendering, greedy meshing, and procedural terrain."
+tags: ["typescript", "threejs", "webgl", "game", "voxel", "web-workers"]
+status: "active"
+featured: false
+links:
+  GitHub: "https://github.com/RecursiveIntell/VoxelCraft"
+---
+
+## Overview
+
+VoxelCraft is a Minecraft-inspired voxel engine running entirely in the browser. It implements chunk-based world generation with greedy meshing for performance, Web Workers for off-thread mesh computation, and custom AABB collision detection—all rendered through Three.js and WebGL.
+
+## Key Features
+
+- **Chunk-Based Architecture**: World divided into chunks with efficient loading/unloading as the player moves.
+- **Greedy Meshing**: Combines adjacent block faces into larger quads, dramatically reducing triangle count.
+- **Web Workers**: Mesh generation runs off the main thread to keep the render loop smooth.
+- **Procedural Terrain**: Simplex noise-based world generation with biome-like variation.
+- **Custom Physics**: AABB collision detection and response for player movement and block interaction.
+- **Block System**: Multiple block types with different textures and properties.
+
+## Technology Stack
+
+- **Rendering**: Three.js, WebGL
+- **Language**: TypeScript (strict mode)
+- **Threading**: Web Workers for mesh generation
+- **Terrain**: Simplex noise procedural generation
+- **Build**: Vite
+
+## Current Status
+
+Active development with core voxel engine, chunk system, greedy meshing, and procedural terrain generation working in-browser.

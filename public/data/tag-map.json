@@ -1,35 +1,53 @@
 {
-  "python": {
-    "count": 10,
+  "electron": {
+    "count": 1,
     "types": [
       "projects"
     ]
   },
-  "fastapi": {
-    "count": 4,
-    "types": [
-      "projects"
-    ]
-  },
-  "svelte": {
-    "count": 2,
-    "types": [
-      "projects"
-    ]
-  },
-  "typescript": {
-    "count": 4,
-    "types": [
-      "projects"
-    ]
-  },
-  "web": {
+  "react": {
     "count": 5,
     "types": [
       "projects"
     ]
   },
-  "devtools": {
+  "typescript": {
+    "count": 8,
+    "types": [
+      "projects"
+    ]
+  },
+  "desktop": {
+    "count": 12,
+    "types": [
+      "projects"
+    ]
+  },
+  "audio": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "media": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "python": {
+    "count": 17,
+    "types": [
+      "projects"
+    ]
+  },
+  "pyqt6": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "linux": {
     "count": 4,
     "types": [
       "projects"
@@ -47,14 +65,165 @@
       "projects"
     ]
   },
-  "desktop": {
+  "nftables": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "dbus": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "security": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "threejs": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "webgl": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "game": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "voxel": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "web-workers": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "ai": {
+    "count": 9,
+    "types": [
+      "projects"
+    ]
+  },
+  "agents": {
+    "count": 3,
+    "types": [
+      "projects"
+    ]
+  },
+  "pyside6": {
     "count": 6,
     "types": [
       "projects"
     ]
   },
-  "react": {
+  "cli": {
     "count": 2,
+    "types": [
+      "projects",
+      "vault-tools"
+    ]
+  },
+  "tkinter": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "langchain": {
+    "count": 4,
+    "types": [
+      "projects"
+    ]
+  },
+  "library": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "fastapi": {
+    "count": 7,
+    "types": [
+      "projects"
+    ]
+  },
+  "docker": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "web": {
+    "count": 7,
+    "types": [
+      "projects"
+    ]
+  },
+  "shell": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "utilities": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "vue": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "godot": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "gdscript": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "flet": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "ollama": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "svelte": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "devtools": {
+    "count": 3,
     "types": [
       "projects"
     ]
@@ -77,32 +246,8 @@
       "projects"
     ]
   },
-  "ai": {
-    "count": 5,
-    "types": [
-      "projects"
-    ]
-  },
-  "agents": {
-    "count": 3,
-    "types": [
-      "projects"
-    ]
-  },
   "langgraph": {
-    "count": 3,
-    "types": [
-      "projects"
-    ]
-  },
-  "pyside6": {
-    "count": 5,
-    "types": [
-      "projects"
-    ]
-  },
-  "langchain": {
-    "count": 4,
+    "count": 2,
     "types": [
       "projects"
     ]
@@ -115,12 +260,6 @@
   },
   "graphics": {
     "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "linux": {
-    "count": 2,
     "types": [
       "projects"
     ]
@@ -186,12 +325,6 @@
     ]
   },
   "tooling": {
-    "count": 1,
-    "types": [
-      "vault-tools"
-    ]
-  },
-  "cli": {
     "count": 1,
     "types": [
       "vault-tools"

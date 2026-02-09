@@ -1,0 +1,33 @@
+---
+title: "dvddvd"
+date: "2026-02-09"
+summary: "An Electron desktop app wrapping dvda-author for DVD-Audio creation with a modern React interface."
+tags: ["electron", "react", "typescript", "desktop", "audio", "media"]
+status: "active"
+featured: false
+links:
+  GitHub: "https://github.com/RecursiveIntell/dvddvd"
+---
+
+## Overview
+
+dvddvd is a cross-platform Electron application that provides a modern GUI for the dvda-author CLI tool. It handles DVD-Audio disc creation through a React + TypeScript interface with drag-and-drop track management, audio format analysis, and multi-platform builds.
+
+## Key Features
+
+- **Drag-and-Drop Tracks**: Visual track ordering and group management for disc layout.
+- **Audio Format Analysis**: Automatic detection and validation of audio file properties.
+- **Project Files**: Save and load disc projects in `.dvda-project` format.
+- **Cross-Platform Builds**: electron-builder configured for Linux, macOS, and Windows.
+- **IPC Architecture**: Clean separation between Electron main process and React renderer via typed IPC channels.
+
+## Technology Stack
+
+- **Shell**: Electron with electron-builder
+- **Frontend**: React, TypeScript, Zustand state management
+- **CLI Wrapper**: dvda-author for DVD-Audio ISO generation
+- **Build**: Vite, electron-builder (Linux/macOS/Windows)
+
+## Current Status
+
+Active development with core authoring workflow and project file management implemented. Multi-platform packaging configured.
