@@ -1,0 +1,46 @@
+---
+title: "VisionForge"
+date: "2026-02-12"
+summary: "A Tauri 2 desktop app bridging local LLMs with Stable Diffusion through a multi-agent prompt engineering pipeline."
+tags: ["rust", "tauri", "react", "typescript", "ai", "stable-diffusion", "comfyui", "ollama", "desktop", "image-generation"]
+status: "active"
+featured: true
+links:
+  GitHub: "https://github.com/RecursiveIntell/VisionForge"
+---
+
+## Overview
+
+VisionForge bridges the gap between having a creative idea and getting a great image out of Stable Diffusion. It uses a 5-stage LLM prompt engineering pipeline to refine your natural language descriptions into optimized SD prompts, then manages the generation workflow through ComfyUI, and organizes results in a searchable gallery with AI-powered tagging and captioning.
+
+## Key Features
+
+- **5-Stage Prompt Pipeline**: Idea expansion, style analysis, negative prompt generation, prompt optimization, and quality scoring—all powered by local LLMs via Ollama.
+- **ComfyUI Integration**: Full WebSocket + REST client for submitting workflows, tracking progress, and retrieving generated images.
+- **Smart Gallery**: Browse, search, and filter generated images with AI-generated tags and captions (Ollama Vision).
+- **A/B Comparison**: Side-by-side comparison view for evaluating prompt variations and model outputs.
+- **Seed Library**: Save and reuse successful seed + prompt combinations for reproducible results.
+- **Batch Generation**: Queue multiple prompt variations for unattended generation runs.
+- **Local-First**: Everything runs on your machine—Ollama for LLMs, ComfyUI for image generation, SQLite for storage.
+
+## Technical Architecture
+
+The Tauri 2 Rust backend orchestrates the entire pipeline. User input flows through the LLM prompt refinement stages, then the optimized prompt is submitted to ComfyUI via WebSocket. Generated images are stored locally with metadata in SQLite, and the React frontend provides gallery management and pipeline controls.
+
+Core components:
+- **Prompt Pipeline**: 5-stage LLM chain using LLM-Pipeline crate with structured output parsing.
+- **ComfyUI Client**: WebSocket connection for real-time progress tracking + REST for workflow submission (ComfyUI-RS crate).
+- **Vision Tagger**: Ollama Vision models for automatic image captioning and tagging (Ollama-Vision-RS crate).
+- **Gallery Store**: SQLite database with image metadata, tags, prompts, and generation parameters.
+
+## Technology Stack
+
+- **Desktop Shell**: Tauri 2.0, Rust 2021
+- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS
+- **Backend**: rusqlite, ComfyUI-RS, LLM-Pipeline, Ollama-Vision-RS (from Rust Libraries)
+- **AI**: Ollama (prompt engineering), ComfyUI (image generation)
+- **Testing**: 129 tests covering pipeline, gallery, and integration
+
+## Current Status
+
+Feature-complete with all 5 pipeline stages, gallery management, A/B comparison, and seed library working. Actively used for daily image generation workflows. Polishing UI and adding workflow template support.

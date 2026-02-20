@@ -1,0 +1,44 @@
+---
+title: "Shannon"
+date: "2026-02-08"
+summary: "An AI-powered penetration testing agent that automates vulnerability assessment with multi-phase analysis and durable workflow orchestration."
+tags: ["typescript", "security", "ai", "docker", "temporal", "agents", "pentesting"]
+status: "active"
+---
+
+## Overview
+
+Shannon is an AI-powered penetration testing framework for defensive security analysis. It automates vulnerability assessment by combining external reconnaissance tools (nmap, subfinder, whatweb) with AI-powered code analysis, orchestrated through Temporal durable workflows for crash recovery and auditability.
+
+## Key Features
+
+- **5-Phase Pipeline**: Reconnaissance, vulnerability analysis, exploitation validation, impact assessment, and report generation—each phase builds on findings from the previous.
+- **Multi-Agent Architecture**: Specialized agents for recon, vulnerability analysis, exploitation, and reporting work in parallel with coordinated handoffs.
+- **Durable Workflows**: Temporal orchestration ensures every analysis run can recover from crashes, resume from checkpoints, and produce complete audit trails.
+- **OWASP Coverage**: Tests for injection, XSS, SSRF, broken authentication, and other OWASP Top 10 vulnerabilities.
+- **Tool Integration**: Wraps industry-standard tools (nmap, subfinder, whatweb, Playwright) alongside Claude-powered code analysis.
+- **Audit Logging**: Every action, finding, and decision is logged for compliance and review.
+- **Docker-Based**: Fully containerized with Docker Compose for reproducible environments.
+
+## Technical Architecture
+
+Temporal serves as the workflow engine, coordinating multi-phase analysis activities. Each phase is a Temporal activity that can run reconnaissance tools, invoke AI analysis, or validate findings. The Claude Agent SDK powers the AI reasoning layer for vulnerability classification and exploitation strategy.
+
+Core components:
+- **Workflow Engine**: Temporal server managing durable, recoverable analysis workflows.
+- **Recon Activity**: nmap, subfinder, whatweb for external reconnaissance.
+- **AI Analyzer**: Claude Agent SDK for vulnerability classification and code review.
+- **Report Generator**: Structured findings with severity, evidence, and remediation.
+
+## Technology Stack
+
+- **Language**: TypeScript
+- **Orchestration**: Temporal (durable workflows)
+- **AI**: Claude Agent SDK (Anthropic)
+- **Tools**: nmap, subfinder, whatweb, Playwright MCP
+- **Infrastructure**: Docker Compose, Express.js
+- **Config**: YAML with JSON Schema validation
+
+## Current Status
+
+Active with 5-phase pipeline operational, parallel agent execution, crash recovery, and structured reporting. Currently expanding vulnerability detection patterns and improving exploitation validation accuracy.

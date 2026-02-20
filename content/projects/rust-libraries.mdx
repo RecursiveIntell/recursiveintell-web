@@ -1,0 +1,46 @@
+---
+title: "Rust Libraries"
+date: "2026-02-18"
+summary: "A collection of 8 Rust crates for building AI-powered desktop applications—from agent graphs to GPU job queues."
+tags: ["rust", "tauri", "ai", "ollama", "comfyui", "library", "open-source"]
+status: "active"
+featured: true
+links:
+  GitHub: "https://github.com/RecursiveIntell/Rust-Libraries"
+---
+
+## Overview
+
+A growing collection of Rust crates extracted from production desktop applications, designed to solve common challenges when building AI-powered tools. Each crate is independent, well-documented, and battle-tested in real applications like Gloss, VisionForge, and Palisade.
+
+## Crates
+
+- **agent-graph**: A LangGraph-inspired agent orchestration framework for Rust. Define nodes, edges, conditional routing, and state machines for multi-step AI workflows with async execution.
+- **LLM-Pipeline**: Typed prompt pipeline for local LLMs via Ollama. Chain prompts with structured output parsing, retries, and streaming support.
+- **Tauri-Queue**: Background job queue for Tauri 2 apps with SQLite persistence, priority scheduling, retry logic, and progress reporting to the frontend.
+- **ComfyUI-RS**: Rust client for ComfyUI's WebSocket + REST API. Submit workflows, track progress, and retrieve generated images programmatically.
+- **Ollama-Vision-RS**: Vision model integration for Ollama. Send images with prompts for captioning, analysis, and visual Q&A.
+- **AI-Batch-Queue**: Batch processing queue for AI workloads with concurrency control, deduplication, and result caching.
+- **job-queue**: Generic async job queue with SQLite backing, dead-letter handling, and configurable retry policies.
+- **Tauri-React-Hooks**: TypeScript React hooks for Tauri 2 IPC—invoke commands, listen to events, and manage Tauri state with idiomatic React patterns.
+
+## Technical Highlights
+
+- All crates use Tokio for async runtime compatibility
+- SQLite-backed persistence where applicable (rusqlite)
+- Serde-based serialization throughout
+- Comprehensive error types with thiserror
+- Examples and integration tests included per crate
+
+## Technology Stack
+
+- **Language**: Rust 2021 edition
+- **Async Runtime**: Tokio
+- **Serialization**: serde, serde_json, rmp-serde (MessagePack)
+- **Storage**: rusqlite (SQLite)
+- **AI Integration**: Ollama HTTP API, ComfyUI WebSocket API
+- **Desktop**: Tauri 2 plugin system
+
+## Current Status
+
+Stable and actively maintained. All crates are used in production across multiple desktop applications. New crates added as common patterns emerge from ongoing projects.

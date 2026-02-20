@@ -1,0 +1,45 @@
+---
+title: "Gloss"
+date: "2026-02-17"
+summary: "A local-first, privacy-preserving alternative to Google's NotebookLM with RAG-powered chat using local LLM inference via Ollama."
+tags: ["rust", "tauri", "react", "typescript", "ai", "rag", "ollama", "desktop", "privacy"]
+status: "active"
+featured: true
+links:
+  GitHub: "https://github.com/RecursiveIntell/Gloss"
+---
+
+## Overview
+
+Gloss is a local-first desktop application that provides the core experience of Google's NotebookLM without sending your data to the cloud. Add documents to notebooks, build knowledge bases with automatic chunking and vector indexing, and have grounded conversations powered by RAG retrieval and local LLM inference through Ollama.
+
+## Key Features
+
+- **Per-Notebook Knowledge Bases**: Each notebook maintains its own SQLite database with document chunks and HNSW vector index for isolated, focused retrieval.
+- **Hybrid RAG Search**: Combines vector similarity search (HNSW via usearch) with keyword matching for high-quality document retrieval.
+- **Streaming Chat**: Real-time streaming responses from local LLMs with citation links back to source documents.
+- **Automatic Summaries**: Document summaries generated on import to provide quick overviews without reading full content.
+- **Local-First Privacy**: All data stays on your machine. Embeddings computed locally via fastembed, LLM inference via Ollama. Zero cloud dependencies.
+- **Smart Queue Scheduling**: Background processing queue (tauri-queue) handles embedding generation and LLM tasks without blocking the UI.
+- **Document Management**: Import PDFs, text files, and markdown with automatic chunking and metadata extraction.
+
+## Technical Architecture
+
+Gloss uses Tauri 2 for its desktop shell with a React frontend. Each notebook is a self-contained SQLite database containing document content, chunk embeddings (HNSW index via usearch), and chat history. The Rust backend handles document processing, embedding generation (fastembed), vector search, and LLM communication (Ollama HTTP API).
+
+Core components:
+- **Document Processor**: Chunks documents with overlap, generates embeddings via fastembed.
+- **Vector Store**: Per-notebook HNSW index (usearch) with hybrid keyword+semantic search.
+- **Chat Engine**: RAG retrieval pipeline feeding context to Ollama for grounded generation.
+- **Background Queue**: tauri-queue manages async embedding and LLM jobs.
+
+## Technology Stack
+
+- **Desktop Shell**: Tauri 2.0, Rust 2021
+- **Frontend**: React 19, TypeScript 5, Vite 7, Tailwind CSS 4, Zustand 5
+- **Backend**: rusqlite (per-notebook), usearch (HNSW vectors), fastembed (embeddings), Ollama (LLM inference)
+- **Queue**: tauri-queue for background job scheduling
+
+## Current Status
+
+Phase 1 complete with notebook creation, document import, chunking, embedding, vector search, and streaming chat all functional. Phases 2-4 roadmapped covering audio sources, collaborative features, and advanced retrieval strategies.

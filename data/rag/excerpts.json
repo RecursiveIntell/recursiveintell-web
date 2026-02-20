@@ -118,5 +118,69 @@
   {
     "text": "The Audit Log uses a timeline-based design grouped by month with category filtering for features, fixes, content, design, infra, and refactor entries.",
     "category": "site"
+  },
+  {
+    "text": "Built Palisade, a native Linux nftables firewall GUI with split-process D-Bus daemon, safety pipeline, and firewalld compatibility.",
+    "category": "project"
+  },
+  {
+    "text": "Created Hootie, a PyQt6 desktop app for DVD-Audio authoring on Linux.",
+    "category": "project"
+  },
+  {
+    "text": "Developed dvddvd, an Electron app for cross-platform DVD-Audio disc creation.",
+    "category": "project"
+  },
+  {
+    "text": "Built VoxelCraft, a browser-based Minecraft clone with Three.js and chunk-based voxel rendering.",
+    "category": "project"
+  },
+  {
+    "text": "Created Sortarr, a Rust daemon that auto-organizes media into Jellyfin libraries by matching against TMDB, TVDB, and AniList.",
+    "category": "project"
+  },
+  {
+    "text": "Built Gloss, a local-first alternative to NotebookLM with RAG-powered chat using Ollama for private, on-device knowledge management.",
+    "category": "project"
+  },
+  {
+    "text": "Published a collection of 8 Rust crates (agent-graph, LLM-Pipeline, Tauri-Queue, ComfyUI-RS, and more) for building AI-powered desktop apps.",
+    "category": "project"
+  },
+  {
+    "text": "Developed projmind, a Rust CLI daemon that builds a continuously-updated knowledge base about software projects using local LLM analysis.",
+    "category": "project"
+  },
+  {
+    "text": "Created VisionForge, a Tauri 2 app bridging local LLMs with Stable Diffusion through a 5-stage prompt engineering pipeline and AI-powered gallery.",
+    "category": "project"
+  },
+  {
+    "text": "Built ClawGuard, a security analysis platform for AI agent skills with 4 analysis layers, 11 threat categories, and trust scoring.",
+    "category": "project"
+  },
+  {
+    "text": "Developed ops-copilot, an AI-powered Linux ops assistant with 27 tools and safety-first design where writes require approval.",
+    "category": "project"
+  },
+  {
+    "text": "Created torrent-fetch, a self-hosted VPN-protected download service with dual authentication and real-time WebSocket updates.",
+    "category": "project"
+  },
+  {
+    "text": "Built Shannon, an AI-powered pentesting agent with Temporal durable workflows, multi-phase analysis, and OWASP Top 10 coverage.",
+    "category": "project"
+  },
+  {
+    "text": "Proficient in Rust and Tauri 2 for building native desktop applications with web frontends.",
+    "category": "skill"
+  },
+  {
+    "text": "Experience building local-first AI applications using Ollama for privacy-preserving LLM inference.",
+    "category": "skill"
+  },
+  {
+    "text": "Portfolio spans 31 active projects across AI agents, security tools, media apps, developer tools, and games.",
+    "category": "achievement"
   }
 ]

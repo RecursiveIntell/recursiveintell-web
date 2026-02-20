@@ -1,0 +1,44 @@
+---
+title: "ops-copilot"
+date: "2026-02-03"
+summary: "An AI-powered Linux operations assistant with 27 built-in tools for system monitoring, services, networking, and containers."
+tags: ["python", "ai", "ollama", "fastapi", "linux", "devops", "tui", "cli"]
+status: "active"
+---
+
+## Overview
+
+ops-copilot is an AI-powered assistant for Linux system administration that combines local LLM inference (Ollama) with 27 parameterized tools covering system monitoring, service management, networking diagnostics, container operations, and package management. It features a safety-first design where read-only tools auto-execute while write operations require explicit approval.
+
+## Key Features
+
+- **27 Built-In Tools**: Covers system info, process management, service control, network diagnostics, container operations (Docker/Podman), package management (apt/dnf), disk usage, log analysis, and more.
+- **Safety Rails**: Tools are classified as read-only or write. Read-only tools execute automatically; write operations (restart service, install package) require user confirmation before execution.
+- **Dual Interface**: Terminal UI (Textual) for interactive sessions and web UI (FastAPI) for browser-based access.
+- **Audit Logging**: Every tool execution is logged to SQLite with timestamp, tool name, parameters, result, and approval status.
+- **Local LLM**: All reasoning happens on your machine via Ollama—no cloud API keys needed.
+- **Context-Aware**: The agent maintains conversation context to chain related operations (e.g., "check if nginx is running, and if not, start it").
+
+## Technical Architecture
+
+The agent uses a tool-use loop where the LLM selects and parameterizes tools based on user requests. Tool definitions include parameter schemas, safety classification, and execution handlers. The TUI and web UI both connect to the same agent core.
+
+Core components:
+- **Agent Core**: Tool-use loop with Ollama LLM for reasoning and tool selection.
+- **Tool Registry**: 27 tools with typed parameters, safety labels, and execution handlers.
+- **TUI**: Textual-based terminal interface with rich formatting.
+- **Web Server**: FastAPI + WebSocket for browser-based interaction.
+- **Audit Store**: SQLite database logging all operations.
+
+## Technology Stack
+
+- **Language**: Python
+- **AI**: Ollama (local LLM inference)
+- **Web**: FastAPI, uvicorn, WebSocket
+- **TUI**: Textual, prompt-toolkit, Rich
+- **Storage**: SQLite (audit logs)
+- **System**: subprocess, psutil, systemd integration
+
+## Current Status
+
+Feature-complete with all 27 tools operational, dual interfaces working, and audit logging active. Safety classification covers all tools. Currently adding more networking diagnostics and container management capabilities.
