@@ -1,5 +1,149 @@
 [
   {
+    "id": "projects:recall",
+    "title": "Recall",
+    "summary": "A sovereign, local-first personal knowledge workstation. Think with your own data, choose your own model, and see exactly what the system is doing — every read, write, and decision comes with a receipt.",
+    "tags": [
+      "rust",
+      "tauri",
+      "react",
+      "typescript",
+      "sqlite",
+      "ai",
+      "knowledge-base",
+      "desktop",
+      "local-first",
+      "embeddings",
+      "llm"
+    ],
+    "date": "2026-04-02",
+    "type": "projects",
+    "href": "/projects/recall"
+  },
+  {
+    "id": "projects:sortarr",
+    "title": "Sortarr",
+    "summary": "Automated media organization daemon that watches torrent directories, matches against TMDB/TVDB/AniList, and organizes into Jellyfin-compatible libraries.",
+    "tags": [
+      "rust",
+      "react",
+      "typescript",
+      "axum",
+      "sqlite",
+      "media",
+      "jellyfin",
+      "daemon"
+    ],
+    "date": "2026-02-20",
+    "type": "projects",
+    "href": "/projects/sortarr"
+  },
+  {
+    "id": "projects:torrent-fetch",
+    "title": "torrent-fetch",
+    "summary": "A self-hosted, VPN-protected download service with FastAPI backend, web UI, and dual authentication.",
+    "tags": [
+      "python",
+      "fastapi",
+      "vpn",
+      "self-hosted",
+      "web-app"
+    ],
+    "date": "2026-02-19",
+    "type": "projects",
+    "href": "/projects/torrent-fetch"
+  },
+  {
+    "id": "projects:rust-libraries",
+    "title": "Rust Libraries",
+    "summary": "A collection of 8 Rust crates for building AI-powered desktop applications—from agent graphs to GPU job queues.",
+    "tags": [
+      "rust",
+      "tauri",
+      "ai",
+      "ollama",
+      "comfyui",
+      "library",
+      "open-source"
+    ],
+    "date": "2026-02-18",
+    "type": "projects",
+    "href": "/projects/rust-libraries"
+  },
+  {
+    "id": "projects:gloss",
+    "title": "Gloss",
+    "summary": "A local-first, privacy-preserving alternative to Google's NotebookLM with RAG-powered chat using local LLM inference via Ollama.",
+    "tags": [
+      "rust",
+      "tauri",
+      "react",
+      "typescript",
+      "ai",
+      "rag",
+      "ollama",
+      "desktop",
+      "privacy"
+    ],
+    "date": "2026-02-17",
+    "type": "projects",
+    "href": "/projects/gloss"
+  },
+  {
+    "id": "projects:projmind",
+    "title": "projmind",
+    "summary": "A Rust CLI daemon that maintains a continuously-updated knowledge base about your software projects using local LLM analysis.",
+    "tags": [
+      "rust",
+      "ai",
+      "ollama",
+      "cli",
+      "developer-tools",
+      "knowledge-management"
+    ],
+    "date": "2026-02-14",
+    "type": "projects",
+    "href": "/projects/projmind"
+  },
+  {
+    "id": "projects:visionforge",
+    "title": "VisionForge",
+    "summary": "A Tauri 2 desktop app bridging local LLMs with Stable Diffusion through a multi-agent prompt engineering pipeline.",
+    "tags": [
+      "rust",
+      "tauri",
+      "react",
+      "typescript",
+      "ai",
+      "stable-diffusion",
+      "comfyui",
+      "ollama",
+      "desktop",
+      "image-generation"
+    ],
+    "date": "2026-02-12",
+    "type": "projects",
+    "href": "/projects/visionforge"
+  },
+  {
+    "id": "projects:clawguard",
+    "title": "ClawGuard",
+    "summary": "A security analysis platform for AI agent skills that scans for malware, prompt injection, and supply chain risks using multi-layer analysis.",
+    "tags": [
+      "python",
+      "typescript",
+      "security",
+      "ai",
+      "fastapi",
+      "nextjs",
+      "yara",
+      "ast"
+    ],
+    "date": "2026-02-10",
+    "type": "projects",
+    "href": "/projects/clawguard"
+  },
+  {
     "id": "projects:dvddvd",
     "title": "dvddvd",
     "summary": "An Electron desktop app wrapping dvda-author for DVD-Audio creation with a modern React interface.",
@@ -65,6 +209,23 @@
     "date": "2026-02-09",
     "type": "projects",
     "href": "/projects/voxelcraft"
+  },
+  {
+    "id": "projects:shannon",
+    "title": "Shannon",
+    "summary": "An AI-powered penetration testing agent that automates vulnerability assessment with multi-phase analysis and durable workflow orchestration.",
+    "tags": [
+      "typescript",
+      "security",
+      "ai",
+      "docker",
+      "temporal",
+      "agents",
+      "pentesting"
+    ],
+    "date": "2026-02-08",
+    "type": "projects",
+    "href": "/projects/shannon"
   },
   {
     "id": "projects:agent-forge",
@@ -184,6 +345,24 @@
     "date": "2026-02-05",
     "type": "projects",
     "href": "/projects/visiontagger"
+  },
+  {
+    "id": "projects:ops-copilot",
+    "title": "ops-copilot",
+    "summary": "An AI-powered Linux operations assistant with 27 built-in tools for system monitoring, services, networking, and containers.",
+    "tags": [
+      "python",
+      "ai",
+      "ollama",
+      "fastapi",
+      "linux",
+      "devops",
+      "tui",
+      "cli"
+    ],
+    "date": "2026-02-03",
+    "type": "projects",
+    "href": "/projects/ops-copilot"
   },
   {
     "id": "projects:recursiveops",

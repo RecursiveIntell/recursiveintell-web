@@ -1,5 +1,6 @@
 import { Container } from "@/components/Container";
 import { ExcerptTicker } from "@/components/excerpts/ExcerptTicker";
+import { RecallHero } from "@/components/home/RecallHero";
 import { HeroSection } from "@/components/home/HeroSection";
 import { ProjectShowcase } from "@/components/home/ProjectShowcase";
 import { TechStackCloud } from "@/components/home/TechStackCloud";
@@ -19,7 +20,7 @@ export default async function Home() {
   const projects = await getAllContent("projects");
 
   const featuredProjects = projects
-    .filter((p) => p.featured)
+    .filter((p) => p.featured && p.slug !== "recall")
     .map((p) => ({
       title: p.title,
       summary: p.summary,
@@ -45,6 +46,11 @@ export default async function Home() {
       <ExcerptTicker excerpts={excerpts} />
       <div className="py-8">
         <Container>
+          {/* Recall — flagship product hero */}
+          <div className="mb-12">
+            <RecallHero />
+          </div>
+
           <HeroSection featuredProjects={featuredProjects} />
           <ProjectShowcase projects={allProjects} />
           <TechStackCloud tagMap={tagMap} />
