@@ -62,21 +62,29 @@ export function ChatProvider({ children }: ChatProviderProps) {
 
   // Generate session ID on mount
   useEffect(() => {
-    const storedSessionId = sessionStorage.getItem("chat-session-id");
-    if (storedSessionId) {
-      setSessionId(storedSessionId);
-    } else {
-      const newSessionId = `session_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
-      sessionStorage.setItem("chat-session-id", newSessionId);
-      setSessionId(newSessionId);
-    }
+    const id = window.setTimeout(() => {
+      const storedSessionId = sessionStorage.getItem("chat-session-id");
+      if (storedSessionId) {
+        setSessionId(storedSessionId);
+      } else {
+        const newSessionId = `session_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
+        sessionStorage.setItem("chat-session-id", newSessionId);
+        setSessionId(newSessionId);
+      }
+    }, 0);
+
+    return () => window.clearTimeout(id);
   }, []);
 
   // Clear unread count when chat is opened
   useEffect(() => {
-    if (isOpen) {
+    if (!isOpen) return;
+
+    const id = window.setTimeout(() => {
       setUnreadCount(0);
-    }
+    }, 0);
+
+    return () => window.clearTimeout(id);
   }, [isOpen]);
 
   const toggleChat = useCallback(() => {
