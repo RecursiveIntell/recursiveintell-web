@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { DM_Serif_Display, Instrument_Serif, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ChatProvider } from "@/components/chat/ChatProvider";
@@ -8,9 +8,17 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { CommandPalette } from "@/components/CommandPalette";
 import "./globals.css";
 
-const display = Fraunces({
+const display = DM_Serif_Display({
   variable: "--font-display",
   subsets: ["latin"],
+  weight: "400",
+});
+
+const italicSerif = Instrument_Serif({
+  variable: "--font-serif-it",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
 });
 
 const sans = Space_Grotesk({
@@ -28,11 +36,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://recursiveintell.com
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Josh Stevenson | AI Engineer | RecursiveIntell",
-    template: "%s | Josh Stevenson - RecursiveIntell",
+    default: "recursiveintell · Josh Stevenson",
+    template: "%s · recursiveintell",
   },
   description:
-    "Josh Stevenson - AI systems engineer building intelligent, autonomous systems. Portfolio showcasing AI projects, agentic systems, and full-stack development work.",
+    "Josh Stevenson builds quiet machines with loud results: multi-agent orchestration, security tooling, local-first AI, and Linux-first systems.",
   keywords: [
     "Josh Stevenson",
     "AI engineer",
@@ -55,9 +63,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "RecursiveIntell",
-    title: "Josh Stevenson | AI Engineer | RecursiveIntell",
+    title: "recursiveintell · Josh Stevenson",
     description:
-      "AI systems engineer building intelligent, autonomous systems. Portfolio showcasing AI projects, agentic systems, and full-stack development.",
+      "Twelve shipped projects across agents, security tooling, local-first AI, and media systems.",
     images: [
       {
         url: "/images/ai_pic.png",
@@ -69,9 +77,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Josh Stevenson | AI Engineer",
+    title: "recursiveintell · Josh Stevenson",
     description:
-      "AI systems engineer building intelligent, autonomous systems. Portfolio showcasing AI projects, agentic systems, and full-stack development.",
+      "Quiet machines. Loud results. Always shipping.",
     images: ["/images/ai_pic.png"],
   },
   robots: {
@@ -179,7 +187,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${display.variable} ${sans.variable} ${mono.variable} antialiased`}
+        className={`${display.variable} ${italicSerif.variable} ${sans.variable} ${mono.variable} antialiased`}
       >
         <ThemeProvider>
           <ChatProvider>

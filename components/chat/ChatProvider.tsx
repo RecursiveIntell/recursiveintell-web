@@ -160,7 +160,7 @@ export function ChatProvider({ children }: ChatProviderProps) {
                 } else if (data.type === "error") {
                   throw new Error(data.message);
                 }
-              } catch (parseError) {
+              } catch {
                 // Ignore JSON parse errors for incomplete chunks
               }
             }

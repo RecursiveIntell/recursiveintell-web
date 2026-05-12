@@ -36,12 +36,16 @@ export function ChatPanel({ contextualQuestions, pageContext }: ChatPanelProps) 
 
   // Handle pending question from external clicks
   useEffect(() => {
-    if (pendingQuestion) {
-      setInput(pendingQuestion);
+    if (!pendingQuestion) return;
+
+    const question = pendingQuestion;
+    const id = window.setTimeout(() => {
+      setInput(question);
       clearPendingQuestion();
-      // Focus the input so user can see the pre-filled question
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
+      inputRef.current?.focus();
+    }, 0);
+
+    return () => window.clearTimeout(id);
   }, [pendingQuestion, clearPendingQuestion]);
 
   // Auto-scroll to bottom when new messages arrive

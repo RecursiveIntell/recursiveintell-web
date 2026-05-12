@@ -159,7 +159,7 @@ function formatContent(content: string): React.ReactNode[] {
           }
           // Parse citations and links in non-bold parts
           const withLinks = parseMarkdownLinks(part);
-          return withLinks.map((node, nodeIdx) => {
+          return withLinks.map((node) => {
             if (typeof node === "string") {
               return parseCitations(node);
             }
@@ -168,7 +168,7 @@ function formatContent(content: string): React.ReactNode[] {
         });
       } else {
         const withLinks = parseMarkdownLinks(paragraph);
-        processed = withLinks.map((node, nodeIdx) => {
+        processed = withLinks.map((node) => {
           if (typeof node === "string") {
             return parseCitations(node);
           }

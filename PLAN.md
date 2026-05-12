@@ -1,5 +1,7 @@
-# Sprint Plan (Phase 0 + Phase 1)
+# Sprint Plan (Completion Pass)
 
-- Scaffold Next.js App Router + TypeScript + Tailwind + ESLint/Prettier, with base layout and navigation.
-- Add MDX content pipeline with frontmatter validation, content loaders, and build-time index generation.
-- Create Phase 1 routes and starter content for Projects, Lab, Writing, Vault, Now, About.
+- Finish the SemanticTurbo/Roko public portfolio direction without reverting local work.
+- Add static-first missing routes: `/search`, `/gallery`, `/buildlog`, `/private/login`, `/private`, and `/private/admin/gallery`.
+- Keep MDX and generated JSON as the default source of truth for content, search, tags, gallery, and buildlog data.
+- Wire GitHub Actions for CI and scheduled/release buildlog updates.
+- Run `pnpm lint`, `pnpm test`, and `pnpm build` before pushing.

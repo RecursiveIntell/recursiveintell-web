@@ -135,7 +135,7 @@ export async function POST(request: NextRequest) {
             const doneData = JSON.stringify({ type: "done", sessionId });
             controller.enqueue(encoder.encode(`data: ${doneData}\n\n`));
             controller.close();
-          } catch (error) {
+          } catch {
             const errorData = JSON.stringify({
               type: "error",
               message: "An error occurred while generating the response.",

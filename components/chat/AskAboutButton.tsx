@@ -9,7 +9,7 @@ type AskAboutButtonProps = {
   className?: string;
 };
 
-export function AskAboutButton({ title, type, slug, className = "" }: AskAboutButtonProps) {
+export function AskAboutButton({ title, className = "" }: AskAboutButtonProps) {
   const { toggleChat, isOpen, sendMessage } = useChatContext();
 
   const handleClick = () => {

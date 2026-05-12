@@ -1,0 +1,10 @@
+[
+  {
+    "id": "2026-05-11-site-completion-pass",
+    "date": "2026-05-11T19:51:00.000Z",
+    "title": "RecursiveIntell web completion pass",
+    "summary": "Ported the SemanticTurbo benchmark direction into the site roadmap and filled in static-first routes for the public workbench.",
+    "source": "manual",
+    "href": "/buildlog"
+  }
+]

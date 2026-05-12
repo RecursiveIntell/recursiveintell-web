@@ -14,6 +14,7 @@ type SearchEntry = {
   date: string;
   type: ContentType;
   href: string;
+  status?: string;
 };
 
 type TagMapEntry = {
@@ -46,6 +47,7 @@ async function buildIndex() {
         date: item.date,
         type,
         href: contentHref(type, item.slug),
+        status: item.status,
       });
 
       for (const tag of item.tags) {

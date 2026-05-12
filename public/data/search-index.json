@@ -18,7 +18,8 @@
     ],
     "date": "2026-04-02",
     "type": "projects",
-    "href": "/projects/recall"
+    "href": "/projects/recall",
+    "status": "shipping"
   },
   {
     "id": "projects:sortarr",
@@ -36,7 +37,8 @@
     ],
     "date": "2026-02-20",
     "type": "projects",
-    "href": "/projects/sortarr"
+    "href": "/projects/sortarr",
+    "status": "active"
   },
   {
     "id": "projects:torrent-fetch",
@@ -51,7 +53,8 @@
     ],
     "date": "2026-02-19",
     "type": "projects",
-    "href": "/projects/torrent-fetch"
+    "href": "/projects/torrent-fetch",
+    "status": "active"
   },
   {
     "id": "projects:rust-libraries",
@@ -68,7 +71,8 @@
     ],
     "date": "2026-02-18",
     "type": "projects",
-    "href": "/projects/rust-libraries"
+    "href": "/projects/rust-libraries",
+    "status": "active"
   },
   {
     "id": "projects:gloss",
@@ -87,7 +91,8 @@
     ],
     "date": "2026-02-17",
     "type": "projects",
-    "href": "/projects/gloss"
+    "href": "/projects/gloss",
+    "status": "active"
   },
   {
     "id": "projects:projmind",
@@ -103,7 +108,8 @@
     ],
     "date": "2026-02-14",
     "type": "projects",
-    "href": "/projects/projmind"
+    "href": "/projects/projmind",
+    "status": "active"
   },
   {
     "id": "projects:visionforge",
@@ -123,7 +129,8 @@
     ],
     "date": "2026-02-12",
     "type": "projects",
-    "href": "/projects/visionforge"
+    "href": "/projects/visionforge",
+    "status": "active"
   },
   {
     "id": "projects:clawguard",
@@ -141,7 +148,8 @@
     ],
     "date": "2026-02-10",
     "type": "projects",
-    "href": "/projects/clawguard"
+    "href": "/projects/clawguard",
+    "status": "active"
   },
   {
     "id": "projects:dvddvd",
@@ -157,7 +165,8 @@
     ],
     "date": "2026-02-09",
     "type": "projects",
-    "href": "/projects/dvddvd"
+    "href": "/projects/dvddvd",
+    "status": "active"
   },
   {
     "id": "projects:hootie",
@@ -173,7 +182,8 @@
     ],
     "date": "2026-02-09",
     "type": "projects",
-    "href": "/projects/hootie"
+    "href": "/projects/hootie",
+    "status": "active"
   },
   {
     "id": "projects:palisade",
@@ -192,7 +202,8 @@
     ],
     "date": "2026-02-09",
     "type": "projects",
-    "href": "/projects/palisade"
+    "href": "/projects/palisade",
+    "status": "active"
   },
   {
     "id": "projects:voxelcraft",
@@ -208,7 +219,8 @@
     ],
     "date": "2026-02-09",
     "type": "projects",
-    "href": "/projects/voxelcraft"
+    "href": "/projects/voxelcraft",
+    "status": "active"
   },
   {
     "id": "projects:shannon",
@@ -225,7 +237,8 @@
     ],
     "date": "2026-02-08",
     "type": "projects",
-    "href": "/projects/shannon"
+    "href": "/projects/shannon",
+    "status": "active"
   },
   {
     "id": "projects:agent-forge",
@@ -241,7 +254,8 @@
     ],
     "date": "2026-02-05",
     "type": "projects",
-    "href": "/projects/agent-forge"
+    "href": "/projects/agent-forge",
+    "status": "active"
   },
   {
     "id": "projects:codex",
@@ -256,7 +270,8 @@
     ],
     "date": "2026-02-05",
     "type": "projects",
-    "href": "/projects/codex"
+    "href": "/projects/codex",
+    "status": "prototype"
   },
   {
     "id": "projects:llm-config",
@@ -269,7 +284,8 @@
     ],
     "date": "2026-02-05",
     "type": "projects",
-    "href": "/projects/llm-config"
+    "href": "/projects/llm-config",
+    "status": "active"
   },
   {
     "id": "projects:promptkart",
@@ -286,7 +302,8 @@
     ],
     "date": "2026-02-05",
     "type": "projects",
-    "href": "/projects/promptkart"
+    "href": "/projects/promptkart",
+    "status": "active"
   },
   {
     "id": "projects:rokotools",
@@ -300,7 +317,8 @@
     ],
     "date": "2026-02-05",
     "type": "projects",
-    "href": "/projects/rokotools"
+    "href": "/projects/rokotools",
+    "status": "active"
   },
   {
     "id": "projects:socialbacklog",
@@ -315,7 +333,8 @@
     ],
     "date": "2026-02-05",
     "type": "projects",
-    "href": "/projects/socialbacklog"
+    "href": "/projects/socialbacklog",
+    "status": "active"
   },
   {
     "id": "projects:the-lattice",
@@ -329,7 +348,8 @@
     ],
     "date": "2026-02-05",
     "type": "projects",
-    "href": "/projects/the-lattice"
+    "href": "/projects/the-lattice",
+    "status": "active"
   },
   {
     "id": "projects:visiontagger",
@@ -344,7 +364,8 @@
     ],
     "date": "2026-02-05",
     "type": "projects",
-    "href": "/projects/visiontagger"
+    "href": "/projects/visiontagger",
+    "status": "prototype"
   },
   {
     "id": "projects:ops-copilot",
@@ -362,7 +383,8 @@
     ],
     "date": "2026-02-03",
     "type": "projects",
-    "href": "/projects/ops-copilot"
+    "href": "/projects/ops-copilot",
+    "status": "active"
   },
   {
     "id": "projects:recursiveops",
@@ -378,7 +400,8 @@
     ],
     "date": "2026-01-23",
     "type": "projects",
-    "href": "/projects/recursiveops"
+    "href": "/projects/recursiveops",
+    "status": "active"
   },
   {
     "id": "projects:gitdb",
@@ -393,7 +416,8 @@
     ],
     "date": "2026-01-16",
     "type": "projects",
-    "href": "/projects/gitdb"
+    "href": "/projects/gitdb",
+    "status": "active"
   },
   {
     "id": "projects:medicine",
@@ -410,7 +434,8 @@
     ],
     "date": "2026-01-16",
     "type": "projects",
-    "href": "/projects/medicine"
+    "href": "/projects/medicine",
+    "status": "active"
   },
   {
     "id": "projects:director",
@@ -427,7 +452,8 @@
     ],
     "date": "2026-01-09",
     "type": "projects",
-    "href": "/projects/director"
+    "href": "/projects/director",
+    "status": "active"
   },
   {
     "id": "projects:dodger",
@@ -444,7 +470,8 @@
     ],
     "date": "2026-01-01",
     "type": "projects",
-    "href": "/projects/dodger"
+    "href": "/projects/dodger",
+    "status": "active"
   },
   {
     "id": "projects:agent",
@@ -461,7 +488,8 @@
     ],
     "date": "2025-12-30",
     "type": "projects",
-    "href": "/projects/agent"
+    "href": "/projects/agent",
+    "status": "active"
   },
   {
     "id": "projects:aphelion",
@@ -476,7 +504,8 @@
     ],
     "date": "2025-12-14",
     "type": "projects",
-    "href": "/projects/aphelion"
+    "href": "/projects/aphelion",
+    "status": "active"
   },
   {
     "id": "projects:cat-info-app",
@@ -491,7 +520,8 @@
     ],
     "date": "2025-12-10",
     "type": "projects",
-    "href": "/projects/cat-info-app"
+    "href": "/projects/cat-info-app",
+    "status": "active"
   },
   {
     "id": "projects:minesweeper",
@@ -505,7 +535,8 @@
     ],
     "date": "2025-01-14",
     "type": "projects",
-    "href": "/projects/minesweeper"
+    "href": "/projects/minesweeper",
+    "status": "prototype"
   },
   {
     "id": "projects:portal-doctor",
@@ -520,7 +551,8 @@
     ],
     "date": "2024-12-13",
     "type": "projects",
-    "href": "/projects/portal-doctor"
+    "href": "/projects/portal-doctor",
+    "status": "active"
   },
   {
     "id": "lab:latent-queues",
@@ -533,7 +565,8 @@
     ],
     "date": "2024-10-17",
     "type": "lab",
-    "href": "/lab/latent-queues"
+    "href": "/lab/latent-queues",
+    "status": "shipping"
   },
   {
     "id": "writing:quiet-systems",

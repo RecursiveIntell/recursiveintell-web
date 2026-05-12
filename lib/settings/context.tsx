@@ -37,16 +37,20 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   // Load settings from localStorage on mount
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored) as Partial<Settings>;
-        setSettings((prev) => ({ ...prev, ...parsed }));
+    const id = window.setTimeout(() => {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored) as Partial<Settings>;
+          setSettings((prev) => ({ ...prev, ...parsed }));
+        }
+      } catch (e) {
+        console.error("Failed to load settings:", e);
       }
-    } catch (e) {
-      console.error("Failed to load settings:", e);
-    }
-    setIsLoaded(true);
+      setIsLoaded(true);
+    }, 0);
+
+    return () => window.clearTimeout(id);
   }, []);
 
   // Save settings to localStorage when they change

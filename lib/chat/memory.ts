@@ -1,5 +1,3 @@
-import type { BaseMessage, HumanMessage, AIMessage } from "@langchain/core/messages";
-
 type Message = {
   role: "user" | "assistant";
   content: string;

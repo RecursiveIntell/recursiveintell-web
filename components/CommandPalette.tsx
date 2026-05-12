@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import searchIndex from "@/public/data/search-index.json";
 
@@ -50,6 +50,9 @@ const quickActions = [
   { title: "Go to Lab", href: "/lab", type: "navigation" },
   { title: "Go to Writing", href: "/writing", type: "navigation" },
   { title: "Go to Vault", href: "/vault", type: "navigation" },
+  { title: "Go to Gallery", href: "/gallery", type: "navigation" },
+  { title: "Go to Build Log", href: "/buildlog", type: "navigation" },
+  { title: "Search Site", href: "/search", type: "navigation" },
   { title: "Go to About", href: "/about", type: "navigation" },
   { title: "Go to Now", href: "/now", type: "navigation" },
 ];
@@ -62,16 +65,22 @@ export function CommandPalette() {
   const listRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  const filteredResults = query.trim()
-    ? index.filter((item) => {
-        const searchText = `${item.title} ${item.summary} ${item.tags.join(" ")}`.toLowerCase();
-        return searchText.includes(query.toLowerCase());
-      })
-    : [];
+  const allResults = useMemo(() => {
+    if (!query.trim()) {
+      return quickActions.map((a) => ({
+        ...a,
+        id: a.href,
+        summary: "",
+        tags: [],
+        date: "",
+      }));
+    }
 
-  const allResults = query.trim()
-    ? filteredResults
-    : quickActions.map((a) => ({ ...a, id: a.href, summary: "", tags: [], date: "" }));
+    return index.filter((item) => {
+      const searchText = `${item.title} ${item.summary} ${item.tags.join(" ")}`.toLowerCase();
+      return searchText.includes(query.toLowerCase());
+    });
+  }, [query]);
 
   const open = useCallback(() => {
     setIsOpen(true);
@@ -142,10 +151,6 @@ export function CommandPalette() {
   }, [isOpen]);
 
   useEffect(() => {
-    setSelectedIndex(0);
-  }, [query]);
-
-  useEffect(() => {
     if (listRef.current && allResults.length > 0) {
       const selectedElement = listRef.current.children[selectedIndex] as HTMLElement;
       selectedElement?.scrollIntoView({ block: "nearest" });
@@ -189,7 +194,10 @@ export function CommandPalette() {
             ref={inputRef}
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setSelectedIndex(0);
+            }}
             placeholder="Search projects, writing, lab experiments..."
             className="flex-1 bg-transparent py-4 text-[color:var(--color-text)] outline-none placeholder:text-[color:var(--color-muted)]"
             aria-label="Search"

@@ -39,23 +39,29 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const stored = localStorage.getItem("theme") as Theme | null;
-    if (stored && ["light", "dark", "system"].includes(stored)) {
-      setThemeState(stored);
-    }
+    const id = window.setTimeout(() => {
+      const stored = localStorage.getItem("theme") as Theme | null;
+      if (stored && ["light", "dark", "system"].includes(stored)) {
+        setThemeState(stored);
+      }
+      setMounted(true);
+    }, 0);
+    return () => window.clearTimeout(id);
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
 
-    const resolved = theme === "system" ? getSystemTheme() : theme;
-    setResolvedTheme(resolved);
+    const id = window.setTimeout(() => {
+      const resolved = theme === "system" ? getSystemTheme() : theme;
+      setResolvedTheme(resolved);
 
-    const root = document.documentElement;
-    root.classList.remove("light", "dark");
-    root.classList.add(resolved);
-    root.style.colorScheme = resolved;
+      const root = document.documentElement;
+      root.classList.remove("light", "dark");
+      root.classList.add(resolved);
+      root.style.colorScheme = resolved;
+    }, 0);
+    return () => window.clearTimeout(id);
   }, [theme, mounted]);
 
   useEffect(() => {

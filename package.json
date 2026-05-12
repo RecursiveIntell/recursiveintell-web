@@ -7,10 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "tsx tests/smoke.test.ts",
     "content:index": "tsx scripts/build-content-index.ts",
+    "buildlog:update": "tsx scripts/update-buildlog.ts",
     "rag:index": "tsx scripts/index-for-rag.ts",
     "excerpts:generate": "tsx scripts/generate-excerpts.ts",
-    "prebuild": "npm run content:index"
+    "prebuild": "tsx scripts/build-content-index.ts"
   },
   "dependencies": {
     "@keystatic/core": "^0.5.48",

@@ -7,8 +7,8 @@ workbench, with content authored in MDX and published via Git commits.
 ## Local development
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 The app runs at `http://localhost:3000`.
@@ -52,10 +52,17 @@ Build-time indexing generates:
 Run manually:
 
 ```bash
-npm run content:index
+pnpm content:index
 ```
 
-This runs automatically on `npm run build` via `prebuild`.
+This runs automatically on `pnpm build` via `prebuild`.
+
+## Search, gallery, buildlog, and private mode
+
+- `/search` reads `public/data/search-index.json` and supports keyword, type, tag, and status filters.
+- `/gallery` reads `public/data/gallery.json` in static mode. Configure Blob and database env vars before adding dynamic upload behavior.
+- `/buildlog` reads `public/data/buildlog.json`. The `Buildlog` GitHub Action refreshes this JSON on release publish, nightly schedule, or manual dispatch.
+- `/private/*` is protected by middleware when `PRIVATE_ACCESS_PASSWORD` is set. Without it, `/private/login` shows a disabled state.
 
 ## Environment variables
 
@@ -65,3 +72,11 @@ See `.env.example` for optional configuration. No secrets should be committed.
 
 Deploy via GitHub + Vercel. The project is static-first and optimized for Vercel
 build output.
+
+## Quality gates
+
+```bash
+pnpm lint
+pnpm test
+pnpm build
+```
