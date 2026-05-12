@@ -1,5 +1,14 @@
 [
   {
+    "id": "2026-05-12-2ad6bc0",
+    "date": "2026-05-12T10:43:30.204Z",
+    "title": "fix chat provider ci lint",
+    "summary": "Nightly buildlog refresh from GitHub Actions.",
+    "source": "schedule",
+    "href": "https://github.com/RecursiveIntell/recursiveintell-web/commit/2ad6bc052c78875ada4d01db787376080834a3dd",
+    "sha": "2ad6bc052c78875ada4d01db787376080834a3dd"
+  },
+  {
     "id": "2026-05-11-site-completion-pass",
     "date": "2026-05-11T19:51:00.000Z",
     "title": "RecursiveIntell web completion pass",
