@@ -1,186 +1,50 @@
 [
   {
-    "text": "Expert in Python, AI, and multi-agent systems.",
-    "category": "skill"
-  },
-  {
-    "text": "Created Agent Forge to decompose projects into parallel workflows.",
-    "category": "project"
-  },
-  {
-    "text": "Developed a 13-agent system with Agentic Browser for autonomous browsing.",
-    "category": "project"
-  },
-  {
-    "text": "Built Aphelion, an image editor with 48 effects and extensibility.",
-    "category": "project"
-  },
-  {
-    "text": "Designed Cat Info App for fun and informative pet management.",
-    "category": "project"
-  },
-  {
-    "text": "Developed Codex, a lightweight AI chat client for local conversations.",
-    "category": "project"
-  },
-  {
-    "text": "Created Director, a proactive meta-orchestrator for AI systems.",
-    "category": "project"
-  },
-  {
-    "text": "Launched Dodger to unify access to multiple AI chat providers.",
-    "category": "project"
-  },
-  {
-    "text": "Crafted GitDB, a tool for curating GitHub repository showcases.",
-    "category": "project"
-  },
-  {
-    "text": "Shared LLM Config library standardizes AI project configurations.",
-    "category": "skill"
-  },
-  {
-    "text": "Designed Medicine, a system for managing medication schedules.",
-    "category": "project"
-  },
-  {
-    "text": "Recreated Minesweeper with responsive design and various difficulty levels.",
-    "category": "project"
-  },
-  {
-    "text": "Developed Portal Doctor for troubleshooting Linux screen-sharing issues.",
-    "category": "project"
-  },
-  {
-    "text": "Launched PromptKart, a comprehensive prompt engineering suite.",
-    "category": "project"
-  },
-  {
-    "text": "Created RecursiveOps, enhancing server management through automation.",
-    "category": "project"
-  },
-  {
-    "text": "Built RokoTools for efficient browser history processing utilities.",
-    "category": "project"
-  },
-  {
-    "text": "Developed SocialBacklog to turn browser history into actionable tasks.",
-    "category": "project"
-  },
-  {
-    "text": "Explored procedural generation in The Lattice game using Godot.",
-    "category": "project"
-  },
-  {
-    "text": "VisionTagger automatically tags images using local AI technology.",
-    "category": "project"
-  },
-  {
-    "text": "Mapped async backlogs with Latent Queue Maps for clarity.",
-    "category": "project"
-  },
-  {
-    "text": "Published 'Quiet Systems, Loud Results' on internal platform design.",
+    "text": "Building a Rust-first evidence runtime around Recall, Gloss, ClaimLedger, and the RecursiveIntell library workspace.",
     "category": "achievement"
   },
   {
-    "text": "Crafted a structured sprint brief prompt for better planning.",
+    "text": "Recall focuses on daemon authority, runtime truth, typed receipts, doctor reports, and Codex repair packets.",
     "category": "project"
   },
   {
-    "text": "Created Signal Sweep CLI for comprehensive log and trace gathering.",
+    "text": "Gloss is the local-first document workspace for grounded chat, notebook-local storage, and source-linked answers.",
     "category": "project"
   },
   {
-    "text": "Produced a downloadable Launch Checklist for pre-launch validation.",
+    "text": "ClaimLedger compiles source-spanned claims, evidence bundles, support judgments, contradictions, review queues, and testimony exports for Gloss.",
     "category": "project"
   },
   {
-    "text": "Proficient in building desktop applications with PySide6 and Python.",
+    "text": "The Rust Libraries workspace separates canonical crates, satellite utilities, and research-linked quantization work by explicit support boundaries.",
+    "category": "project"
+  },
+  {
+    "text": "Palisade keeps Linux firewall mutation behind a privileged daemon with validation, snapshots, and rollback.",
+    "category": "project"
+  },
+  {
+    "text": "VisionForge connects Ollama and ComfyUI through local prompt engineering, queueing, gallery, and generation-receipt workflows.",
+    "category": "project"
+  },
+  {
+    "text": "Sortarr is a Rust daemon and React UI for self-hosted media organization with review gates and planned rollback receipts.",
+    "category": "project"
+  },
+  {
+    "text": "projmind builds a local project-memory daemon using Rust, git state, tree-sitter extraction, and Ollama analysis.",
+    "category": "project"
+  },
+  {
+    "text": "Core technical focus: Rust, Tauri, Tokio, SQLite, IPC boundaries, receipts, source spans, and local-first runtimes.",
     "category": "skill"
   },
   {
-    "text": "Skilled in developing web applications using React and TypeScript.",
+    "text": "The stack treats claim support, contradiction, quarantine, and testimony as explicit artifacts rather than hidden prose.",
     "category": "skill"
   },
   {
-    "text": "Experience in AI integration across various tools and platforms.",
+    "text": "Quantization work such as turbo-quant and fib-quant stays gated behind local receipt-backed benchmarks and non-claims.",
     "category": "skill"
-  },
-  {
-    "text": "Created innovative tools for enhancing productivity and user experience.",
-    "category": "achievement"
-  },
-  {
-    "text": "The site has a transparent Audit Log at /audit that tracks every feature, fix, design change, infrastructure update, and refactor shipped across the portfolio.",
-    "category": "site"
-  },
-  {
-    "text": "The Audit Log uses a timeline-based design grouped by month with category filtering for features, fixes, content, design, infra, and refactor entries.",
-    "category": "site"
-  },
-  {
-    "text": "Built Palisade, a native Linux nftables firewall GUI with split-process D-Bus daemon, safety pipeline, and firewalld compatibility.",
-    "category": "project"
-  },
-  {
-    "text": "Created Hootie, a PyQt6 desktop app for DVD-Audio authoring on Linux.",
-    "category": "project"
-  },
-  {
-    "text": "Developed dvddvd, an Electron app for cross-platform DVD-Audio disc creation.",
-    "category": "project"
-  },
-  {
-    "text": "Built VoxelCraft, a browser-based Minecraft clone with Three.js and chunk-based voxel rendering.",
-    "category": "project"
-  },
-  {
-    "text": "Created Sortarr, a Rust daemon that auto-organizes media into Jellyfin libraries by matching against TMDB, TVDB, and AniList.",
-    "category": "project"
-  },
-  {
-    "text": "Built Gloss, a local-first alternative to NotebookLM with RAG-powered chat using Ollama for private, on-device knowledge management.",
-    "category": "project"
-  },
-  {
-    "text": "Published a collection of 8 Rust crates (agent-graph, LLM-Pipeline, Tauri-Queue, ComfyUI-RS, and more) for building AI-powered desktop apps.",
-    "category": "project"
-  },
-  {
-    "text": "Developed projmind, a Rust CLI daemon that builds a continuously-updated knowledge base about software projects using local LLM analysis.",
-    "category": "project"
-  },
-  {
-    "text": "Created VisionForge, a Tauri 2 app bridging local LLMs with Stable Diffusion through a 5-stage prompt engineering pipeline and AI-powered gallery.",
-    "category": "project"
-  },
-  {
-    "text": "Built ClawGuard, a security analysis platform for AI agent skills with 4 analysis layers, 11 threat categories, and trust scoring.",
-    "category": "project"
-  },
-  {
-    "text": "Developed ops-copilot, an AI-powered Linux ops assistant with 27 tools and safety-first design where writes require approval.",
-    "category": "project"
-  },
-  {
-    "text": "Created torrent-fetch, a self-hosted VPN-protected download service with dual authentication and real-time WebSocket updates.",
-    "category": "project"
-  },
-  {
-    "text": "Built Shannon, an AI-powered pentesting agent with Temporal durable workflows, multi-phase analysis, and OWASP Top 10 coverage.",
-    "category": "project"
-  },
-  {
-    "text": "Proficient in Rust and Tauri 2 for building native desktop applications with web frontends.",
-    "category": "skill"
-  },
-  {
-    "text": "Experience building local-first AI applications using Ollama for privacy-preserving LLM inference.",
-    "category": "skill"
-  },
-  {
-    "text": "Portfolio spans 31 active projects across AI agents, security tools, media apps, developer tools, and games.",
-    "category": "achievement"
   }
 ]

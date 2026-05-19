@@ -1,202 +1,57 @@
 ---
 title: "Recall"
-date: "2026-04-02"
-summary: "A sovereign, local-first personal knowledge workstation. Think with your own data, choose your own model, and see exactly what the system is doing — every read, write, and decision comes with a receipt."
-tags: ["rust", "tauri", "react", "typescript", "sqlite", "ai", "knowledge-base", "desktop", "local-first", "embeddings", "llm"]
-status: "shipping"
+date: "2026-05-19"
+summary: "An operator-grade local memory and control runtime built around daemon authority, receipts, evidence, and repair handoffs."
+tags: ["rust", "local-first", "memory", "runtime", "evidence", "receipts", "tauri", "sqlite"]
+status: "active"
 featured: true
 links:
   GitHub: "https://github.com/RecursiveIntell/Recall"
-  "Download Linux": "https://github.com/RecursiveIntell/Recall/releases/latest"
-  Docs: "https://github.com/RecursiveIntell/Recall/wiki"
-problem: "AI assistants forget everything between sessions. Chat history is not memory — it's a wall of text. Existing tools lock your data in someone else's cloud, give you no visibility into retrieval decisions, and force you onto a single provider. You can't think clearly with tools that hide what they're doing."
-solution: "Recall is a local-first knowledge cockpit built in Rust and React on Tauri 2. It stores durable, provenance-backed memories in a hybrid SQLite engine (FTS5 + HNSW + RRF), gives you full receipts for every read, write, tool call, and governance decision, and lets you use any LLM provider — Ollama, OpenAI, Anthropic, or OpenRouter. Your data never leaves your machine unless you say so."
-role: "Lead Architect & Solo Developer"
-results:
-  - "37 typed, governance-gated tools — from web research to causal analysis to entity linking"
-  - "Hybrid retrieval engine combining full-text search, semantic HNSW embeddings, and reciprocal rank fusion"
-  - "Zero production panics — thiserror returns, lock recovery, and deterministic behavior across the entire workspace"
-  - "Complete provenance chain — every memory records its source session, caller, write reason, and scope"
-  - "Constitutional governance with human approval gates and 120-second countdown popups for high-risk operations"
-  - "Background daemon with heartbeat monitoring, auto-ingest file watching, and scheduled jobs"
-  - "Multi-provider LLM support with failover cascading and model-level temperature control"
-metrics:
-  - label: "Tools"
-    value: "37"
-  - label: "Rust Crates"
-    value: "7"
-  - label: "Retrieval Modes"
-    value: "3"
-  - label: "LLM Providers"
-    value: "4+"
-  - label: "Panics in Prod"
-    value: "0"
-  - label: "Governance"
-    value: "Constitutional"
 ---
 
-## The Knowledge Workstation You Actually Own
+## Overview
 
-Recall isn't another chat wrapper. It's a **personal knowledge cockpit** — a place where you think with your own data, using whichever model you choose, while seeing exactly what the system is actually doing.
+Recall is the flagship runtime program: a local, evidence-first memory/control system whose differentiator is that it can testify. The goal is not just chat or retrieval. The goal is a system that can explain what happened, which evidence was used, what changed, which tool path executed, what failed, what was verified, and what a repair agent should do next.
 
-Every answer comes with a receipt. Every memory has provenance. Every tool call goes through governance. Nothing is hidden.
+## Current Shape
 
-## Why Recall Exists
+The active workspace is Rust-first and split into dedicated components:
 
-Most AI tools treat memory as an afterthought. They dump chat logs into a flat file and call it "context." They hide retrieval decisions behind a loading spinner. They lock your data into a vendor cloud you can't audit.
+- **recall-session**: session state, provider config, agent policy, scheduler, governance, memory policy, and tests.
+- **recall-daemon**: daemon runtime and IPC authority surface.
+- **recall-app**: desktop/UI surface.
+- **recall-cli**: command-line client.
+- **recall-ingest**: document, chat, and file ingestion.
+- **recall-embedder**: embedding and indexing support.
+- **recall-web**: web/RSS/search support when explicitly enabled.
+- **recall-contracts** and **recall-ipc**: typed contracts and client/daemon boundaries.
 
-Recall takes a different approach: **truth discipline.** Displayed state equals runtime truth. Ordinary user language never crashes internals. The app proves itself through receipts, not promises.
+The authority model is daemon-owned writes. The app and CLI should act as clients, not peer runtimes.
 
-## Architecture
+## Architecture Focus
 
-Recall is built as a **Tauri 2 desktop application** — a Rust backend powering a React frontend, with SQLite as the durable storage engine.
+Recall sits on the same evidence-runtime line as the Rust Libraries work:
 
-### Core Stack
+- episode-first identity
+- execution context as an artifact
+- bitemporal truth
+- query receipts
+- repair records
+- reference interpreters
+- explicit plane ownership
+- Codex packet generation for source-grounded repair passes
 
-| Layer | Technology |
-|-------|-----------|
-| **Runtime** | Rust (edition 2021) + Tokio async |
-| **Desktop Shell** | Tauri 2 with WebKit2GTK |
-| **Frontend** | React 18 + TypeScript + Tailwind CSS 4 + Zustand |
-| **Database** | SQLite 3 with WAL mode |
-| **Embeddings** | FastEmbed (AllMiniLML6V2, 384-dim) |
-| **Hashing** | Blake3 cryptographic digests |
-| **Search** | FTS5 + HNSW + Reciprocal Rank Fusion |
-| **Build** | Cargo workspace (7 crates) + Vite 6 |
+The library stack - semantic-memory, knowledge-runtime, llm-tool-runtime, stack-ids, and verification crates - is the substrate Recall should consume rather than reimplement app-locally.
 
-### The Seven Crates
+## Current Hardening Work
 
-- **recall-app** — Tauri desktop shell, IPC commands, state management, and the React UI
-- **recall-session** — The brain: OODA loop orchestration, governance, memory policy, tool dispatch, and 37 tool implementations
-- **recall-daemon** — Background service with Unix socket IPC, heartbeat scheduling, file watching, and auto-ingest
-- **recall-cli** — Full command-line interface for terminal-native workflows
-- **recall-embedder** — Embedding pipeline with FastEmbed, LLM-based reranking, and health diagnostics
-- **recall-ingest** — Document pipeline supporting PDF, DOCX, Markdown, chat exports, and entity extraction
-- **recall-web** — Multi-provider web search (Brave, Tavily, SearXNG, DuckDuckGo) with SQLite-cached results and RSS/Atom feeds
+Recent audit material focuses on preventing scheduler, plan, and UI-storm classes of bugs before they become user-visible incidents. The main defect families are fail-open durability, whole-state persistence on hot paths, event-driven UI refetch amplification, and incomplete idempotency for child work units.
 
-### Hybrid Retrieval: Three Engines, One Answer
+## Next Gates
 
-Recall doesn't pick a single search strategy. It runs **three in parallel** and fuses the results:
-
-1. **FTS5 Full-Text Search** — Fast keyword matching with SQLite's built-in engine
-2. **HNSW Semantic Search** — 384-dimensional embedding vectors for meaning-based retrieval
-3. **Reciprocal Rank Fusion** — Merges both result sets with score normalization, then applies LLM-based reranking for final ordering
-
-The result: you get answers that are both keyword-precise and semantically rich, with full score breakdowns in every receipt.
-
-## The Tool Surface
-
-Recall ships with **37 typed tools**, each governed by policy and producing machine-readable receipts:
-
-### Knowledge & Memory
-- **Search** / **Explained Search** — Hybrid retrieval with full score transparency
-- **Write** — Durable memory journaling with dedup and provenance
-- **Query Claims** / **Episodes** / **Evidence** — Typed retrieval by knowledge category
-- **Update Belief** / **Correct Belief** — Controlled knowledge mutation with audit trail
-- **Retire Memory** — Graceful deprecation, not deletion
-
-### Research & Analysis
-- **Web Search** — Multi-provider (Brave, Tavily, SearXNG, DDG) with result caching
-- **Web Fetch** / **Web Ingest** — URL content extraction with readability parsing
-- **Web Monitor** — Scheduled change detection for tracked URLs
-- **Research** — Multi-step investigation combining search, fetch, and synthesis
-- **Causal** / **Counterfactual** / **Compare** — Structured analytical reasoning
-- **Summarize** / **Generate Report** — Distillation and reporting from knowledge base
-
-### Entity & Graph
-- **Entity Lookup** / **Link Entities** / **Merge Entities** — Knowledge graph operations
-- **Graph Walk** — Entity neighborhood exploration
-- **Timeline** — Temporal browsing of entity history
-
-### System & Files
-- **File Read** / **File Write** / **File Ingest** — Local filesystem access with governance gates
-- **Shell** — Command execution (approval-gated, never silent)
-- **Export Conversation** / **Export Topic** — Structured data export
-- **Health** / **Verify** — System diagnostics and integrity checks
-
-### Productivity
-- **Daily Digest** — Automated knowledge summaries
-- **Reminder** — Scheduled notifications
-- **Profile** — User preference management
-
-## Governance & Trust
-
-Every tool call in Recall passes through a **constitutional governance layer**:
-
-- **Policy evaluation** happens before execution — not after
-- **High-risk operations** (shell commands, file writes, belief corrections) trigger a **human approval popup** with a 120-second countdown
-- **Governance receipts** record the policy decision, whether enforced or advisory
-- **Scope governance** controls which knowledge domains a query can access
-- **No governance stubs** — real evaluation or nothing; receipts say "unenforced" when governance is off, never pretending to enforce
-
-## Memory That Actually Remembers
-
-Recall's memory system isn't a chat log. It's a **structured knowledge base** with:
-
-- **Intent detection** — Distinguishes explicit "remember this" from auto-capture candidates
-- **Smart deduplication** — Similarity checking prevents knowledge bloat
-- **Full provenance** — Every memory records its source session, caller class, write reason, and scope
-- **Typed memories** — Claims, entities, episodes, evidence, and relations
-- **Temporal queries** — "As-of" retrieval lets you see what the knowledge base looked like at any point in time
-
-## Provider Freedom
-
-Recall doesn't lock you into a single AI provider. Bring your own keys, pick your model:
-
-| Provider | Setup |
-|----------|-------|
-| **Ollama** | Default — runs locally, full model freedom, zero API cost |
-| **OpenAI** | API key in config, access to GPT-4 and beyond |
-| **Anthropic** | Claude models with native tool use support |
-| **OpenRouter** | Unified access to dozens of models through one key |
-| **Custom** | Any Ollama-compatible endpoint |
-
-Failover cascading means if your primary provider is down, Recall automatically tries the next one in your configured chain.
-
-## The Daemon
-
-Recall's background daemon runs as a **Unix socket service**, handling:
-
-- **Heartbeat scheduling** — Monitors, reminders, re-embedding jobs, and web cache eviction
-- **File watching** — Auto-ingest new documents dropped into a watched directory
-- **IPC** — The GUI and CLI connect to the daemon for shared session state
-- **Graceful shutdown** — 5-second scheduler drain, final persistence flush, socket cleanup
-
-## Download & Get Started
-
-Recall runs on **Linux** with plans for macOS and Windows. No cloud account needed — just download, configure your LLM provider, and start building your knowledge base.
-
-### Quick Start
-
-```bash
-# Clone and build from source
-git clone https://github.com/RecursiveIntell/Recall.git
-cd Recall
-
-# Install frontend dependencies
-cd recall-app/ui && npm install && cd ../..
-
-# Launch the desktop app (dev mode)
-cd recall-app && cargo tauri dev
-
-# Or build a release binary
-./gui.sh build
-```
-
-### Configuration
-
-On first launch, Recall creates `~/.recall/config.toml`. Point it at your Ollama instance (or add API keys for other providers) and you're ready to go. Your database lives at `~/.recall/recall.db` — a single SQLite file you fully own.
-
-## What's Next
-
-Recall is under active development. The roadmap includes:
-
-- macOS and Windows desktop builds
-- Projection imports for shared knowledge bases
-- Plugin system for community-built tools
-- Attestation and verification for knowledge integrity
-- Team-oriented governance policies
-
----
-
-*Recall is built by RecursiveIntell. Your data, your models, your receipts.*
+- Enforce daemon as the only write-capable authority.
+- Generate runtime truth from backend state, not model text.
+- Add machine-readable doctor reports.
+- Gate web/current-info answers on actual tool availability.
+- Emit receipts for every material operation.
+- Produce Codex repair packets with source basis, issue matrix, doctor report, receipts, and verification plan.

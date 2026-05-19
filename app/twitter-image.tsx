@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "nodejs";
 
-export const alt = "Josh Stevenson - AI Systems Engineer";
+export const alt = "Josh Stevenson - Rust Evidence Runtime Engineer";
 export const size = {
   width: 1200,
   height: 630,
@@ -72,7 +72,7 @@ export default async function Image() {
             fontWeight: 500,
           }}
         >
-          AI Systems Engineer
+          Rust Evidence Runtime Engineer
         </div>
 
         {/* Tagline */}
@@ -84,7 +84,7 @@ export default async function Image() {
             maxWidth: 800,
           }}
         >
-          Building intelligent, autonomous systems in the open
+          Building local-first evidence runtimes in the open
         </div>
 
         {/* Skills tags */}
@@ -95,7 +95,7 @@ export default async function Image() {
             marginTop: 40,
           }}
         >
-          {["Python", "TypeScript", "LangChain", "RAG", "Agentic AI"].map(
+          {["Rust", "Tauri", "SQLite", "Receipts", "ClaimLedger"].map(
             (skill) => (
               <div
                 key={skill}

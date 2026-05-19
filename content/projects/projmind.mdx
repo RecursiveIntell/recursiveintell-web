@@ -1,43 +1,36 @@
 ---
 title: "projmind"
-date: "2026-02-14"
-summary: "A Rust CLI daemon that maintains a continuously-updated knowledge base about your software projects using local LLM analysis."
-tags: ["rust", "ai", "ollama", "cli", "developer-tools", "knowledge-management"]
+date: "2026-05-19"
+summary: "A Rust CLI daemon that maintains a local knowledge base about software projects using structure scans, git tracking, and Ollama analysis."
+tags: ["rust", "cli", "daemon", "ollama", "tree-sitter", "sqlite", "project-memory"]
 status: "active"
+featured: false
 ---
 
 ## Overview
 
-projmind is a background daemon that watches your project directories, analyzes source code with local LLMs via Ollama, and builds a structured knowledge base capturing each project's intent, architecture, current state, remaining work, and future directions. Think of it as an always-current project brief that understands your code.
+projmind is a Rust CLI daemon for maintaining a continuously updated local knowledge base about software projects. It discovers repositories, scans structure, tracks git state, and can use local LLM analysis through Ollama to summarize intent, architecture, current state, technical debt, and future directions.
 
-## Key Features
+## Core Workflow
 
-- **Continuous Scanning**: Watches project directories for changes and triggers incremental re-analysis via git diff tracking.
-- **Deep LLM Analysis**: Uses tree-sitter for AST parsing combined with Ollama-powered LLM analysis to understand code structure, patterns, and intent.
-- **Knowledge Branching**: Maintains versioned knowledge snapshots so you can compare how a project's understanding evolved over time.
-- **Cross-Project Synergies**: Identifies shared patterns, potential code reuse, and dependency relationships across your entire project portfolio.
-- **Digest Generation**: Produces human-readable project summaries and status reports on demand.
-- **Git-Aware**: Tracks commits and branches to understand what changed and why, linking knowledge updates to specific code changes.
+The deep analysis cascade is:
 
-## Technical Architecture
+1. Scan file structure, git info, dependencies, and tree-sitter API extraction.
+2. Analyze significant source files with local LLM calls.
+3. Synthesize project-level architecture understanding.
+4. Analyze future directions and cross-project synergy.
 
-The daemon runs as a background process, periodically scanning configured project directories. For each project, it builds an AST using tree-sitter, extracts structural information, and feeds it through the LLM-Pipeline crate for semantic analysis. Results are stored in a SQLite knowledge base with full-text search.
+## Capabilities
 
-Core components:
-- **Scanner**: File system watcher with git-aware change detection (gix).
-- **Analyzer**: tree-sitter AST parsing + LLM-Pipeline for semantic understanding.
-- **Knowledge Store**: SQLite database with versioned knowledge entries and FTS5 search.
-- **Digest Engine**: Generates formatted project summaries from the knowledge base.
+- initialize and scan all projects under a workspace root
+- show project health and status
+- ask natural-language questions about projects
+- generate development digests
+- export context for coding agents
+- add manual notes and decisions
+- watch commits through daemon mode
+- explore speculative knowledge branches without touching code
 
-## Technology Stack
+## Dependencies
 
-- **Language**: Rust 2021
-- **CLI**: Clap for command-line interface
-- **Analysis**: tree-sitter (AST), LLM-Pipeline, agent-graph (from Rust Libraries)
-- **Git**: gix for native git operations
-- **Storage**: SQLite with FTS5, job-queue for background processing
-- **LLM**: Ollama for local inference
-
-## Current Status
-
-Active development with scanning, analysis, knowledge storage, and digest generation all functional. Knowledge branching and cross-project synergy detection implemented. Currently refining LLM prompts for deeper architectural understanding.
+projmind is Rust-first and depends on local sibling crates from the Libraries workspace, including `agent-graph`, `LLM-Pipeline`, and `job-queue`.

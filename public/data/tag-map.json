@@ -1,4 +1,46 @@
 {
+  "claimledger": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "evidence": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "claims": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "gloss": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "receipts": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "schemas": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "review-queue": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
   "rust": {
     "count": 7,
     "types": [
@@ -6,139 +48,31 @@
     ]
   },
   "tauri": {
-    "count": 5,
+    "count": 4,
     "types": [
       "projects"
     ]
   },
   "react": {
-    "count": 9,
+    "count": 4,
     "types": [
       "projects"
     ]
   },
   "typescript": {
-    "count": 14,
+    "count": 4,
     "types": [
       "projects"
     ]
   },
   "sqlite": {
-    "count": 2,
-    "types": [
-      "projects"
-    ]
-  },
-  "ai": {
-    "count": 17,
-    "types": [
-      "projects"
-    ]
-  },
-  "knowledge-base": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "desktop": {
-    "count": 15,
-    "types": [
-      "projects"
-    ]
-  },
-  "local-first": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "embeddings": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "llm": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "axum": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "media": {
-    "count": 3,
-    "types": [
-      "projects"
-    ]
-  },
-  "jellyfin": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "daemon": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "python": {
-    "count": 20,
-    "types": [
-      "projects"
-    ]
-  },
-  "fastapi": {
-    "count": 10,
-    "types": [
-      "projects"
-    ]
-  },
-  "vpn": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "self-hosted": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "web-app": {
-    "count": 1,
+    "count": 5,
     "types": [
       "projects"
     ]
   },
   "ollama": {
-    "count": 6,
-    "types": [
-      "projects"
-    ]
-  },
-  "comfyui": {
-    "count": 2,
-    "types": [
-      "projects"
-    ]
-  },
-  "library": {
-    "count": 2,
-    "types": [
-      "projects"
-    ]
-  },
-  "open-source": {
-    "count": 1,
+    "count": 3,
     "types": [
       "projects"
     ]
@@ -149,87 +83,14 @@
       "projects"
     ]
   },
-  "privacy": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "cli": {
-    "count": 4,
-    "types": [
-      "projects",
-      "vault-tools"
-    ]
-  },
-  "developer-tools": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "knowledge-management": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "stable-diffusion": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "image-generation": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "security": {
-    "count": 3,
-    "types": [
-      "projects"
-    ]
-  },
-  "nextjs": {
+  "local-first": {
     "count": 2,
-    "types": [
-      "projects"
-    ]
-  },
-  "yara": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "ast": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "electron": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "audio": {
-    "count": 2,
-    "types": [
-      "projects"
-    ]
-  },
-  "pyqt6": {
-    "count": 1,
     "types": [
       "projects"
     ]
   },
   "linux": {
-    "count": 5,
+    "count": 1,
     "types": [
       "projects"
     ]
@@ -246,181 +107,98 @@
       "projects"
     ]
   },
-  "threejs": {
+  "systemd": {
     "count": 1,
     "types": [
       "projects"
     ]
   },
-  "webgl": {
-    "count": 1,
+  "cli": {
+    "count": 2,
     "types": [
-      "projects"
+      "projects",
+      "vault-tools"
     ]
   },
-  "game": {
+  "daemon": {
     "count": 2,
     "types": [
       "projects"
     ]
   },
-  "voxel": {
+  "tree-sitter": {
     "count": 1,
     "types": [
       "projects"
     ]
   },
-  "web-workers": {
+  "project-memory": {
     "count": 1,
     "types": [
       "projects"
     ]
   },
-  "docker": {
+  "memory": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "runtime": {
     "count": 2,
     "types": [
       "projects"
     ]
   },
-  "temporal": {
+  "library": {
     "count": 1,
     "types": [
       "projects"
     ]
   },
-  "agents": {
-    "count": 4,
-    "types": [
-      "projects"
-    ]
-  },
-  "pentesting": {
+  "semantic-memory": {
     "count": 1,
     "types": [
       "projects"
     ]
   },
-  "pyside6": {
-    "count": 6,
-    "types": [
-      "projects"
-    ]
-  },
-  "tkinter": {
+  "verification": {
     "count": 1,
     "types": [
       "projects"
     ]
   },
-  "langchain": {
-    "count": 4,
-    "types": [
-      "projects"
-    ]
-  },
-  "web": {
-    "count": 7,
-    "types": [
-      "projects"
-    ]
-  },
-  "shell": {
+  "quantization": {
     "count": 1,
     "types": [
       "projects"
     ]
   },
-  "utilities": {
+  "websocket": {
     "count": 1,
     "types": [
       "projects"
     ]
   },
-  "vue": {
+  "media": {
     "count": 1,
     "types": [
       "projects"
     ]
   },
-  "godot": {
+  "jellyfin": {
     "count": 1,
     "types": [
       "projects"
     ]
   },
-  "gdscript": {
+  "comfyui": {
     "count": 1,
     "types": [
       "projects"
     ]
   },
-  "flet": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "devops": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "tui": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "svelte": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "devtools": {
-    "count": 3,
-    "types": [
-      "projects"
-    ]
-  },
-  "healthcare": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "offline-first": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "langgraph": {
-    "count": 2,
-    "types": [
-      "projects"
-    ]
-  },
-  "multi-provider": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "graphics": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "flask": {
-    "count": 2,
-    "types": [
-      "projects"
-    ]
-  },
-  "javascript": {
+  "image-generation": {
     "count": 1,
     "types": [
       "projects"

@@ -1,8 +1,8 @@
 ---
-title: "Rust Libraries"
-date: "2026-02-18"
-summary: "A collection of 8 Rust crates for building AI-powered desktop applications—from agent graphs to GPU job queues."
-tags: ["rust", "tauri", "ai", "ollama", "comfyui", "library", "open-source"]
+title: "RecursiveIntell Rust Libraries"
+date: "2026-05-19"
+summary: "The Rust crate workspace behind the evidence-runtime stack: semantic memory, runtime contracts, verification, queues, schemas, and quantization research."
+tags: ["rust", "library", "runtime", "semantic-memory", "verification", "schemas", "quantization"]
 status: "active"
 featured: true
 links:
@@ -11,36 +11,36 @@ links:
 
 ## Overview
 
-A growing collection of Rust crates extracted from production desktop applications, designed to solve common challenges when building AI-powered tools. Each crate is independent, well-documented, and battle-tested in real applications like Gloss, VisionForge, and Palisade.
+The Rust Libraries workspace is the substrate for Recall, Gloss, AiDENs, and the broader RecursiveIntell evidence-runtime architecture. The current source basis separates canonical crates from satellite utilities and research-linked crates so support claims stay honest.
 
-## Crates
+## Core Rust Stack
 
-- **agent-graph**: A LangGraph-inspired agent orchestration framework for Rust. Define nodes, edges, conditional routing, and state machines for multi-step AI workflows with async execution.
-- **LLM-Pipeline**: Typed prompt pipeline for local LLMs via Ollama. Chain prompts with structured output parsing, retries, and streaming support.
-- **Tauri-Queue**: Background job queue for Tauri 2 apps with SQLite persistence, priority scheduling, retry logic, and progress reporting to the frontend.
-- **ComfyUI-RS**: Rust client for ComfyUI's WebSocket + REST API. Submit workflows, track progress, and retrieve generated images programmatically.
-- **Ollama-Vision-RS**: Vision model integration for Ollama. Send images with prompts for captioning, analysis, and visual Q&A.
-- **AI-Batch-Queue**: Batch processing queue for AI workloads with concurrency control, deduplication, and result caching.
-- **job-queue**: Generic async job queue with SQLite backing, dead-letter handling, and configurable retry policies.
-- **Tauri-React-Hooks**: TypeScript React hooks for Tauri 2 IPC—invoke commands, listen to events, and manage Tauri state with idiomatic React patterns.
+The high-confidence canonical lane includes:
 
-## Technical Highlights
+- **semantic-memory**: projection plane and durable queryable memory substrate.
+- **semantic-memory-forge**: evidence/export authority for truth bundles, envelopes, and verification substrate.
+- **forge-memory-bridge**: deterministic bridge from Forge/export truth to semantic-memory import/projection.
+- **knowledge-runtime**: planning, routing, merge, scoped retrieval, temporal/scope interpretation, and view disclosure.
+- **stack-ids**: shared identifiers, scopes, digests, trace primitives, and replay links.
+- **verification-control**, **verification-policy**, **verification-calibration**, and **verification-adjudication**: governed verification/control decisions.
+- **contract-schema-gen**: schema generation and contract governance.
 
-- All crates use Tokio for async runtime compatibility
-- SQLite-backed persistence where applicable (rusqlite)
-- Serde-based serialization throughout
-- Comprehensive error types with thiserror
-- Examples and integration tests included per crate
+## Promising Or Early Kernel Work
 
-## Technology Stack
+- **llm-tool-runtime**: provider-agnostic tool contracts, dispatch, receipts, route/error taxonomy, and execution provenance.
+- **recursive-kernel-core**: recursive inference schemas and operator contracts.
+- **constraint-compiler**, **kernel-execution**, **kernel-oracles**, and **kernel-conformance**: compiler, execution, oracle, and harness surfaces for recursive kernel behavior.
 
-- **Language**: Rust 2021 edition
-- **Async Runtime**: Tokio
-- **Serialization**: serde, serde_json, rmp-serde (MessagePack)
-- **Storage**: rusqlite (SQLite)
-- **AI Integration**: Ollama HTTP API, ComfyUI WebSocket API
-- **Desktop**: Tauri 2 plugin system
+## Satellite And Utility Crates
 
-## Current Status
+The satellite lane includes `agent-graph`, `job-queue`, `AI-Batch-Queue`, `Tauri-Queue`, `LLM-Pipeline`, `llm-output-parser`, `Ollama-Vision-RS`, `ComfyUI-RS`, parser support, `turbo-quant`, `turbo-semantic`, and `fib-quant`.
 
-Stable and actively maintained. All crates are used in production across multiple desktop applications. New crates added as common patterns emerge from ongoing projects.
+These crates can carry execution lineage into products, but they should not silently become canonical truth authority.
+
+## Research-Linked Quantization
+
+`turbo-quant` implements TurboQuant, PolarQuant, and QJL-style vector quantization experiments. `fib-quant` is an alpha Rust implementation of the paper-core radial-angular vector quantization path from the FibQuant paper. Both are explicitly gated: no default-on compression, no production KV-cache readiness claim, and no benchmark claim without local receipts.
+
+## Boundary Rule
+
+The main failure mode for this workspace is boundary drift. Every crate needs a clear owner plane, write authority, emitted artifact set, and receipt/conformance story.

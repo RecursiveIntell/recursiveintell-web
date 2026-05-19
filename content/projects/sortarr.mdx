@@ -1,43 +1,40 @@
 ---
 title: "Sortarr"
-date: "2026-02-20"
-summary: "Automated media organization daemon that watches torrent directories, matches against TMDB/TVDB/AniList, and organizes into Jellyfin-compatible libraries."
-tags: ["rust", "react", "typescript", "axum", "sqlite", "media", "jellyfin", "daemon"]
+date: "2026-05-19"
+summary: "A Rust daemon and React UI for organizing self-hosted media libraries with metadata matching, dry-run planning, and review gates."
+tags: ["rust", "react", "typescript", "sqlite", "websocket", "media", "jellyfin", "daemon"]
 status: "active"
 featured: true
 ---
 
 ## Overview
 
-Sortarr is a Rust daemon paired with a React web UI that automates the tedious process of organizing downloaded media. It monitors torrent client directories, identifies movies, TV episodes, and anime by matching against TMDB, TVDB, and AniList metadata APIs, then hardlinks files into a clean Jellyfin-compatible library structure with proper NFO metadata.
+Sortarr is a self-hosted media organization daemon for homelab libraries. It watches completed media, identifies movies, TV episodes, and anime, then organizes files into Jellyfin-compatible library structure with metadata output.
 
-## Key Features
+## Architecture
 
-- **Directory Watching**: Monitors torrent download directories for new completions with configurable polling and filesystem events.
-- **Multi-Source Metadata Matching**: Queries TMDB, TVDB, and AniList APIs to identify media, with confidence scoring and manual override for ambiguous matches.
-- **Hardlink Organization**: Uses hardlinks to organize files into Jellyfin's expected folder structure without duplicating disk usage.
-- **NFO Metadata Generation**: Creates Jellyfin-compatible NFO files with rich metadata for each organized item.
-- **Web Dashboard**: React-based UI showing queue status, match results, library statistics, and manual intervention controls.
-- **WebSocket Real-Time Updates**: Live progress streaming from daemon to web UI via WebSocket connections.
-- **Prometheus Metrics**: Built-in metrics endpoint for monitoring throughput, match rates, and error counts.
+The current plan is Rust backend first with a React web UI:
 
-## Technical Architecture
+- Rust daemon and pipeline
+- SQLite persistence
+- parser, matcher, organizer, and NFO writer stages
+- TMDB, TVDB, and AniList matching
+- Jellyfin NFO output
+- WebSocket updates
+- Prometheus-style metrics
+- review queue for low-confidence matches
 
-The daemon is the core process handling file monitoring, metadata resolution, and organization logic. The web UI connects via REST API and WebSocket for real-time status updates. SQLite with WAL mode stores match history, library state, and configuration.
+## Safety Posture
 
-Core components:
-- **File Watcher**: Monitors configured directories for new media files with deduplication.
-- **Metadata Resolver**: Multi-provider matching pipeline with confidence scoring and caching.
-- **Organizer**: Hardlink-based file placement with rollback support.
-- **API Server**: Axum-based REST + WebSocket server for the web dashboard.
+File organization can be destructive or semi-destructive. Sortarr's important next step is to make file changes plan-first:
 
-## Technology Stack
+- `MediaOperationPlanV1`
+- `FileMoveReceiptV1`
+- `RollbackManifestV1`
+- library snapshot before writes
+- dry-run diff before mutation
+- visible confidence and metadata source for every match
 
-- **Backend**: Rust 2021, Axum 0.8+, Tokio, reqwest, SQLite (rusqlite with WAL)
-- **Frontend**: React 18+, TypeScript, Vite, Tailwind CSS
-- **Integration**: TMDB API, TVDB API, AniList GraphQL, Jellyfin NFO format
-- **Monitoring**: Prometheus metrics endpoint, structured logging
+## Current Focus
 
-## Current Status
-
-Active development with core daemon architecture, database schema, and API design complete. File watching, metadata matching, and hardlink organization pipeline functional. Web UI in progress with real-time WebSocket updates.
+Implementation is organized around milestones: core pipeline, metadata, web UI, and polish. The Rust backend owns daemon, parser, matcher, organizer, database, API, and metrics behavior. The frontend owns review, queue, status, and manual intervention surfaces.

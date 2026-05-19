@@ -1,194 +1,45 @@
 [
   {
-    "id": "projects:recall",
-    "title": "Recall",
-    "summary": "A sovereign, local-first personal knowledge workstation. Think with your own data, choose your own model, and see exactly what the system is doing — every read, write, and decision comes with a receipt.",
+    "id": "projects:claimledger",
+    "title": "ClaimLedger",
+    "summary": "A claim and evidence compiler for Gloss Claim Hygiene, producing source-spanned, reviewable, deterministic bundles and testimony objects.",
     "tags": [
-      "rust",
-      "tauri",
-      "react",
-      "typescript",
-      "sqlite",
-      "ai",
-      "knowledge-base",
-      "desktop",
-      "local-first",
-      "embeddings",
-      "llm"
+      "claimledger",
+      "evidence",
+      "claims",
+      "gloss",
+      "receipts",
+      "schemas",
+      "review-queue"
     ],
-    "date": "2026-04-02",
+    "date": "2026-05-19",
     "type": "projects",
-    "href": "/projects/recall",
-    "status": "shipping"
-  },
-  {
-    "id": "projects:sortarr",
-    "title": "Sortarr",
-    "summary": "Automated media organization daemon that watches torrent directories, matches against TMDB/TVDB/AniList, and organizes into Jellyfin-compatible libraries.",
-    "tags": [
-      "rust",
-      "react",
-      "typescript",
-      "axum",
-      "sqlite",
-      "media",
-      "jellyfin",
-      "daemon"
-    ],
-    "date": "2026-02-20",
-    "type": "projects",
-    "href": "/projects/sortarr",
-    "status": "active"
-  },
-  {
-    "id": "projects:torrent-fetch",
-    "title": "torrent-fetch",
-    "summary": "A self-hosted, VPN-protected download service with FastAPI backend, web UI, and dual authentication.",
-    "tags": [
-      "python",
-      "fastapi",
-      "vpn",
-      "self-hosted",
-      "web-app"
-    ],
-    "date": "2026-02-19",
-    "type": "projects",
-    "href": "/projects/torrent-fetch",
-    "status": "active"
-  },
-  {
-    "id": "projects:rust-libraries",
-    "title": "Rust Libraries",
-    "summary": "A collection of 8 Rust crates for building AI-powered desktop applications—from agent graphs to GPU job queues.",
-    "tags": [
-      "rust",
-      "tauri",
-      "ai",
-      "ollama",
-      "comfyui",
-      "library",
-      "open-source"
-    ],
-    "date": "2026-02-18",
-    "type": "projects",
-    "href": "/projects/rust-libraries",
+    "href": "/projects/claimledger",
     "status": "active"
   },
   {
     "id": "projects:gloss",
     "title": "Gloss",
-    "summary": "A local-first, privacy-preserving alternative to Google's NotebookLM with RAG-powered chat using local LLM inference via Ollama.",
+    "summary": "A local-first desktop knowledge application for grounded chat over personal documents, with notebook-local storage and source-linked answers.",
     "tags": [
       "rust",
       "tauri",
       "react",
       "typescript",
-      "ai",
-      "rag",
+      "sqlite",
       "ollama",
-      "desktop",
-      "privacy"
+      "rag",
+      "local-first"
     ],
-    "date": "2026-02-17",
+    "date": "2026-05-19",
     "type": "projects",
     "href": "/projects/gloss",
     "status": "active"
   },
   {
-    "id": "projects:projmind",
-    "title": "projmind",
-    "summary": "A Rust CLI daemon that maintains a continuously-updated knowledge base about your software projects using local LLM analysis.",
-    "tags": [
-      "rust",
-      "ai",
-      "ollama",
-      "cli",
-      "developer-tools",
-      "knowledge-management"
-    ],
-    "date": "2026-02-14",
-    "type": "projects",
-    "href": "/projects/projmind",
-    "status": "active"
-  },
-  {
-    "id": "projects:visionforge",
-    "title": "VisionForge",
-    "summary": "A Tauri 2 desktop app bridging local LLMs with Stable Diffusion through a multi-agent prompt engineering pipeline.",
-    "tags": [
-      "rust",
-      "tauri",
-      "react",
-      "typescript",
-      "ai",
-      "stable-diffusion",
-      "comfyui",
-      "ollama",
-      "desktop",
-      "image-generation"
-    ],
-    "date": "2026-02-12",
-    "type": "projects",
-    "href": "/projects/visionforge",
-    "status": "active"
-  },
-  {
-    "id": "projects:clawguard",
-    "title": "ClawGuard",
-    "summary": "A security analysis platform for AI agent skills that scans for malware, prompt injection, and supply chain risks using multi-layer analysis.",
-    "tags": [
-      "python",
-      "typescript",
-      "security",
-      "ai",
-      "fastapi",
-      "nextjs",
-      "yara",
-      "ast"
-    ],
-    "date": "2026-02-10",
-    "type": "projects",
-    "href": "/projects/clawguard",
-    "status": "active"
-  },
-  {
-    "id": "projects:dvddvd",
-    "title": "dvddvd",
-    "summary": "An Electron desktop app wrapping dvda-author for DVD-Audio creation with a modern React interface.",
-    "tags": [
-      "electron",
-      "react",
-      "typescript",
-      "desktop",
-      "audio",
-      "media"
-    ],
-    "date": "2026-02-09",
-    "type": "projects",
-    "href": "/projects/dvddvd",
-    "status": "active"
-  },
-  {
-    "id": "projects:hootie",
-    "title": "Hootie",
-    "summary": "A desktop GUI for DVD-Audio authoring on Linux—drag-and-drop disc building with format conversion and optical burning.",
-    "tags": [
-      "python",
-      "pyqt6",
-      "desktop",
-      "linux",
-      "audio",
-      "media"
-    ],
-    "date": "2026-02-09",
-    "type": "projects",
-    "href": "/projects/hootie",
-    "status": "active"
-  },
-  {
     "id": "projects:palisade",
     "title": "Palisade",
-    "summary": "A native Linux desktop GUI for managing nftables firewall rules directly—no abstraction layers, no feature loss.",
+    "summary": "A native Linux firewall control surface for nftables with privilege separation, validation, snapshots, and rollback.",
     "tags": [
       "rust",
       "tauri",
@@ -197,361 +48,104 @@
       "linux",
       "nftables",
       "dbus",
-      "security",
-      "desktop"
+      "systemd"
     ],
-    "date": "2026-02-09",
+    "date": "2026-05-19",
     "type": "projects",
     "href": "/projects/palisade",
     "status": "active"
   },
   {
-    "id": "projects:voxelcraft",
-    "title": "VoxelCraft",
-    "summary": "A browser-based Minecraft clone built with Three.js featuring chunk-based voxel rendering, greedy meshing, and procedural terrain.",
+    "id": "projects:projmind",
+    "title": "projmind",
+    "summary": "A Rust CLI daemon that maintains a local knowledge base about software projects using structure scans, git tracking, and Ollama analysis.",
     "tags": [
-      "typescript",
-      "threejs",
-      "webgl",
-      "game",
-      "voxel",
-      "web-workers"
-    ],
-    "date": "2026-02-09",
-    "type": "projects",
-    "href": "/projects/voxelcraft",
-    "status": "active"
-  },
-  {
-    "id": "projects:shannon",
-    "title": "Shannon",
-    "summary": "An AI-powered penetration testing agent that automates vulnerability assessment with multi-phase analysis and durable workflow orchestration.",
-    "tags": [
-      "typescript",
-      "security",
-      "ai",
-      "docker",
-      "temporal",
-      "agents",
-      "pentesting"
-    ],
-    "date": "2026-02-08",
-    "type": "projects",
-    "href": "/projects/shannon",
-    "status": "active"
-  },
-  {
-    "id": "projects:agent-forge",
-    "title": "Agent Forge",
-    "summary": "A multi-agent orchestrator for Claude Code that decomposes projects into parallel agent workstreams.",
-    "tags": [
-      "python",
-      "ai",
-      "agents",
-      "pyside6",
-      "desktop",
-      "cli"
-    ],
-    "date": "2026-02-05",
-    "type": "projects",
-    "href": "/projects/agent-forge",
-    "status": "active"
-  },
-  {
-    "id": "projects:codex",
-    "title": "Codex",
-    "summary": "A lightweight desktop AI chat client built with Tkinter for quick local conversations.",
-    "tags": [
-      "python",
-      "tkinter",
-      "ai",
-      "langchain",
-      "desktop"
-    ],
-    "date": "2026-02-05",
-    "type": "projects",
-    "href": "/projects/codex",
-    "status": "prototype"
-  },
-  {
-    "id": "projects:llm-config",
-    "title": "LLM Config",
-    "summary": "A shared Python library for consistent LLM configuration across projects.",
-    "tags": [
-      "python",
-      "ai",
-      "library"
-    ],
-    "date": "2026-02-05",
-    "type": "projects",
-    "href": "/projects/llm-config",
-    "status": "active"
-  },
-  {
-    "id": "projects:promptkart",
-    "title": "PromptKart",
-    "summary": "A prompt engineering and evaluation suite with tracks, heats, and leaderboards for systematic LLM testing.",
-    "tags": [
-      "python",
-      "typescript",
-      "react",
-      "fastapi",
-      "ai",
-      "docker",
-      "web"
-    ],
-    "date": "2026-02-05",
-    "type": "projects",
-    "href": "/projects/promptkart",
-    "status": "active"
-  },
-  {
-    "id": "projects:rokotools",
-    "title": "RokoTools",
-    "summary": "A collection of small local utilities for browser history processing and system maintenance.",
-    "tags": [
-      "python",
-      "shell",
-      "utilities",
-      "fastapi"
-    ],
-    "date": "2026-02-05",
-    "type": "projects",
-    "href": "/projects/rokotools",
-    "status": "active"
-  },
-  {
-    "id": "projects:socialbacklog",
-    "title": "SocialBacklog",
-    "summary": "A productivity app that transforms browser history into an actionable backlog of things to revisit.",
-    "tags": [
-      "python",
-      "typescript",
-      "vue",
-      "fastapi",
-      "web"
-    ],
-    "date": "2026-02-05",
-    "type": "projects",
-    "href": "/projects/socialbacklog",
-    "status": "active"
-  },
-  {
-    "id": "projects:the-lattice",
-    "title": "The Lattice",
-    "summary": "A game project built in Godot 4.5, exploring procedural generation and interconnected systems.",
-    "tags": [
-      "godot",
-      "gdscript",
-      "game",
-      "desktop"
-    ],
-    "date": "2026-02-05",
-    "type": "projects",
-    "href": "/projects/the-lattice",
-    "status": "active"
-  },
-  {
-    "id": "projects:visiontagger",
-    "title": "VisionTagger",
-    "summary": "A desktop app that uses local AI to automatically tag and rename images based on their content.",
-    "tags": [
-      "python",
-      "flet",
-      "ai",
+      "rust",
+      "cli",
+      "daemon",
       "ollama",
-      "desktop"
+      "tree-sitter",
+      "sqlite",
+      "project-memory"
     ],
-    "date": "2026-02-05",
+    "date": "2026-05-19",
     "type": "projects",
-    "href": "/projects/visiontagger",
-    "status": "prototype"
+    "href": "/projects/projmind",
+    "status": "active"
   },
   {
-    "id": "projects:ops-copilot",
-    "title": "ops-copilot",
-    "summary": "An AI-powered Linux operations assistant with 27 built-in tools for system monitoring, services, networking, and containers.",
+    "id": "projects:recall",
+    "title": "Recall",
+    "summary": "An operator-grade local memory and control runtime built around daemon authority, receipts, evidence, and repair handoffs.",
     "tags": [
-      "python",
-      "ai",
+      "rust",
+      "local-first",
+      "memory",
+      "runtime",
+      "evidence",
+      "receipts",
+      "tauri",
+      "sqlite"
+    ],
+    "date": "2026-05-19",
+    "type": "projects",
+    "href": "/projects/recall",
+    "status": "active"
+  },
+  {
+    "id": "projects:rust-libraries",
+    "title": "RecursiveIntell Rust Libraries",
+    "summary": "The Rust crate workspace behind the evidence-runtime stack: semantic memory, runtime contracts, verification, queues, schemas, and quantization research.",
+    "tags": [
+      "rust",
+      "library",
+      "runtime",
+      "semantic-memory",
+      "verification",
+      "schemas",
+      "quantization"
+    ],
+    "date": "2026-05-19",
+    "type": "projects",
+    "href": "/projects/rust-libraries",
+    "status": "active"
+  },
+  {
+    "id": "projects:sortarr",
+    "title": "Sortarr",
+    "summary": "A Rust daemon and React UI for organizing self-hosted media libraries with metadata matching, dry-run planning, and review gates.",
+    "tags": [
+      "rust",
+      "react",
+      "typescript",
+      "sqlite",
+      "websocket",
+      "media",
+      "jellyfin",
+      "daemon"
+    ],
+    "date": "2026-05-19",
+    "type": "projects",
+    "href": "/projects/sortarr",
+    "status": "active"
+  },
+  {
+    "id": "projects:visionforge",
+    "title": "VisionForge",
+    "summary": "A Tauri 2 app that connects Ollama and ComfyUI through a local prompt-engineering, queue, gallery, and generation-receipt workflow.",
+    "tags": [
+      "rust",
+      "tauri",
+      "react",
+      "typescript",
+      "sqlite",
       "ollama",
-      "fastapi",
-      "linux",
-      "devops",
-      "tui",
-      "cli"
+      "comfyui",
+      "image-generation"
     ],
-    "date": "2026-02-03",
+    "date": "2026-05-19",
     "type": "projects",
-    "href": "/projects/ops-copilot",
-    "status": "active"
-  },
-  {
-    "id": "projects:recursiveops",
-    "title": "RecursiveOps",
-    "summary": "A server management platform that brings clarity to infrastructure through intuitive dashboards and smart automation.",
-    "tags": [
-      "python",
-      "fastapi",
-      "svelte",
-      "typescript",
-      "web",
-      "devtools"
-    ],
-    "date": "2026-01-23",
-    "type": "projects",
-    "href": "/projects/recursiveops",
-    "status": "active"
-  },
-  {
-    "id": "projects:gitdb",
-    "title": "GitDB",
-    "summary": "A GitHub repository showcase tool that curates and presents your best work with smart filtering and metadata enrichment.",
-    "tags": [
-      "typescript",
-      "react",
-      "nextjs",
-      "web",
-      "devtools"
-    ],
-    "date": "2026-01-16",
-    "type": "projects",
-    "href": "/projects/gitdb",
-    "status": "active"
-  },
-  {
-    "id": "projects:medicine",
-    "title": "Medicine",
-    "summary": "A medication management system that helps users track doses, manage refills, and never miss critical medications.",
-    "tags": [
-      "react",
-      "typescript",
-      "fastapi",
-      "python",
-      "web",
-      "healthcare",
-      "offline-first"
-    ],
-    "date": "2026-01-16",
-    "type": "projects",
-    "href": "/projects/medicine",
-    "status": "active"
-  },
-  {
-    "id": "projects:director",
-    "title": "Director",
-    "summary": "A proactive meta-orchestrator that coordinates multiple AI systems and anticipates needs before you ask.",
-    "tags": [
-      "python",
-      "ai",
-      "agents",
-      "langgraph",
-      "fastapi",
-      "pyside6",
-      "desktop"
-    ],
-    "date": "2026-01-09",
-    "type": "projects",
-    "href": "/projects/director",
-    "status": "active"
-  },
-  {
-    "id": "projects:dodger",
-    "title": "Dodger",
-    "summary": "A multi-provider AI chat application that unifies access to leading language models in one elegant interface.",
-    "tags": [
-      "python",
-      "ai",
-      "langchain",
-      "pyside6",
-      "fastapi",
-      "desktop",
-      "multi-provider"
-    ],
-    "date": "2026-01-01",
-    "type": "projects",
-    "href": "/projects/dodger",
-    "status": "active"
-  },
-  {
-    "id": "projects:agent",
-    "title": "Agentic Browser",
-    "summary": "A 13-agent orchestration system that transforms web browsing into an autonomous, AI-driven experience.",
-    "tags": [
-      "python",
-      "ai",
-      "agents",
-      "langgraph",
-      "langchain",
-      "pyside6",
-      "desktop"
-    ],
-    "date": "2025-12-30",
-    "type": "projects",
-    "href": "/projects/agent",
-    "status": "active"
-  },
-  {
-    "id": "projects:aphelion",
-    "title": "Aphelion",
-    "summary": "A professional-grade image editor with 48 effects, 21 tools, and a plugin system for endless extensibility.",
-    "tags": [
-      "python",
-      "pyside6",
-      "desktop",
-      "graphics",
-      "linux"
-    ],
-    "date": "2025-12-14",
-    "type": "projects",
-    "href": "/projects/aphelion",
-    "status": "active"
-  },
-  {
-    "id": "projects:cat-info-app",
-    "title": "Cat Info App",
-    "summary": "A pet tracker with AI-generated memes that makes managing your cat's information surprisingly fun.",
-    "tags": [
-      "python",
-      "flask",
-      "ai",
-      "langchain",
-      "web"
-    ],
-    "date": "2025-12-10",
-    "type": "projects",
-    "href": "/projects/cat-info-app",
-    "status": "active"
-  },
-  {
-    "id": "projects:minesweeper",
-    "title": "Minesweeper",
-    "summary": "A classic Minesweeper clone with multiple difficulty levels and a clean, responsive web interface.",
-    "tags": [
-      "python",
-      "flask",
-      "javascript",
-      "web"
-    ],
-    "date": "2025-01-14",
-    "type": "projects",
-    "href": "/projects/minesweeper",
-    "status": "prototype"
-  },
-  {
-    "id": "projects:portal-doctor",
-    "title": "Portal Doctor",
-    "summary": "A diagnostic tool that helps Linux users troubleshoot Wayland screen-sharing issues with guided fixes.",
-    "tags": [
-      "python",
-      "pyside6",
-      "desktop",
-      "linux",
-      "devtools"
-    ],
-    "date": "2024-12-13",
-    "type": "projects",
-    "href": "/projects/portal-doctor",
+    "href": "/projects/visionforge",
     "status": "active"
   },
   {

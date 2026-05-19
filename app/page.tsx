@@ -28,17 +28,17 @@ export default function Home() {
           <div className="eyebrow">
             <span className="num">01</span>
             <span className="bar" />
-            <span>portfolio · v2026.05 · 12 ronin</span>
+            <span>portfolio · v2026.05 · 8 active surfaces</span>
           </div>
           <h1 className="display" id="home-hero-title">
-            Quiet machines.
+            Evidence runtimes.
             <br />
             <span className="it">Loud results.</span>
             <br />
-            Always shipping. <span className="stamp">v2026.05</span>
+            Always receipt-backed. <span className="stamp">v2026.05</span>
           </h1>
           <p className="lede">
-            <b>Josh Stevenson</b> - independent systems engineer. Twelve serious projects across multi-agent orchestration, security tooling, and local-first AI. Daemons that run for months. GUIs people use every day. The boring scaffolding nobody else wants to write.
+            <b>Josh Stevenson</b> - independent systems engineer focused on Rust-first local runtimes, evidence-aware memory, claim hygiene, and operator-control software. Current public work is Recall, Gloss, ClaimLedger, Palisade, VisionForge, Sortarr, projmind, and the RecursiveIntell Rust Libraries.
           </p>
           <div className="hero-cta">
             <a className="btn-primary" href="#work">
@@ -52,16 +52,16 @@ export default function Home() {
             <span className="s hot">★ for hire</span>
             <span className="s">part-time + contract</span>
             <span className="s">utc-8</span>
-            <span className="s">rust · python · ts</span>
+            <span className="s">rust · tauri · sqlite</span>
             <span className="s">linux first</span>
           </div>
         </div>
 
         <div className="hero-mascot" aria-hidden="true">
           <div className="mascot-bg" />
-          <span className="float-tag t1">shipped 12 · ↯</span>
-          <span className="float-tag t2">no abandoned</span>
-          <span className="float-tag t3">222d uptime</span>
+          <span className="float-tag t1">8 active · ↯</span>
+          <span className="float-tag t2">claim-backed</span>
+          <span className="float-tag t3">local-first</span>
           <span className="float-tag t4">★ open for hire</span>
           <div className="mascot-circle">
             <div className="mascot-ring">
@@ -71,7 +71,7 @@ export default function Home() {
                 </defs>
                 <text>
                   <textPath href="#ringpath" startOffset="0%">
-                    recursiveintell · the dojo · ✦ · shipping in shadows · agents · security · local AI · ✺ · ronin since 2024 ·
+                    recursiveintell · the dojo · ✦ · rust · evidence · receipts · local AI · ✺ · claim hygiene ·
                   </textPath>
                 </text>
               </svg>
@@ -84,36 +84,36 @@ export default function Home() {
       </section>
 
       <div className="marks-strip">
-        <span><strong>12</strong>shipped</span>
+        <span><strong>8</strong>current</span>
         <span className="sep">✦</span>
-        <span><strong>4</strong>schools</span>
+        <span><strong>4</strong>lanes</span>
         <span className="sep">✦</span>
-        <span><strong>3</strong>primary weapons</span>
+        <span><strong>7</strong>rust surfaces</span>
         <span className="sep">✦</span>
-        <span><strong>4</strong>in flight</span>
+        <span><strong>1</strong>claim compiler</span>
         <span className="sep">✦</span>
-        <span><strong>0</strong>abandoned</span>
+        <span><strong>0</strong>stale</span>
       </div>
 
       <div className="section-head" id="now">
         <h2><span className="num">02 · NOW</span>What&apos;s on the <span className="ink-it">bench</span></h2>
         <div className="rail" />
-        <div className="aside">updated may 10</div>
+        <div className="aside">updated may 19</div>
         <div className="peek"><RokoPeek width={88} /></div>
       </div>
       <div className="now-grid">
         <div className="now-cell">
           <h3>this week</h3>
-          <div className="big">Ship <span className="it">Palisade</span> v0.4</div>
-          <div className="sub">Two-PID split for the firewall daemon is landed. Writing migration notes and a screencast.</div>
+          <div className="big">Harden <span className="it">Recall</span> + prove Gloss</div>
+          <div className="sub">Daemon authority, runtime truth, ChatAttemptTraceV1, and ClaimLedger bundle contracts are the current center of gravity.</div>
         </div>
         <div className="now-cell">
           <h3>up next</h3>
           <ul>
-            <li><span className="label">Gloss · multi-corpus search</span><span className="when">~2w</span></li>
-            <li><span className="label">VisionForge · stage 6</span><span className="when">~3w</span></li>
-            <li><span className="label">Director · queue UI</span><span className="when">drafting</span></li>
-            <li><span className="label">Sortarr · anime calendar</span><span className="when">sketched</span></li>
+            <li><span className="label">Gloss · visible token/error/trace proof</span><span className="when">active</span></li>
+            <li><span className="label">ClaimLedger · bundle + testimony export</span><span className="when">active</span></li>
+            <li><span className="label">Recall · daemon authority audit</span><span className="when">active</span></li>
+            <li><span className="label">Libraries · support-lane cleanup</span><span className="when">ongoing</span></li>
           </ul>
         </div>
         <div className="now-cell">
@@ -132,7 +132,7 @@ export default function Home() {
       <div className="section-head" id="work">
         <h2><span className="num">03 · WORK</span>Selected <span className="ink-it">projects</span></h2>
         <div className="rail" />
-        <div className="aside">{projects.length} curated · 19 cut</div>
+        <div className="aside">{projects.length} current · stale work cut</div>
         <div className="peek peek-work"><RokoPeek width={80} flip /></div>
       </div>
 
@@ -196,7 +196,7 @@ export default function Home() {
         <div className="section-head stack-head">
           <h2><span className="num">04 · STACK</span>The <span className="ink-it">kit</span>, in use</h2>
           <div className="rail" />
-          <div className="aside">count = projects shipping it</div>
+          <div className="aside">count = current surfaces using it</div>
         </div>
         <div className="stack-viz">
           {stack.map((item) => (
@@ -206,7 +206,7 @@ export default function Home() {
                 <div className="lbl">{item.name}</div>
               </div>
               <div className="ctx">{item.ctx}</div>
-              <div className="bar" style={{ width: `${(item.n / 8) * 100}%` }} />
+              <div className="bar" style={{ width: `${(item.n / 7) * 100}%` }} />
             </div>
           ))}
         </div>

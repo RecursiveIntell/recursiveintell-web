@@ -8,30 +8,40 @@ export default function NowPage() {
       <PageHeader
         eyebrow="Now"
         title="Current Focus"
-        description="Short-form updates on what is shipping, researching, and refining right now."
+        description="Short-form updates on the Rust runtime, evidence, and claim-hygiene work in motion right now."
       />
       <Container className="py-12">
         <div className="prose">
           <p>
-            The primary focus right now is{" "}
-            <Link href="/projects/palisade"><strong>Palisade</strong></Link>—a
-            native Linux desktop GUI for managing nftables firewall rules
-            directly, with no abstraction layers. Split-process architecture
-            (Rust daemon + Tauri/React GUI), full safety pipeline, and firewalld
-            compatibility shim.
+            The primary focus right now is the Rust evidence-runtime stack:
+            hardening <Link href="/projects/recall"><strong>Recall</strong></Link>,
+            proving <Link href="/projects/gloss"><strong>Gloss</strong></Link>{" "}
+            chat runtime behavior, and connecting{" "}
+            <Link href="/projects/claimledger"><strong>ClaimLedger</strong></Link>{" "}
+            to Gloss as a claim/evidence compiler.
           </p>
           <h2>Active tracks</h2>
           <ul>
             <li>
-              <strong>Palisade</strong> — Polishing the rule editor and safety
-              pipeline for v0.1.0 MVP release. Daemon fully functional, GUI
-              views for rules, traffic, snapshots, and templates operational.
+              <strong>Recall</strong> - enforcing daemon-owned authority,
+              runtime truth, receipts, doctor reports, and repair packet
+              generation.
             </li>
             <li>
-              Shipping a refined project showcase with richer narratives across
-              22 active projects.
+              <strong>Gloss</strong> - proving desktop chat produces visible
+              tokens, visible errors, or durable attempt traces for every
+              prompt.
             </li>
-            <li>Building a vault of prompts and tools that scale daily work.</li>
+            <li>
+              <strong>ClaimLedger</strong> - turning raw claim compilation into
+              source-spanned bundles, support judgments, contradiction records,
+              review queues, and testimony exports for Gloss.
+            </li>
+            <li>
+              <strong>Libraries</strong> - keeping canonical Rust crates,
+              satellite utilities, and quantization research separated by
+              explicit support boundaries.
+            </li>
           </ul>
           <p>
             Want more detail? Browse the{" "}

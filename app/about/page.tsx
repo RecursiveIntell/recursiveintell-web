@@ -4,11 +4,11 @@ import { Container } from "@/components/Container";
 import { PageHeader } from "@/components/PageHeader";
 
 const skills = {
-  languages: ["Python", "TypeScript", "JavaScript", "Rust", "C++", "Java"],
-  ai_ml: ["LangChain", "LangGraph", "OpenAI API", "Anthropic API", "RAG Systems", "Vector Databases", "Embeddings"],
-  frameworks: ["Next.js", "React", "FastAPI", "SvelteKit", "Node.js"],
-  infrastructure: ["Docker", "Linux", "PostgreSQL", "Redis", "Git"],
-  specializations: ["Agentic Systems", "AI Pipelines", "Full-Stack Development", "System Architecture"],
+  languages: ["Rust", "TypeScript"],
+  runtimes: ["Tauri 2", "Tokio", "SQLite", "IPC", "D-Bus", "systemd"],
+  evidence: ["Receipts", "Source spans", "Bitemporal truth", "Review queues", "Testimony exports"],
+  local_ai: ["Ollama", "ComfyUI", "Local embeddings", "Hybrid retrieval", "Generation receipts"],
+  specializations: ["Local-first systems", "Evidence runtimes", "Verification control", "Operator safety boundaries"],
 };
 
 const achievements = [
@@ -35,7 +35,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About"
         title="Josh Stevenson"
-        description="AI systems engineer building intelligent, autonomous systems that ship."
+        description="Rust-focused systems engineer building local-first evidence, memory, and operator-control runtimes."
       />
       <Container className="py-12">
         {/* Hero section with photo and intro */}
@@ -67,18 +67,19 @@ export default function AboutPage() {
           <div className="flex-1">
             <div className="prose prose-lg">
               <p>
-                I&apos;m Josh, a 41-year-old AI systems engineer and builder of autonomous systems.
-                I design, develop, and deploy cutting-edge AI solutions with a focus on agentic
-                architectures&mdash;systems that think and act independently once properly aligned.
+                I&apos;m Josh, a systems engineer focused on Rust-first local runtimes,
+                evidence-aware memory, verification boundaries, and operator-control
+                software that can explain what it did.
               </p>
               <p>
-                This site serves as both my public portfolio and a daily workbench where experiments,
-                systems, and shipping notes live. I believe in working in the open and shipping in
-                reliable bursts.
+                This site is the public surface for RecursiveIntell: Recall, Gloss,
+                Palisade, VisionForge, Sortarr, projmind, the Rust Libraries workspace,
+                and ClaimLedger.
               </p>
               <p>
-                My approach: build thinking systems that don&apos;t need hand-holding, document through
-                code and changelogs, and always ship something real.
+                My approach: keep authority explicit, make material operations
+                receipt-backed, separate canonical crates from satellite utilities,
+                and avoid public claims the code cannot support.
               </p>
             </div>
 
@@ -139,7 +140,7 @@ export default function AboutPage() {
 
         {/* Skills section */}
         <section className="mt-16">
-          <h2 className="text-2xl font-semibold text-[color:var(--color-text)]">Technical Skills</h2>
+          <h2 className="text-2xl font-semibold text-[color:var(--color-text)]">Technical Focus</h2>
           <div className="mt-6 space-y-6">
             {Object.entries(skills).map(([category, items]) => (
               <div key={category}>
@@ -212,10 +213,10 @@ export default function AboutPage() {
           <h2 className="text-2xl font-semibold text-[color:var(--color-text)]">Operating Principles</h2>
           <div className="prose mt-6">
             <ul>
-              <li><strong>Ship in reliable bursts</strong> &mdash; Consistent, focused output beats sporadic heroics.</li>
-              <li><strong>Build autonomous systems</strong> &mdash; Design for independence; systems should think for themselves once aligned.</li>
-              <li><strong>Document through action</strong> &mdash; Changelogs, commits, and working code are the real documentation.</li>
-              <li><strong>Work in the open</strong> &mdash; Share progress, experiments, and learnings publicly.</li>
+              <li><strong>Keep authority explicit</strong> &mdash; Apps, daemons, CLIs, and compilers need clear write boundaries.</li>
+              <li><strong>Make claims reviewable</strong> &mdash; Evidence, support, contradiction, and quarantine state should be visible artifacts.</li>
+              <li><strong>Prefer local-first control</strong> &mdash; User data, models, and system operations should stay local unless deliberately exported.</li>
+              <li><strong>Separate support tiers</strong> &mdash; Canonical crates, satellite utilities, and research prototypes should not make the same claims.</li>
             </ul>
           </div>
         </section>

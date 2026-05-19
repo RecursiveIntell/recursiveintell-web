@@ -28,8 +28,8 @@ export default async function ProjectsPage({ searchParams }: IndexPageProps) {
     <div>
       <PageHeader
         eyebrow="Portfolio"
-        title="Projects"
-        description="Shipping work, active roadmaps, and the systems that power them."
+        title="Current Projects"
+        description="Rust-first systems, local evidence runtimes, and ClaimLedger claim-hygiene work."
       />
       <Container className="py-12">
         <div className="mb-8 flex flex-wrap gap-2">

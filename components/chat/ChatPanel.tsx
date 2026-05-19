@@ -15,10 +15,10 @@ type ChatPanelProps = {
 };
 
 const DEFAULT_QUESTIONS = [
-  "What projects are you working on?",
-  "What technologies do you use most?",
-  "Tell me about your AI projects",
-  "What's RecursiveOps?",
+  "What is the current Rust stack?",
+  "How do Recall and Gloss relate?",
+  "What does ClaimLedger do?",
+  "What are the main evidence-runtime crates?",
 ];
 
 export function ChatPanel({ contextualQuestions, pageContext }: ChatPanelProps) {

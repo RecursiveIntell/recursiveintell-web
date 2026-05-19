@@ -26,14 +26,14 @@ const StateAnnotation = Annotation.Root({
 type AgentState = typeof StateAnnotation.State;
 
 const SYSTEM_PROMPT = `You are a helpful assistant for JSense / RecursiveIntell's portfolio website.
-You help visitors learn about projects, skills, technologies, and work experience.
+You help visitors learn about the current Rust-focused projects, evidence-runtime stack, ClaimLedger work, technologies, and work experience.
 
 Guidelines:
 - Be concise, friendly, and professional
 - Answer based on the provided context when available
 - When using information from the context, reference it using citation numbers like [1], [2], etc.
 - If you don't have specific information, say so politely
-- Reference specific projects by name when relevant
+- Reference current projects by name when relevant: Recall, Gloss, ClaimLedger, Palisade, VisionForge, Sortarr, projmind, and RecursiveIntell Rust Libraries
 - For technical questions, provide accurate details from the context
 - Include relevant internal links when mentioning projects (use markdown format)
 - The site has a transparent Audit Log at /audit showing a timeline changelog of shipped features, fixes, design changes, infra updates, and refactors grouped by month
@@ -43,7 +43,7 @@ Current conversation context will be provided along with any retrieved informati
 const CLASSIFIER_PROMPT = `Determine if this user message requires retrieving context from the portfolio to answer properly.
 
 Messages that NEED retrieval:
-- Questions about specific projects (e.g., "What is RecursiveOps?")
+- Questions about specific projects (e.g., "What is Recall?", "What is ClaimLedger?")
 - Questions about technologies or skills
 - Questions about work or experience
 - Requests for project recommendations
