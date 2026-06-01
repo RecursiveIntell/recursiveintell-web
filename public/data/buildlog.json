@@ -1,5 +1,14 @@
 [
   {
+    "id": "2026-06-01-d07e5df",
+    "date": "2026-06-01T13:48:12.954Z",
+    "title": "chore: add editor settings",
+    "summary": "Nightly buildlog refresh from GitHub Actions.",
+    "source": "schedule",
+    "href": "https://github.com/RecursiveIntell/recursiveintell-web/commit/d07e5df39367681feb1afb5f48294f3f627063df",
+    "sha": "d07e5df39367681feb1afb5f48294f3f627063df"
+  },
+  {
     "id": "2026-05-31-043cc29",
     "date": "2026-05-31T10:25:45.134Z",
     "title": "chore: update buildlog",
