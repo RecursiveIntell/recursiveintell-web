@@ -318,7 +318,7 @@
   <p class="tagline">A <strong>typed knowledge graph</strong> with provenance, bitemporal search, contradiction detection, and 48 MCP tools. Available now as a Rust crate and MCP server. Works with Claude Desktop, Cursor, Hermes, and any MCP-compatible client.</p>
   
   <div class="tldr">
-    <strong>TL;DR —</strong> semantic-memory is a local-first knowledge graph for AI agents. Unlike Zep, MemGPT, or ChatGPT memory, it has provenance on every fact, bitemporal search (it knows what it believed on any date), typed graph edges, contradiction detection, factor graph belief propagation, and RL-trained adaptive retrieval routing. It runs on your machine — no cloud, no API keys, no telemetry. <strong>7,228 facts</strong>, <strong>48 MCP tools</strong>, <strong>15 HTTP endpoints</strong>, <strong>126 MB DB</strong>.
+    <strong>TL;DR —</strong> semantic-memory is a local-first knowledge graph for AI agents. Unlike Zep, MemGPT, or ChatGPT memory, it has provenance on every fact, bitemporal search (it knows what it believed on any date), typed graph edges, contradiction detection, factor graph belief propagation, and RL-trained adaptive retrieval routing. It runs on your machine — no cloud, no API keys, no telemetry. <strong>7,228 facts</strong>, <strong>48 MCP tools</strong>, <strong>17 HTTP endpoints</strong>, <strong>126 MB DB</strong>.
   </div>
   
   <div class="cta-row">
@@ -333,7 +333,7 @@
     <span><strong>15,413</strong> chunks</span>
     <span><strong>877</strong> documents</span>
     <span><strong>48</strong> MCP tools</span>
-    <span><strong>15</strong> HTTP endpoints</span>
+    <span><strong>17</strong> HTTP endpoints</span>
     <span><strong>126 MB</strong> DB</span>
   </div>
 </div>
@@ -357,7 +357,7 @@
       <tr><td>Self-correcting (supersede facts when evidence changes)</td><td class="yes">Yes</td><td class="no">No</td><td class="partial">Self-edit</td><td class="no">No</td><td class="no">No</td></tr>
       <tr><td>Local-first (no cloud, no API keys, no telemetry)</td><td class="yes">Yes</td><td class="no">Cloud</td><td class="partial">Optional</td><td class="no">Cloud</td><td class="no">Cloud</td></tr>
       <tr><td>MCP server (48 tools, works with Claude Desktop, Cursor)</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
-      <tr><td>Auto-management (integrity checks, vacuum, re-embed, reconcile)</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+      <tr><td>Auto-management (integrity, vacuum, re-embed, auto-edge, reconcile)</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
     </tbody>
   </table>
 </section>
@@ -379,6 +379,8 @@
       <li>Topology analysis: finds structural voids (MissingContext, MissingLink, ContradictionGap)</li>
       <li>Lifecycle management: identifies subtraction candidates (low-structuring-score facts safe to forget/compress)</li>
       <li>Auto-management: integrity checks (WAL, FTS, HNSW), vacuum, re-embed, reconcile — all via HTTP</li>
+      <li>Auto-edge: automatically creates entity edges between related facts across namespaces with quality filtering (300+ stopwords, proper nouns only). Runs via cron and session-start primer</li>
+      <li>Discord enrichment: second-order retrieval now returns full fact content and namespace for graph neighbors, not just IDs</li>
     </ul>
     <div class="links">
       <a class="cta cta-primary" href="https://crates.io/crates/semantic-memory">crates.io →</a>
@@ -388,11 +390,11 @@
   
   <div class="feature-block">
     <h3>semantic-memory-mcp (MCP server)</h3>
-    <p>The MCP server wraps the library in 48 tools and 15 HTTP endpoints. It works with Claude Desktop, Cursor, Hermes, and any MCP-compatible client. Tool profile gating (lean / standard / full) keeps the tool list manageable — 34 daily-use tools in lean mode, 14 admin/audit tools hidden until needed.</p>
+    <p>The MCP server wraps the library in 48 tools and 17 HTTP endpoints. It works with Claude Desktop, Cursor, Hermes, and any MCP-compatible client. Tool profile gating (lean / standard / full) keeps the tool list manageable — 34 daily-use tools in lean mode, 14 admin/audit tools hidden until needed.</p>
     <ul>
       <li>34 daily-use tools: search, search_with_routing, get_fact, list_facts, add_fact, update_fact, supersede_fact, add_graph_edge, list_graph_edges, graph_path, get_fact_neighbors, discord_search, community, topology, detect_contradictions, decoder_analyze, factor_graph, verify_claim, create_claim, add_evidence, judge_support, and more</li>
       <li>14 admin/audit tools: reconcile, vacuum, reembed_all, embeddings_are_dirty, get_search_receipt, replay_search_receipt, query_claim_versions, query_relation_versions, query_episodes, query_entity_aliases, query_evidence_refs, import_envelope, import_status, list_imports</li>
-      <li>15 HTTP endpoints: /health, /search, /search-routed (full pipeline: decoder + discord + factor-graph), /discord, /rerank, /stats, /add, /record-outcome (RL feedback), /verify-integrity (real check), /maintenance/check, /maintenance/vacuum, /maintenance/reembed, /maintenance/reconcile, /maintenance/compact-hnsw</li>
+      <li>17 HTTP endpoints: /health, /search, /search-routed (full pipeline: decoder + discord + factor-graph), /discord (with fact content enrichment), /rerank, /stats, /add, /add-edge, /delete-fact (KB hygiene), /record-outcome (RL feedback), /verify-integrity (real check), /maintenance/check, /maintenance/vacuum, /maintenance/reembed, /maintenance/reconcile, /maintenance/compact-hnsw, /maintenance/auto-edge (auto entity edges across namespaces)</li>
       <li>RL routing persistence: every search outcome feeds the adaptive retrieval policy via /record-outcome. The policy is stored in SQLite and loaded on every search_with_routing call</li>
       <li>Claude Code plugin: hooks for auto-recall (pre-LLM), auto-capture (post-LLM), dedup guard (pre-tool), receipts (post-tool), primer (session start), and maintenance (daily cron)</li>
     </ul>
