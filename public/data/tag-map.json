@@ -1,4 +1,56 @@
 {
+  "rust": {
+    "count": 9,
+    "types": [
+      "projects",
+      "lab"
+    ]
+  },
+  "ai": {
+    "count": 2,
+    "types": [
+      "projects",
+      "lab"
+    ]
+  },
+  "agents": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "autonomous": {
+    "count": 2,
+    "types": [
+      "projects",
+      "lab"
+    ]
+  },
+  "knowledge-graph": {
+    "count": 2,
+    "types": [
+      "projects",
+      "lab"
+    ]
+  },
+  "semantic-memory": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "local-first": {
+    "count": 3,
+    "types": [
+      "projects"
+    ]
+  },
+  "provenance": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
   "claimledger": {
     "count": 1,
     "types": [
@@ -41,12 +93,6 @@
       "projects"
     ]
   },
-  "rust": {
-    "count": 7,
-    "types": [
-      "projects"
-    ]
-  },
   "tauri": {
     "count": 4,
     "types": [
@@ -79,12 +125,6 @@
   },
   "rag": {
     "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "local-first": {
-    "count": 2,
     "types": [
       "projects"
     ]
@@ -156,12 +196,6 @@
       "projects"
     ]
   },
-  "semantic-memory": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
   "verification": {
     "count": 1,
     "types": [
@@ -202,6 +236,12 @@
     "count": 1,
     "types": [
       "projects"
+    ]
+  },
+  "demo": {
+    "count": 1,
+    "types": [
+      "lab"
     ]
   },
   "systems": {

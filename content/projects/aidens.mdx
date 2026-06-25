@@ -1,0 +1,66 @@
+---
+title: "AiDENs"
+date: "2026-06-25"
+summary: "A closed-loop self-learning AI that audits its own knowledge graph, detects gaps, generates tasks, executes them via LLM, and captures results as provenance-attributed facts — all local-first, all autonomous."
+tags: ["rust", "ai", "agents", "autonomous", "knowledge-graph", "semantic-memory", "local-first", "provenance"]
+status: "active"
+featured: true
+links:
+  GitHub: "https://github.com/RecursiveIntell/AiDENs"
+  Demo: "/labs/aidens-closed-loop"
+---
+
+## Overview
+
+AiDENs is a closed-loop self-learning AI system built in Rust. It runs autonomously without human intervention, introspecting its own typed knowledge graph to find structural and content-level gaps, generating prioritized tasks to fill them, executing those tasks via a local LLM (Ollama), capturing the results as provenance-attributed facts with graph edges, evaluating fact quality through a governance gate, and recording RL routing feedback for adaptive retrieval.
+
+The system combines 56K LOC across 36 crates with 668 tests (506 core + 162 autonomous). It runs entirely local-first — the only external cost is the LLM model (local Ollama or cloud models proxied through it).
+
+## The Closed Loop
+
+Each cycle of the autonomous loop:
+
+1. **Detect** — Scans the knowledge graph for gaps via 8 mission types (contradictions, stale facts, missing context, duplicates, file reference verification, codebase sync, provenance tracing, namespace completeness)
+2. **Generate** — Converts detected gaps into prioritized JobV1 entries with idempotency keys, enqueued to a durable queue with leases
+3. **Execute** — Dequeues jobs, builds a PlanActVerifyLoopV1 with persistent memory, sends the prompt to the LLM via Ollama
+4. **Capture** — Extracts individual factual statements from the model's response, adds each as a new fact to semantic-memory with source attribution and graph edges
+5. **Evaluate** — Scores each captured fact on content quality (numbers, dates, proper nouns, technical terms, coherence) — promotes high-quality facts, quarantines medium, rejects low
+6. **Feedback** — Records RL routing outcome via /record-outcome for adaptive retrieval learning
+
+## Mission System
+
+Eight high-ROI mission types with adaptive priority scheduling. Missions that find 0 issues get lowered priority; missions that find issues reset to base priority.
+
+- **VerifyPublishedCrates** (0.9) — Check if facts about crate versions match current state
+- **DetectContradictions** (0.85) — Find pairs of facts with conflicting claims
+- **VerifyFileReferences** (0.8) — Check if file paths mentioned in facts still exist
+- **VerifyCodebaseSync** (0.75) — Check if facts about codebase metrics are still accurate
+- **TraceProvenanceChains** (0.7) — Verify source attributions still exist and support claims
+- **StaleDateDetection** (0.65) — Find facts referencing dates more than 6 months old
+- **FindDuplicates** (0.6) — Find facts with high content overlap across namespaces
+- **AuditNamespaceCompleteness** (0.5) — Check each namespace for graph connectivity
+
+## What Doesn't Exist Elsewhere
+
+No single system, and no combination of systems, provides this combination. The closest neighbors:
+
+- **Zep/Graphiti** — Has a temporal knowledge graph but is a passive memory backend (no autonomous loop, no gap detection, no provenance, no evaluation gate)
+- **Letta/MemGPT** — Has self-editing memory but reactive (during conversation), not autonomous. No typed graph, no gap detection, no evaluation gate
+- **AutoGPT** — Has autonomous loops but creates tasks from user goals, not from KB introspection. No persistent knowledge graph, no gap detection, no provenance
+- **MemRL** — Academic concept for RL memory evolution. Not implemented. Much narrower scope
+
+The novelty is in the combination: autonomous KB gap detection + typed knowledge graph with provenance + closed loop with evaluation gate + mission system + RL routing feedback + durable queue with safe mode + local-first operation.
+
+## Technical Architecture
+
+- **semantic-memory** — The knowledge graph: 7000+ facts, typed edges (semantic/temporal/causal/entity), bitemporal search, contradiction detection, factor graph belief propagation, 48 MCP tools, 15 HTTP endpoints, RL routing
+- **aidens-autonomous** — The closed-loop brain: gap detector (7 gap types), mission system (8 mission types), executor (PlanActVerifyLoopV1 with Ollama), capture (sentence-level extraction), evaluation (content quality scoring), loop driver (safe mode, attempted gaps tracking)
+- **aidens-tui** — Terminal UI with 4 panels: memory stats, loop state, queue, activity log
+
+## Provenance First
+
+Every fact the system learns has source attribution, confidence, and a receipt. The system is bitemporal — it knows what it believed on date X and can trace how its beliefs changed. It can supersede its own beliefs when it finds better evidence. It checks its own DB health before acting.
+
+## Live Demo
+
+A [live demo page](/labs/aidens-closed-loop) shows the system in action with real metrics, captured facts, and the comparison table against other systems.

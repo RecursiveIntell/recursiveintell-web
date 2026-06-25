@@ -1,5 +1,24 @@
 [
   {
+    "id": "projects:aidens",
+    "title": "AiDENs",
+    "summary": "A closed-loop self-learning AI that audits its own knowledge graph, detects gaps, generates tasks, executes them via LLM, and captures results as provenance-attributed facts — all local-first, all autonomous.",
+    "tags": [
+      "rust",
+      "ai",
+      "agents",
+      "autonomous",
+      "knowledge-graph",
+      "semantic-memory",
+      "local-first",
+      "provenance"
+    ],
+    "date": "2026-06-25",
+    "type": "projects",
+    "href": "/projects/aidens",
+    "status": "active"
+  },
+  {
     "id": "projects:claimledger",
     "title": "ClaimLedger",
     "summary": "A claim and evidence compiler for Gloss Claim Hygiene, producing source-spanned, reviewable, deterministic bundles and testimony objects.",
@@ -146,6 +165,22 @@
     "date": "2026-05-19",
     "type": "projects",
     "href": "/projects/visionforge",
+    "status": "active"
+  },
+  {
+    "id": "lab:aidens-closed-loop",
+    "title": "AiDENs Closed-Loop Demo",
+    "summary": "Live demo of the closed-loop self-learning AI system showing real metrics, captured facts, and architecture.",
+    "tags": [
+      "ai",
+      "autonomous",
+      "rust",
+      "knowledge-graph",
+      "demo"
+    ],
+    "date": "2026-06-25",
+    "type": "lab",
+    "href": "/lab/aidens-closed-loop",
     "status": "active"
   },
   {
