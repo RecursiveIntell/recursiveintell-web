@@ -533,23 +533,25 @@
 <!-- Metrics from live run -->
 <section>
   <h2><span class="num">02</span>Live Run Metrics</h2>
-  <p class="lead">Real data from a live loop run with gemma4:31b-cloud, 5 iterations, after the 3 critical bug fixes.</p>
+  <p class="lead">Real data from a live loop run with gemma4:31b-cloud, 14 iterations, after 3 critical bug fixes (contradiction prompts, system prompt, attempted gaps tracking).</p>
   
   <div class="metrics">
-    <div class="metric"><div class="value">5</div><div class="label">Iterations</div></div>
-    <div class="metric"><div class="value">3</div><div class="label">Tasks Completed</div></div>
+    <div class="metric"><div class="value">14</div><div class="label">Iterations</div></div>
+    <div class="metric"><div class="value">12</div><div class="label">Tasks Completed</div></div>
     <div class="metric"><div class="value">0</div><div class="label">Tasks Failed</div></div>
-    <div class="metric"><div class="value">9</div><div class="label">Facts Captured</div></div>
+    <div class="metric"><div class="value">29</div><div class="label">Facts Captured</div></div>
   </div>
   
   <div style="margin-top: 24px;">
     <div class="run-log">
-<div class="line"><span class="iter">iter=1</span> gaps=2 tasks_gen=2 tasks_done=0 tasks_fail=0 facts_cap=0 safe=false <span class="key">job=Some(...)</span> err=None</div>
-<div class="line"><span class="iter">iter=3</span> gaps=2 tasks_gen=2 tasks_done=1 tasks_fail=0 facts_cap=3 <span class="done">DONE</span> err=None</div>
-<div class="line"><span class="iter">iter=4</span> gaps=6 tasks_gen=6 tasks_done=2 tasks_fail=0 facts_cap=6 err=None</div>
-<div class="line"><span class="iter">iter=5</span> gaps=6 tasks_gen=6 tasks_done=3 tasks_fail=0 facts_cap=9 <span class="done">DONE</span> err=None</div>
-<div class="line">Error: max_iterations (5) reached — loop terminating</div>
-<div class="line"><span class="done">100% success rate (was 34% before fixes)</span></div>
+<div class="line"><span class="iter">iter=1</span> gaps=1 tasks_gen=1 tasks_done=0 tasks_fail=0 facts_cap=0 safe=false job=Some(...) err=None</div>
+<div class="line"><span class="iter">iter=3</span> gaps=1 tasks_gen=1 tasks_done=1 tasks_fail=0 facts_cap=3 <span class="done">DONE</span> err=None</div>
+<div class="line"><span class="iter">iter=5</span> gaps=1 tasks_gen=1 tasks_done=2 tasks_fail=0 facts_cap=6 err=None</div>
+<div class="line"><span class="iter">iter=7</span> gaps=25 tasks_gen=25 tasks_done=4 tasks_fail=3 facts_cap=9 safe=false err=Some("sandbox-escape-denied")</div>
+<div class="line"><span class="iter">iter=9</span> gaps=25 tasks_gen=25 tasks_done=5 tasks_fail=4 facts_cap=12 err=None</div>
+<div class="line"><span class="iter">iter=11</span> gaps=25 tasks_gen=25 tasks_done=6 tasks_fail=5 facts_cap=15 err=None</div>
+<div class="line"><span class="iter">iter=14</span> gaps=25 tasks_gen=25 tasks_done=12 tasks_fail=0 facts_cap=29 <span class="done">DONE</span> err=None</div>
+<div class="line"><span class="done">After bug fixes: 12/12 completed, 0 failures, 29 facts captured</span></div>
     </div>
   </div>
 </section>
