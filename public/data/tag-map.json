@@ -20,10 +20,9 @@
     ]
   },
   "autonomous": {
-    "count": 2,
+    "count": 1,
     "types": [
-      "projects",
-      "lab"
+      "projects"
     ]
   },
   "knowledge-graph": {
@@ -40,9 +39,10 @@
     ]
   },
   "local-first": {
-    "count": 3,
+    "count": 4,
     "types": [
-      "projects"
+      "projects",
+      "lab"
     ]
   },
   "provenance": {
@@ -179,9 +179,10 @@
     ]
   },
   "memory": {
-    "count": 1,
+    "count": 2,
     "types": [
-      "projects"
+      "projects",
+      "lab"
     ]
   },
   "runtime": {
@@ -238,7 +239,7 @@
       "projects"
     ]
   },
-  "demo": {
+  "mcp": {
     "count": 1,
     "types": [
       "lab"

@@ -1,27 +1,27 @@
 ---
-title: "AiDENs Closed-Loop Demo"
+title: "semantic-memory MCP Server"
 date: "2026-06-25"
-summary: "Live demo of the closed-loop self-learning AI system showing real metrics, captured facts, and architecture."
-tags: ["ai", "autonomous", "rust", "knowledge-graph", "demo"]
+summary: "A typed knowledge graph with provenance, bitemporal search, contradiction detection, and 48 MCP tools. Available now on crates.io."
+tags: ["ai", "memory", "rust", "knowledge-graph", "mcp", "local-first"]
 status: "active"
 ---
 
 ## Overview
 
-This is a live, interactive demo page for the AiDENs closed-loop self-learning AI system. It shows real metrics from a live loop run with gemma4:31b-cloud, captured facts from the autonomous namespace, the 8 mission types, and an honest comparison against other systems.
+semantic-memory is a local-first knowledge graph for AI agents. It's the memory system that powers the AiDENs autonomous loop, but it works standalone as an MCP server with any compatible client (Claude Desktop, Cursor, Hermes).
 
-## The Demo
+Unlike Zep, MemGPT, or ChatGPT memory, it has provenance on every fact, bitemporal search (it knows what it believed on any date), typed graph edges, contradiction detection, factor graph belief propagation, and RL-trained adaptive retrieval routing.
 
-The demo page is a self-contained HTML file with embedded CSS — no external dependencies. It shows:
+## What's on the demo page
 
-- Live KB metrics (7,228 facts, 15,413 chunks, 877 documents)
-- The closed loop diagram (6 steps: Detect to Generate to Execute to Capture to Evaluate to Feedback)
-- Live run metrics (100% task success rate after bug fixes, 12/12 completed, 0 failures)
+The [demo page](/aidens-demo.html) covers:
+
+- Feature comparison table (10 features vs Zep, MemGPT, Mem0, ChatGPT Memory)
+- How it works: the library + the MCP server (48 tools, 15 HTTP endpoints)
+- Install and configure: step-by-step for Claude Desktop and Cursor
+- Tool profiles: lean (34 tools) / standard (45) / full (48)
+- What happens when you close the loop: AiDENs metrics (14 iterations, 12/12 completed, 29 facts captured)
 - Real captured facts from the autonomous namespace
-- All 8 mission cards with priorities and frequencies
-- Comparison table vs Zep/Graphiti, Letta/MemGPT, AutoGPT, MemRL
-- Architecture section with the 3 main crates
-- Quickstart guide to run the system locally
-- Links to semantic-memory crate and MCP server on crates.io
+- Links to all crates on crates.io
 
-[View the full interactive demo](/aidens-demo.html)
+[View the full demo](/aidens-demo.html)

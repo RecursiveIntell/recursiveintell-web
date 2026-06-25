@@ -169,14 +169,15 @@
   },
   {
     "id": "lab:aidens-closed-loop",
-    "title": "AiDENs Closed-Loop Demo",
-    "summary": "Live demo of the closed-loop self-learning AI system showing real metrics, captured facts, and architecture.",
+    "title": "semantic-memory MCP Server",
+    "summary": "A typed knowledge graph with provenance, bitemporal search, contradiction detection, and 48 MCP tools. Available now on crates.io.",
     "tags": [
       "ai",
-      "autonomous",
+      "memory",
       "rust",
       "knowledge-graph",
-      "demo"
+      "mcp",
+      "local-first"
     ],
     "date": "2026-06-25",
     "type": "lab",
