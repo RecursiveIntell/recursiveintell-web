@@ -154,10 +154,9 @@
     ]
   },
   "cli": {
-    "count": 2,
+    "count": 1,
     "types": [
-      "projects",
-      "vault-tools"
+      "projects"
     ]
   },
   "daemon": {
@@ -243,72 +242,6 @@
     "count": 1,
     "types": [
       "lab"
-    ]
-  },
-  "systems": {
-    "count": 1,
-    "types": [
-      "lab"
-    ]
-  },
-  "queues": {
-    "count": 1,
-    "types": [
-      "lab"
-    ]
-  },
-  "ux": {
-    "count": 1,
-    "types": [
-      "lab"
-    ]
-  },
-  "platform": {
-    "count": 1,
-    "types": [
-      "writing"
-    ]
-  },
-  "leadership": {
-    "count": 1,
-    "types": [
-      "writing"
-    ]
-  },
-  "craft": {
-    "count": 1,
-    "types": [
-      "writing"
-    ]
-  },
-  "prompt": {
-    "count": 1,
-    "types": [
-      "vault-prompts"
-    ]
-  },
-  "planning": {
-    "count": 1,
-    "types": [
-      "vault-prompts"
-    ]
-  },
-  "tooling": {
-    "count": 1,
-    "types": [
-      "vault-tools"
-    ]
-  },
-  "checklist": {
-    "count": 1,
-    "types": [
-      "vault-downloads"
-    ]
-  },
-  "release": {
-    "count": 1,
-    "types": [
-      "vault-downloads"
     ]
   }
 }

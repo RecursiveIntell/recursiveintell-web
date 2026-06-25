@@ -28,17 +28,17 @@ export default function Home() {
           <div className="eyebrow">
             <span className="num">01</span>
             <span className="bar" />
-            <span>portfolio · v2026.05 · 8 active surfaces</span>
+            <span>portfolio · v2026.06 · 9 active surfaces</span>
           </div>
           <h1 className="display" id="home-hero-title">
             Evidence runtimes.
             <br />
             <span className="it">Loud results.</span>
             <br />
-            Always receipt-backed. <span className="stamp">v2026.05</span>
+            Always receipt-backed. <span className="stamp">v2026.06</span>
           </h1>
           <p className="lede">
-            <b>Josh Stevenson</b> - independent systems engineer focused on Rust-first local runtimes, evidence-aware memory, claim hygiene, and operator-control software. Current public work is Recall, Gloss, ClaimLedger, Palisade, VisionForge, Sortarr, projmind, and the RecursiveIntell Rust Libraries.
+            <b>Josh Stevenson</b> - independent systems engineer focused on Rust-first local runtimes, evidence-aware memory, claim hygiene, and operator-control software. Current public work is Recall, Gloss, ClaimLedger, Palisade, VisionForge, Sortarr, projmind, AiDENs, and the RecursiveIntell Rust Libraries.
           </p>
           <div className="hero-cta">
             <a className="btn-primary" href="#work">
@@ -59,7 +59,7 @@ export default function Home() {
 
         <div className="hero-mascot" aria-hidden="true">
           <div className="mascot-bg" />
-          <span className="float-tag t1">8 active · ↯</span>
+          <span className="float-tag t1">9 active · ↯</span>
           <span className="float-tag t2">claim-backed</span>
           <span className="float-tag t3">local-first</span>
           <span className="float-tag t4">★ open for hire</span>
@@ -84,11 +84,11 @@ export default function Home() {
       </section>
 
       <div className="marks-strip">
-        <span><strong>8</strong>current</span>
+        <span><strong>9</strong>current</span>
         <span className="sep">✦</span>
         <span><strong>4</strong>lanes</span>
         <span className="sep">✦</span>
-        <span><strong>7</strong>rust surfaces</span>
+        <span><strong>8</strong>rust surfaces</span>
         <span className="sep">✦</span>
         <span><strong>1</strong>claim compiler</span>
         <span className="sep">✦</span>
@@ -98,22 +98,22 @@ export default function Home() {
       <div className="section-head" id="now">
         <h2><span className="num">02 · NOW</span>What&apos;s on the <span className="ink-it">bench</span></h2>
         <div className="rail" />
-        <div className="aside">updated may 19</div>
+        <div className="aside">updated jun 25</div>
         <div className="peek"><RokoPeek width={88} /></div>
       </div>
       <div className="now-grid">
         <div className="now-cell">
           <h3>this week</h3>
-          <div className="big">Harden <span className="it">Recall</span> + prove Gloss</div>
-          <div className="sub">Daemon authority, runtime truth, ChatAttemptTraceV1, and ClaimLedger bundle contracts are the current center of gravity.</div>
+          <div className="big"><span className="it">AiDENs</span> autonomous loop + semantic-memory MCP</div>
+          <div className="sub">Closed-loop self-learning AI built and demonstrated (14 iterations, 12/12 completed). semantic-memory published on crates.io with 48 MCP tools, 15 HTTP endpoints, RL routing, and auto-management.</div>
         </div>
         <div className="now-cell">
           <h3>up next</h3>
           <ul>
-            <li><span className="label">Gloss · visible token/error/trace proof</span><span className="when">active</span></li>
-            <li><span className="label">ClaimLedger · bundle + testimony export</span><span className="when">active</span></li>
-            <li><span className="label">Recall · daemon authority audit</span><span className="when">active</span></li>
-            <li><span className="label">Libraries · support-lane cleanup</span><span className="when">ongoing</span></li>
+            <li><span className="label">AiDENs · expand mission types and harden evaluation gate</span><span className="when">active</span></li>
+            <li><span className="label">semantic-memory · MCP server hardening and tool profiles</span><span className="when">active</span></li>
+            <li><span className="label">semantic-memory-claude-kit · next version with deeper integration</span><span className="when">active</span></li>
+            <li><span className="label">Libraries · support-lane cleanup and crate publishing</span><span className="when">ongoing</span></li>
           </ul>
         </div>
         <div className="now-cell">
@@ -206,7 +206,7 @@ export default function Home() {
                 <div className="lbl">{item.name}</div>
               </div>
               <div className="ctx">{item.ctx}</div>
-              <div className="bar" style={{ width: `${(item.n / 7) * 100}%` }} />
+              <div className="bar" style={{ width: `${(item.n / 8) * 100}%` }} />
             </div>
           ))}
         </div>

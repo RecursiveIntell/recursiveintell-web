@@ -7,7 +7,7 @@ const skills = {
   languages: ["Rust", "TypeScript"],
   runtimes: ["Tauri 2", "Tokio", "SQLite", "IPC", "D-Bus", "systemd"],
   evidence: ["Receipts", "Source spans", "Bitemporal truth", "Review queues", "Testimony exports"],
-  local_ai: ["Ollama", "ComfyUI", "Local embeddings", "Hybrid retrieval", "Generation receipts"],
+  local_ai: ["Ollama", "ComfyUI", "Local embeddings", "Hybrid retrieval", "Generation receipts", "MCP", "Autonomous agents", "Knowledge graphs"],
   specializations: ["Local-first systems", "Evidence runtimes", "Verification control", "Operator safety boundaries"],
 };
 
@@ -73,13 +73,40 @@ export default function AboutPage() {
               </p>
               <p>
                 This site is the public surface for RecursiveIntell: Recall, Gloss,
-                Palisade, VisionForge, Sortarr, projmind, the Rust Libraries workspace,
+                Palisade, VisionForge, Sortarr, projmind, AiDENs, the Rust Libraries workspace,
                 and ClaimLedger.
               </p>
               <p>
                 My approach: keep authority explicit, make material operations
                 receipt-backed, separate canonical crates from satellite utilities,
                 and avoid public claims the code cannot support.
+              </p>
+              <p>
+                Published crates on crates.io: semantic-memory, semantic-memory-mcp,
+                turbo-quant, claim-ledger, and stack-ids. semantic-memory-claude-kit v0.5.2
+                is available on GitHub. The 9-month journey from &ldquo;can you help me
+                learn Python?&rdquo; in June 2025 to published Rust crates in March 2026.
+              </p>
+              <p>
+                You can find me on GitHub at{" "}
+                <a
+                  href="https://github.com/RecursiveIntell"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[color:var(--color-accent)] hover:underline"
+                >
+                  @RecursiveIntell
+                </a>{" "}
+                and on X/Twitter at{" "}
+                <a
+                  href="https://x.com/RecursiveIntell"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[color:var(--color-accent)] hover:underline"
+                >
+                  @RecursiveIntell
+                </a>
+                .
               </p>
             </div>
 
@@ -95,7 +122,7 @@ export default function AboutPage() {
                 Get in Touch
               </a>
               <a
-                href="https://github.com/recursiveintell"
+                href="https://github.com/RecursiveIntell"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-[color:var(--color-border)] bg-[color:var(--color-card)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[color:var(--color-muted)] transition-all hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
@@ -167,28 +194,28 @@ export default function AboutPage() {
           <h2 className="text-2xl font-semibold text-[color:var(--color-text)]">GitHub Activity</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <a
-              href="https://github.com/recursiveintell"
+              href="https://github.com/RecursiveIntell"
               target="_blank"
               rel="noopener noreferrer"
               className="block overflow-hidden rounded-xl border border-[color:var(--color-border)] bg-[color:var(--color-card)] transition-all hover:border-[color:var(--color-accent)]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://github-readme-stats.vercel.app/api?username=recursiveintell&show_icons=true&theme=transparent&hide_border=true&title_color=1d6d75&icon_color=1d6d75&text_color=6b7280"
+                src="https://github-readme-stats.vercel.app/api?username=RecursiveIntell&show_icons=true&theme=transparent&hide_border=true&title_color=1d6d75&icon_color=1d6d75&text_color=6b7280"
                 alt="GitHub Stats"
                 className="w-full"
                 loading="lazy"
               />
             </a>
             <a
-              href="https://github.com/recursiveintell"
+              href="https://github.com/RecursiveIntell"
               target="_blank"
               rel="noopener noreferrer"
               className="block overflow-hidden rounded-xl border border-[color:var(--color-border)] bg-[color:var(--color-card)] transition-all hover:border-[color:var(--color-accent)]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://github-readme-stats.vercel.app/api/top-langs/?username=recursiveintell&layout=compact&theme=transparent&hide_border=true&title_color=1d6d75&text_color=6b7280"
+                src="https://github-readme-stats.vercel.app/api/top-langs/?username=RecursiveIntell&layout=compact&theme=transparent&hide_border=true&title_color=1d6d75&text_color=6b7280"
                 alt="Top Languages"
                 className="w-full"
                 loading="lazy"
@@ -198,7 +225,7 @@ export default function AboutPage() {
           <p className="mt-4 text-sm text-[color:var(--color-muted)]">
             View my full profile and repositories on{" "}
             <a
-              href="https://github.com/recursiveintell"
+              href="https://github.com/RecursiveIntell"
               target="_blank"
               rel="noopener noreferrer"
               className="font-medium text-[color:var(--color-accent)] hover:underline"

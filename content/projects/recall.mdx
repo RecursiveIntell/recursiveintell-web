@@ -41,11 +41,13 @@ Recall sits on the same evidence-runtime line as the Rust Libraries work:
 - explicit plane ownership
 - Codex packet generation for source-grounded repair passes
 
-The library stack - semantic-memory, knowledge-runtime, llm-tool-runtime, stack-ids, and verification crates - is the substrate Recall should consume rather than reimplement app-locally.
+The library stack - semantic-memory (now published on crates.io with 48 MCP tools), knowledge-runtime, llm-tool-runtime, stack-ids, and verification crates - is the substrate Recall should consume rather than reimplement app-locally.
 
 ## Current Hardening Work
 
 Recent audit material focuses on preventing scheduler, plan, and UI-storm classes of bugs before they become user-visible incidents. The main defect families are fail-open durability, whole-state persistence on hot paths, event-driven UI refetch amplification, and incomplete idempotency for child work units.
+
+AiDENs, the closed-loop self-learning AI system, is a consumer of this library stack. It uses semantic-memory as its knowledge graph substrate and builds autonomous gap detection, task generation, execution, and capture on top of it.
 
 ## Next Gates
 

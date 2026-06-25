@@ -51,6 +51,11 @@ export const metadata: Metadata = {
     "ClaimLedger",
     "Gloss",
     "Recall",
+    "AiDENs",
+    "autonomous agents",
+    "MCP",
+    "knowledge graph",
+    "crates.io",
     "evidence runtime",
     "semantic memory",
     "verification",
@@ -148,7 +153,8 @@ export default function RootLayout({
       },
     ],
     sameAs: [
-      "https://github.com/recursiveintell",
+      "https://github.com/RecursiveIntell",
+      "https://x.com/RecursiveIntell",
     ],
   };
 

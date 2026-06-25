@@ -38,13 +38,14 @@ export function SiteFooter() {
         <ul>
           <li><a href="mailto:josh@recursiveintell.com">josh@recursiveintell.com</a></li>
           <li><a href="https://github.com/RecursiveIntell">github</a></li>
+          <li><a href="https://x.com/RecursiveIntell">x / twitter</a></li>
           <li><Link href="/feed.xml">rss</Link></li>
           <li><Link href="/private/login">private</Link></li>
         </ul>
       </div>
       <div className="copyline">
         <span>© 2026 josh stevenson · all katas reserved</span>
-        <span>v2026.05.10 · 222d uptime · roko is napping</span>
+        <span>v2026.06 · local-first AI workbench</span>
       </div>
     </footer>
   );

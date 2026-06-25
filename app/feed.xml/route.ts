@@ -29,9 +29,9 @@ export async function GET() {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>JSense / RecursiveIntell</title>
+    <title>RecursiveIntell</title>
     <link>${siteUrl}</link>
-    <description>Portfolio, lab notes, writing, and vault for JSense / RecursiveIntell. AI systems, infrastructure, and creative technology.</description>
+    <description>Rust-first local AI runtimes, evidence-aware memory, and autonomous agents.</description>
     <language>en-us</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${siteUrl}/feed.xml" rel="self" type="application/rss+xml"/>

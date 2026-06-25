@@ -122,22 +122,34 @@ export const projects = [
     blurb: "RecursiveIntell crate workspace for semantic memory, runtime contracts, verification, queues, schemas, and gated quantization research.",
     stack: ["rust", "tokio", "schemas", "verification"],
   },
+  {
+    id: "aidens",
+    slug: "aidens",
+    name: "AiDENs",
+    cat: "local-ai",
+    featured: true,
+    status: "active",
+    date: "June 2026",
+    blurb: "Closed-loop self-learning AI that audits its own knowledge graph, detects gaps, and learns autonomously. Built on semantic-memory with 8 mission types and a typed knowledge graph.",
+    stack: ["rust", "autonomous", "knowledge-graph", "ollama"],
+  },
 ] as const;
 
 export const recentAudit = [
-  { when: "May 19", label: "Portfolio narrowed to current Rust stack plus ClaimLedger", cat: "content" },
-  { when: "May 18", label: "Gloss · chat runtime proof pass scoped around ChatAttemptTraceV1", cat: "audit" },
-  { when: "May 18", label: "ClaimLedger · Gloss bundle and testimony contract work active", cat: "audit" },
-  { when: "May 16", label: "fib-quant · alpha research crate kept behind non-claim gates", cat: "research" },
+  { when: "Jun 25", label: "AiDENs autonomous loop demonstrated", cat: "content" },
+  { when: "Jun 24", label: "semantic-memory published on crates.io with 48 MCP tools", cat: "content" },
+  { when: "Jun 23", label: "semantic-memory-claude-kit v0.5.2 released", cat: "content" },
+  { when: "Jun 20", label: "semantic-memory: 11 server gaps fixed, auto-management added", cat: "content" },
 ] as const;
 
 export const stack = [
-  { name: "rust", n: 7, ctx: "daemons, tauri apps, crates" },
+  { name: "rust", n: 8, ctx: "daemons, tauri apps, crates" },
   { name: "tauri", n: 4, ctx: "desktop shells" },
   { name: "sqlite", n: 5, ctx: "local durable state" },
   { name: "receipts", n: 4, ctx: "operation proof surfaces" },
-  { name: "ollama", n: 4, ctx: "local inference" },
+  { name: "ollama", n: 5, ctx: "local inference" },
   { name: "schemas", n: 3, ctx: "contracts and exports" },
   { name: "linux", n: 2, ctx: "operator target" },
-  { name: "claimledger", n: 1, ctx: "non-rust exception" },
+  { name: "autonomous", n: 1, ctx: "self-learning agents" },
+  { name: "knowledge-graph", n: 1, ctx: "typed memory substrate" },
 ] as const;

@@ -57,6 +57,51 @@ export const categoryMeta: Record<
  */
 export const auditEntries: AuditEntry[] = [
   {
+    id: "014",
+    date: "2026-06-25",
+    title: "AiDENs autonomous loop demonstrated",
+    description:
+      "Closed-loop self-learning AI: 14 iterations, 12/12 tasks completed, 29 facts captured. 8 mission types with adaptive priority.",
+    category: "feature",
+    scope: "projects",
+  },
+  {
+    id: "013",
+    date: "2026-06-24",
+    title: "semantic-memory published on crates.io",
+    description:
+      "48 MCP tools, 15 HTTP endpoints, RL routing with persistence, auto-management via HTTP endpoints, tool profile gating.",
+    category: "feature",
+    scope: "libraries",
+  },
+  {
+    id: "012",
+    date: "2026-06-24",
+    title: "semantic-memory-claude-kit v0.5.2 released",
+    description:
+      "Claude Code plugin with auto-recall, auto-capture, dedup guard, receipts, primer, maintenance hooks.",
+    category: "feature",
+    scope: "libraries",
+  },
+  {
+    id: "011",
+    date: "2026-06-23",
+    title: "semantic-memory: 11 server gaps fixed",
+    description:
+      "RL routing persistence, real integrity checks, full search-routed pipeline, discord HTTP endpoint, maintenance endpoints, 15 new MCP tools.",
+    category: "fix",
+    scope: "libraries",
+  },
+  {
+    id: "010",
+    date: "2026-05-19",
+    title: "Portfolio narrowed to Rust stack",
+    description:
+      "Focused on Recall, Gloss, ClaimLedger, Palisade, and Rust Libraries.",
+    category: "content",
+    scope: "site",
+  },
+  {
     id: "009",
     date: "2026-02-09",
     title: "Add audit log page with timeline design",

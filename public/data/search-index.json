@@ -169,7 +169,7 @@
   },
   {
     "id": "lab:aidens-closed-loop",
-    "title": "semantic-memory MCP Server",
+    "title": "semantic-memory: The Memory System Behind AiDENs",
     "summary": "A typed knowledge graph with provenance, bitemporal search, contradiction detection, and 48 MCP tools. Available now on crates.io.",
     "tags": [
       "ai",
@@ -183,68 +183,5 @@
     "type": "lab",
     "href": "/lab/aidens-closed-loop",
     "status": "active"
-  },
-  {
-    "id": "lab:latent-queues",
-    "title": "Latent Queue Maps",
-    "summary": "Mapping async backlogs into a single, human-readable signal.",
-    "tags": [
-      "systems",
-      "queues",
-      "ux"
-    ],
-    "date": "2024-10-17",
-    "type": "lab",
-    "href": "/lab/latent-queues",
-    "status": "shipping"
-  },
-  {
-    "id": "writing:quiet-systems",
-    "title": "Quiet Systems, Loud Results",
-    "summary": "Why the best internal platforms feel invisible to the teams who use them.",
-    "tags": [
-      "platform",
-      "leadership",
-      "craft"
-    ],
-    "date": "2024-09-08",
-    "type": "writing",
-    "href": "/writing/quiet-systems"
-  },
-  {
-    "id": "vault-prompts:briefing-sprint",
-    "title": "Briefing Sprint Prompt",
-    "summary": "A structured prompt for turning raw notes into a clear sprint brief.",
-    "tags": [
-      "prompt",
-      "planning"
-    ],
-    "date": "2024-11-02",
-    "type": "vault-prompts",
-    "href": "/vault/prompts/briefing-sprint"
-  },
-  {
-    "id": "vault-tools:signal-sweep",
-    "title": "Signal Sweep",
-    "summary": "A CLI workflow that gathers logs, traces, and error budgets in one pass.",
-    "tags": [
-      "tooling",
-      "cli"
-    ],
-    "date": "2024-08-28",
-    "type": "vault-tools",
-    "href": "/vault/tools/signal-sweep"
-  },
-  {
-    "id": "vault-downloads:launch-checklist",
-    "title": "Launch Checklist",
-    "summary": "A downloadable checklist for final pre-launch validation.",
-    "tags": [
-      "checklist",
-      "release"
-    ],
-    "date": "2024-07-15",
-    "type": "vault-downloads",
-    "href": "/vault/downloads#launch-checklist"
   }
 ]

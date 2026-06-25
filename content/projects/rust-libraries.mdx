@@ -17,11 +17,12 @@ The Rust Libraries workspace is the substrate for Recall, Gloss, AiDENs, and the
 
 The high-confidence canonical lane includes:
 
-- **semantic-memory**: projection plane and durable queryable memory substrate.
+- **semantic-memory**: typed knowledge graph with provenance, bitemporal search, contradiction detection, factor graph belief propagation, 48 MCP tools, 15 HTTP endpoints, RL routing, and auto-management. Published on crates.io.
 - **semantic-memory-forge**: evidence/export authority for truth bundles, envelopes, and verification substrate.
 - **forge-memory-bridge**: deterministic bridge from Forge/export truth to semantic-memory import/projection.
 - **knowledge-runtime**: planning, routing, merge, scoped retrieval, temporal/scope interpretation, and view disclosure.
-- **stack-ids**: shared identifiers, scopes, digests, trace primitives, and replay links.
+- **stack-ids**: shared identifiers, scopes, digests, trace primitives, and replay links. Published on crates.io.
+- **claim-ledger**: claim and evidence compiler with source spans, support judgments, contradictions, review queues, and testimony exports. Published on crates.io.
 - **verification-control**, **verification-policy**, **verification-calibration**, and **verification-adjudication**: governed verification/control decisions.
 - **contract-schema-gen**: schema generation and contract governance.
 
@@ -44,3 +45,15 @@ These crates can carry execution lineage into products, but they should not sile
 ## Boundary Rule
 
 The main failure mode for this workspace is boundary drift. Every crate needs a clear owner plane, write authority, emitted artifact set, and receipt/conformance story.
+
+## Published Crates
+
+The following crates are published on crates.io:
+
+- **semantic-memory** - typed knowledge graph with provenance, bitemporal search, 48 MCP tools, 15 HTTP endpoints
+- **semantic-memory-mcp** - MCP server binary for semantic-memory
+- **turbo-quant** - quantization research crate (4K+ downloads)
+- **claim-ledger** - claim and evidence compiler with source spans and support judgments
+- **stack-ids** - shared identifiers, scopes, digests, and trace primitives
+
+**semantic-memory-claude-kit** v0.5.2 is available on GitHub as a Claude Code plugin with auto-recall, auto-capture, dedup guard, receipts, primer, and maintenance hooks.
