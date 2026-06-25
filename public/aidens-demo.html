@@ -275,6 +275,132 @@
     font-family: var(--mono);
   }
   
+  /* CTA buttons */
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .cta:hover { opacity: 0.85; }
+  .cta-primary {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .cta-secondary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--ink);
+  }
+  
+  /* TL;DR */
+  .tldr {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 40px;
+    font-size: 0.9375rem;
+  }
+  .tldr strong { color: var(--accent); }
+  
+  /* Try it section */
+  .tryit {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+  }
+  .tryit h3 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+  .tryit .step {
+    margin-bottom: 16px;
+    padding-left: 28px;
+    position: relative;
+  }
+  .tryit .step::before {
+    content: counter(step);
+    counter-increment: step;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--accent-dim);
+    color: var(--bg);
+    border-radius: 50%;
+    font-size: 0.625rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+  }
+  .tryit .steps { counter-reset: step; }
+  .tryit .step-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .tryit .step-desc {
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  .tryit code, .tryit pre {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: var(--accent);
+    display: block;
+    margin: 6px 0;
+    overflow-x: auto;
+  }
+  .tryit .crates {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .crate-link {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 16px;
+    text-decoration: none;
+    transition: border-color 0.15s;
+  }
+  .crate-link:hover { border-color: var(--accent-dim); }
+  .crate-link .name {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .crate-link .desc {
+    font-size: 0.6875rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  
   /* Run log */
   .run-log {
     background: #000;
@@ -316,7 +442,19 @@
 <div class="hero">
   <h1>AiDENs</h1>
   <p class="tagline">A <strong>closed-loop self-learning AI</strong> that audits its own knowledge graph, detects gaps, generates tasks, executes them via LLM, captures results as provenance-attributed facts, and evaluates fact quality — all local-first, all autonomous.</p>
-  <div class="hero-meta">
+  
+  <div class="tldr">
+    <strong>TL;DR —</strong> AiDENs is a Rust-based autonomous AI that runs in a loop: it finds gaps in its own knowledge graph (contradictions, stale facts, missing connections), generates tasks to fill them, executes those tasks via a local LLM, and captures the results as new facts with provenance and quality scoring. No other system does this. It runs entirely on your machine with Ollama. <strong>7,228 facts</strong>, <strong>8 mission types</strong>, <strong>100% task success rate</strong> after bug fixes.
+  </div>
+  
+  <div class="cta-row">
+    <a class="cta cta-primary" href="#try-it">Run it yourself →</a>
+    <a class="cta cta-secondary" href="https://github.com/RecursiveIntell/AiDENs">GitHub →</a>
+    <a class="cta cta-secondary" href="https://crates.io/crates/semantic-memory">semantic-memory crate →</a>
+    <a class="cta cta-secondary" href="https://crates.io/crates/turbo-quant">turbo-quant crate →</a>
+  </div>
+  
+  <div class="hero-meta" style="margin-top: 24px;">
     <span><strong>7,228</strong> facts</span>
     <span><strong>15,413</strong> chunks</span>
     <span><strong>877</strong> documents</span>
@@ -474,11 +612,88 @@
   </div>
 </section>
 
+<!-- Try It -->
+<section id="try-it">
+  <h2><span class="num">07</span>Try It Yourself</h2>
+  <p class="lead">The entire system runs locally. You need Rust, Ollama, and about 5 minutes.</p>
+  
+  <div class="tryit">
+    <h3>Quickstart</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-title">Install Ollama and pull a model</div>
+        <div class="step-desc">Any Ollama-compatible model works. A 3B+ model is recommended for quality output.</div>
+        <pre>curl -fsSL https://ollama.com/install.sh | sh
+ollama pull granite4.1:8b</pre>
+      </div>
+      <div class="step">
+        <div class="step-title">Clone the AiDENs workspace</div>
+        <div class="step-desc">The workspace includes all 36 crates — the autonomous loop, semantic-memory, TUI, and more.</div>
+        <pre>git clone https://github.com/RecursiveIntell/AiDENs.git
+cd AiDENs</pre>
+      </div>
+      <div class="step">
+        <div class="step-title">Start the semantic-memory HTTP server</div>
+        <div class="step-desc">The knowledge graph backend. Runs on port 1738 with the candle embedder.</div>
+        <pre>cargo install semantic-memory-mcp
+semantic-memory-mcp --memory-dir ~/.hermes/sm.db --embedder candle --http-port 1738 --http-only --tool-profile lean</pre>
+      </div>
+      <div class="step">
+        <div class="step-title">Run the autonomous loop (headless)</div>
+        <div class="step-desc">Runs the closed loop for 10 iterations, detecting gaps and capturing facts.</div>
+        <pre>cargo build -p aidens-cli --release
+./target/release/aidens-cli autonomous \
+  --memory-dir ~/.hermes/sm.db \
+  --queue-dir /tmp/aidens-queue \
+  --ollama-url http://127.0.0.1:11434 \
+  --ollama-model granite4.1:8b \
+  --http-base-url http://127.0.0.1:1738 \
+  --max-iterations 10</pre>
+      </div>
+      <div class="step">
+        <div class="step-title">Or: launch the TUI for a live view</div>
+        <div class="step-desc">4-panel terminal UI showing memory stats, loop state, queue, and activity log in real time.</div>
+        <pre>./scripts/run-tui.sh granite4.1:8b http://127.0.0.1:11434</pre>
+      </div>
+    </div>
+    
+    <h3 style="margin-top: 24px;">Relevant Crates</h3>
+    <p style="font-size: 0.8125rem; color: var(--muted); margin-bottom: 12px;">The system is built from independent, reusable crates published on crates.io.</p>
+    <div class="crates">
+      <a class="crate-link" href="https://crates.io/crates/semantic-memory">
+        <div class="name">semantic-memory</div>
+        <div class="desc">Typed knowledge graph with provenance, bitemporal search, contradiction detection</div>
+      </a>
+      <a class="crate-link" href="https://crates.io/crates/turbo-quant">
+        <div class="name">turbo-quant</div>
+        <div class="desc">Adaptive quantization toolkit (4K+ downloads)</div>
+      </a>
+      <a class="crate-link" href="https://crates.io/crates/semantic-memory-mcp">
+        <div class="name">semantic-memory-mcp</div>
+        <div class="desc">MCP server with 48 tools, 15 HTTP endpoints, RL routing</div>
+      </a>
+      <a class="crate-link" href="https://crates.io/crates/claim-ledger">
+        <div class="name">claim-ledger</div>
+        <div class="desc">Risk-classified claim verification with proof-debt tracking</div>
+      </a>
+      <a class="crate-link" href="https://crates.io/crates/stack-ids">
+        <div class="name">stack-ids</div>
+        <div class="desc">Content-addressable artifact identification for receipts</div>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- Footer -->
 <footer>
   <div class="container">
+    <div class="cta-row" style="justify-content: center; margin-bottom: 24px;">
+      <a class="cta cta-primary" href="#try-it">Run it yourself →</a>
+      <a class="cta cta-secondary" href="https://github.com/RecursiveIntell/AiDENs">GitHub →</a>
+      <a class="cta cta-secondary" href="/projects/aidens">Project page →</a>
+    </div>
     <p>RecursiveIntell · Local-first AI workbench · Built by Josh Stevenson</p>
-    <p style="margin-top:8px;"><a href="https://github.com/RecursiveIntell">github.com/RecursiveIntell</a></p>
+    <p style="margin-top:8px;"><a href="https://github.com/RecursiveIntell">github.com/RecursiveIntell</a> · <a href="https://crates.io/users/RecursiveIntell">crates.io/RecursiveIntell</a></p>
   </div>
 </footer>
 
