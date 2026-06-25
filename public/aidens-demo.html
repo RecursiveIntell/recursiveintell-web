@@ -444,14 +444,14 @@
   <p class="tagline">A <strong>closed-loop self-learning AI</strong> that audits its own knowledge graph, detects gaps, generates tasks, executes them via LLM, captures results as provenance-attributed facts, and evaluates fact quality — all local-first, all autonomous.</p>
   
   <div class="tldr">
-    <strong>TL;DR —</strong> AiDENs is a Rust-based autonomous AI that runs in a loop: it finds gaps in its own knowledge graph (contradictions, stale facts, missing connections), generates tasks to fill them, executes those tasks via a local LLM, and captures the results as new facts with provenance and quality scoring. No other system does this. It runs entirely on your machine with Ollama. <strong>7,228 facts</strong>, <strong>8 mission types</strong>, <strong>100% task success rate</strong> after bug fixes.
+    <strong>TL;DR —</strong> The memory system powering this demo — <strong>semantic-memory</strong> — is available now as a Rust crate and MCP server. It's a typed knowledge graph with provenance, bitemporal search, contradiction detection, and 48 MCP tools. <strong>AiDENs</strong> is the autonomous loop on top of it, coming soon. This demo shows what happens when you close the loop: the system audits its own knowledge graph, detects gaps, and learns autonomously. <strong>7,228 facts</strong>, <strong>8 mission types</strong>, <strong>100% task success rate</strong>.
   </div>
   
   <div class="cta-row">
-    <a class="cta cta-primary" href="#try-it">Run it yourself →</a>
-    <a class="cta cta-secondary" href="https://github.com/RecursiveIntell/AiDENs">GitHub →</a>
-    <a class="cta cta-secondary" href="https://crates.io/crates/semantic-memory">semantic-memory crate →</a>
-    <a class="cta cta-secondary" href="https://crates.io/crates/turbo-quant">turbo-quant crate →</a>
+    <a class="cta cta-primary" href="https://crates.io/crates/semantic-memory">Get semantic-memory →</a>
+    <a class="cta cta-secondary" href="https://github.com/RecursiveIntell/semantic-memory">semantic-memory GitHub →</a>
+    <a class="cta cta-secondary" href="https://github.com/RecursiveIntell/semantic-memory-mcp">MCP server GitHub →</a>
+    <a class="cta cta-secondary" href="#try-it">Run the demo →</a>
   </div>
   
   <div class="hero-meta" style="margin-top: 24px;">
@@ -463,6 +463,51 @@
     <span><strong>126 MB</strong> DB</span>
   </div>
 </div>
+
+<!-- The Memory System (available now) -->
+<section>
+  <h2><span class="num">00</span>The Memory System — Available Now</h2>
+  <p class="lead">The knowledge graph that powers AiDENs is a standalone Rust crate and MCP server you can use today. It works with Claude Desktop, Cursor, Hermes, and any MCP-compatible client.</p>
+  
+  <div class="arch-block">
+    <h3>semantic-memory (Rust crate)</h3>
+    <p>A typed knowledge graph with 7,000+ facts, heterogeneous edges (semantic / temporal / causal / entity), bitemporal search, provenance semiring, contradiction detection via decoder syndrome analysis, factor graph belief propagation, and RL-trained adaptive retrieval routing.</p>
+    <ul>
+      <li>Provenance-first: every fact has source attribution, confidence, and a receipt</li>
+      <li>Bitemporal: the system knows what it believed on date X and can trace how beliefs changed</li>
+      <li>Self-correcting: facts can be superseded when better evidence arrives</li>
+      <li>Adaptive routing: RL-trained retrieval learns which stages (BM25, vector, graph, decoder, discord) help which query types</li>
+      <li>Auto-management: integrity checks, vacuum, re-embedding, reconciliation — all via HTTP endpoints</li>
+    </ul>
+    <div class="cta-row" style="margin-top: 12px;">
+      <a class="cta cta-primary" href="https://crates.io/crates/semantic-memory">crates.io →</a>
+      <a class="cta cta-secondary" href="https://github.com/RecursiveIntell/semantic-memory">GitHub →</a>
+    </div>
+  </div>
+  
+  <div class="arch-block">
+    <h3>semantic-memory-mcp (MCP server)</h3>
+    <p>48 MCP tools wrapping semantic-memory, plus 15 HTTP endpoints for high-performance hook integration. Works with Claude Desktop, Cursor, Hermes, and any MCP-compatible client. Tool profile gating (lean / standard / full) keeps the tool list manageable.</p>
+    <ul>
+      <li>34 daily-use tools (search, graph traversal, fact CRUD, claim verification) in lean profile</li>
+      <li>14 admin/audit tools (vacuum, re-embed, reconcile, bitemporal queries, import) in standard/full</li>
+      <li>15 HTTP endpoints for hooks and scripts (search, search-routed, discord, maintenance, record-outcome)</li>
+      <li>RL routing persistence: every search outcome feeds the adaptive retrieval policy</li>
+    </ul>
+    <div class="cta-row" style="margin-top: 12px;">
+      <a class="cta cta-primary" href="https://crates.io/crates/semantic-memory-mcp">crates.io →</a>
+      <a class="cta cta-secondary" href="https://github.com/RecursiveIntell/semantic-memory-mcp">GitHub →</a>
+    </div>
+  </div>
+  
+  <div class="arch-block">
+    <h3>AiDENs — Coming Soon</h3>
+    <p>The autonomous loop that ties it all together. The code is written and working (this demo runs on it), but it hasn't been published to crates.io yet. It will be released as a set of crates once the autonomous loop is battle-tested. The demo below shows what it does today.</p>
+    <div class="cta-row" style="margin-top: 12px;">
+      <a class="cta cta-secondary" href="https://github.com/RecursiveIntell/AiDENs">AiDENs GitHub (dev) →</a>
+    </div>
+  </div>
+</section>
 
 <!-- The Loop -->
 <section>
@@ -688,8 +733,9 @@ semantic-memory-mcp --memory-dir ~/.hermes/sm.db --embedder candle --http-port 1
 <footer>
   <div class="container">
     <div class="cta-row" style="justify-content: center; margin-bottom: 24px;">
-      <a class="cta cta-primary" href="#try-it">Run it yourself →</a>
-      <a class="cta cta-secondary" href="https://github.com/RecursiveIntell/AiDENs">GitHub →</a>
+      <a class="cta cta-primary" href="https://crates.io/crates/semantic-memory">Get semantic-memory →</a>
+      <a class="cta cta-secondary" href="https://github.com/RecursiveIntell/semantic-memory-mcp">MCP server →</a>
+      <a class="cta cta-secondary" href="https://github.com/RecursiveIntell/AiDENs">AiDENs (dev) →</a>
       <a class="cta cta-secondary" href="/projects/aidens">Project page →</a>
     </div>
     <p>RecursiveIntell · Local-first AI workbench · Built by Josh Stevenson</p>
