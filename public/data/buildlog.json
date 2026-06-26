@@ -1,5 +1,14 @@
 [
   {
+    "id": "2026-06-26-a375115",
+    "date": "2026-06-26T11:15:26.044Z",
+    "title": "Update aidens-demo: 17 HTTP endpoints, auto-edge, discord enrichment",
+    "summary": "Nightly buildlog refresh from GitHub Actions.",
+    "source": "schedule",
+    "href": "https://github.com/RecursiveIntell/recursiveintell-web/commit/a3751154a0b2adf1e69a3f03a583c9140560466d",
+    "sha": "a3751154a0b2adf1e69a3f03a583c9140560466d"
+  },
+  {
     "id": "2026-06-25-96e98ac",
     "date": "2026-06-25T11:08:44.787Z",
     "title": "chore: update buildlog",
