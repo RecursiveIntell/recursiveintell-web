@@ -35,6 +35,17 @@ export const categories = [
 
 export const projects = [
   {
+    id: "esp32-sentinel",
+    slug: "esp32-sentinel",
+    name: "ESP32-S3 Sentinel",
+    cat: "local-ai",
+    featured: true,
+    status: "active",
+    date: "July 2026",
+    blurb: "Always-on $4 ESP32-S3 sentinel with a local char-LSTM decision tier and wake-on-need gateway escalation. 11.6 tok/s H512 hardware-verified.",
+    stack: ["rust", "esp32s3", "no_std", "tinyml", "ollama"],
+  },
+  {
     id: "recall",
     slug: "recall",
     name: "Recall",
@@ -136,14 +147,16 @@ export const projects = [
 ] as const;
 
 export const recentAudit = [
+  { when: "Jul 3", label: "ESP32-S3 Sentinel shipped: 11.6 tok/s on real hardware", cat: "content" },
   { when: "Jun 25", label: "AiDENs autonomous loop demonstrated", cat: "content" },
   { when: "Jun 24", label: "semantic-memory published on crates.io with 48 MCP tools", cat: "content" },
   { when: "Jun 23", label: "semantic-memory-claude-kit v0.5.2 released", cat: "content" },
-  { when: "Jun 20", label: "semantic-memory: 11 server gaps fixed, auto-management added", cat: "content" },
 ] as const;
 
 export const stack = [
-  { name: "rust", n: 8, ctx: "daemons, tauri apps, crates" },
+  { name: "rust", n: 9, ctx: "daemons, tauri apps, crates, embedded" },
+  { name: "embedded", n: 1, ctx: "esp32-s3 no_std" },
+  { name: "tinyml", n: 1, ctx: "edge inference" },
   { name: "tauri", n: 4, ctx: "desktop shells" },
   { name: "sqlite", n: 5, ctx: "local durable state" },
   { name: "receipts", n: 4, ctx: "operation proof surfaces" },

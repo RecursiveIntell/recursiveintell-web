@@ -1,5 +1,23 @@
 [
   {
+    "id": "projects:esp32-sentinel",
+    "title": "ESP32-S3 Sentinel",
+    "summary": "A $4 always-on ESP32-S3 sentinel that runs a local char-LSTM decision tier and only wakes a richer gateway when confidence drops. 11.6 tok/s H512 hardware-verified.",
+    "tags": [
+      "esp32",
+      "rust",
+      "embedded",
+      "local-ai",
+      "tinyml",
+      "edge-ai",
+      "no_std"
+    ],
+    "date": "2026-07-03",
+    "type": "projects",
+    "href": "/projects/esp32-sentinel",
+    "status": "active"
+  },
+  {
     "id": "projects:aidens",
     "title": "AiDENs",
     "summary": "A closed-loop self-learning AI that audits its own knowledge graph, detects gaps, generates tasks, executes them via LLM, and captures results as provenance-attributed facts — all local-first, all autonomous.",

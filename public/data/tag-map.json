@@ -1,9 +1,45 @@
 {
+  "esp32": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
   "rust": {
-    "count": 9,
+    "count": 10,
     "types": [
       "projects",
       "lab"
+    ]
+  },
+  "embedded": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "local-ai": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "tinyml": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "edge-ai": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "no_std": {
+    "count": 1,
+    "types": [
+      "projects"
     ]
   },
   "ai": {

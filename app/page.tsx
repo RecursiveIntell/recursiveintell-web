@@ -28,17 +28,17 @@ export default function Home() {
           <div className="eyebrow">
             <span className="num">01</span>
             <span className="bar" />
-            <span>portfolio · v2026.06 · 9 active surfaces</span>
+            <span>portfolio · v2026.07 · 10 active surfaces</span>
           </div>
           <h1 className="display" id="home-hero-title">
             Evidence runtimes.
             <br />
             <span className="it">Loud results.</span>
             <br />
-            Always receipt-backed. <span className="stamp">v2026.06</span>
+            Always receipt-backed. <span className="stamp">v2026.07</span>
           </h1>
           <p className="lede">
-            <b>Josh Stevenson</b> - independent systems engineer focused on Rust-first local runtimes, evidence-aware memory, claim hygiene, and operator-control software. Current public work is Recall, Gloss, ClaimLedger, Palisade, VisionForge, Sortarr, projmind, AiDENs, and the RecursiveIntell Rust Libraries.
+            <b>Josh Stevenson</b> - independent systems engineer focused on Rust-first local runtimes, evidence-aware memory, operator-control software, and now embedded edge-AI on ESP32-S3. Current public work is Recall, Gloss, ClaimLedger, Palisade, VisionForge, Sortarr, projmind, AiDENs, the RecursiveIntell Rust Libraries, and ESP32-S3 Sentinel.
           </p>
           <div className="hero-cta">
             <a className="btn-primary" href="#work">
@@ -84,7 +84,7 @@ export default function Home() {
       </section>
 
       <div className="marks-strip">
-        <span><strong>9</strong>current</span>
+        <span><strong>10</strong>current</span>
         <span className="sep">✦</span>
         <span><strong>4</strong>lanes</span>
         <span className="sep">✦</span>
@@ -92,7 +92,7 @@ export default function Home() {
         <span className="sep">✦</span>
         <span><strong>1</strong>claim compiler</span>
         <span className="sep">✦</span>
-        <span><strong>0</strong>stale</span>
+        <span><strong>1</strong>edge sentinel</span>
       </div>
 
       <div className="section-head" id="now">
@@ -104,16 +104,16 @@ export default function Home() {
       <div className="now-grid">
         <div className="now-cell">
           <h3>this week</h3>
-          <div className="big"><span className="it">AiDENs</span> autonomous loop + semantic-memory MCP</div>
-          <div className="sub">Closed-loop self-learning AI built and demonstrated (14 iterations, 12/12 completed). semantic-memory published on crates.io with 48 MCP tools, 15 HTTP endpoints, RL routing, and auto-management.</div>
+          <div className="big"><span className="it">ESP32-S3 Sentinel</span> always-on edge AI, hardware-verified</div>
+          <div className="sub">$4 Freenove WROOM N8R8 runs a 6.34M-parameter char-LSTM at 11.6 tok/s (TinyStories H512). Only wakes a richer gateway when confidence drops. No cloud, no blocking, real receipts.</div>
         </div>
         <div className="now-cell">
           <h3>up next</h3>
           <ul>
+            <li><span className="label">ESP32-S3 · harder power policy, OLED display path, multi-sensor router</span><span className="when">active</span></li>
             <li><span className="label">AiDENs · expand mission types and harden evaluation gate</span><span className="when">active</span></li>
             <li><span className="label">semantic-memory · MCP server hardening and tool profiles</span><span className="when">active</span></li>
             <li><span className="label">semantic-memory-claude-kit · next version with deeper integration</span><span className="when">active</span></li>
-            <li><span className="label">Libraries · support-lane cleanup and crate publishing</span><span className="when">ongoing</span></li>
           </ul>
         </div>
         <div className="now-cell">

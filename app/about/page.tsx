@@ -8,7 +8,8 @@ const skills = {
   runtimes: ["Tauri 2", "Tokio", "SQLite", "IPC", "D-Bus", "systemd"],
   evidence: ["Receipts", "Source spans", "Bitemporal truth", "Review queues", "Testimony exports"],
   local_ai: ["Ollama", "ComfyUI", "Local embeddings", "Hybrid retrieval", "Generation receipts", "MCP", "Autonomous agents", "Knowledge graphs"],
-  specializations: ["Local-first systems", "Evidence runtimes", "Verification control", "Operator safety boundaries"],
+  embedded: ["ESP32-S3", "no_std", "Xtensa LX7", "TinyML", "Edge inference"],
+  specializations: ["Local-first systems", "Evidence runtimes", "Verification control", "Operator safety boundaries", "Embedded edge-AI"],
 };
 
 const achievements = [
@@ -68,13 +69,13 @@ export default function AboutPage() {
             <div className="prose prose-lg">
               <p>
                 I&apos;m Josh, a systems engineer focused on Rust-first local runtimes,
-                evidence-aware memory, verification boundaries, and operator-control
-                software that can explain what it did.
+                evidence-aware memory, verification boundaries, operator-control
+                software, and embedded edge-AI on ESP32-S3.
               </p>
               <p>
                 This site is the public surface for RecursiveIntell: Recall, Gloss,
                 Palisade, VisionForge, Sortarr, projmind, AiDENs, the Rust Libraries workspace,
-                and ClaimLedger.
+                ClaimLedger, and ESP32-S3 Sentinel.
               </p>
               <p>
                 My approach: keep authority explicit, make material operations

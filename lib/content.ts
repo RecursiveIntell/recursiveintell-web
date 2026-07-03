@@ -79,20 +79,28 @@ function slugFromPath(filePath: string) {
   return path.basename(filePath, path.extname(filePath));
 }
 
-async function getMdxFiles(dir: string) {
-  const entries = await fs.readdir(dir, { withFileTypes: true });
-  const files: string[] = [];
+async function getMdxFiles(dir: string): Promise<string[]> {
+  try {
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    const files: string[] = [];
 
-  for (const entry of entries) {
-    const entryPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      files.push(...(await getMdxFiles(entryPath)));
-    } else if (entry.isFile() && entry.name.endsWith(".mdx")) {
-      files.push(entryPath);
+    for (const entry of entries) {
+      const entryPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        files.push(...(await getMdxFiles(entryPath)));
+      } else if (entry.isFile() && entry.name.endsWith(".mdx")) {
+        files.push(entryPath);
+      }
     }
-  }
 
-  return files;
+    return files;
+  } catch (error) {
+    // Treat missing content directories as empty (e.g. fresh clones / Vercel)
+    if (error && typeof error === "object" && "code" in error && error.code === "ENOENT") {
+      return [];
+    }
+    throw error;
+  }
 }
 
 async function readContentFile(filePath: string, type: ContentType) {

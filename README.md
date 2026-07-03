@@ -7,8 +7,8 @@ workbench, with content authored in MDX and published via Git commits.
 ## Local development
 
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 The app runs at `http://localhost:3000`.
@@ -52,10 +52,10 @@ Build-time indexing generates:
 Run manually:
 
 ```bash
-pnpm content:index
+npm run content:index
 ```
 
-This runs automatically on `pnpm build` via `prebuild`.
+This runs automatically on `npm run build` via `prebuild`.
 
 ## Search, gallery, buildlog, and private mode
 
@@ -76,7 +76,7 @@ build output.
 ## Quality gates
 
 ```bash
-pnpm lint
-pnpm test
-pnpm build
+npm run lint
+npm run test
+npm run build
 ```

@@ -1,0 +1,73 @@
+---
+title: "ESP32-S3 Sentinel"
+date: "2026-07-03"
+summary: "A $4 always-on ESP32-S3 sentinel that runs a local char-LSTM decision tier and only wakes a richer gateway when confidence drops. 11.6 tok/s H512 hardware-verified."
+tags: ["esp32", "rust", "embedded", "local-ai", "tinyml", "edge-ai", "no_std"]
+status: "active"
+featured: true
+links:
+  GitHub: "https://github.com/RecursiveIntell/esp32-sentinel"
+  Worked Example: "https://github.com/RecursiveIntell/esp32-sentinel/tree/main/examples/dht22_laptop_gateway"
+  Model Meta: "https://github.com/RecursiveIntell/esp32-sentinel/blob/main/models/char_lstm_709ff8a9_meta.json"
+---
+
+## Overview
+
+ESP32-S3 Sentinel is a two-tier, local-first edge-AI system.
+
+- **Tier 0 sentinel** — a $4 ESP32-S3 Freenove WROOM N8R8 runs a 6.34M-parameter char-level LSTM every 5 s and emits a confidence score.
+- **Tier 1 gateway** — a laptop, UNO Q, or Raspberry Pi runs a heavier model via Ollama, but only when the sentinel escalates.
+
+If the sentinel is confident, it answers locally. If confidence drops below the threshold, it posts sensor context to the gateway over WiFi, receives a one-sentence verdict, and displays it. If the gateway is down, the sentinel keeps running locally. No cloud, no blocking, no lies about state.
+
+## What the numbers mean
+
+| Number | What it is | Source |
+|---|---|---|
+| **11.6 tok/s** | TinyStories-class H512 inference on real ESP32-S3 hardware | hardware verification run, 2026-07-03 |
+| **6.34M params** | char-LSTM, hidden=512, 3 layers | `models/char_lstm_709ff8a9_meta.json` |
+| **4.8 MB** | int8 weights + int4 recurrent weight file | `models/char_lstm_709ff8a9.bin` |
+| **33% throughput lead** | vs. the closest comparable ESP32 language-model demo | `competitive_landscape_esp32_lm.md` |
+| **~$12** | sentinel-only BOM | README hardware table |
+| **~$60** | full setup with one gateway host | README hardware table |
+
+These are receipts, not estimates. The model was trained locally, quantized, and verified on a real ESP32-S3.
+
+## Quickstart (no hardware needed)
+
+The repo ships a worked example that runs entirely on a laptop:
+
+```bash
+git clone https://github.com/RecursiveIntell/esp32-sentinel
+cd esp32-sentinel
+bash scripts/install.sh
+bash examples/dht22_laptop_gateway/run.sh
+```
+
+It simulates a DHT22 reading, starts the gateway on port 8090, escalates as if the sentinel sent it, validates the response schema, and writes a JSONL receipt. The example exits 0 only if the full flow works.
+
+## Use cases
+
+1. **Room safety sentinel** — DHT22 reads temp/humidity every 5 s; the sentinel decides whether conditions are safe, comfortable, or out-of-range, and escalates when uncertain.
+2. **Multi-sensor policy router** — combine DHT22 + soil moisture + PIR; each sensor maps to a canonical prompt and gets its own verdict.
+3. **Fail-open always-on display** — SSD1306 OLED shows local verdict, gateway answer, or “local only” if the gateway is unreachable.
+
+## Architecture
+
+- **Firmware** — Rust `no_std` for Xtensa LX7, in `esp32-s3/src/bin/sentinel_wifi.rs`. Uses `esp-hal`, `embassy`, `microflow`, and `esp-radio` for WiFi.
+- **Gateway** — Python HTTP service in `uno-q/server/sensor_ai_gateway.py`. Endpoints: `GET /health`, `POST /api/sensor_ai`, `POST /api/train_lstm`.
+- **Protocol** — plain HTTP/JSON between tiers. No SDK lock-in; either tier can be replaced independently.
+
+## Design rules
+
+- **Local-first** — the only network call is the optional gateway escalation.
+- **Fail-open** — any error, missing dependency, or empty result exits cleanly without blocking the prompt.
+- **Receipt or it didn’t happen** — every sentinel decision and gateway response is logged as structured JSONL.
+- **No autonomous writes** — the model emits verdicts; a human or explicit config decides what to do with them.
+
+## Links
+
+- [GitHub repository](https://github.com/RecursiveIntell/esp32-sentinel)
+- [Worked laptop example](https://github.com/RecursiveIntell/esp32-sentinel/tree/main/examples/dht22_laptop_gateway)
+- [Model metadata](https://github.com/RecursiveIntell/esp32-sentinel/blob/main/models/char_lstm_709ff8a9_meta.json)
+- [RecursiveIntell projects index](/projects)

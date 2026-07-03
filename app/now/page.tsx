@@ -13,11 +13,38 @@ export default function NowPage() {
       <Container className="py-12">
         <div className="prose">
           <p>
-            The primary focus right now is the Rust evidence-runtime stack and
-            autonomous AI: <Link href="/projects/aidens"><strong>AiDENs</strong></Link>{" "}
+            The primary focus right now is the Rust evidence-runtime stack,
+            autonomous AI, and embedded edge-AI:{" "}
+            <Link href="/projects/esp32-sentinel"><strong>ESP32-S3 Sentinel</strong></Link>,{" "}
+            <Link href="/projects/aidens"><strong>AiDENs</strong></Link>{" "}
             closed-loop self-learning, <strong>semantic-memory</strong> as a
             published MCP server, and the broader RecursiveIntell library
             workspace.
+          </p>
+
+          <h2>ESP32-S3 Sentinel</h2>
+          <p>
+            A $4 always-on ESP32-S3 sentinel that runs a local char-LSTM decision
+            tier and only wakes a richer gateway when confidence drops.
+            11.6 tok/s TinyStories H512 on real Freenove WROOM N8R8 hardware.
+          </p>
+          <ul>
+            <li>6.34M-parameter char-LSTM, hidden=512, 3 layers</li>
+            <li>4.8 MB int8 weights + int4 recurrent weight file</li>
+            <li>Tier 0 sentinel + optional Tier 1 Ollama gateway over WiFi</li>
+            <li>Worked example runs on a laptop with no hardware required</li>
+            <li>Receipt-backed: every decision logged as JSONL</li>
+          </ul>
+          <p>
+            <Link href="/projects/esp32-sentinel">View the project page</Link>{" "}
+            or{" "}
+            <a
+              href="https://github.com/RecursiveIntell/esp32-sentinel"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              open the repo
+            </a>.
           </p>
 
           <h2>AiDENs Autonomous Loop</h2>
@@ -111,7 +138,7 @@ export default function NowPage() {
           </ul>
 
           <p className="text-sm text-[color:var(--color-muted)]">
-            <em>Last updated: June 2026</em>
+            <em>Last updated: July 2026</em>
           </p>
 
           <p>
