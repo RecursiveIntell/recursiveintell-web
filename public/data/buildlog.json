@@ -1,5 +1,14 @@
 [
   {
+    "id": "2026-07-05-2db32da",
+    "date": "2026-07-05T10:29:08.575Z",
+    "title": "chore: update buildlog",
+    "summary": "Nightly buildlog refresh from GitHub Actions.",
+    "source": "schedule",
+    "href": "https://github.com/RecursiveIntell/recursiveintell-web/commit/2db32daacf7a004d566d37a12fd90849dcd7629a",
+    "sha": "2db32daacf7a004d566d37a12fd90849dcd7629a"
+  },
+  {
     "id": "2026-07-04-ad83d2b",
     "date": "2026-07-04T10:26:37.186Z",
     "title": "fix: Vercel build failure + add ESP32-S3 Sentinel project page",
