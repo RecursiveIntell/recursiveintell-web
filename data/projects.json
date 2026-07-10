@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-05-19",
+  "lastUpdated": "2026-07-10",
   "source": "Local Work docs, current repos, and ClaimLedger repo notes",
   "scope": "Current Rust-focused portfolio plus ClaimLedger",
   "projects": [
@@ -12,8 +12,14 @@
       "type": "Rust Workspace",
       "status": "Active",
       "dataStore": "SQLite",
-      "languages": ["Rust", "TypeScript"],
-      "frameworks": ["Tauri", "Tokio"],
+      "languages": [
+        "Rust",
+        "TypeScript"
+      ],
+      "frameworks": [
+        "Tauri",
+        "Tokio"
+      ],
       "path": "Recall/",
       "github": "https://github.com/RecursiveIntell/Recall",
       "lastReviewed": "2026-05-19",
@@ -28,8 +34,14 @@
       "type": "Desktop App",
       "status": "Active",
       "dataStore": "SQLite",
-      "languages": ["Rust", "TypeScript"],
-      "frameworks": ["Tauri", "React"],
+      "languages": [
+        "Rust",
+        "TypeScript"
+      ],
+      "frameworks": [
+        "Tauri",
+        "React"
+      ],
       "path": "Gloss/",
       "github": "https://github.com/RecursiveIntell/Gloss",
       "lastReviewed": "2026-05-19",
@@ -59,12 +71,16 @@
       "type": "Library Workspace",
       "status": "Active",
       "dataStore": "None",
-      "languages": ["Rust"],
-      "frameworks": ["Tokio"],
+      "languages": [
+        "Rust"
+      ],
+      "frameworks": [
+        "Tokio"
+      ],
       "path": "Libraries/",
       "github": "https://github.com/RecursiveIntell/Rust-Libraries",
-      "lastReviewed": "2026-05-19",
-      "notes": "Separates canonical crates, satellite utilities, and research-linked quantization crates by explicit support boundaries.",
+      "lastReviewed": "2026-07-10",
+      "notes": "Rust crate workspace: semantic memory, runtime contracts, verification, quantization research. poly-kv 0.1.0-alpha.3 ships compressed-domain KV-cache attention scoring \u2014 5.81x faster than optimized exact f32 at 32K tokens (multi-head batch, CPU), near-lossless at candidate_k=48 (+0.67% PPL on DistilGPT2/WikiText-103). turbo-quant 0.2.1 (4k downloads), fib-quant 0.1.0-beta.3 published.",
       "featured": true
     },
     {
@@ -75,8 +91,14 @@
       "type": "Desktop App + Daemon",
       "status": "Active",
       "dataStore": "SQLite",
-      "languages": ["Rust", "TypeScript"],
-      "frameworks": ["Tauri", "React"],
+      "languages": [
+        "Rust",
+        "TypeScript"
+      ],
+      "frameworks": [
+        "Tauri",
+        "React"
+      ],
       "path": "Palisade/",
       "github": "https://github.com/RecursiveIntell/Palisade",
       "lastReviewed": "2026-05-19",
@@ -91,8 +113,14 @@
       "type": "Desktop App",
       "status": "Active",
       "dataStore": "SQLite",
-      "languages": ["Rust", "TypeScript"],
-      "frameworks": ["Tauri", "React"],
+      "languages": [
+        "Rust",
+        "TypeScript"
+      ],
+      "frameworks": [
+        "Tauri",
+        "React"
+      ],
       "path": "visionforge/",
       "github": "https://github.com/RecursiveIntell/VisionForge",
       "lastReviewed": "2026-05-19",
@@ -107,8 +135,13 @@
       "type": "Daemon + Web UI",
       "status": "Active",
       "dataStore": "SQLite",
-      "languages": ["Rust", "TypeScript"],
-      "frameworks": ["React"],
+      "languages": [
+        "Rust",
+        "TypeScript"
+      ],
+      "frameworks": [
+        "React"
+      ],
       "path": "Sortarr/",
       "lastReviewed": "2026-05-19",
       "notes": "TMDB/TVDB/AniList matching, Jellyfin NFO output, WebSocket updates, metrics, and planned dry-run/rollback receipts.",
@@ -122,8 +155,13 @@
       "type": "CLI Daemon",
       "status": "Active",
       "dataStore": "SQLite",
-      "languages": ["Rust"],
-      "frameworks": ["Clap", "Tokio"],
+      "languages": [
+        "Rust"
+      ],
+      "frameworks": [
+        "Clap",
+        "Tokio"
+      ],
       "path": "projmind/",
       "lastReviewed": "2026-05-19",
       "notes": "Uses tree-sitter extraction, local LLM analysis, project health, digests, synergies, and knowledge branches.",
