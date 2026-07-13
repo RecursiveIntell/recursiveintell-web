@@ -1,5 +1,14 @@
 [
   {
+    "id": "2026-07-13-d481dbf",
+    "date": "2026-07-13T11:30:02.975Z",
+    "title": "chore: update buildlog",
+    "summary": "Nightly buildlog refresh from GitHub Actions.",
+    "source": "schedule",
+    "href": "https://github.com/RecursiveIntell/recursiveintell-web/commit/d481dbf590dbfcc901dd243ef4e4dbb2700ebc74",
+    "sha": "d481dbf590dbfcc901dd243ef4e4dbb2700ebc74"
+  },
+  {
     "id": "2026-07-12-516e025",
     "date": "2026-07-12T10:02:58.422Z",
     "title": "chore: update buildlog",
