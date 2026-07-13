@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Three council-directed visual concepts for a RecursiveIntell product website." />
+  <title>RecursiveIntell — Design Council Directions</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600&family=Azeret+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=Literata:opsz,wght@7..72,400;7..72,500&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Recursive:slnt,wght@-15..0,400..600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --shell: #0b0c0b;
+      --shell-text: #f5f2ea;
+      --shell-muted: #aaa9a3;
+      --shell-line: #2b2d2b;
+      --shell-accent: #e657a7;
+      --step--1: clamp(.76rem, .72rem + .14vw, .84rem);
+      --step-0: clamp(.94rem, .89rem + .18vw, 1.05rem);
+      --step-1: clamp(1.12rem, 1.03rem + .35vw, 1.34rem);
+      --step-2: clamp(1.42rem, 1.22rem + .74vw, 1.82rem);
+      --step-3: clamp(2rem, 1.56rem + 1.7vw, 3rem);
+      --step-4: clamp(3rem, 2rem + 3.8vw, 5.8rem);
+      --space-1: .5rem;
+      --space-2: .75rem;
+      --space-3: 1rem;
+      --space-4: 1.5rem;
+      --space-5: 2rem;
+      --space-6: 3rem;
+      --space-7: 5rem;
+      --content: 88rem;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--shell); color: var(--shell-text); font-family: "IBM Plex Sans Condensed", sans-serif; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 2px solid var(--shell-accent); outline-offset: 4px; }
+    .skip { position: fixed; left: 1rem; top: -5rem; z-index: 100; background: #fff; color: #111; padding: .75rem 1rem; }
+    .skip:focus { top: 1rem; }
+    .board-nav { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--shell-line); background: rgba(11,12,11,.97); }
+    .board-nav-inner { width: min(calc(100% - 2rem), var(--content)); margin: auto; min-height: 4.25rem; display: flex; align-items: center; gap: 1rem; }
+    .board-brand { display: flex; align-items: baseline; gap: .8rem; margin-right: auto; white-space: nowrap; }
+    .board-brand strong { font: 500 1.05rem/1 "Azeret Mono", monospace; }
+    .board-brand span { color: var(--shell-muted); font: 400 .72rem/1 "Azeret Mono", monospace; text-transform: uppercase; letter-spacing: .1em; }
+    .board-links { display: flex; gap: .35rem; overflow-x: auto; scrollbar-width: none; }
+    .board-links a { min-height: 44px; display: inline-flex; align-items: center; border: 1px solid var(--shell-line); padding: 0 .9rem; text-decoration: none; font: 500 .72rem/1 "Azeret Mono", monospace; text-transform: uppercase; letter-spacing: .07em; white-space: nowrap; }
+    .board-links a:hover { border-color: var(--shell-muted); background: #171917; }
+    .board-intro { width: min(calc(100% - 2rem), var(--content)); margin: auto; padding: 5rem 0 3rem; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(18rem, .6fr); gap: 4rem; align-items: end; }
+    .board-intro .kicker { color: var(--shell-accent); font: 500 .74rem/1 "Azeret Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
+    .board-intro h1 { margin: 1rem 0 0; max-width: 16ch; font-size: var(--step-4); line-height: .96; font-weight: 500; letter-spacing: -.045em; }
+    .board-intro p { margin: 0; color: var(--shell-muted); font-size: var(--step-1); line-height: 1.45; }
+    .board-intro code { color: var(--shell-text); font-family: "Azeret Mono", monospace; font-size: .82em; }
+    .direction { position: relative; min-height: 94vh; overflow: hidden; }
+    .direction-inner { width: min(calc(100% - 2rem), var(--content)); margin: auto; padding: 5.5rem 0; }
+    .direction-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 3.5rem; font: 500 .74rem/1 "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .09em; }
+    .direction-meta .index { display: inline-grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid currentColor; }
+    .direction-meta .score { margin-left: auto; }
+    .concept-grid { display: grid; grid-template-columns: minmax(17rem, .82fr) minmax(0, 1.18fr); gap: clamp(2rem, 6vw, 7rem); align-items: start; }
+    .concept-copy h2 { margin: 0; font-size: var(--step-4); line-height: .94; letter-spacing: -.045em; font-weight: 400; }
+    .concept-copy .stance { max-width: 28rem; margin: 1.75rem 0 0; font-size: var(--step-1); line-height: 1.45; }
+    .concept-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+    .concept-actions a { min-height: 46px; display: inline-flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 0 1rem; text-decoration: none; font: 500 .78rem/1 "IBM Plex Mono", monospace; }
+    .system-preview { min-width: 0; }
+    .preview-cap { display: flex; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: .75rem; font: 500 .68rem/1 "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .08em; }
+    .preview-cap span:last-child { opacity: .65; }
+
+    /* Direction 1 */
+    .monograph { --paper:#f3f0e8; --ink:#17201f; --muted:#66706b; --rule:#c9cec5; --signal:#b5402c; --link:#075e61; --code:#e8e5dc; background: var(--paper); color: var(--ink); }
+    .monograph .direction-inner { font-family: "Literata", serif; }
+    .monograph .direction-meta, .monograph .preview-cap, .monograph .concept-actions a { font-family: "IBM Plex Sans Condensed", sans-serif; }
+    .monograph .direction-meta { color: var(--signal); }
+    .monograph .concept-copy h2 { max-width: 8ch; }
+    .monograph .concept-copy .stance { color: var(--muted); }
+    .monograph .concept-actions a:first-child { background: var(--ink); color: var(--paper); }
+    .monograph .concept-actions a:last-child { border: 1px solid var(--rule); color: var(--link); }
+    .paper-figure { border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); }
+    .paper-row { display: grid; grid-template-columns: 6.5rem 1fr 8rem; min-height: 6rem; border-top: 1px solid var(--rule); align-items: stretch; }
+    .paper-row:first-child { border-top: 0; }
+    .paper-row > * { padding: 1rem; }
+    .paper-row .n { font: 500 .7rem/1.4 "IBM Plex Mono", monospace; color: var(--signal); }
+    .paper-row .body { border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+    .paper-row h3 { margin: 0 0 .45rem; font: 500 var(--step-1)/1.1 "IBM Plex Sans Condensed", sans-serif; }
+    .paper-row p { margin: 0; color: var(--muted); font: 400 .9rem/1.45 "Literata", serif; }
+    .paper-row code { font: 400 .7rem/1.45 "IBM Plex Mono", monospace; }
+    .paper-row .state { font: 500 .66rem/1.35 "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .07em; }
+    .paper-note { display: grid; grid-template-columns: 6.5rem 1fr; border-bottom: 1px solid var(--rule); }
+    .paper-note > * { padding: 1rem; }
+    .paper-note strong { font: 500 .7rem/1.4 "IBM Plex Mono", monospace; color: var(--signal); }
+    .paper-note p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.5; }
+
+    /* Direction 2 */
+    .witness { --ground:#101312; --panel:#171b19; --text:#f1f0e8; --muted:#a4aaa3; --line:#38413b; --receipt:#e657a7; --authority:#b7e36a; --warning:#f0a45d; background: var(--ground); color: var(--text); }
+    .witness::before { content:""; position:absolute; inset:0; pointer-events:none; background-image: linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size: 80px 80px; opacity:.16; }
+    .witness .direction-inner { position: relative; font-family: "IBM Plex Sans Condensed", sans-serif; }
+    .winner { color: var(--ground); background: var(--authority); padding: .35rem .55rem; }
+    .witness .direction-meta { color: var(--receipt); }
+    .witness .concept-copy h2 { max-width: 7ch; font-weight: 500; }
+    .witness .concept-copy .stance { color: var(--muted); font-family: "Newsreader", serif; }
+    .witness .concept-actions a:first-child { background: var(--text); color: var(--ground); }
+    .witness .concept-actions a:last-child { border: 1px solid var(--line); color: var(--text); }
+    .plane { border: 1px solid var(--line); background: var(--panel); }
+    .plane-head { display:flex; align-items:center; justify-content:space-between; min-height:3rem; padding:0 1rem; border-bottom:1px solid var(--line); font:500 .65rem/1 "Azeret Mono",monospace; text-transform:uppercase; letter-spacing:.08em; }
+    .plane-head .live { color: var(--authority); }
+    .trace { display:grid; grid-template-columns: repeat(5,minmax(0,1fr)); min-height:23rem; }
+    .trace-stage { position:relative; padding:1rem; border-right:1px solid var(--line); }
+    .trace-stage:last-child { border-right:0; }
+    .trace-stage .tag { color:var(--muted); font:400 .62rem/1.4 "Azeret Mono",monospace; }
+    .trace-stage h3 { margin:.8rem 0 .45rem; font-size:1.05rem; font-weight:500; }
+    .trace-stage p { margin:0; color:var(--muted); font-size:.78rem; line-height:1.45; }
+    .trace-stage::after { content:""; position:absolute; left:1rem; right:1rem; bottom:3rem; height:1px; background:var(--line); }
+    .trace-stage.lane::after { background:var(--receipt); box-shadow:0 1.25rem 0 var(--authority); }
+    .trace-stage .pulse { position:absolute; left:1rem; bottom:2.77rem; width:.5rem; height:.5rem; background:var(--receipt); }
+    .receipt-slip { margin:1rem; padding:1rem; border:1px solid var(--receipt); background:#111412; color:var(--muted); font:400 .67rem/1.65 "Azeret Mono",monospace; }
+    .receipt-slip strong { color:var(--text); font-weight:500; }
+    .receipt-slip .ok { color:var(--authority); }
+    .receipt-slip .pink { color:var(--receipt); }
+
+    /* Direction 3 */
+    .custody { --bone:#eee9dd; --black:#11110f; --graphite:#292925; --ash:#5f605a; --chain:#c9c5b9; --redact:#9f2f25; --verified:#1f674f; background:var(--bone); color:var(--black); }
+    .custody .direction-inner { font-family:"Source Serif 4",serif; }
+    .custody .direction-meta { color:var(--redact); font-family:"Archivo Narrow",sans-serif; }
+    .custody .concept-copy h2 { max-width:7ch; font-family:"Archivo Narrow",sans-serif; font-weight:500; text-transform:uppercase; letter-spacing:-.03em; }
+    .custody .concept-copy .stance { color:var(--ash); }
+    .custody .concept-actions a:first-child { background:var(--redact); color:white; }
+    .custody .concept-actions a:last-child { border:1px solid var(--black); }
+    .casefile { border:1px solid var(--black); background:var(--bone); }
+    .case-head { display:grid; grid-template-columns:1fr auto; gap:1rem; padding:1rem; border-bottom:4px solid var(--black); font:500 .72rem/1.35 "Recursive",monospace; text-transform:uppercase; letter-spacing:.05em; }
+    .case-head span:last-child { color:var(--redact); }
+    .event { display:grid; grid-template-columns:6rem 1fr 1fr; min-height:5.3rem; border-bottom:1px solid var(--chain); }
+    .event:last-child { border-bottom:0; }
+    .event > * { padding:1rem; }
+    .event .time { color:var(--ash); font:500 .68rem/1.4 "Recursive",monospace; }
+    .event .action { border-left:1px solid var(--chain); border-right:1px solid var(--chain); }
+    .event h3 { margin:0 0 .35rem; font:500 1rem/1.1 "Archivo Narrow",sans-serif; text-transform:uppercase; letter-spacing:.02em; }
+    .event p { margin:0; color:var(--ash); font-size:.78rem; line-height:1.4; }
+    .event .artifact { font:400 .66rem/1.55 "Recursive",monospace; }
+    .event .artifact b { display:block; color:var(--verified); }
+    .event.denied .artifact b { color:var(--redact); }
+    .case-foot { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem; background:var(--black); color:var(--bone); font:500 .7rem/1.3 "Recursive",monospace; }
+
+    .board-footer { width:min(calc(100% - 2rem),var(--content)); margin:auto; padding:4rem 0 6rem; display:grid; grid-template-columns:1fr 1fr; gap:2rem; border-top:1px solid var(--shell-line); }
+    .board-footer h2 { margin:0; font-size:var(--step-2); font-weight:500; }
+    .board-footer p { margin:0; max-width:38rem; color:var(--shell-muted); line-height:1.5; }
+    .board-footer code { font-family:"Azeret Mono",monospace; color:var(--shell-text); }
+
+    @media (max-width: 860px) {
+      .board-nav-inner { align-items:flex-start; flex-direction:column; padding:.8rem 0; }
+      .board-brand { width:100%; }
+      .board-links { width:100%; }
+      .board-intro, .concept-grid, .board-footer { grid-template-columns:1fr; gap:2rem; }
+      .board-intro { padding-top:3rem; }
+      .direction-inner { padding:4rem 0; }
+      .trace { grid-template-columns:1fr; }
+      .trace-stage { min-height:8rem; border-right:0; border-bottom:1px solid var(--line); }
+      .trace-stage::after, .trace-stage .pulse { display:none; }
+      .paper-row { grid-template-columns:4rem 1fr; }
+      .paper-row .state { grid-column:2; border-left:1px solid var(--rule); border-top:1px solid var(--rule); }
+      .paper-note { grid-template-columns:4rem 1fr; }
+      .event { grid-template-columns:4.5rem 1fr; }
+      .event .artifact { grid-column:2; border-left:1px solid var(--chain); border-top:1px solid var(--chain); }
+    }
+    @media (max-width: 520px) {
+      .board-brand span { display:none; }
+      .board-intro h1 { font-size:clamp(2.6rem,14vw,4.2rem); }
+      .direction-meta { align-items:flex-start; flex-wrap:wrap; }
+      .direction-meta .score { width:100%; margin-left:0; }
+      .concept-actions { flex-direction:column; }
+      .concept-actions a { width:100%; }
+      .paper-row { grid-template-columns:1fr; }
+      .paper-row .body,.paper-row .state { grid-column:auto; border-left:0; border-right:0; border-top:1px solid var(--rule); }
+      .paper-note { grid-template-columns:1fr; }
+      .paper-note p { border-top:1px solid var(--rule); }
+      .event { grid-template-columns:1fr; }
+      .event .action,.event .artifact { grid-column:auto; border-left:0; border-right:0; border-top:1px solid var(--chain); }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation:none!important; transition:none!important; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#directions">Skip to directions</a>
+  <header class="board-nav">
+    <div class="board-nav-inner">
+      <div class="board-brand"><strong>recursive intell</strong><span>design council · 2026.07</span></div>
+      <nav class="board-links" aria-label="Direction navigation">
+        <a href="#monograph">01 Monograph</a>
+        <a href="#witness">02 Witness Plane</a>
+        <a href="#custody">03 Chain of Custody</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="directions">
+    <section class="board-intro" aria-labelledby="board-title">
+      <div>
+        <div class="kicker">Three directions · one technical product family</div>
+        <h1 id="board-title">Replace the portfolio with a system people can inspect.</h1>
+      </div>
+      <p>The council agreed on the product story: <code>semantic-memory</code> → <code>semantic-memory-mcp</code> → <code>agent-memory-kits</code>. These directions differ in posture, not truth.</p>
+    </section>
+
+    <section class="direction monograph" id="monograph" aria-labelledby="monograph-title">
+      <div class="direction-inner">
+        <div class="direction-meta"><span class="index">01</span><span>Conservative · The Systems Monograph</span><span class="score">Slop score 1/10</span></div>
+        <div class="concept-grid">
+          <div class="concept-copy">
+            <h2 id="monograph-title">Durable memory. Documented boundaries.</h2>
+            <p class="stance">Calm, exacting, and established. A systems paper with executable edges: upright type, numbered figures, source notes, and no theatrical product chrome.</p>
+            <div class="concept-actions"><a href="/#install">Choose an integration <span>→</span></a><a href="/#stack">Inspect product layers</a></div>
+          </div>
+          <div class="system-preview">
+            <div class="preview-cap"><span>Figure 01 · product layers</span><span>source-scoped preview</span></div>
+            <div class="paper-figure" role="img" aria-label="Editorial product stack diagram showing Kits, MCP Server, and Core">
+              <div class="paper-row"><div class="n">Layer 03</div><div class="body"><h3>Agent Memory Kits</h3><p>Host-specific setup, doctor, ingest, and lifecycle integration.</p></div><div class="state"><code>install</code><br />operator entry</div></div>
+              <div class="paper-row"><div class="n">Layer 02</div><div class="body"><h3>Semantic Memory MCP</h3><p>Runtime profiles, witnessed retrieval, replay, and separate authority decisions.</p></div><div class="state"><code>stdio</code><br />policy surface</div></div>
+              <div class="paper-row"><div class="n">Layer 01</div><div class="body"><h3>Semantic Memory</h3><p>SQLite-authoritative state with lexical and vector candidate retrieval.</p></div><div class="state"><code>rust</code><br />durable core</div></div>
+            </div>
+            <div class="paper-note"><strong>Boundary</strong><p>Receipts record execution evidence. They do not prove that recalled content is true or that an action is permitted.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="direction witness" id="witness" aria-labelledby="witness-title">
+      <div class="direction-inner">
+        <div class="direction-meta"><span class="index">02</span><span>Strong-fit · The Witness Plane</span><span class="winner">Council choice</span><span class="score">Slop score 0/10</span></div>
+        <div class="concept-grid">
+          <div class="concept-copy">
+            <h2 id="witness-title">Agent memory that can show its work.</h2>
+            <p class="stance">Operational and alive. The product’s real retrieval, trust, privacy, and authority boundaries become the visual identity.</p>
+            <div class="concept-actions"><a href="/#install">Install the kits <span>↗</span></a><a href="/#top">Run the witness trace</a></div>
+          </div>
+          <div class="system-preview">
+            <div class="preview-cap"><span>Witness trace · request mcp-witness-…</span><span>user-triggered state</span></div>
+            <div class="plane">
+              <div class="plane-head"><span>hybrid · current state · cache bypassed</span><span class="live">● receipt persisted</span></div>
+              <div class="trace" role="img" aria-label="Operational witnessed search trace through query, lexical and vector candidates, fusion, policy, and receipt">
+                <div class="trace-stage"><span class="tag">01 / query</span><h3>Prompt enters</h3><p>Host integration selects a governed retrieval path.</p><span class="pulse"></span></div>
+                <div class="trace-stage lane"><span class="tag">02 / candidates</span><h3>BM25 + vector</h3><p>Ranked candidate lanes remain distinguishable.</p></div>
+                <div class="trace-stage"><span class="tag">03 / fusion</span><h3>Weighted RRF</h3><p>Ranks merge without pretending scores are identical.</p></div>
+                <div class="trace-stage"><span class="tag">04 / state</span><h3>Policy applies</h3><p>Visibility, supersession, source, and authority state.</p></div>
+                <div class="trace-stage"><span class="tag">05 / evidence</span><h3>Receipt exits</h3><p>Backend, result IDs, degradations, and replay boundary.</p></div>
+              </div>
+              <div class="receipt-slip"><strong>receipt</strong> <span class="pink">mcp-witness-17839…</span> · authority <span class="ok">APPLIED</span> · replay inputs <strong>NOT RETAINED</strong> · exactness <strong>f32 rerank</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="direction custody" id="custody" aria-labelledby="custody-title">
+      <div class="direction-inner">
+        <div class="direction-meta"><span class="index">03</span><span>Divergent · Chain of Custody</span><span class="score">Slop score 1/10</span></div>
+        <div class="concept-grid">
+          <div class="concept-copy">
+            <h2 id="custody-title">Memory is not authority.</h2>
+            <p class="stance">Forensic and uncompromising. One failed-memory case reconstructs what was recalled, superseded, denied, and retained.</p>
+            <div class="concept-actions"><a href="/#evidence">Inspect evidence <span>→</span></a><a href="/#install">Install the stack</a></div>
+          </div>
+          <div class="system-preview">
+            <div class="preview-cap"><span>Case 2026-0713 · stale fact recall</span><span>custody chain</span></div>
+            <div class="casefile">
+              <div class="case-head"><span>Subject: release version / asserted state</span><span>Review required</span></div>
+              <div class="event"><div class="time">12:07:51<br />E01</div><div class="action"><h3>Recall</h3><p>Agent retrieves an older package-version fact.</p></div><div class="artifact"><b>ARTIFACT RETAINED</b>fact:51f31685…<br />state: superseded</div></div>
+              <div class="event"><div class="time">12:07:52<br />E02</div><div class="action"><h3>State resolution</h3><p>Current view detects a newer lineage head.</p></div><div class="artifact"><b>LINEAGE RESOLVED</b>valid_time / recorded_time<br />head: fact:589cb5…</div></div>
+              <div class="event denied"><div class="time">12:07:53<br />E03</div><div class="action"><h3>Assertion decision</h3><p>Recall permission does not imply permission to assert.</p></div><div class="artifact"><b>ASSERTION DENIED</b>purpose: assertion<br />reason: stale premise</div></div>
+              <div class="event"><div class="time">12:07:54<br />E04</div><div class="action"><h3>Witness</h3><p>The retrieval and decision evidence remains inspectable.</p></div><div class="artifact"><b>RECEIPT PERSISTED</b>digest: blake3:7dea…<br />content omitted</div></div>
+              <div class="case-foot"><span>Receipts prove recorded evidence—not total correctness.</span><span>04 events / 03 owners</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="board-footer">
+    <h2>Council decision: build The Witness Plane.</h2>
+    <p>The final prototype uses architecture and receipt state as the brand. The existing production worktree remains untouched. Read the source brief at <code>BRIEF.md</code> and the full synthesis at <code>COUNCIL.md</code>.</p>
+  </footer>
+</body>
+</html>
