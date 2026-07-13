@@ -8,144 +8,128 @@ export default function NowPage() {
       <PageHeader
         eyebrow="Now"
         title="Current Focus"
-        description="Rust-first local AI runtimes, evidence-aware memory, and autonomous agents."
+        description="Package the agent evidence stack. Keep TurboQuant/PolyKV as the research lane. Showcase Gloss and ESP32."
       />
       <Container className="py-12">
         <div className="prose">
           <p>
-            The primary focus right now is the Rust evidence-runtime stack,
-            autonomous AI, and embedded edge-AI:{" "}
-            <Link href="/projects/esp32-sentinel"><strong>ESP32-S3 Sentinel</strong></Link>,{" "}
-            <Link href="/projects/aidens"><strong>AiDENs</strong></Link>{" "}
-            closed-loop self-learning, <strong>semantic-memory</strong> as a
-            published MCP server, and the broader RecursiveIntell library
-            workspace.
+            Per the{" "}
+            <strong>2026-07-10 portfolio audit</strong>, attention concentrates on four
+            surfaces. Everything else either feeds those lanes or stays secondary.
           </p>
 
-          <h2>ESP32-S3 Sentinel</h2>
+          <h2>
+            1. Agent evidence stack (lead){" "}
+            <Link href="/projects/agent-memory-kits">Agent Memory Kits</Link>
+          </h2>
           <p>
-            A $4 always-on ESP32-S3 sentinel that runs a local char-LSTM decision
-            tier and only wakes a richer gateway when confidence drops.
-            11.6 tok/s TinyStories H512 on real Freenove WROOM N8R8 hardware.
+            Highest-potential product wedge: a <strong>local flight recorder</strong> for
+            agent work — hybrid memory, receipt-backed context compaction, and
+            claim/evidence promote/reject decisions.
           </p>
           <ul>
-            <li>6.34M-parameter char-LSTM, hidden=512, 3 layers</li>
-            <li>4.8 MB int8 weights + int4 recurrent weight file</li>
-            <li>Tier 0 sentinel + optional Tier 1 Ollama gateway over WiFi</li>
-            <li>Worked example runs on a laptop with no hardware required</li>
-            <li>Receipt-backed: every decision logged as JSONL</li>
+            <li>
+              <code>semantic-memory</code> / <code>semantic-memory-mcp</code> — SQLite-authoritative
+              hybrid search, bitemporal truth, MCP tools
+            </li>
+            <li>
+              <code>context-governor</code> — deterministic compaction with exact fallback
+            </li>
+            <li>
+              <Link href="/projects/claimledger">
+                <code>claim-ledger</code>
+              </Link>{" "}
+              — source-spanned claims, contradictions, testimony
+            </li>
+            <li>Nine host plugins (Claude Code, Cursor, Windsurf, Codex, and more)</li>
           </ul>
           <p>
-            <Link href="/projects/esp32-sentinel">View the project page</Link>{" "}
-            or{" "}
-            <a
-              href="https://github.com/RecursiveIntell/esp32-sentinel"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              open the repo
-            </a>.
+            <strong>P0:</strong> one public demo a stranger can finish in under 15 minutes
+            (install → ingest → recall → supersession → contradiction → proof packet).
           </p>
 
-          <h2>AiDENs Autonomous Loop</h2>
+          <h2>
+            2. Compression research{" "}
+            <Link href="/projects/turbo-quant">TurboQuant</Link> ·{" "}
+            <Link href="/projects/poly-kv">PolyKV</Link>
+          </h2>
           <p>
-            AiDENs is a closed-loop self-learning AI system built in Rust. It
-            audits its own typed knowledge graph to find structural and
-            content-level gaps, generates prioritized tasks to fill them,
-            executes those tasks via a local LLM (Ollama), captures results as
-            provenance-attributed facts with graph edges, evaluates fact
-            quality through a governance gate, and records RL routing feedback
-            for adaptive retrieval.
+            Strongest external technical signal (crates.io downloads / GitHub stars for
+            turbo-quant). PolyKV targets shared compressed KV-cache pools with
+            compressed-domain scoring and local benchmark receipts (including 5.81× multi-head
+            batch at 32K vs exact f32 on CPU — local, not external superiority).
           </p>
           <ul>
+            <li>Keep turbo-quant as the legible published crate</li>
+            <li>Land one real inference-runtime integration with full replay scripts</li>
+            <li>Do not lead the whole portfolio with compression until external reproduction exists</li>
+          </ul>
+
+          <h2>
+            3. Edge proof{" "}
+            <Link href="/projects/esp32-sentinel">ESP32-S3 Sentinel</Link>
+          </h2>
+          <p>
+            Always-on $4 ESP32-S3 sentinel with a local char-LSTM decision tier and
+            wake-on-need gateway. 11.6 tok/s H512 hardware-verified on Freenove WROOM N8R8.
+            Best used as systems-depth proof, not the primary software company wedge.
+          </p>
+
+          <h2>
+            4. Showcase app{" "}
+            <Link href="/projects/gloss">Gloss</Link>
+          </h2>
+          <p>
+            Highest repository star count in the inspected portfolio. Local-first knowledge
+            desktop (NotebookLM-style positioning). Strategic role: visible application powered
+            by the evidence stack — not a separate strategic center.
+          </p>
+
+          <h2>Published crates (selected)</h2>
+          <ul>
             <li>
-              <strong>14 iterations</strong> demonstrated,{" "}
-              <strong>12/12 tasks completed</strong>,{" "}
-              <strong>29 facts captured</strong>.
+              <code>semantic-memory</code> / <code>semantic-memory-mcp</code>
             </li>
             <li>
-              <strong>8 mission types</strong> with adaptive priority
-              scheduling: verify published crates, detect contradictions, verify
-              file references, verify codebase sync, trace provenance chains,
-              stale date detection, find duplicates, and audit namespace
-              completeness.
+              <code>turbo-quant</code>
             </li>
             <li>
-              <strong>56K LOC across 36 crates</strong> with 668 tests (506 core
-              + 162 autonomous).
+              <code>poly-kv</code>
             </li>
             <li>
-              In development &mdash; not yet published to crates.io.
+              <code>claim-ledger</code>
+            </li>
+            <li>
+              <code>context-governor</code>
+            </li>
+            <li>
+              <code>stack-ids</code>
             </li>
           </ul>
 
-          <h2>semantic-memory</h2>
-          <p>
-            The knowledge graph substrate that powers AiDENs is now published
-            on crates.io. It provides typed edges (semantic, temporal, causal,
-            entity), bitemporal search, contradiction detection, factor graph
-            belief propagation, and RL-trained adaptive retrieval routing.
-          </p>
-          <ul>
-            <li><strong>48 MCP tools</strong> with tool profile gating (lean / standard / full)</li>
-            <li><strong>15 HTTP endpoints</strong> for programmatic access</li>
-            <li><strong>RL routing</strong> with persistence across sessions</li>
-            <li><strong>Auto-management</strong>: integrity checks, vacuum, re-embed via HTTP</li>
-            <li>Available on crates.io: <code>semantic-memory</code> and <code>semantic-memory-mcp</code></li>
-          </ul>
-
-          <h2>semantic-memory-claude-kit</h2>
-          <p>
-            A Claude Code plugin for semantic-memory integration. Version
-            0.5.2 is available on GitHub with auto-recall, auto-capture, dedup
-            guard, receipts, primer, and maintenance hooks.
-          </p>
-
-          <h2>Published Crates</h2>
-          <p>
-            The following crates are published on crates.io:
-          </p>
-          <ul>
-            <li><code>semantic-memory</code> &mdash; typed knowledge graph with provenance</li>
-            <li><code>semantic-memory-mcp</code> &mdash; MCP server binary</li>
-            <li><code>turbo-quant</code> &mdash; quantization research (4K+ downloads)</li>
-            <li><code>claim-ledger</code> &mdash; claim and evidence compiler</li>
-            <li><code>stack-ids</code> &mdash; shared identifiers and trace primitives</li>
-          </ul>
-
-          <h2>Other Active Tracks</h2>
+          <h2>Secondary (listed, not featured)</h2>
           <ul>
             <li>
-              <strong>Recall</strong> &mdash; enforcing daemon-owned authority,
-              runtime truth, receipts, doctor reports, and repair packet
-              generation.
+              <Link href="/projects/recall">Recall</Link> — operator shell (consolidate over time)
             </li>
             <li>
-              <strong>Gloss</strong> &mdash; proving desktop chat produces visible
-              tokens, visible errors, or durable attempt traces for every
-              prompt.
+              <Link href="/projects/aidens">AiDENs</Link> — mine modules; do not launch whole platform yet
             </li>
             <li>
-              <strong>ClaimLedger</strong> &mdash; turning raw claim compilation into
-              source-spanned bundles, support judgments, contradiction records,
-              review queues, and testimony exports for Gloss.
-            </li>
-            <li>
-              <strong>Libraries</strong> &mdash; keeping canonical Rust crates,
-              satellite utilities, and quantization research separated by
-              explicit support boundaries.
+              <Link href="/projects/palisade">Palisade</Link>,{" "}
+              <Link href="/projects/visionforge">VisionForge</Link>,{" "}
+              <Link href="/projects/sortarr">Sortarr</Link>,{" "}
+              <Link href="/projects/projmind">projmind</Link>
             </li>
           </ul>
 
           <p className="text-sm text-[color:var(--color-muted)]">
-            <em>Last updated: July 2026</em>
+            <em>Last updated: July 11, 2026 — aligned with portfolio potential audit</em>
           </p>
 
           <p>
-            Want more detail? Browse the{" "}
-            <Link href="/projects">Projects</Link>, the{" "}
-            <Link href="/lab">Lab</Link>, or the latest{" "}
-            <Link href="/writing">Writing</Link>.
+            Browse <Link href="/projects">Projects</Link> (✦ = featured) or the{" "}
+            <Link href="/">home</Link> work lanes.
           </p>
         </div>
       </Container>

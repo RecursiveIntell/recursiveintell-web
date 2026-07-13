@@ -1,0 +1,65 @@
+---
+title: "Agent Memory Kits"
+date: "2026-07-11"
+summary: "Local flight recorder for AI coding agents: persistent memory, receipt-backed context compaction, and claim/evidence provenance across nine host plugins."
+tags: ["rust", "mcp", "semantic-memory", "context-governor", "claim-ledger", "agents", "local-first", "receipts"]
+status: "active"
+featured: true
+links:
+  GitHub: "https://github.com/RecursiveIntell/agent-memory-kits"
+  "semantic-memory": "https://crates.io/crates/semantic-memory"
+  "context-governor": "https://crates.io/crates/context-governor"
+  "claim-ledger": "https://crates.io/crates/claim-ledger"
+problem: "Coding agents forget everything between sessions and cannot show which claims are supported, stale, or contested."
+solution: "Three companion MCP servers plus host plugins: hybrid memory, governed compaction with exact fallback, and a claim/evidence ledger."
+role: "Architecture, Rust crates, host plugins, release gates"
+results:
+  - "Nine agent host plugins from one kit repo"
+  - "Live internal use with semantic-memory MCP tools"
+  - "138 Python kit tests + multi-crate Rust suites passing (2026-07-10 audit)"
+metrics:
+  - label: "Hosts"
+    value: "9"
+  - label: "Companion crates"
+    value: "3+"
+  - label: "Kit tests"
+    value: "138+"
+---
+
+## Overview
+
+**Agent Memory Kits** is the product wedge for the RecursiveIntell stack: a local flight recorder for agent work. It links material claims and actions to source spans, tool receipts, context changes, policy decisions, and bitemporal corrections.
+
+The public message is not “another vector database” or “101 Rust crates.” It is:
+
+> Show which material claims and actions are supported, stale, contested, or unrecoverable — and why.
+
+## What ships
+
+One repo wires three companion surfaces and host integrations:
+
+| Piece | Role |
+|-------|------|
+| **semantic-memory** | SQLite-authoritative hybrid search (BM25 + vector + RRF), bitemporal truth, contradictions, typed graph edges |
+| **context-governor** | Deterministic, receipt-backed context compaction with exact fallback by item id |
+| **claim-ledger** | Claim/evidence/provenance ledger with promote/reject/quarantine/defer decisions |
+| **Host plugins** | Claude Code, Cursor, Windsurf, Cline, Continue, Codex, OpenCode, Roo, Hermes-shaped installs |
+
+## Why this is the lead surface
+
+1. **Compounds** across coding agents, research agents, release verification, codebase ingest, and Gloss.
+2. **Differentiates** where memory alone is crowded: evidence lifecycle + receipts + bitemporal supersession.
+3. **Already exercised** by real operator sessions — not only README architecture.
+
+## Honest status
+
+- Strong local test receipts and live integration.
+- Public adoption still early; the next ROI move is a stranger-evaluable 15-minute install → ingest → recall → contradiction → proof-packet demo.
+- Competitive category includes Mem0, Letta, Zep/Graphiti, GraphRAG tooling, and observability products — the gap claimed is *integrated* proof lifecycle, not “unique memory.”
+
+## Relationship to the rest of the portfolio
+
+- **Gloss** is the user-facing knowledge application that should consume this stack.
+- **TurboQuant / PolyKV** are the research credibility lane for compression.
+- **ESP32-S3** is physical proof of systems depth.
+- Operator shells (Recall, workbenches) fold into one evidence surface over time.

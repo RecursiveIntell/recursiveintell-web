@@ -36,7 +36,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About"
         title="Josh Stevenson"
-        description="Rust-focused systems engineer building local-first evidence, memory, and operator-control runtimes."
+        description="Rust-focused systems engineer building a local flight recorder for agent work — memory, claims, compression research, and measured edge AI."
       />
       <Container className="py-12">
         {/* Hero section with photo and intro */}
@@ -68,14 +68,20 @@ export default function AboutPage() {
           <div className="flex-1">
             <div className="prose prose-lg">
               <p>
-                I&apos;m Josh, a systems engineer focused on Rust-first local runtimes,
-                evidence-aware memory, verification boundaries, operator-control
-                software, and embedded edge-AI on ESP32-S3.
+                I&apos;m Josh, a systems engineer focused on local-first agent
+                infrastructure: persistent memory, claim/evidence provenance, governed
+                context, and published compression research — with Gloss as the knowledge
+                desktop and ESP32-S3 as physical proof.
               </p>
               <p>
-                This site is the public surface for RecursiveIntell: Recall, Gloss,
-                Palisade, VisionForge, Sortarr, projmind, AiDENs, the Rust Libraries workspace,
-                ClaimLedger, and ESP32-S3 Sentinel.
+                This site features the best of the stack first:{" "}
+                <Link href="/projects/agent-memory-kits">Agent Memory Kits</Link>,{" "}
+                <Link href="/projects/turbo-quant">TurboQuant</Link>,{" "}
+                <Link href="/projects/poly-kv">PolyKV</Link>,{" "}
+                <Link href="/projects/esp32-sentinel">ESP32-S3 Sentinel</Link>, and{" "}
+                <Link href="/projects/gloss">Gloss</Link>. Depth surfaces (Recall, Palisade,
+                VisionForge, Sortarr, AiDENs, and more) stay listed without competing for the
+                headline.
               </p>
               <p>
                 My approach: keep authority explicit, make material operations
@@ -83,10 +89,9 @@ export default function AboutPage() {
                 and avoid public claims the code cannot support.
               </p>
               <p>
-                Published crates on crates.io: semantic-memory, semantic-memory-mcp,
-                turbo-quant, claim-ledger, and stack-ids. semantic-memory-claude-kit v0.5.2
-                is available on GitHub. The 9-month journey from &ldquo;can you help me
-                learn Python?&rdquo; in June 2025 to published Rust crates in March 2026.
+                Published crates include semantic-memory, semantic-memory-mcp, turbo-quant,
+                claim-ledger, context-governor, and stack-ids. Agent host plugins live in
+                agent-memory-kits. Journey: June 2025 Python beginner → published Rust crates.
               </p>
               <p>
                 You can find me on GitHub at{" "}

@@ -18,18 +18,26 @@ export default async function ProjectsPage({ searchParams }: IndexPageProps) {
   const statuses = Array.from(
     new Set(allProjects.flatMap((project) => (project.status ? [project.status] : [])))
   ).sort();
-  const projects = allProjects.filter(
-    (project) =>
-      (!params.tag || project.tags.includes(params.tag)) &&
-      (!params.status || project.status === params.status)
-  );
+  const projects = allProjects
+    .filter(
+      (project) =>
+        (!params.tag || project.tags.includes(params.tag)) &&
+        (!params.status || project.status === params.status)
+    )
+    .sort((a, b) => {
+      // Featured projects first, then by date descending
+      const af = a.featured ? 1 : 0;
+      const bf = b.featured ? 1 : 0;
+      if (bf !== af) return bf - af;
+      return Date.parse(b.date) - Date.parse(a.date);
+    });
 
   return (
     <div>
       <PageHeader
         eyebrow="Portfolio"
         title="Current Projects"
-        description="Rust-first systems, local evidence runtimes, and ClaimLedger claim-hygiene work."
+        description="Featured first: agent evidence stack, TurboQuant/PolyKV, ESP32-S3, and Gloss. Secondary apps remain listed for depth."
       />
       <Container className="py-12">
         <div className="mb-8 flex flex-wrap gap-2">
@@ -69,6 +77,7 @@ export default async function ProjectsPage({ searchParams }: IndexPageProps) {
                 date={project.date}
                 tags={project.tags}
                 status={project.status}
+                featured={project.featured}
                 href={contentHref("projects", project.slug)}
               />
             ))}

@@ -11,6 +11,7 @@ type ContentCardProps = {
   tags: string[];
   status?: ContentStatus;
   eyebrow?: string;
+  featured?: boolean;
 };
 
 export function ContentCard({
@@ -21,6 +22,7 @@ export function ContentCard({
   tags,
   status,
   eyebrow,
+  featured,
 }: ContentCardProps) {
   return (
     <Link
@@ -28,6 +30,11 @@ export function ContentCard({
       className="group flex h-full flex-col gap-4 rounded-3xl border border-[color:var(--color-border)] bg-[color:var(--color-card)] p-6 transition hover:-translate-y-1 hover:border-[color:var(--color-accent)]"
     >
       <div className="flex flex-wrap items-center gap-3">
+        {featured ? (
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--color-accent-2)]">
+            ✦ featured
+          </span>
+        ) : null}
         {eyebrow ? (
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--color-muted)]">
             {eyebrow}

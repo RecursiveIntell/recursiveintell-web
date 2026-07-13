@@ -1,5 +1,58 @@
 [
   {
+    "id": "projects:agent-memory-kits",
+    "title": "Agent Memory Kits",
+    "summary": "Local flight recorder for AI coding agents: persistent memory, receipt-backed context compaction, and claim/evidence provenance across nine host plugins.",
+    "tags": [
+      "rust",
+      "mcp",
+      "semantic-memory",
+      "context-governor",
+      "claim-ledger",
+      "agents",
+      "local-first",
+      "receipts"
+    ],
+    "date": "2026-07-11",
+    "type": "projects",
+    "href": "/projects/agent-memory-kits",
+    "status": "active"
+  },
+  {
+    "id": "projects:poly-kv",
+    "title": "PolyKV",
+    "summary": "Shared compressed KV-cache pool for multi-agent inference: two-tier codecs, compressed-domain scoring, and typed receipts — research path toward proveKV.",
+    "tags": [
+      "rust",
+      "kv-cache",
+      "compression",
+      "multi-agent",
+      "benchmarks",
+      "research"
+    ],
+    "date": "2026-07-11",
+    "type": "projects",
+    "href": "/projects/poly-kv",
+    "status": "active"
+  },
+  {
+    "id": "projects:turbo-quant",
+    "title": "TurboQuant",
+    "summary": "Published Rust crate for experimental vector compression: PolarQuant, TurboQuant, and QJL sketches with bit-packed wire formats and benchmark receipts.",
+    "tags": [
+      "rust",
+      "compression",
+      "embeddings",
+      "quantization",
+      "crates.io",
+      "research"
+    ],
+    "date": "2026-07-11",
+    "type": "projects",
+    "href": "/projects/turbo-quant",
+    "status": "active"
+  },
+  {
     "id": "projects:esp32-sentinel",
     "title": "ESP32-S3 Sentinel",
     "summary": "A $4 always-on ESP32-S3 sentinel that runs a local char-LSTM decision tier and only wakes a richer gateway when confidence drops. 11.6 tok/s H512 hardware-verified.",

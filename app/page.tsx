@@ -1,7 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { categories, projects, recentAudit, stack } from "@/data/portfolio";
+import {
+  categories,
+  featuredCount,
+  projectCount,
+  projects,
+  recentAudit,
+  stack,
+} from "@/data/portfolio";
 import { RokoCategory, RokoHero, RokoPeek } from "@/components/Roko";
 
 type CategoryFilter = "all" | (typeof categories)[number]["id"];
@@ -20,6 +27,7 @@ export default function Home() {
   }, []);
 
   const visibleCats = activeCat === "all" ? categories : categories.filter((cat) => cat.id === activeCat);
+  const maxStack = Math.max(...stack.map((s) => s.n), 1);
 
   return (
     <div className="wrap">
@@ -28,21 +36,26 @@ export default function Home() {
           <div className="eyebrow">
             <span className="num">01</span>
             <span className="bar" />
-            <span>portfolio · v2026.07 · 10 active surfaces</span>
+            <span>
+              portfolio · v2026.07 · {featuredCount} featured · {projectCount} surfaces
+            </span>
           </div>
           <h1 className="display" id="home-hero-title">
-            Evidence runtimes.
+            A flight recorder
             <br />
-            <span className="it">Loud results.</span>
+            <span className="it">for agent work.</span>
             <br />
-            Always receipt-backed. <span className="stamp">v2026.07</span>
+            Local. Receipt-backed. <span className="stamp">v2026.07</span>
           </h1>
           <p className="lede">
-            <b>Josh Stevenson</b> - independent systems engineer focused on Rust-first local runtimes, evidence-aware memory, operator-control software, and now embedded edge-AI on ESP32-S3. Current public work is Recall, Gloss, ClaimLedger, Palisade, VisionForge, Sortarr, projmind, AiDENs, the RecursiveIntell Rust Libraries, and ESP32-S3 Sentinel.
+            <b>Josh Stevenson</b> builds local-first agent infrastructure: persistent memory,
+            claim/evidence provenance, governed context, and published compression research — plus
+            Gloss as the knowledge desktop app and ESP32-S3 as physical proof. Best bets are featured
+            below; the rest of the stack stays listed as depth.
           </p>
           <div className="hero-cta">
             <a className="btn-primary" href="#work">
-              enter the dojo <span>↯</span>
+              see the best work <span>↯</span>
             </a>
             <a className="btn-ghost" href="mailto:josh@recursiveintell.com">
               josh@recursiveintell.com
@@ -52,15 +65,15 @@ export default function Home() {
             <span className="s hot">★ for hire</span>
             <span className="s">part-time + contract</span>
             <span className="s">utc-8</span>
-            <span className="s">rust · tauri · sqlite</span>
+            <span className="s">rust · mcp · sqlite</span>
             <span className="s">linux first</span>
           </div>
         </div>
 
         <div className="hero-mascot" aria-hidden="true">
           <div className="mascot-bg" />
-          <span className="float-tag t1">9 active · ↯</span>
-          <span className="float-tag t2">claim-backed</span>
+          <span className="float-tag t1">{featuredCount} featured · ↯</span>
+          <span className="float-tag t2">flight recorder</span>
           <span className="float-tag t3">local-first</span>
           <span className="float-tag t4">★ open for hire</span>
           <div className="mascot-circle">
@@ -71,7 +84,7 @@ export default function Home() {
                 </defs>
                 <text>
                   <textPath href="#ringpath" startOffset="0%">
-                    recursiveintell · the dojo · ✦ · rust · evidence · receipts · local AI · ✺ · claim hygiene ·
+                    recursiveintell · evidence · memory · turbo-quant · gloss · esp32 · receipts ·
                   </textPath>
                 </text>
               </svg>
@@ -84,36 +97,70 @@ export default function Home() {
       </section>
 
       <div className="marks-strip">
-        <span><strong>10</strong>current</span>
+        <span>
+          <strong>{featuredCount}</strong>featured
+        </span>
         <span className="sep">✦</span>
-        <span><strong>4</strong>lanes</span>
+        <span>
+          <strong>{projectCount}</strong>listed
+        </span>
         <span className="sep">✦</span>
-        <span><strong>8</strong>rust surfaces</span>
+        <span>
+          <strong>4</strong>lanes
+        </span>
         <span className="sep">✦</span>
-        <span><strong>1</strong>claim compiler</span>
+        <span>
+          <strong>1</strong>edge sentinel
+        </span>
         <span className="sep">✦</span>
-        <span><strong>1</strong>edge sentinel</span>
+        <span>
+          <strong>0</strong>cloud required
+        </span>
       </div>
 
       <div className="section-head" id="now">
-        <h2><span className="num">02 · NOW</span>What&apos;s on the <span className="ink-it">bench</span></h2>
+        <h2>
+          <span className="num">02 · NOW</span>What&apos;s on the <span className="ink-it">bench</span>
+        </h2>
         <div className="rail" />
-        <div className="aside">updated jun 25</div>
-        <div className="peek"><RokoPeek width={88} /></div>
+        <div className="aside">updated jul 11</div>
+        <div className="peek">
+          <RokoPeek width={88} />
+        </div>
       </div>
       <div className="now-grid">
         <div className="now-cell">
           <h3>this week</h3>
-          <div className="big"><span className="it">ESP32-S3 Sentinel</span> always-on edge AI, hardware-verified</div>
-          <div className="sub">$4 Freenove WROOM N8R8 runs a 6.34M-parameter char-LSTM at 11.6 tok/s (TinyStories H512). Only wakes a richer gateway when confidence drops. No cloud, no blocking, real receipts.</div>
+          <div className="big">
+            Package the <span className="it">agent evidence stack</span>
+          </div>
+          <div className="sub">
+            One installable surface strangers can evaluate in under 15 minutes: ingest → source-backed
+            recall → supersession → contradiction → proof packet. Powered by agent-memory-kits,
+            semantic-memory, claim-ledger, and context-governor.
+          </div>
         </div>
         <div className="now-cell">
           <h3>up next</h3>
           <ul>
-            <li><span className="label">ESP32-S3 · harder power policy, OLED display path, multi-sensor router</span><span className="when">active</span></li>
-            <li><span className="label">AiDENs · expand mission types and harden evaluation gate</span><span className="when">active</span></li>
-            <li><span className="label">semantic-memory · MCP server hardening and tool profiles</span><span className="when">active</span></li>
-            <li><span className="label">semantic-memory-claude-kit · next version with deeper integration</span><span className="when">active</span></li>
+            <li>
+              <span className="label">
+                Agent Memory Kits · 15-minute public demo + install doctor
+              </span>
+              <span className="when">p0</span>
+            </li>
+            <li>
+              <span className="label">TurboQuant / PolyKV · external runtime integration path</span>
+              <span className="when">research</span>
+            </li>
+            <li>
+              <span className="label">ESP32-S3 · consolidate repos into one flagship demo</span>
+              <span className="when">active</span>
+            </li>
+            <li>
+              <span className="label">Gloss · evidence stack as visible application surface</span>
+              <span className="when">showcase</span>
+            </li>
           </ul>
         </div>
         <div className="now-cell">
@@ -122,7 +169,10 @@ export default function Home() {
             {recentAudit.map((item) => (
               <li key={item.label}>
                 <span className="label">{item.label}</span>
-                <span className="when"><span className={`cat ${item.cat}`}>{item.cat}</span>{item.when}</span>
+                <span className="when">
+                  <span className={`cat ${item.cat}`}>{item.cat}</span>
+                  {item.when}
+                </span>
               </li>
             ))}
           </ul>
@@ -206,7 +256,7 @@ export default function Home() {
                 <div className="lbl">{item.name}</div>
               </div>
               <div className="ctx">{item.ctx}</div>
-              <div className="bar" style={{ width: `${(item.n / 8) * 100}%` }} />
+              <div className="bar" style={{ width: `${(item.n / maxStack) * 100}%` }} />
             </div>
           ))}
         </div>

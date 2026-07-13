@@ -1,0 +1,56 @@
+---
+title: "PolyKV"
+date: "2026-07-11"
+summary: "Shared compressed KV-cache pool for multi-agent inference: two-tier codecs, compressed-domain scoring, and typed receipts — research path toward proveKV."
+tags: ["rust", "kv-cache", "compression", "multi-agent", "benchmarks", "research"]
+status: "active"
+featured: true
+links:
+  crates.io: "https://crates.io/crates/poly-kv"
+  GitHub: "https://github.com/RecursiveIntell"
+problem: "Multi-agent setups store the same system prompt and shared context many times in VRAM."
+solution: "One shared compressed pool plus cheap per-agent shells, with compressed-domain attention candidate scoring."
+role: "Research system design and Rust implementation"
+results:
+  - "5.81× multi-head batch scoring vs optimized exact f32 at 32K tokens (local CPU receipt)"
+  - "Near-lossless quality at candidate_k=48 (+0.67% PPL DistilGPT2/WikiText-103, local)"
+  - "Full workspace test suite green in 2026-07-10 audit (89 passed)"
+metrics:
+  - label: "32K multi-head"
+    value: "5.81×"
+  - label: "PPL delta (k=48)"
+    value: "+0.67%"
+  - label: "Status"
+    value: "alpha research"
+---
+
+## Overview
+
+`poly-kv` is the **pool primitive** for multi-agent inference: shared context is compressed once; agents get fast private shells for unique tokens. Compressed-domain scoring ranks attention candidates from codebook indices without full f32 decompress, then decodes only selected top-k values.
+
+## Two-tier strategy
+
+| Tier | Holds | Intent |
+|------|--------|--------|
+| **Shared pool (cold)** | System prompts, shared retrieval, few-shot | High compression, built once |
+| **Agent shell (hot)** | Conversation turns, tool results | Near-lossless, cheap rebuild |
+
+Codec policy in the workspace targets fib-quant-style cold compression and turbo-quant-style hot shells (see crate README for current numbers and receipts).
+
+## Local benchmark receipts (not external superiority)
+
+As documented in the crate and 2026-07-10 portfolio audit:
+
+- Multi-head batch scoring **~5.81×** faster than optimized exact f32 at **32K** tokens on local CPU (AMD Ryzen 7 7730U class measurements in docs).
+- Quality near-lossless at **candidate_k=48** (+0.67% PPL on DistilGPT2 / WikiText-103 in local replay).
+- Workspace tests: **89 passed** on full `cargo test --workspace --all-targets` during the audit.
+
+These are **local benchmark claims** with a reproducible-receipt culture. They are not yet independent external superiority proofs.
+
+## Research path
+
+`poly-kv` / **proveKV** is the high-upside research lane behind **TurboQuant**. Next gates:
+
+1. External baseline reproduction scripts
+2. One integration into a real inference runtime
+3. Publish full replay environments so strangers can verify without this machine

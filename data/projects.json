@@ -1,170 +1,159 @@
 {
-  "version": "2.0",
-  "lastUpdated": "2026-07-10",
-  "source": "Local Work docs, current repos, and ClaimLedger repo notes",
-  "scope": "Current Rust-focused portfolio plus ClaimLedger",
+  "version": "3.0",
+  "lastUpdated": "2026-07-11",
+  "source": "PORTFOLIO_POTENTIAL_AUDIT_2026-07-10 + local stack inventory",
+  "scope": "Featured best bets plus depth surfaces; secondary apps unfeatured",
   "projects": [
     {
-      "id": "recall",
-      "displayName": "Recall",
-      "description": "Operator-grade local memory/control runtime built around daemon authority, receipts, evidence, and repair handoffs.",
-      "domain": "Evidence Runtime",
-      "type": "Rust Workspace",
+      "id": "agent-memory-kits",
+      "displayName": "Agent Memory Kits",
+      "description": "Local flight recorder for agent work: memory, compaction receipts, claim/evidence provenance across nine hosts.",
+      "domain": "Agent Evidence",
+      "type": "Product surface / plugins",
       "status": "Active",
-      "dataStore": "SQLite",
-      "languages": [
-        "Rust",
-        "TypeScript"
-      ],
-      "frameworks": [
-        "Tauri",
-        "Tokio"
-      ],
-      "path": "Recall/",
-      "github": "https://github.com/RecursiveIntell/Recall",
-      "lastReviewed": "2026-05-19",
-      "notes": "Daemon-owned write authority; runtime truth, doctor reports, typed receipts, and Codex repair packets.",
-      "featured": true
-    },
-    {
-      "id": "gloss",
-      "displayName": "Gloss",
-      "description": "Local-first desktop knowledge application for grounded chat over personal documents.",
-      "domain": "Knowledge Work",
-      "type": "Desktop App",
-      "status": "Active",
-      "dataStore": "SQLite",
-      "languages": [
-        "Rust",
-        "TypeScript"
-      ],
-      "frameworks": [
-        "Tauri",
-        "React"
-      ],
-      "path": "Gloss/",
-      "github": "https://github.com/RecursiveIntell/Gloss",
-      "lastReviewed": "2026-05-19",
-      "notes": "Current pass focuses on desktop chat runtime proof and durable ChatAttemptTraceV1 behavior.",
+      "path": "agent-memory-kits/",
+      "github": "https://github.com/RecursiveIntell/agent-memory-kits",
+      "lastReviewed": "2026-07-11",
       "featured": true
     },
     {
       "id": "claimledger",
       "displayName": "ClaimLedger",
-      "description": "Claim and evidence compiler for Gloss Claim Hygiene and Evidence Ledger features.",
-      "domain": "Evidence",
+      "description": "Deterministic claim/evidence ledger with source spans and promote/reject decisions.",
+      "domain": "Agent Evidence",
       "type": "Compiler/Certifier",
       "status": "Active",
-      "dataStore": "Filesystem",
-      "languages": [],
-      "frameworks": [],
       "path": "ClaimLedger/",
-      "lastReviewed": "2026-05-19",
-      "notes": "Intentional non-Rust exception; produces SourceIndexV1, ClaimLedgerBundleV1, AnswerTestimonyV1, support judgments, contradictions, and review queue artifacts.",
+      "lastReviewed": "2026-07-11",
       "featured": true
     },
     {
       "id": "rust-libraries",
       "displayName": "RecursiveIntell Rust Libraries",
-      "description": "Rust crate workspace for semantic memory, runtime contracts, verification, schemas, queues, and quantization research.",
-      "domain": "Infrastructure",
+      "description": "Canonical crates: semantic-memory, context-governor, verification, contracts.",
+      "domain": "Agent Evidence",
       "type": "Library Workspace",
       "status": "Active",
-      "dataStore": "None",
-      "languages": [
-        "Rust"
-      ],
-      "frameworks": [
-        "Tokio"
-      ],
       "path": "Libraries/",
       "github": "https://github.com/RecursiveIntell/Rust-Libraries",
-      "lastReviewed": "2026-07-10",
-      "notes": "Rust crate workspace: semantic memory, runtime contracts, verification, quantization research. poly-kv 0.1.0-alpha.3 ships compressed-domain KV-cache attention scoring \u2014 5.81x faster than optimized exact f32 at 32K tokens (multi-head batch, CPU), near-lossless at candidate_k=48 (+0.67% PPL on DistilGPT2/WikiText-103). turbo-quant 0.2.1 (4k downloads), fib-quant 0.1.0-beta.3 published.",
+      "lastReviewed": "2026-07-11",
       "featured": true
+    },
+    {
+      "id": "turbo-quant",
+      "displayName": "TurboQuant",
+      "description": "Published vector compression crate (PolarQuant, TurboQuant, QJL).",
+      "domain": "Compression Research",
+      "type": "Rust Crate",
+      "status": "Active",
+      "path": "Libraries/turbo-quant/",
+      "github": "https://github.com/RecursiveIntell/turbo-quant",
+      "lastReviewed": "2026-07-11",
+      "featured": true
+    },
+    {
+      "id": "poly-kv",
+      "displayName": "PolyKV",
+      "description": "Shared compressed KV-cache pool with compressed-domain scoring.",
+      "domain": "Compression Research",
+      "type": "Rust Workspace",
+      "status": "Active",
+      "path": "Libraries/poly-kv/",
+      "lastReviewed": "2026-07-11",
+      "featured": true
+    },
+    {
+      "id": "esp32-sentinel",
+      "displayName": "ESP32-S3 Sentinel",
+      "description": "Always-on edge AI sentinel with local LSTM tier and gateway escalation.",
+      "domain": "Edge & Hardware",
+      "type": "Embedded System",
+      "status": "Active",
+      "path": "Libraries/",
+      "github": "https://github.com/RecursiveIntell/esp32-sentinel",
+      "lastReviewed": "2026-07-11",
+      "featured": true
+    },
+    {
+      "id": "gloss",
+      "displayName": "Gloss",
+      "description": "Local-first desktop knowledge app for grounded chat over personal documents.",
+      "domain": "Applications",
+      "type": "Desktop App",
+      "status": "Active",
+      "path": "Gloss/",
+      "github": "https://github.com/RecursiveIntell/Gloss",
+      "lastReviewed": "2026-07-11",
+      "featured": true
+    },
+    {
+      "id": "recall",
+      "displayName": "Recall",
+      "description": "Operator-grade local memory/control runtime.",
+      "domain": "Applications",
+      "type": "Rust Workspace",
+      "status": "Active",
+      "path": "Recall/",
+      "github": "https://github.com/RecursiveIntell/Recall",
+      "lastReviewed": "2026-07-11",
+      "featured": false
+    },
+    {
+      "id": "aidens",
+      "displayName": "AiDENs",
+      "description": "Closed-loop self-learning modules on semantic-memory (component mine).",
+      "domain": "Applications",
+      "type": "Rust Workspace",
+      "status": "Active",
+      "path": "Libraries/AiDENs/",
+      "github": "https://github.com/RecursiveIntell/AiDENs",
+      "lastReviewed": "2026-07-11",
+      "featured": false
     },
     {
       "id": "palisade",
       "displayName": "Palisade",
-      "description": "Native Linux firewall control surface for nftables with privilege separation, validation, snapshots, and rollback.",
-      "domain": "Operator Tools",
+      "description": "Native Linux nftables control surface.",
+      "domain": "Applications",
       "type": "Desktop App + Daemon",
       "status": "Active",
-      "dataStore": "SQLite",
-      "languages": [
-        "Rust",
-        "TypeScript"
-      ],
-      "frameworks": [
-        "Tauri",
-        "React"
-      ],
       "path": "Palisade/",
       "github": "https://github.com/RecursiveIntell/Palisade",
-      "lastReviewed": "2026-05-19",
-      "notes": "Privileged daemon plus unprivileged GUI; validate/snapshot/apply/confirm/rollback pipeline.",
-      "featured": true
+      "lastReviewed": "2026-07-11",
+      "featured": false
     },
     {
       "id": "visionforge",
       "displayName": "VisionForge",
-      "description": "Tauri 2 app connecting Ollama and ComfyUI through local prompt, queue, gallery, and generation-receipt workflows.",
-      "domain": "Local Creative AI",
+      "description": "Local Ollama + ComfyUI creative workflow app.",
+      "domain": "Applications",
       "type": "Desktop App",
       "status": "Active",
-      "dataStore": "SQLite",
-      "languages": [
-        "Rust",
-        "TypeScript"
-      ],
-      "frameworks": [
-        "Tauri",
-        "React"
-      ],
       "path": "visionforge/",
       "github": "https://github.com/RecursiveIntell/VisionForge",
-      "lastReviewed": "2026-05-19",
-      "notes": "Five-stage prompt pipeline, ComfyUI REST/WebSocket integration, queue, gallery, seeds, and metadata export.",
-      "featured": true
+      "lastReviewed": "2026-07-11",
+      "featured": false
     },
     {
       "id": "sortarr",
       "displayName": "Sortarr",
-      "description": "Rust daemon and React UI for organizing self-hosted media libraries with metadata matching and review gates.",
-      "domain": "Self-hosted Media",
+      "description": "Self-hosted media organization daemon.",
+      "domain": "Applications",
       "type": "Daemon + Web UI",
       "status": "Active",
-      "dataStore": "SQLite",
-      "languages": [
-        "Rust",
-        "TypeScript"
-      ],
-      "frameworks": [
-        "React"
-      ],
       "path": "Sortarr/",
-      "lastReviewed": "2026-05-19",
-      "notes": "TMDB/TVDB/AniList matching, Jellyfin NFO output, WebSocket updates, metrics, and planned dry-run/rollback receipts.",
-      "featured": true
+      "lastReviewed": "2026-07-11",
+      "featured": false
     },
     {
       "id": "projmind",
       "displayName": "projmind",
-      "description": "Rust CLI daemon that maintains a local software-project knowledge base using structure scans, git tracking, and Ollama analysis.",
-      "domain": "Developer Tools",
+      "description": "Project knowledge-base CLI daemon.",
+      "domain": "Applications",
       "type": "CLI Daemon",
       "status": "Active",
-      "dataStore": "SQLite",
-      "languages": [
-        "Rust"
-      ],
-      "frameworks": [
-        "Clap",
-        "Tokio"
-      ],
       "path": "projmind/",
-      "lastReviewed": "2026-05-19",
-      "notes": "Uses tree-sitter extraction, local LLM analysis, project health, digests, synergies, and knowledge branches.",
+      "lastReviewed": "2026-07-11",
       "featured": false
     }
   ]

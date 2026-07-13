@@ -1,0 +1,54 @@
+---
+title: "TurboQuant"
+date: "2026-07-11"
+summary: "Published Rust crate for experimental vector compression: PolarQuant, TurboQuant, and QJL sketches with bit-packed wire formats and benchmark receipts."
+tags: ["rust", "compression", "embeddings", "quantization", "crates.io", "research"]
+status: "active"
+featured: true
+links:
+  crates.io: "https://crates.io/crates/turbo-quant"
+  GitHub: "https://github.com/RecursiveIntell/turbo-quant"
+problem: "Embedding and retrieval systems need smaller vectors without opaque quality loss."
+solution: "Typed compression sidecars with packed wire formats, candidate generation, exact rerank, and receipt-bearing benchmarks."
+role: "Research crate author / maintainer"
+results:
+  - "Published on crates.io (strongest external download signal in the portfolio audit)"
+  - "PolarQuant + TurboQuant + QJL in one crate"
+  - "Benchmark harness against raw-vector reference"
+metrics:
+  - label: "crates.io"
+    value: "published"
+  - label: "Status"
+    value: "research substrate"
+---
+
+## Overview
+
+`turbo-quant` is the strongest *externally validated* technical asset in the RecursiveIntell portfolio: a published crate for experimental vector compression used as a research and integration substrate — not a complete inference engine.
+
+## What's in the box
+
+- **PolarQuant** — angular quantization onto a uniform angle grid; asymmetric compressed-space scoring
+- **TurboQuant** — PolarQuant plus QJL residual sketches for accuracy recovery, with exact rerank
+- **QJL sketches** — randomized sign-based JL projections for approximate inner products
+- **Bit-packed wire formats** — fixed layout profiles with digests for receipt comparison
+- **KV-cache shadow mode** — experimental compressed vs raw scoring receipts
+- **Benchmark harness** — quality validation against a raw-vector reference
+
+## Claim boundaries
+
+Safe claims:
+
+- The crate implements the codecs and tooling above.
+- It has attracted public crates.io downloads and GitHub stars relative to other RecursiveIntell libraries.
+
+Not claimed without independent reproduction:
+
+- General superiority over every production embedding store.
+- Drop-in replacement for production inference KV caches (see **PolyKV** for the multi-agent pool target).
+
+## Strategy
+
+1. Keep `turbo-quant` as the stable, externally legible crate.
+2. Treat **PolyKV / proveKV** as the research/evaluation vehicle for KV-cache pooling.
+3. Land one real integration (llama.cpp, vLLM, Candle, or similar) with replay scripts and receipts.

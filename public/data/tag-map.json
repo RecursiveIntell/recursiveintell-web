@@ -1,15 +1,107 @@
 {
-  "esp32": {
+  "rust": {
+    "count": 13,
+    "types": [
+      "projects",
+      "lab"
+    ]
+  },
+  "mcp": {
+    "count": 2,
+    "types": [
+      "projects",
+      "lab"
+    ]
+  },
+  "semantic-memory": {
+    "count": 3,
+    "types": [
+      "projects"
+    ]
+  },
+  "context-governor": {
     "count": 1,
     "types": [
       "projects"
     ]
   },
-  "rust": {
-    "count": 10,
+  "claim-ledger": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "agents": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "local-first": {
+    "count": 5,
     "types": [
       "projects",
       "lab"
+    ]
+  },
+  "receipts": {
+    "count": 3,
+    "types": [
+      "projects"
+    ]
+  },
+  "kv-cache": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "compression": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "multi-agent": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "benchmarks": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "research": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "embeddings": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "quantization": {
+    "count": 2,
+    "types": [
+      "projects"
+    ]
+  },
+  "crates.io": {
+    "count": 1,
+    "types": [
+      "projects"
+    ]
+  },
+  "esp32": {
+    "count": 1,
+    "types": [
+      "projects"
     ]
   },
   "embedded": {
@@ -49,12 +141,6 @@
       "lab"
     ]
   },
-  "agents": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
   "autonomous": {
     "count": 1,
     "types": [
@@ -63,19 +149,6 @@
   },
   "knowledge-graph": {
     "count": 2,
-    "types": [
-      "projects",
-      "lab"
-    ]
-  },
-  "semantic-memory": {
-    "count": 2,
-    "types": [
-      "projects"
-    ]
-  },
-  "local-first": {
-    "count": 4,
     "types": [
       "projects",
       "lab"
@@ -107,12 +180,6 @@
   },
   "gloss": {
     "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
-  "receipts": {
-    "count": 2,
     "types": [
       "projects"
     ]
@@ -238,12 +305,6 @@
       "projects"
     ]
   },
-  "quantization": {
-    "count": 1,
-    "types": [
-      "projects"
-    ]
-  },
   "websocket": {
     "count": 1,
     "types": [
@@ -272,12 +333,6 @@
     "count": 1,
     "types": [
       "projects"
-    ]
-  },
-  "mcp": {
-    "count": 1,
-    "types": [
-      "lab"
     ]
   }
 }
