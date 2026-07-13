@@ -22,6 +22,18 @@ Repository: `/home/sikmindz/Coding/recursiveintell-web`
 | `scripts/verify_static.py` | PASS — HTML, links, ARIA targets, JavaScript, artifacts, Vercel settings |
 | `vercel.json` current schema instance validation | PASS |
 
+## Production deployment receipt
+
+Content commit: `efc94ec24283b9193f332dbb14b1bc54d44987e5`
+
+- GitHub Actions `Static site CI` run `29259420542`: PASS
+- `https://recursiveintell.com/`: HTTP 200 with the Witness Plane title
+- `https://recursiveintell-web.vercel.app/`: HTTP 200 with the Witness Plane title
+- `/concepts`, `/favicon.svg`, and both screenshot artifacts: HTTP 200
+- Content Security Policy, Permissions Policy, Referrer Policy, HSTS, `nosniff`, and frame denial headers: present
+- Live browser console and page-error capture: clean
+- Live Core/MCP/Kits, architecture, host, and seven-stage trace interactions: PASS
+
 ## Browser interaction receipt
 
 Independent Playwright run using system Chrome at 1440×900 and 390×844:
