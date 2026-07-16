@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Install RecursiveIntell agent memory for Claude Code, Codex CLI, Hermes Agent, MCP/rules hosts, a direct MCP client, or a Rust application." />
+  <meta name="theme-color" content="#020b14" />
+  <link rel="canonical" href="https://recursiveintell.com/install" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Install RecursiveIntell agent memory" />
+  <meta property="og:description" content="Six clear installation paths, one verification sequence, and honest Day-1 expectations." />
+  <title>Install RecursiveIntell Agent Memory</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to installation guide</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="RecursiveIntell home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="brand-type">recursive<span>intell</span></span><span class="brand-sub">installation field guide</span></a>
+      <nav class="desktop-nav" aria-label="Primary navigation"><a href="/#stack">Stack</a><a href="/#architecture">Architecture</a><a href="/#evidence">Evidence</a><a href="/#resources">Docs</a></nav>
+      <a class="header-github" href="https://github.com/RecursiveIntell/agent-memory-kits" target="_blank" rel="noreferrer">Source <span>↗</span></a>
+      <a class="header-install" href="#choose">Choose host <span>↓</span></a>
+      <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+    </div>
+  </header>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation"><a href="#choose">Choose host <span>01</span></a><a href="#claude">Claude Code <span>02</span></a><a href="#codex">Codex CLI <span>03</span></a><a href="#hermes">Hermes <span>04</span></a><a href="#rules">MCP + rules <span>05</span></a><a href="#direct-mcp">Direct MCP <span>06</span></a><a href="#rust">Rust core <span>07</span></a></nav>
+
+  <main id="main">
+    <section class="guide-hero" id="choose">
+      <div class="wrap">
+        <div class="eyebrow">Six paths · one honest verification loop</div>
+        <h1>Give your agent a memory it can inspect.</h1>
+        <p>Pick the host you already use. Copy the commands. Restart when hooks are involved. Ingest real work, run the doctor, and only then evaluate recall.</p>
+        <nav class="guide-nav" aria-label="Installation recipes"><a href="#claude">Claude Code</a><a href="#codex">Codex CLI</a><a href="#hermes">Hermes Agent</a><a href="#rules">MCP + rules</a><a href="#direct-mcp">Direct MCP</a><a href="#rust">Rust library</a></nav>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="loop-title">
+      <div class="wrap">
+        <div class="section-head"><div><div class="section-kicker">Before you start</div><h2 id="loop-title">The first successful recall is step six.</h2></div><p>Installation proves the components can start. It does not prove useful memory. A new store is empty by design; ingest or deliberately capture facts before judging recall.</p></div>
+        <div class="prerequisite-strip" aria-label="Installation prerequisites">
+          <strong>Prerequisites</strong>
+          <span><b>Required</b> Git, Python 3, and a Rust toolchain with <code>cargo</code>.</span>
+          <span><b>Host</b> Install the agent host you intend to use before applying its kit.</span>
+          <span><b>MCP paths</b> Put <code>semantic-memory-mcp</code> on <code>PATH</code>; recipe 05 installs version 0.5.4.</span>
+          <span><b>First run</b> A local model may download once. A remote Ollama endpoint is an explicit network boundary.</span>
+        </div>
+        <div class="onboarding" aria-label="Installation sequence">
+          <div><b>01 · Choose</b><span>Host or direct API.</span></div><div><b>02 · Install</b><span>Use the exact recipe.</span></div><div><b>03 · Restart</b><span>Reload lifecycle hooks.</span></div><div><b>04 · Ingest</b><span>Index real repositories.</span></div><div><b>05 · Doctor</b><span>Check the whole path.</span></div><div><b>06 · Recall</b><span>Ask grounded questions.</span></div>
+        </div>
+        <div class="day-one">
+          <div><small>DAY 1</small><b>Empty is correct</b><p>Hooks fire and return nothing until the store contains facts that clear the recall gate.</p></div>
+          <div><small>DAYS 2–14</small><b>Fill deliberately</b><p>Ingest active repositories and capture decisions worth preserving.</p></div>
+          <div><small>DAYS 15–60</small><b>Recall compounds</b><p>The agent begins recovering stack conventions, decisions, and failed approaches.</p></div>
+          <div><small>DAY 60+</small><b>Cross-session leverage</b><p>Useful answers span sessions without requiring you to restate known context.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="claude" aria-labelledby="claude-title">
+      <div class="wrap guide-recipe">
+        <div class="recipe-index">01 · Recommended<span>Claude Code · hook tier</span></div>
+        <div class="recipe-body"><h2 id="claude-title">Claude Code plugin</h2><p>Use Claude Code’s plugin marketplace path. The kit installs lifecycle hooks, MCP configuration, memory commands, doctor checks, ingestion, and evidence workflows.</p>
+          <div class="recipe-code"><button class="copy-button" type="button" data-copy-target="claudeCode">Copy</button><pre id="claudeCode">/plugin marketplace add RecursiveIntell/agent-memory-kits
+/plugin install semantic-memory@semantic-memory-kit
+/memory-setup</pre></div>
+          <ol class="recipe-checks"><li><b>Restart</b>Restart Claude Code once so the new hooks load.</li><li><b>Ingest</b>From a real project, run <code>/memory-ingest .</code>.</li><li><b>Verify</b>Run the doctor, then ask about a concrete symbol or decision from that repository.</li></ol>
+          <p class="boundary"><b>Expected behavior</b> An empty store returns no memory and never blocks a prompt. The product is the compounding curve, not the first session.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="codex" aria-labelledby="codex-title">
+      <div class="wrap guide-recipe">
+        <div class="recipe-index">02 · Hook tier<span>Codex CLI</span></div>
+        <div class="recipe-body"><h2 id="codex-title">Codex CLI plugin</h2><p>Add the repository’s Codex marketplace, then install the semantic-memory kit. The current kit includes Python hooks, prompts, skills, MCP configuration, doctors, ingestion, and audit helpers.</p>
+          <div class="recipe-code"><button class="copy-button" type="button" data-copy-target="codexCode">Copy</button><pre id="codexCode">git clone https://github.com/RecursiveIntell/agent-memory-kits
+cd agent-memory-kits
+codex plugin marketplace add ./codex
+codex plugin add semantic-memory@semantic-memory-codex-kit</pre></div>
+          <ol class="recipe-checks"><li><b>Canonical store</b>Use one memory directory across projects that should share recall.</li><li><b>Single owner</b>Let one process own any warm HTTP port to avoid competing servers.</li><li><b>Verify</b>Run the Codex doctor, ingest a repository, restart if required, and test recall.</li></ol>
+          <p class="boundary"><b>Support boundary</b> Codex is documented as a hook-capable reference integration. Inspect installed hooks and active MCP configuration rather than assuming they loaded.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="hermes" aria-labelledby="hermes-title">
+      <div class="wrap guide-recipe">
+        <div class="recipe-index">03 · Plugin + MCP<span>Hermes Agent</span></div>
+        <div class="recipe-body"><h2 id="hermes-title">Hermes plugin and MCP server</h2><p>Copy the Hermes plugin, enable it, register semantic-memory as an MCP server, and test the active connection.</p>
+          <div class="recipe-code"><button class="copy-button" type="button" data-copy-target="hermesCode">Copy</button><pre id="hermesCode">git clone https://github.com/RecursiveIntell/agent-memory-kits
+cd agent-memory-kits
+cp -R hermes "$HOME/.hermes/plugins/semantic-memory-mcp"
+hermes plugins enable semantic-memory-mcp
+hermes mcp add semantic_memory \
+  --command semantic-memory-mcp \
+  --args --memory-dir "$HOME/.local/share/semantic-memory" --tool-profile agent
+hermes mcp configure semantic_memory
+hermes mcp list
+hermes mcp test semantic_memory</pre></div>
+          <ol class="recipe-checks"><li><b>Argument order</b><code>--args</code> consumes every remaining argument and must come last.</li><li><b>Restart</b>Restart Hermes after installing or changing plugin code.</li><li><b>Verify</b>Confirm the MCP listing and test pass, then ingest before judging recall.</li></ol>
+          <p class="boundary"><b>Configuration boundary</b> Use the plugin and MCP commands as the primary path. Do not rely on hand-edited legacy configuration.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rules" aria-labelledby="rules-title">
+      <div class="wrap guide-recipe">
+        <div class="recipe-index">04 · Rules tier<span>Cursor · Cline · Roo Code · Windsurf · Continue · OpenCode</span></div>
+        <div class="recipe-body"><h2 id="rules-title">MCP plus host-native rules</h2><p>These hosts receive MCP tools plus explicit rule/context files. Cursor is shown; replace the directory with the kit for your supported host.</p>
+          <div class="recipe-code"><button class="copy-button" type="button" data-copy-target="rulesCode">Copy</button><pre id="rulesCode">git clone https://github.com/RecursiveIntell/agent-memory-kits
+cd agent-memory-kits
+cursor/scripts/setup.sh --write-project /path/to/project
+shared/scripts/doctor-all.py --deep</pre></div>
+          <ol class="recipe-checks"><li><b>Select host</b>Use <code>cursor</code>, <code>cline</code>, <code>roo-code</code>, <code>windsurf</code>, <code>continue</code>, or <code>opencode</code>.</li><li><b>Write config</b>Let the setup script create the host’s MCP and rule/context files.</li><li><b>Verify</b>Run the deep shared doctor and inspect the exact files your host will load.</li></ol>
+          <p class="boundary"><b>Honest tiering</b> A rules file is not a hidden pre-prompt, session, or compaction hook. The host or agent must invoke the MCP workflow.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="direct-mcp" aria-labelledby="mcp-title">
+      <div class="wrap guide-recipe">
+        <div class="recipe-index">05 · Protocol<span>Direct MCP client</span></div>
+        <div class="recipe-body"><h2 id="mcp-title">Semantic Memory MCP</h2><p>Install the published binary, point it at one canonical memory directory, and begin with the bounded <code>agent</code> profile.</p>
+          <div class="recipe-code"><button class="copy-button" type="button" data-copy-target="mcpCode">Copy</button><pre id="mcpCode">cargo install semantic-memory-mcp --locked --version '=0.5.4'
+semantic-memory-mcp \
+  --memory-dir "$HOME/.local/share/semantic-memory" \
+  --tool-profile agent</pre></div>
+          <ol class="recipe-checks"><li><b>Package</b>Version 0.5.4 matches the current repository manifest checked July 16, 2026.</li><li><b>Discover</b>Use <code>tools/list</code> as truth for this binary, feature set, and runtime profile.</li><li><b>Witness</b>Run a witnessed search and inspect the receipt, state view, backend, and degradations.</li></ol>
+          <p class="boundary"><b>Release boundary</b> Repository version parity is not a clean-machine package receipt. Treat published-package and source evidence as separate scopes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rust" aria-labelledby="rust-title">
+      <div class="wrap guide-recipe">
+        <div class="recipe-index">06 · Core API<span>Rust application</span></div>
+        <div class="recipe-body"><h2 id="rust-title">Semantic Memory library</h2><p>Add the crate, then follow the deterministic MockEmbedder quick start before selecting a production embedder or optional research feature.</p>
+          <div class="recipe-code"><button class="copy-button" type="button" data-copy-target="rustCode">Copy</button><pre id="rustCode">cargo add semantic-memory@0.5.10
+# begin with the deterministic MockEmbedder quick start
+# before selecting a production embedder</pre></div>
+          <ol class="recipe-checks"><li><b>Deterministic first</b>Prove storage, FTS, fusion, and state behavior without a model/network variable.</li><li><b>Choose boundary</b>Select an embedder and document model download, remote inference, and privacy behavior.</li><li><b>Evaluate</b>Measure your corpus before enabling optional graph, routing, decoder, or compression modules.</li></ol>
+          <p class="boundary"><b>Authority boundary</b> SQLite owns durable searchable state. Vector indexes and candidate artifacts are acceleration and must remain recoverable.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="speed-title">
+      <div class="wrap">
+        <div class="section-head"><div><div class="section-kicker">Speed up the curve</div><h2 id="speed-title">Populate useful memory on day one.</h2></div><p>Install the three companion services, install the host kit, ingest repositories you use, restart the host, and work normally. Receipts stay inspectable.</p></div>
+        <div class="recipe-code"><button class="copy-button" type="button" data-copy-target="dayOneCode">Copy</button><pre id="dayOneCode"># Companion MCP services
+cargo install semantic-memory-mcp context-governor claim-ledger
+
+# Claude Code host kit
+/plugin marketplace add RecursiveIntell/agent-memory-kits
+/plugin install semantic-memory@semantic-memory-kit
+/memory-setup
+
+# Ingest work you actually use
+/memory-ingest .
+/memory-ingest ../other-repo
+
+# Restart the host so hooks load, then work normally.</pre></div>
+        <p class="boundary"><b>Local-first, not magically isolated</b> Hosted storage is not required. First-run model downloads and a remotely configured Ollama endpoint are explicit network boundaries; a local store is not automatically encrypted.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="help-title">
+      <div class="wrap final-cta"><div><div class="section-kicker">Still choosing?</div><h2 id="help-title">Start with the kit for your host.</h2></div><div class="cta-actions"><a class="button-primary" href="https://github.com/RecursiveIntell/agent-memory-kits#per-host-docs" target="_blank" rel="noreferrer">Open host docs <span>↗</span></a><a class="button-secondary" href="mailto:josh@recursiveintell.com?subject=RecursiveIntell%20memory%20installation">Ask about an integration <span>↗</span></a></div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="wrap footer-inner"><div class="footer-col"><b>RecursiveIntell</b>Local-first memory infrastructure for AI coding agents.<br />Apache-2.0 product repositories.</div><div class="footer-col"><b>Canonical docs</b><a href="https://github.com/RecursiveIntell/agent-memory-kits">Agent Memory Kits</a><br /><a href="https://github.com/RecursiveIntell/semantic-memory-mcp">Semantic Memory MCP</a><br /><a href="https://github.com/RecursiveIntell/semantic-memory">Semantic Memory</a></div><div class="roko"><span>Roko retained as a footer signature.</span><span class="roko-mark" aria-hidden="true"></span></div></div></footer>
+  <nav class="mobile-actions" aria-label="Quick actions"><a href="#choose">Choose host</a><a href="/#resources">Docs</a></nav>
+  <script src="/site.js" defer></script>
+</body>
+</html>

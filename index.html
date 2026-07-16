@@ -3,416 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="RecursiveIntell builds local-first memory infrastructure for AI coding agents: a Rust retrieval core, an MCP server, and host integration kits." />
-  <meta name="theme-color" content="#101312" />
-  <title>RecursiveIntell — Memory infrastructure for AI coding agents</title>
+  <meta name="description" content="RecursiveIntell is a programmable trust substrate for local-first AI: persistent agent memory, governed MCP access, receipts, replay, typed boundaries, and measured compression." />
+  <meta name="theme-color" content="#020b14" />
+  <meta name="author" content="RecursiveIntell" />
+  <link rel="canonical" href="https://recursiveintell.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://recursiveintell.com/" />
+  <meta property="og:title" content="RecursiveIntell — Agent memory that can show its work" />
+  <meta property="og:description" content="Local-first agent memory, governed execution, evidence, and replay—composed as a programmable trust substrate for AI." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="RecursiveIntell — Agent memory that can show its work" />
+  <meta name="twitter:description" content="Install persistent agent memory, then inspect the trust boundaries underneath it." />
+  <title>RecursiveIntell — Agent memory that can show its work</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@300;400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      /* Witness Plane design tokens */
-      color-scheme: dark;
-      --ground: #101312;
-      --panel: #171b19;
-      --panel-2: #1d221f;
-      --text: #f1f0e8;
-      --muted: #a4aaa3;
-      --faint: #7b837d;
-      --line: #38413b;
-      --line-strong: #566159;
-      --witness: #e657a7;
-      --authority: #b7e36a;
-      --warning: #f0a45d;
-      --danger: #e36d67;
-      --paper: #e9e7de;
-      --paper-ink: #171b19;
-      --max: 92rem;
-      --header-h: 4.5rem;
-      --step--2: clamp(.67rem, .64rem + .1vw, .73rem);
-      --step--1: clamp(.78rem, .73rem + .16vw, .88rem);
-      --step-0: clamp(.96rem, .89rem + .24vw, 1.08rem);
-      --step-1: clamp(1.15rem, 1.03rem + .42vw, 1.38rem);
-      --step-2: clamp(1.45rem, 1.23rem + .78vw, 1.9rem);
-      --step-3: clamp(2rem, 1.55rem + 1.62vw, 3rem);
-      --step-4: clamp(3.1rem, 2.15rem + 3.65vw, 6.25rem);
-      --space-1: .5rem;
-      --space-2: .75rem;
-      --space-3: 1rem;
-      --space-4: 1.5rem;
-      --space-5: 2rem;
-      --space-6: 3rem;
-      --space-7: 4.5rem;
-      --space-8: 7rem;
-      --sans: "IBM Plex Sans Condensed", "Arial Narrow", sans-serif;
-      --serif: "Newsreader", Georgia, serif;
-      --mono: "Azeret Mono", ui-monospace, monospace;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 1.5rem); background: var(--ground); }
-    body { margin: 0; min-width: 320px; background: var(--ground); color: var(--text); font: 400 var(--step-0)/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
-    a { color: inherit; }
-    button, input, select, textarea { font: inherit; }
-    button { color: inherit; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-    ::selection { background: var(--witness); color: var(--ground); }
-    :focus-visible { outline: 2px solid var(--witness); outline-offset: 4px; }
-    [hidden] { display: none !important; }
-    code, pre { font-family: var(--mono); }
-    h1, h2, h3, p { text-wrap: pretty; }
-    .wrap { width: min(calc(100% - 3rem), var(--max)); margin-inline: auto; }
-    .skip { position: fixed; z-index: 100; top: -6rem; left: 1rem; padding: .8rem 1rem; background: var(--text); color: var(--ground); font: 500 var(--step--1)/1 var(--mono); }
-    .skip:focus { top: 1rem; }
-
-    /* Header */
-    .site-header { position: sticky; z-index: 50; top: 0; height: var(--header-h); border-bottom: 1px solid var(--line); background: rgba(16, 19, 18, .96); }
-    .header-inner { height: 100%; display: flex; align-items: center; gap: var(--space-4); }
-    .brand { display: flex; align-items: center; gap: .85rem; margin-right: auto; text-decoration: none; }
-    .brand-mark { position: relative; width: 1.8rem; height: 1.8rem; border: 1px solid var(--line-strong); }
-    .brand-mark::before, .brand-mark::after { content: ""; position: absolute; }
-    .brand-mark::before { inset: .42rem; border: 1px solid var(--witness); }
-    .brand-mark::after { width: .28rem; height: .28rem; right: -.15rem; top: -.15rem; background: var(--authority); }
-    .brand-type { font: 500 .95rem/1 var(--mono); letter-spacing: -.04em; }
-    .brand-type span { color: var(--witness); }
-    .brand-sub { margin-left: .35rem; color: var(--faint); font: 400 .61rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
-    .desktop-nav { display: flex; align-items: center; height: 100%; }
-    .desktop-nav a { min-height: 44px; display: inline-flex; align-items: center; padding-inline: .72rem; color: var(--muted); text-decoration: none; font: 500 .68rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
-    .desktop-nav a:hover { color: var(--text); }
-    .header-github { min-height: 44px; display: inline-flex; align-items: center; gap: .55rem; padding: 0 .9rem; border: 1px solid var(--line); color: var(--text); text-decoration: none; font: 500 .68rem/1 var(--mono); text-transform: uppercase; letter-spacing: .05em; }
-    .header-github:hover { border-color: var(--text); }
-    .header-install { min-height: 44px; display: inline-flex; align-items: center; gap: 1.6rem; padding: 0 1rem; background: var(--text); color: var(--ground); text-decoration: none; font: 600 .68rem/1 var(--mono); text-transform: uppercase; letter-spacing: .05em; }
-    .menu-button { display: none; min-width: 44px; min-height: 44px; border: 1px solid var(--line); background: transparent; font: 500 .68rem/1 var(--mono); text-transform: uppercase; }
-    .mobile-menu { display: none; position: fixed; z-index: 49; inset: var(--header-h) 0 auto; padding: 1rem 1.5rem 1.5rem; border-bottom: 1px solid var(--line); background: var(--ground); }
-    .mobile-menu.open { display: grid; }
-    .mobile-menu a { min-height: 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); text-decoration: none; font: 500 .78rem/1 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-
-    /* Shared */
-    .eyebrow { display: flex; align-items: center; gap: .8rem; color: var(--witness); font: 500 var(--step--2)/1.35 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
-    .eyebrow::before { content: ""; width: 1.4rem; height: 1px; background: currentColor; }
-    .section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, .7fr); gap: var(--space-6); align-items: end; margin-bottom: var(--space-6); }
-    .section-head h2 { max-width: 12ch; margin: .8rem 0 0; font-size: var(--step-3); line-height: 1; font-weight: 500; letter-spacing: -.035em; }
-    .section-head p { margin: 0; color: var(--muted); font-family: var(--serif); font-size: var(--step-1); line-height: 1.45; }
-    .section-rule { border-top: 1px solid var(--line); }
-    .button-primary, .button-secondary { min-height: 48px; display: inline-flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 0 1rem; text-decoration: none; font: 600 var(--step--1)/1 var(--mono); letter-spacing: .03em; text-transform: uppercase; }
-    .button-primary { background: var(--text); color: var(--ground); }
-    .button-primary:hover { background: var(--authority); }
-    .button-secondary { border: 1px solid var(--line-strong); color: var(--text); }
-    .button-secondary:hover { border-color: var(--text); }
-    .scope-note { color: var(--faint); font: 400 var(--step--2)/1.55 var(--mono); }
-    .scope-note strong { color: var(--warning); font-weight: 500; }
-
-    /* Hero */
-    .hero { position: relative; border-bottom: 1px solid var(--line); overflow: hidden; }
-    .hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 6.5rem 6.5rem; opacity: .1; }
-    .hero-inner { position: relative; display: grid; grid-template-columns: minmax(22rem, 5fr) minmax(34rem, 7fr); gap: clamp(2rem, 5vw, 6rem); min-height: calc(100vh - var(--header-h)); padding-block: clamp(4rem, 8vh, 7rem); align-items: center; }
-    .hero-copy h1 { max-width: 8.4ch; margin: 1.3rem 0 1.5rem; font-size: var(--step-4); line-height: .91; letter-spacing: -.052em; font-weight: 500; }
-    .hero-copy h1 span { display: block; color: var(--witness); }
-    .hero-lede { max-width: 36rem; margin: 0; color: var(--muted); font: 400 var(--step-1)/1.48 var(--serif); }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
-    .hero-status { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--line); display: grid; grid-template-columns: auto 1fr; gap: .75rem 1rem; align-items: start; }
-    .hero-status .status-key { color: var(--authority); font: 500 var(--step--2)/1.5 var(--mono); text-transform: uppercase; letter-spacing: .07em; }
-    .hero-status p { margin: 0; color: var(--faint); font: 400 var(--step--2)/1.55 var(--mono); }
-
-    .layer-picker { margin-top: 2.5rem; border: 1px solid var(--line); background: var(--panel); }
-    .layer-tabs { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
-    .layer-tab { min-height: 48px; border: 0; border-right: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; font: 500 var(--step--2)/1 var(--mono); letter-spacing: .05em; text-transform: uppercase; }
-    .layer-tab:last-child { border-right: 0; }
-    .layer-tab[aria-selected="true"] { background: var(--text); color: var(--ground); }
-    .layer-panel { padding: 1rem; }
-    .layer-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .75rem; }
-    .layer-panel-title { color: var(--text); font: 500 var(--step--2)/1.4 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-    .copy-button { min-height: 44px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; padding: 0 .7rem; font: 500 .61rem/1 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-    .copy-button:hover { color: var(--text); border-color: var(--text); }
-    .command { min-height: 6.2rem; margin: 0; overflow-x: auto; color: #d9ded7; white-space: pre-wrap; font: 400 .69rem/1.7 var(--mono); }
-    .command .prompt { color: var(--authority); }
-    .layer-hint { margin: .8rem 0 0; color: var(--faint); font: 400 .64rem/1.5 var(--mono); }
-
-    /* Witness plane */
-    .hero-visual { align-self: start; margin-top: clamp(6.5rem, 12vh, 9rem); }
-    .plane-shell { border: 1px solid var(--line-strong); background: var(--panel); }
-    .plane-toolbar { min-height: 3.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 1rem; border-bottom: 1px solid var(--line); font: 500 .62rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
-    .plane-toolbar span:first-child { color: var(--muted); }
-    .plane-toolbar .persisted { color: var(--authority); }
-    .query-line { display: grid; grid-template-columns: 7rem 1fr; border-bottom: 1px solid var(--line); }
-    .query-line > * { padding: .9rem 1rem; }
-    .query-label { border-right: 1px solid var(--line); color: var(--witness); font: 500 .61rem/1.5 var(--mono); text-transform: uppercase; }
-    .query-text { color: var(--text); font: 400 .76rem/1.5 var(--mono); }
-    .trace-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); min-height: 20rem; }
-    .trace-node { position: relative; padding: 1rem .8rem 4.2rem; border-right: 1px solid var(--line); background: transparent; transition: background-color 120ms linear; }
-    .trace-node:last-child { border-right: 0; }
-    .trace-node .node-index { color: var(--faint); font: 400 .57rem/1.4 var(--mono); }
-    .trace-node .node-title { display: block; margin: .8rem 0 .35rem; font-size: .97rem; line-height: 1.05; font-weight: 500; }
-    .trace-node p { margin: 0; color: var(--faint); font-size: .72rem; line-height: 1.4; }
-    .trace-node::after { content: ""; position: absolute; left: .8rem; right: .8rem; bottom: 2.3rem; height: 1px; background: var(--line); }
-    .trace-node::before { content: ""; position: absolute; left: .8rem; bottom: 2.08rem; width: .48rem; height: .48rem; border: 1px solid var(--line-strong); background: var(--panel); z-index: 1; }
-    .trace-node.active { background: var(--panel-2); }
-    .trace-node.active::after, .trace-node.complete::after { background: var(--witness); }
-    .trace-node.active::before { border-color: var(--witness); background: var(--witness); }
-    .trace-node.complete::before { border-color: var(--authority); background: var(--authority); }
-    .trace-node.layer-focus { box-shadow: inset 0 3px 0 var(--warning); }
-    .result-row { display: grid; grid-template-columns: 1fr auto; border-top: 1px solid var(--line); }
-    .receipt { padding: 1rem; color: var(--muted); overflow-wrap: anywhere; font: 400 .63rem/1.7 var(--mono); }
-    .receipt strong { color: var(--text); font-weight: 500; }
-    .receipt .pink { color: var(--witness); }
-    .receipt .green { color: var(--authority); }
-    .trace-action { min-width: 9.5rem; border: 0; border-left: 1px solid var(--line); background: var(--text); color: var(--ground); cursor: pointer; font: 600 .65rem/1 var(--mono); text-transform: uppercase; letter-spacing: .05em; }
-    .trace-action:hover { background: var(--authority); }
-    .plane-caption { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 1px; background: var(--line); }
-    .plane-caption > div { min-height: 4rem; padding: .8rem 1rem; background: var(--ground); }
-    .plane-caption b { display: block; margin-bottom: .3rem; color: var(--text); font: 500 .61rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-    .plane-caption span { display: block; color: var(--faint); font: 400 .63rem/1.45 var(--mono); }
-
-    /* Product stack */
-    .stack-section { padding-block: var(--space-8); }
-    .stack-board { border-top: 1px solid var(--line-strong); }
-    .stack-layer { display: grid; grid-template-columns: 7rem minmax(15rem, .65fr) minmax(18rem, 1fr) minmax(12rem, .55fr); min-height: 11rem; border-bottom: 1px solid var(--line); }
-    .stack-layer > * { padding: 1.5rem; border-right: 1px solid var(--line); }
-    .stack-layer > *:last-child { border-right: 0; }
-    .stack-number { color: var(--witness); font: 500 var(--step--2)/1.4 var(--mono); }
-    .stack-name h3 { margin: 0 0 .4rem; font-size: var(--step-2); line-height: 1; font-weight: 500; letter-spacing: -.025em; }
-    .stack-name code { color: var(--muted); font-size: var(--step--2); }
-    .stack-description p { margin: 0 0 1rem; color: var(--muted); font-family: var(--serif); font-size: 1.05rem; line-height: 1.45; }
-    .stack-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
-    .stack-tags span { padding: .28rem .45rem; border: 1px solid var(--line); color: var(--faint); font: 400 .59rem/1 var(--mono); text-transform: uppercase; }
-    .stack-boundary { color: var(--faint); font: 400 .64rem/1.6 var(--mono); }
-    .stack-boundary b { display: block; margin-bottom: .5rem; color: var(--authority); font-weight: 500; text-transform: uppercase; letter-spacing: .06em; }
-    .stack-layer:hover { background: var(--panel); }
-
-    /* Architecture */
-    .architecture { padding-block: var(--space-8); background: var(--panel); border-block: 1px solid var(--line); }
-    .arch-shell { display: grid; grid-template-columns: minmax(14rem, .33fr) minmax(0, 1fr); border: 1px solid var(--line); }
-    .arch-index { border-right: 1px solid var(--line); }
-    .arch-button { width: 100%; min-height: 5.7rem; display: grid; grid-template-columns: 2.2rem 1fr; gap: .5rem; align-content: center; padding: 1rem; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; cursor: pointer; }
-    .arch-button:last-child { border-bottom: 0; }
-    .arch-button .n { color: var(--muted); font: 400 .62rem/1.4 var(--mono); }
-    .arch-button b { font-size: 1rem; font-weight: 500; }
-    .arch-button span:last-child { grid-column: 2; color: var(--faint); font: 400 .62rem/1.4 var(--mono); }
-    .arch-button[aria-pressed="true"] { background: var(--text); color: var(--ground); }
-    .arch-button[aria-pressed="true"] .n, .arch-button[aria-pressed="true"] span:last-child { color: #515852; }
-    .arch-stage { min-width: 0; padding: 1.5rem; }
-    .arch-figure { position: relative; min-height: 32rem; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; gap: 1rem; }
-    .arch-zone { position: relative; padding: 1rem; border: 1px solid var(--line); background: var(--ground); }
-    .arch-zone.highlight { border-color: var(--warning); }
-    .arch-zone h3 { margin: 0 0 .45rem; font: 500 .72rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-    .arch-zone p { margin: 0; color: var(--faint); font-size: .76rem; line-height: 1.45; }
-    .arch-zone code { display: block; margin-top: 1rem; color: var(--muted); font-size: .61rem; line-height: 1.5; }
-    .arch-hosts { grid-column: 1; grid-row: 1 / 3; }
-    .arch-mcp { grid-column: 2; grid-row: 1; }
-    .arch-memory { grid-column: 3; grid-row: 1 / 3; border-color: var(--authority); }
-    .arch-compaction { grid-column: 2; grid-row: 2; }
-    .arch-trust { position: absolute; right: 1rem; bottom: 1rem; width: calc(33.333% - 1.35rem); padding: .9rem; border: 1px solid var(--witness); background: var(--panel-2); }
-    .arch-trust b { display: block; margin-bottom: .35rem; color: var(--witness); font: 500 .63rem/1.3 var(--mono); text-transform: uppercase; }
-    .arch-trust span { display: block; color: var(--muted); font: 400 .62rem/1.5 var(--mono); }
-    .host-list { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; margin-top: 1rem; }
-    .host-list span { min-height: 2.2rem; display: flex; align-items: center; padding: .35rem .5rem; border: 1px solid var(--line); color: var(--muted); font: 400 .6rem/1.2 var(--mono); }
-    .arch-legend { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; color: var(--muted); font: 400 .6rem/1.3 var(--mono); }
-    .arch-legend span { display: inline-flex; align-items: center; gap: .4rem; }
-    .arch-legend i { width: .6rem; height: .6rem; border: 1px solid var(--line-strong); }
-    .arch-legend .authority-key { border-color: var(--authority); }
-    .arch-legend .witness-key { border-color: var(--witness); }
-    .arch-summary { margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-family: var(--serif); }
-
-    /* Ownership */
-    .ownership { padding-block: var(--space-8); }
-    .ownership-grid { border-top: 1px solid var(--line-strong); }
-    .ownership-row { display: grid; grid-template-columns: minmax(10rem, .8fr) minmax(14rem, 1.1fr) minmax(14rem, 1fr) minmax(12rem, .8fr); border-bottom: 1px solid var(--line); }
-    .ownership-row > * { padding: 1rem; border-right: 1px solid var(--line); }
-    .ownership-row > *:last-child { border-right: 0; }
-    .ownership-row.head { color: var(--faint); font: 500 .58rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: .07em; }
-    .ownership-row:not(.head) > :first-child { color: var(--text); font: 500 .7rem/1.5 var(--mono); }
-    .ownership-row:not(.head) > :not(:first-child) { color: var(--muted); font-size: .82rem; line-height: 1.45; }
-    .ownership-row .qualified { color: var(--warning) !important; font-family: var(--mono); font-size: .64rem !important; }
-
-    /* Install */
-    .install { padding-block: var(--space-8); border-block: 1px solid var(--line); background: var(--paper); color: var(--paper-ink); }
-    .install .eyebrow { color: #a23878; }
-    .install .section-head p { color: #59605b; }
-    .install-shell { display: grid; grid-template-columns: minmax(13rem, .3fr) minmax(0, .7fr); border: 1px solid #b9bdb6; }
-    .host-tabs { border-right: 1px solid #b9bdb6; }
-    .host-tab { width: 100%; min-height: 4.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 1rem; border: 0; border-bottom: 1px solid #b9bdb6; background: transparent; color: var(--paper-ink); cursor: pointer; text-align: left; font: 500 .72rem/1.3 var(--mono); }
-    .host-tab:last-child { border-bottom: 0; }
-    .host-tab span { color: #515852; font-size: .58rem; text-transform: uppercase; }
-    .host-tab[aria-selected="true"] { background: var(--paper-ink); color: var(--paper); }
-    .host-tab[aria-selected="true"] span { color: var(--authority); }
-    .install-panel { min-width: 0; display: grid; grid-template-rows: auto 1fr auto; }
-    .install-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4.5rem; padding: 0 1rem; border-bottom: 1px solid #b9bdb6; }
-    .install-panel-head h3 { margin: 0; font-size: 1rem; font-weight: 500; }
-    .install-copy { min-height: 44px; padding: 0 .7rem; border: 1px solid #888e88; background: transparent; color: var(--paper-ink); cursor: pointer; font: 500 .6rem/1 var(--mono); text-transform: uppercase; }
-    .install-code { min-height: 16rem; margin: 0; padding: 1.25rem; overflow: auto; background: var(--paper-ink); color: #d8ddd6; white-space: pre-wrap; font: 400 .7rem/1.7 var(--mono); }
-    .install-code .prompt { color: var(--authority); }
-    .install-note { margin: 0; padding: 1rem; color: #5a605b; font: 400 .66rem/1.55 var(--mono); }
-    .install-note strong { color: #7d4300; font-weight: 600; }
-
-    /* Evidence */
-    .evidence { padding-block: var(--space-8); }
-    .evidence-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .55fr); gap: 2rem; align-items: start; }
-    .status-ledger { border-top: 1px solid var(--line-strong); }
-    .status-row { display: grid; grid-template-columns: minmax(11rem, .8fr) 7rem minmax(13rem, 1fr) 8rem; border-bottom: 1px solid var(--line); }
-    .status-row > * { padding: .9rem 1rem; border-right: 1px solid var(--line); }
-    .status-row > *:last-child { border-right: 0; }
-    .status-row.head { color: var(--faint); font: 500 .57rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: .07em; }
-    .status-row:not(.head) .subject { font-weight: 500; }
-    .status-badge { font: 600 .61rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .05em; }
-    .status-badge.pass { color: var(--authority); }
-    .status-badge.blocked { color: var(--danger); }
-    .status-scope, .status-date { color: var(--muted); font-size: .74rem; line-height: 1.4; }
-    .evidence-aside { border: 1px solid var(--line); background: var(--panel); }
-    .evidence-aside h3 { margin: 0; padding: 1rem; border-bottom: 1px solid var(--line); font: 500 .7rem/1.4 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-    .boundary-list { margin: 0; padding: 0; list-style: none; }
-    .boundary-list li { display: grid; grid-template-columns: 4.6rem 1fr; gap: .75rem; padding: .9rem 1rem; border-bottom: 1px solid var(--line); }
-    .boundary-list li:last-child { border-bottom: 0; }
-    .boundary-list b { color: var(--warning); font: 500 .59rem/1.5 var(--mono); text-transform: uppercase; }
-    .boundary-list span { color: var(--muted); font-size: .76rem; line-height: 1.42; }
-    .receipt-drawer { margin-top: 2rem; border: 1px solid var(--line); background: var(--panel); }
-    .receipt-drawer summary { min-height: 4rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 1rem; cursor: pointer; font: 500 .68rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: .05em; }
-    .receipt-drawer summary::marker { color: var(--witness); }
-    .receipt-body { display: grid; grid-template-columns: minmax(0, .9fr) minmax(16rem, .45fr); border-top: 1px solid var(--line); }
-    .receipt-json { margin: 0; padding: 1.2rem; overflow-x: auto; color: #d5dad3; background: #0d100f; font: 400 .65rem/1.7 var(--mono); }
-    .receipt-explain { padding: 1.2rem; border-left: 1px solid var(--line); }
-    .receipt-explain h4 { margin: 0 0 .8rem; font-size: 1rem; font-weight: 500; }
-    .receipt-explain p { margin: 0 0 .8rem; color: var(--muted); font-size: .8rem; line-height: 1.45; }
-    .receipt-explain p:last-child { margin-bottom: 0; color: var(--warning); font-family: var(--mono); font-size: .63rem; }
-
-    .benchmark { margin-top: 4rem; }
-    .benchmark-head { display: grid; grid-template-columns: 1fr minmax(18rem, .7fr); gap: 2rem; margin-bottom: 1.5rem; }
-    .benchmark-head h3 { margin: 0; font-size: var(--step-2); font-weight: 500; }
-    .benchmark-head p { margin: 0; color: var(--muted); font-size: .86rem; line-height: 1.5; }
-    .bench-table { width: 100%; border-collapse: collapse; border-top: 1px solid var(--line-strong); }
-    .bench-table th, .bench-table td { padding: .8rem 1rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: left; }
-    .bench-table th:last-child, .bench-table td:last-child { border-right: 0; }
-    .bench-table th { color: var(--faint); font: 500 .58rem/1.3 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-    .bench-table td { color: var(--muted); font: 400 .72rem/1.4 var(--mono); }
-    .bench-table td:first-child { color: var(--text); }
-    .bench-caption { margin: 1rem 0 0; color: var(--faint); font: 400 .62rem/1.55 var(--mono); }
-
-    /* Resources + CTA */
-    .resources { padding-block: var(--space-8); border-top: 1px solid var(--line); }
-    .resource-list { border-top: 1px solid var(--line-strong); }
-    .resource-link { min-height: 6rem; display: grid; grid-template-columns: 4rem minmax(12rem, .45fr) 1fr auto; align-items: center; gap: 1rem; padding: 1rem; border-bottom: 1px solid var(--line); text-decoration: none; }
-    .resource-link .n { color: var(--witness); font: 500 .62rem/1 var(--mono); }
-    .resource-link b { font-size: 1.1rem; font-weight: 500; }
-    .resource-link > span:not(.n) { color: var(--muted); font-family: var(--serif); }
-    .resource-link i { color: var(--faint); font: normal 400 .7rem/1 var(--mono); }
-    .resource-link:hover { background: var(--panel); }
-    .final-cta { padding-block: var(--space-8); border-top: 1px solid var(--line); }
-    .cta-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 3rem; align-items: end; }
-    .cta-grid h2 { max-width: 11ch; margin: .8rem 0 0; font-size: var(--step-4); line-height: .93; letter-spacing: -.045em; font-weight: 500; }
-    .cta-actions { display: grid; gap: .75rem; min-width: 17rem; }
-
-    /* Footer */
-    .site-footer { border-top: 1px solid var(--line); }
-    .footer-inner { min-height: 11rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; padding-block: 2rem; align-items: start; }
-    .footer-col { color: var(--faint); font: 400 .62rem/1.7 var(--mono); }
-    .footer-col b { display: block; margin-bottom: .4rem; color: var(--text); font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
-    .footer-col a { color: var(--muted); text-underline-offset: .2em; }
-    .roko-colophon { justify-self: end; display: flex; align-items: center; gap: .7rem; color: var(--faint); font: 400 .58rem/1.4 var(--mono); }
-    .roko-dot { position: relative; width: 1.6rem; height: 1.6rem; border: 1px solid var(--line-strong); }
-    .roko-dot::before { content: "··"; position: absolute; inset: 0; display: grid; place-items: center; color: var(--witness); font: 600 .9rem/1 var(--mono); letter-spacing: .12em; }
-    .mobile-actions { display: none; }
-
-    @media (max-width: 1180px) {
-      .desktop-nav a { padding-inline: .5rem; }
-      .hero-inner { grid-template-columns: minmax(20rem, .8fr) minmax(30rem, 1.2fr); gap: 2rem; }
-      .trace-grid { grid-template-columns: repeat(4, 1fr); }
-      .trace-node:nth-child(4) { border-right: 0; }
-      .trace-node:nth-child(-n+4) { border-bottom: 1px solid var(--line); }
-      .stack-layer { grid-template-columns: 5rem minmax(13rem, .7fr) 1fr; }
-      .stack-boundary { grid-column: 2 / 4; border-top: 1px solid var(--line); }
-      .status-row { grid-template-columns: 1fr 6rem 1.2fr; }
-      .status-date { grid-column: 3; border-left: 1px solid var(--line); border-top: 1px solid var(--line); }
-    }
-
-    @media (max-width: 960px) {
-      :root { --header-h: 4rem; }
-      .wrap { width: min(calc(100% - 2rem), var(--max)); }
-      .desktop-nav, .header-github, .header-install { display: none; }
-      .menu-button { display: inline-grid; place-items: center; }
-      .brand-sub { display: none; }
-      .hero-inner { grid-template-columns: 1fr; min-height: 0; padding-block: 4rem; }
-      .hero-visual { margin-top: 0; }
-      .hero-copy h1 { max-width: 9ch; }
-      .plane-caption { grid-template-columns: 1fr; }
-      .section-head, .evidence-layout, .benchmark-head, .cta-grid { grid-template-columns: 1fr; }
-      .section-head { align-items: start; }
-      .stack-layer { grid-template-columns: 4.5rem 1fr; }
-      .stack-description, .stack-boundary { grid-column: 2; border-left: 1px solid var(--line); border-top: 1px solid var(--line); }
-      .stack-name { border-right: 0; }
-      .arch-shell { grid-template-columns: 1fr; }
-      .arch-index { display: grid; grid-template-columns: repeat(4, 1fr); border-right: 0; border-bottom: 1px solid var(--line); }
-      .arch-button { min-height: 5rem; border-right: 1px solid var(--line); border-bottom: 0; grid-template-columns: 1fr; }
-      .arch-button:last-child { border-right: 0; }
-      .arch-button span:last-child { display: none; }
-      .arch-button .n { grid-row: 1; }
-      .install-shell { grid-template-columns: 1fr; }
-      .host-tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-right: 0; border-bottom: 1px solid #b9bdb6; overflow-x: auto; }
-      .host-tab { min-width: 9rem; border-right: 1px solid #b9bdb6; border-bottom: 0; }
-      .resource-link { grid-template-columns: 3rem minmax(10rem, .45fr) 1fr; }
-      .resource-link i { display: none; }
-      .footer-inner { grid-template-columns: 1fr 1fr; }
-      .roko-colophon { justify-self: start; }
-    }
-
-    @media (max-width: 680px) {
-      .hero::before { background-size: 4rem 4rem; }
-      .hero-copy h1 { font-size: clamp(3rem, 15vw, 5rem); }
-      .hero-actions { flex-direction: column; }
-      .hero-actions a { width: 100%; }
-      .layer-tabs { grid-template-columns: 1fr; }
-      .layer-tab { border-right: 0; border-bottom: 1px solid var(--line); }
-      .layer-tab:last-child { border-bottom: 0; }
-      .query-line { grid-template-columns: 1fr; }
-      .query-label { border-right: 0; border-bottom: 1px solid var(--line); }
-      .trace-grid { grid-template-columns: 1fr; min-height: 0; }
-      .trace-node, .trace-node:nth-child(4) { min-height: 7.6rem; padding-bottom: 1rem; border-right: 0; border-bottom: 1px solid var(--line); }
-      .trace-node:last-child { border-bottom: 0; }
-      .trace-node::before, .trace-node::after { display: none; }
-      .result-row { grid-template-columns: 1fr; }
-      .trace-action { min-height: 48px; border-left: 0; border-top: 1px solid var(--line); }
-      .stack-section, .architecture, .ownership, .install, .evidence, .resources, .final-cta { padding-block: 4.5rem; }
-      .stack-layer { grid-template-columns: 1fr; }
-      .stack-layer > *, .stack-description, .stack-boundary { grid-column: auto; border-right: 0; border-left: 0; border-top: 1px solid var(--line); }
-      .stack-layer > :first-child { border-top: 0; }
-      .arch-index { grid-template-columns: 1fr 1fr; }
-      .arch-button:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-      .arch-figure { min-height: 0; grid-template-columns: 1fr; grid-template-rows: auto; }
-      .arch-hosts, .arch-mcp, .arch-memory, .arch-compaction { grid-column: 1; grid-row: auto; }
-      .arch-trust { position: static; width: auto; margin-top: 1rem; }
-      .ownership-grid { border: 0; }
-      .ownership-row.head { display: none; }
-      .ownership-row { grid-template-columns: 1fr; margin-bottom: 1rem; border: 1px solid var(--line); }
-      .ownership-row > * { border-right: 0; border-bottom: 1px solid var(--line); }
-      .ownership-row > *:last-child { border-bottom: 0; }
-      .host-tabs { grid-template-columns: 1fr 1fr; }
-      .host-tab { min-width: 0; border-bottom: 1px solid #b9bdb6; }
-      .receipt-body { grid-template-columns: 1fr; }
-      .receipt-explain { border-left: 0; border-top: 1px solid var(--line); }
-      .status-row.head { display: none; }
-      .status-row { grid-template-columns: 1fr 7rem; margin-bottom: 1rem; border: 1px solid var(--line); }
-      .status-row > * { border-bottom: 1px solid var(--line); }
-      .status-scope { grid-column: 1 / 3; border-right: 0 !important; }
-      .status-date { grid-column: 1 / 3; border-left: 0; border-top: 0; border-bottom: 0; }
-      .bench-wrap { overflow-x: auto; }
-      .bench-table { min-width: 36rem; }
-      .resource-link { grid-template-columns: 2rem minmax(0, 1fr); align-items: start; }
-      .resource-link .n { grid-column: 1; grid-row: 1 / 3; padding-top: .2rem; }
-      .resource-link b { grid-column: 2; grid-row: 1; }
-      .resource-link > span:not(.n) { grid-column: 2; grid-row: 2; }
-      .cta-actions { min-width: 0; }
-      .footer-inner { grid-template-columns: 1fr; }
-      .mobile-actions { position: fixed; z-index: 45; left: .75rem; right: .75rem; bottom: .75rem; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line-strong); background: var(--ground); }
-      .mobile-actions a { min-height: 48px; display: grid; place-items: center; text-decoration: none; font: 600 .65rem/1 var(--mono); text-transform: uppercase; }
-      .mobile-actions a:first-child { background: var(--text); color: var(--ground); }
-      .mobile-actions a:last-child { border-left: 1px solid var(--line); }
-      .site-footer { padding-bottom: 4.5rem; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-    }
-  </style>
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "RecursiveIntell Agent Memory",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Cross-platform",
+    "url": "https://recursiveintell.com/",
+    "codeRepository": "https://github.com/RecursiveIntell/agent-memory-kits",
+    "license": "https://www.apache.org/licenses/LICENSE-2.0",
+    "description": "Local-first persistent memory infrastructure for AI coding agents with governed MCP access and inspectable execution receipts."
+  }
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -420,14 +37,16 @@
   <header class="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="#top" aria-label="RecursiveIntell home">
-        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
         <span class="brand-type">recursive<span>intell</span></span>
-        <span class="brand-sub">memory infrastructure</span>
+        <span class="brand-sub">systems observatory</span>
       </a>
       <nav class="desktop-nav" aria-label="Primary navigation">
         <a href="#stack">Stack</a>
         <a href="#architecture">Architecture</a>
+        <a href="#products">Products</a>
         <a href="#evidence">Evidence</a>
+        <a href="#frontier">Frontier</a>
         <a href="#resources">Docs</a>
       </nav>
       <a class="header-github" href="https://github.com/RecursiveIntell" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
@@ -437,192 +56,292 @@
   </header>
   <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
     <a href="#stack">Stack <span>01</span></a>
-    <a href="#architecture">Architecture <span>02</span></a>
-    <a href="#evidence">Evidence <span>03</span></a>
-    <a href="#resources">Docs <span>04</span></a>
+    <a href="#install">Install <span>02</span></a>
+    <a href="#architecture">Architecture <span>03</span></a>
+    <a href="#products">Products <span>04</span></a>
+    <a href="#evidence">Evidence <span>05</span></a>
+    <a href="#frontier">Frontier <span>06</span></a>
+    <a href="#resources">Docs <span>07</span></a>
     <a href="https://github.com/RecursiveIntell" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
   </nav>
 
   <main id="main">
     <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="blueprint-grid" aria-hidden="true"></div>
       <div class="wrap hero-inner">
         <div class="hero-copy">
           <div class="eyebrow">Open-source Rust + MCP infrastructure</div>
           <h1 id="hero-title">Agent memory <span>that can show its work.</span></h1>
-          <p class="hero-lede">A local-first stack for persistent agent memory: hybrid retrieval over an authoritative SQLite store, governed MCP access, and host integrations that preserve evidence for operations worth inspecting.</p>
+          <p class="hero-lede">Start with persistent memory for the coding agent you already use. Underneath it is something larger: a <strong>programmable trust substrate</strong> for local-first AI—typed boundaries, bounded execution, temporal truth, receipts, replay, and measured compression.</p>
           <div class="hero-actions">
-            <a class="button-primary" href="#install">Choose an integration <span>→</span></a>
-            <a class="button-secondary" href="#architecture">Inspect the architecture <span>↓</span></a>
+            <a class="button-primary" href="#install">Install agent memory <span>→</span></a>
+            <a class="button-secondary" href="#observatory">Open the observatory <span>↓</span></a>
+          </div>
+          <div class="hero-proof" aria-label="Product boundaries">
+            <span><i></i>SQLite-authoritative</span>
+            <span><i></i>Source-hardened · not release-certified</span>
+            <span><i></i>Receipts ≠ factual truth</span>
           </div>
 
-          <div class="layer-picker" aria-label="Choose a product layer">
-            <div class="layer-tabs" role="tablist" aria-label="Product layers">
-              <button class="layer-tab" id="tab-kits" role="tab" aria-selected="true" aria-controls="layerPanel" tabindex="0" data-layer="kits" type="button">Agent kits</button>
-              <button class="layer-tab" id="tab-mcp" role="tab" aria-selected="false" aria-controls="layerPanel" tabindex="-1" data-layer="mcp" type="button">MCP server</button>
-              <button class="layer-tab" id="tab-core" role="tab" aria-selected="false" aria-controls="layerPanel" tabindex="-1" data-layer="core" type="button">Rust core</button>
+          <div class="quick-install" aria-label="Quick installation chooser">
+            <div class="quick-tabs" role="tablist" aria-label="Quick entry path">
+              <button class="quick-tab" id="quick-tab-kits" role="tab" aria-selected="true" aria-controls="quickPanel" tabindex="0" data-quick="kits" type="button">Agent kits</button>
+              <button class="quick-tab" id="quick-tab-mcp" role="tab" aria-selected="false" aria-controls="quickPanel" tabindex="-1" data-quick="mcp" type="button">MCP server</button>
+              <button class="quick-tab" id="quick-tab-core" role="tab" aria-selected="false" aria-controls="quickPanel" tabindex="-1" data-quick="core" type="button">Rust core</button>
             </div>
-            <div class="layer-panel" id="layerPanel" role="tabpanel" tabindex="0" aria-labelledby="tab-kits">
-              <div class="layer-panel-head"><span class="layer-panel-title" id="layerTitle">Recommended entry · host integration</span><button class="copy-button" id="copyLayer" type="button">Copy</button></div>
-              <pre class="command" id="layerCommand"><span class="prompt">$</span> /plugin marketplace add RecursiveIntell/agent-memory-kits
-<span class="prompt">$</span> /plugin install semantic-memory@semantic-memory-kit
-<span class="prompt">$</span> /memory-setup</pre>
-              <p class="layer-hint" id="layerHint">Claude Code example. A new store starts empty; run the doctor and ingest a real repository before evaluating recall.</p>
+            <div class="quick-body" id="quickPanel" role="tabpanel" tabindex="0" aria-labelledby="quick-tab-kits">
+              <div class="quick-head"><span class="quick-title" id="quickTitle">Recommended entry · Claude Code</span><button class="copy-button" id="copyQuick" type="button">Copy</button></div>
+              <pre class="command" id="quickCommand">/plugin marketplace add RecursiveIntell/agent-memory-kits
+/plugin install semantic-memory@semantic-memory-kit
+/memory-setup</pre>
+              <p class="quick-hint" id="quickHint">Restart once, ingest a real repository, run the doctor, then test recall. An empty Day-1 store is expected.</p>
             </div>
-          </div>
-
-          <div class="hero-status">
-            <span class="status-key">Source-scoped preview</span>
-            <p>Current source gates are not a release-wide certification. Package, advisory, and live/source parity remain launch gates.</p>
           </div>
         </div>
 
-        <div class="hero-visual" aria-labelledby="trace-title">
-          <div class="plane-shell">
-            <div class="plane-toolbar"><span id="trace-title">Witnessed retrieval · illustrative contract view</span><span class="persisted">● durable receipt required</span></div>
-            <div class="query-line"><div class="query-label">Query / current</div><div class="query-text">“What did we decide about package truth?”</div></div>
-            <div class="trace-grid" id="traceGrid">
-              <div class="trace-node layer-focus" data-stage="0" data-layer-node="kits"><span class="node-index">01 / host</span><strong class="node-title">Prompt enters</strong><p>A hook or MCP/rules integration selects recall.</p></div>
-              <div class="trace-node layer-focus" data-stage="1" data-layer-node="mcp"><span class="node-index">02 / contract</span><strong class="node-title">Profile gates</strong><p>Runtime allowlist chooses a bounded tool surface.</p></div>
-              <div class="trace-node" data-stage="2" data-layer-node="core"><span class="node-index">03 / lexical</span><strong class="node-title">FTS5 / BM25</strong><p>SQLite produces lexical candidates and ranks.</p></div>
-              <div class="trace-node" data-stage="3" data-layer-node="core"><span class="node-index">04 / dense</span><strong class="node-title">Vector lane</strong><p>Dense candidates remain derived acceleration.</p></div>
-              <div class="trace-node" data-stage="4" data-layer-node="core"><span class="node-index">05 / fusion</span><strong class="node-title">Weighted RRF</strong><p>Candidate ranks merge without score theater.</p></div>
-              <div class="trace-node" data-stage="5" data-layer-node="mcp"><span class="node-index">06 / state</span><strong class="node-title">Policy applies</strong><p>Source, current state, and authority are hydrated.</p></div>
-              <div class="trace-node" data-stage="6" data-layer-node="mcp"><span class="node-index">07 / witness</span><strong class="node-title">Receipt exits</strong><p>Backend, IDs, degradations, and replay boundary.</p></div>
+        <div class="observatory" id="observatory" aria-label="Interactive stack observatory">
+          <span class="orbit one" aria-hidden="true"></span>
+          <span class="orbit two" aria-hidden="true"></span>
+          <span class="orbit three" aria-hidden="true"></span>
+          <span class="route-line route-a" aria-hidden="true"></span>
+          <span class="route-line route-b" aria-hidden="true"></span>
+          <span class="route-line route-c" aria-hidden="true"></span>
+          <div class="observatory-core"><div><b>TRUST<br />SUBSTRATE</b><span>local-first · typed · witnessed</span></div></div>
+          <button class="domain-button domain-governance" type="button" data-domain="governance" aria-pressed="false"><span class="code">G1</span><b>Governance</b><small>policies · roles · continuity</small></button>
+          <button class="domain-button domain-tools" type="button" data-domain="tools" aria-pressed="false"><span class="code">T1</span><b>Tools &amp; effects</b><small>bounded runtime · typed calls</small></button>
+          <button class="domain-button domain-verification" type="button" data-domain="verification" aria-pressed="false"><span class="code">V1</span><b>Verification</b><small>oracles · certificates</small></button>
+          <button class="domain-button domain-receipts" type="button" data-domain="receipts" aria-pressed="false"><span class="code">R1</span><b>Receipts &amp; replay</b><small>append-only · time-indexed</small></button>
+          <button class="domain-button domain-compression" type="button" data-domain="compression" aria-pressed="false"><span class="code">C1</span><b>Compression</b><small>measured · reversible</small></button>
+          <aside class="domain-detail" id="domainDetail" hidden aria-live="polite">
+            <div class="domain-detail-head"><h2 id="domainTitle">Domain</h2><button class="domain-detail-close" id="closeDomain" type="button" aria-label="Close domain detail">×</button></div>
+            <div class="domain-detail-grid">
+              <div><b>Owner</b><span id="domainOwner"></span></div>
+              <div><b>Accepts</b><span id="domainAccepts"></span></div>
+              <div><b>Emits</b><span id="domainReceipt"></span></div>
+              <div><b>Failure contract</b><span id="domainFailure"></span></div>
             </div>
-            <div class="result-row">
-              <div class="receipt"><strong>result</strong> fact:&lt;redacted&gt; · state <span class="green">CURRENT</span> · trust persisted_unjudged · receipt <span class="pink">mcp-witness-…</span> · replay inputs <strong>NOT RETAINED</strong></div>
-              <button class="trace-action" id="runTrace" type="button">Run trace</button>
-            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="stack" aria-labelledby="stack-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">01 · Use it today</div><h2 id="stack-title">One memory system. Three entry layers.</h2></div>
+          <p>Choose the layer that matches the job. The kits are the operator entry, the server is the protocol boundary, and the Rust library owns retrieval and durable state.</p>
+        </div>
+        <div class="entry-grid">
+          <article class="entry-card">
+            <span class="entry-index">03 / USE</span>
+            <h3>Agent Memory Kits</h3>
+            <code>agent-memory-kits</code>
+            <p>Host-specific setup, lifecycle integration, doctors, ingestion, recall, compaction, and claim/evidence workflows for coding agents.</p>
+            <div class="chip-row"><span class="chip">hooks where supported</span><span class="chip">MCP + rules</span><span class="chip">doctor receipts</span><span class="chip">codebase ingest</span></div>
+            <div class="boundary"><b>Boundary</b> Hook-capable and MCP/rules-only integrations are separate support tiers. A rules file is not a lifecycle hook.</div>
+          </article>
+          <article class="entry-card">
+            <span class="entry-index">02 / SERVE</span>
+            <h3>Semantic Memory MCP</h3>
+            <code>semantic-memory-mcp · 0.5.4</code>
+            <p>Stdio MCP, runtime profiles, bounded allowlists, witnessed retrieval, replay, graph access, optional loopback HTTP, and separate assertion/action authority decisions.</p>
+            <div class="chip-row"><span class="chip">stdio MCP</span><span class="chip">lean / agent / full</span><span class="chip">witnessed search</span><span class="chip">replay</span></div>
+            <div class="boundary"><b>Boundary</b> <code>tools/list</code> is runtime truth. Full operator surfaces may include destructive or experimental capabilities.</div>
+          </article>
+          <article class="entry-card">
+            <span class="entry-index">01 / OWN</span>
+            <h3>Semantic Memory</h3>
+            <code>semantic-memory · 0.5.10</code>
+            <p>A local-first Rust library for durable hybrid retrieval with SQLite-authoritative state, FTS5/BM25, dense candidates, weighted RRF, bitemporal views, explained ranking, receipts, and governed APIs.</p>
+            <div class="chip-row"><span class="chip">SQLite + FTS5</span><span class="chip">dense candidates</span><span class="chip">weighted RRF</span><span class="chip">bitemporal state</span></div>
+            <div class="boundary"><b>Boundary</b> Feature-gated routing, topology, decoder, and research modules do not silently execute in normal <code>search()</code>.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="witness" aria-labelledby="witness-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">02 · Witnessed retrieval</div><h2 id="witness-title">Follow one answer all the way out.</h2></div>
+          <p>The retrieval path stays inspectable: host, profile, candidate lanes, fusion, state policy, and receipt. Degradation in one plane cannot silently promote another.</p>
+        </div>
+        <div class="trace-shell">
+          <div class="trace-toolbar"><span>Illustrative contract view · current-state query</span><span>● durable receipt required</span></div>
+          <div class="query-line"><div class="query-label">Query / current</div><div class="query-text">“What did we decide about package truth?”</div></div>
+          <div class="trace-grid" id="traceGrid">
+            <div class="trace-node" data-stage="0"><small>01 / HOST</small><b>Prompt enters</b><p>A hook or MCP/rules integration selects recall.</p></div>
+            <div class="trace-node" data-stage="1"><small>02 / CONTRACT</small><b>Profile gates</b><p>A runtime allowlist chooses a bounded tool surface.</p></div>
+            <div class="trace-node" data-stage="2"><small>03 / LEXICAL</small><b>FTS5 / BM25</b><p>SQLite produces lexical candidates and ranks.</p></div>
+            <div class="trace-node" data-stage="3"><small>04 / DENSE</small><b>Vector lane</b><p>Dense candidates remain derived acceleration.</p></div>
+            <div class="trace-node" data-stage="4"><small>05 / FUSION</small><b>Weighted RRF</b><p>Candidate ranks merge without score theater.</p></div>
+            <div class="trace-node" data-stage="5"><small>06 / STATE</small><b>Policy applies</b><p>Source, current state, and authority are hydrated.</p></div>
+            <div class="trace-node" data-stage="6"><small>07 / WITNESS</small><b>Receipt exits</b><p>Backend, IDs, degradations, and replay boundary.</p></div>
           </div>
-          <div class="plane-caption" aria-label="Trace boundaries">
-            <div><b>Authority</b><span>SQLite owns durable searchable state. Vector structures accelerate retrieval; they do not replace it.</span></div>
-            <div><b>Privacy</b><span>Complete replay inputs are opt-in. Model download and remote Ollama configuration are explicit network boundaries.</span></div>
-            <div><b>Proof</b><span>A receipt records execution evidence. It does not make recalled content true or authorize an action.</span></div>
+          <div class="trace-result">
+            <div class="trace-receipt"><strong>result</strong> fact:&lt;redacted&gt; · state <span class="ok">CURRENT</span> · trust persisted_unjudged · receipt <span class="witness">mcp-witness-…</span> · replay inputs <strong>NOT RETAINED</strong></div>
+            <button class="trace-run" id="runTrace" type="button">Run trace</button>
+          </div>
+        </div>
+        <div class="caption-grid" aria-label="Retrieval boundaries">
+          <div><b>Authority</b><span>SQLite owns durable searchable state. Vector structures accelerate retrieval; they do not replace it.</span></div>
+          <div><b>Privacy</b><span>Complete replay inputs are opt-in. Model download and remote Ollama are explicit network boundaries.</span></div>
+          <div><b>Proof</b><span>A receipt records execution evidence. It does not make recalled content true or authorize an action.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section install-section" id="install" aria-labelledby="install-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">03 · Install agent memory</div><h2 id="install-title">Choose your host. Then prove it works.</h2></div>
+          <p>Every path ends the same way: <strong>install → restart → ingest → doctor → recall</strong>. The commands below were checked against current repository manifests on July 16, 2026.</p>
+        </div>
+        <div class="prerequisite-strip" aria-label="Installation prerequisites">
+          <strong>Before you paste</strong>
+          <span><b>Required</b> Git, Python 3, and a Rust toolchain with <code>cargo</code>.</span>
+          <span><b>Host</b> Install the Claude, Codex, Hermes, or other supported host first.</span>
+          <span><b>MCP paths</b> Put <code>semantic-memory-mcp</code> on <code>PATH</code>; the direct recipe below installs 0.5.4.</span>
+          <span><b>First run</b> The local embedding model may download once. Remote Ollama is an explicit network boundary.</span>
+        </div>
+        <div class="onboarding" aria-label="Six-step onboarding path">
+          <div><b>01 · Choose</b><span>Select your host or the direct library surface.</span></div>
+          <div><b>02 · Install</b><span>Copy the exact commands for that integration.</span></div>
+          <div><b>03 · Restart</b><span>Reload hook-capable hosts after setup.</span></div>
+          <div><b>04 · Ingest</b><span>Index a repository you actually use.</span></div>
+          <div><b>05 · Doctor</b><span>Verify binaries, profiles, storage, and receipts.</span></div>
+          <div><b>06 · Recall</b><span>Ask about ingested work; Day 1 starts empty.</span></div>
+        </div>
+
+        <div class="install-shell">
+          <div class="install-tabs" role="tablist" aria-label="Installation paths">
+            <button class="install-tab" id="install-tab-claude" role="tab" aria-selected="true" aria-controls="installPanel" tabindex="0" data-install="claude" type="button">Claude Code <span>Hook tier</span></button>
+            <button class="install-tab" id="install-tab-codex" role="tab" aria-selected="false" aria-controls="installPanel" tabindex="-1" data-install="codex" type="button">Codex CLI <span>Hook tier</span></button>
+            <button class="install-tab" id="install-tab-hermes" role="tab" aria-selected="false" aria-controls="installPanel" tabindex="-1" data-install="hermes" type="button">Hermes Agent <span>Plugin + MCP</span></button>
+            <button class="install-tab" id="install-tab-rules" role="tab" aria-selected="false" aria-controls="installPanel" tabindex="-1" data-install="rules" type="button">MCP + rules <span>Six hosts</span></button>
+            <button class="install-tab" id="install-tab-mcp" role="tab" aria-selected="false" aria-controls="installPanel" tabindex="-1" data-install="mcp" type="button">Direct MCP <span>Protocol</span></button>
+            <button class="install-tab" id="install-tab-core" role="tab" aria-selected="false" aria-controls="installPanel" tabindex="-1" data-install="core" type="button">Rust library <span>Core API</span></button>
+          </div>
+          <div class="install-panel" id="installPanel" role="tabpanel" tabindex="0" aria-labelledby="install-tab-claude">
+            <div class="install-panel-head"><div><h3 id="installName">Claude Code · plugin path</h3><p class="install-summary" id="installSummary">The recommended operator entry. Marketplace setup installs the kit, MCP surface, lifecycle hooks, commands, and doctor workflow.</p></div><button class="copy-button" id="copyInstall" type="button">Copy commands</button></div>
+            <pre class="install-code" id="installCode">/plugin marketplace add RecursiveIntell/agent-memory-kits
+/plugin install semantic-memory@semantic-memory-kit
+/memory-setup</pre>
+            <ol class="install-steps" id="installSteps">
+              <li><b>Restart</b>Restart Claude Code once so newly installed hooks load.</li>
+              <li><b>Ingest</b>Run <code>/memory-ingest .</code> inside a repository you use.</li>
+              <li><b>Verify</b>Run the doctor, then ask a question about the ingested codebase.</li>
+            </ol>
+            <p class="install-note" id="installNote">A new store returning no recall is expected. The system fails open until it has facts worth recalling.</p>
+            <div class="install-footer"><a id="installDocs" href="https://github.com/RecursiveIntell/agent-memory-kits" target="_blank" rel="noreferrer">Open canonical integration docs ↗</a><a href="/install">Open the full installation guide →</a></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="stack-section" id="stack" aria-labelledby="stack-title">
+    <section class="section" id="architecture" aria-labelledby="architecture-title">
       <div class="wrap">
         <div class="section-head">
-          <div><div class="eyebrow">01 · Product stack</div><h2 id="stack-title">One system. Three entry layers.</h2></div>
-          <p>Choose the layer that matches the job. The kits are the recommended operator entry; the server is the protocol surface; the library owns retrieval and durable state.</p>
+          <div><div class="section-kicker">04 · Architecture</div><h2 id="architecture-title">Make every trust boundary visible.</h2></div>
+          <p>The product separates host lifecycle, protocol authority, searchable memory, context fallback, claim trust, and operator effects. Select a boundary to inspect its contract.</p>
         </div>
-        <div class="stack-board">
-          <article class="stack-layer">
-            <div class="stack-number">03 / use</div>
-            <div class="stack-name"><h3>Agent Memory Kits</h3><code>agent-memory-kits</code></div>
-            <div class="stack-description"><p>Host-specific setup, doctor, ingestion, recall, compaction, and claim/evidence workflows for coding agents.</p><div class="stack-tags"><span>hooks where supported</span><span>MCP + rules</span><span>doctor receipts</span><span>codebase ingest</span></div></div>
-            <div class="stack-boundary"><b>Boundary</b>Hook-capable and MCP/rules-only integrations are separate support tiers. A rules file is not a lifecycle hook.</div>
-          </article>
-          <article class="stack-layer">
-            <div class="stack-number">02 / serve</div>
-            <div class="stack-name"><h3>Semantic Memory MCP</h3><code>semantic-memory-mcp</code></div>
-            <div class="stack-description"><p>Stdio MCP, runtime profiles, witnessed retrieval, replay, graph access, and separate assertion/action authority decisions.</p><div class="stack-tags"><span>stdio MCP</span><span>tool profiles</span><span>witnessed search</span><span>optional loopback HTTP</span></div></div>
-            <div class="stack-boundary"><b>Boundary</b><code>tools/list</code> is truth for a specific binary and profile. Full operator mode may include destructive and experimental surfaces.</div>
-          </article>
-          <article class="stack-layer">
-            <div class="stack-number">01 / own</div>
-            <div class="stack-name"><h3>Semantic Memory</h3><code>semantic-memory</code></div>
-            <div class="stack-description"><p>A local-first Rust library for durable hybrid retrieval with SQLite-authoritative state, explained ranking, receipts, replay, and governed memory APIs.</p><div class="stack-tags"><span>SQLite + FTS5</span><span>dense candidates</span><span>weighted RRF</span><span>bitemporal state</span></div></div>
-            <div class="stack-boundary"><b>Boundary</b>Feature-gated routing, topology, decoder, and research modules do not silently execute in the normal <code>search()</code> path.</div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="architecture" id="architecture" aria-labelledby="architecture-title">
-      <div class="wrap">
-        <div class="section-head">
-          <div><div class="eyebrow">02 · Architecture</div><h2 id="architecture-title">Make every trust boundary visible.</h2></div>
-          <p>The architecture separates searchable memory, derived acceleration, claim trust, context fallback, and operator authority. A degradation in one plane must not silently promote another.</p>
-        </div>
-        <div class="arch-shell">
-          <div class="arch-index" aria-label="Architecture focus controls">
-            <button class="arch-button" type="button" data-arch="host" aria-pressed="true"><span class="n">01</span><b>Host lifecycle</b><span>hooks or explicit rules</span></button>
-            <button class="arch-button" type="button" data-arch="memory" aria-pressed="false"><span class="n">02</span><b>Searchable memory</b><span>SQLite authority + indexes</span></button>
-            <button class="arch-button" type="button" data-arch="trust" aria-pressed="false"><span class="n">03</span><b>Claim authority</b><span>separate verified ledger</span></button>
-            <button class="arch-button" type="button" data-arch="operator" aria-pressed="false"><span class="n">04</span><b>Operator boundary</b><span>mutation and maintenance</span></button>
+        <div class="architecture-shell">
+          <div class="arch-tabs" aria-label="Architecture focus">
+            <button class="arch-tab" type="button" data-arch="host" aria-pressed="true"><small>01</small><b>Host lifecycle</b><span>hooks or explicit rules</span></button>
+            <button class="arch-tab" type="button" data-arch="memory" aria-pressed="false"><small>02</small><b>Searchable memory</b><span>SQLite + derived indexes</span></button>
+            <button class="arch-tab" type="button" data-arch="trust" aria-pressed="false"><small>03</small><b>Claim authority</b><span>separate verified ledger</span></button>
+            <button class="arch-tab" type="button" data-arch="operator" aria-pressed="false"><small>04</small><b>Operator boundary</b><span>mutation and maintenance</span></button>
           </div>
           <div class="arch-stage">
-            <div class="arch-figure" role="img" aria-label="Architecture showing host integrations, MCP runtime, semantic memory authority, context governor, and separate claim trust authority">
-              <div class="arch-zone arch-hosts highlight" data-zone="host"><h3>Host integrations</h3><p>Prompt/session hooks where the host exposes lifecycle events; MCP plus rules elsewhere.</p><div class="host-list"><span>Claude Code · hooked</span><span>Codex · hooked</span><span>Hermes · hooked</span><span>Cursor · rules</span><span>Cline · rules</span><span>Roo Code · rules</span><span>Windsurf · rules</span><span>Continue · rules</span><span>OpenCode · rules</span></div><code>fail-open recall<br />explicit host tier</code></div>
-              <div class="arch-zone arch-mcp" data-zone="operator"><h3>MCP stdio + profiles</h3><p>Schema discovery, bounded allowlists, witnessed retrieval, replay, and authority decisions.</p><code>lean / agent / full<br />tools/list = runtime truth</code></div>
-              <div class="arch-zone arch-memory" data-zone="memory"><h3>SQLite authoritative state</h3><p>Facts, chunks, conversations, episodes, raw embeddings, FTS5, receipts, and state visibility.</p><code>memory.db → FTS5<br />raw f32 → derived candidates<br />reconcile / rebuild</code></div>
-              <div class="arch-zone arch-compaction" data-zone="host"><h3>Context Governor</h3><p>Separate receipt/fallback store for deterministic compaction and exact expansion.</p><code>kept / summarized / omitted<br />exact fallback retained</code></div>
-              <div class="arch-trust" data-zone="trust"><b>Separate claim authority</b><span>Verified claim-ledger history derives an in-memory trust index. Verification failure disables enrichment and ledger writes; ordinary memory search continues.</span></div>
+            <div class="arch-grid">
+              <article class="arch-zone arch-host active" data-zone="host"><h3>Host integrations</h3><p>Prompt/session hooks where the host exposes lifecycle events; MCP plus native rules/context elsewhere.</p><div class="host-list"><span>Claude Code · hooks</span><span>Codex · hooks</span><span>Hermes · hooks</span><span>Cursor · rules</span><span>Cline · rules</span><span>Roo Code · rules</span><span>Windsurf · rules</span><span>Continue · rules</span><span>OpenCode · rules</span></div><code>fail-open recall<br />explicit support tier</code></article>
+              <article class="arch-zone" data-zone="operator"><h3>MCP stdio + profiles</h3><p>Schema discovery, bounded allowlists, witnessed retrieval, replay, graph access, and authority decisions.</p><code>lean / agent / full<br />tools/list = runtime truth</code></article>
+              <article class="arch-zone arch-memory" data-zone="memory"><h3>SQLite authoritative state</h3><p>Facts, chunks, conversations, episodes, raw embeddings, FTS5, receipts, and state visibility.</p><code>memory.db → FTS5<br />raw f32 → derived candidates<br />WAL / integrity / reconcile / rebuild</code></article>
+              <article class="arch-zone" data-zone="host"><h3>Context Governor</h3><p>Separate receipt/fallback store for deterministic compaction and exact expansion.</p><code>kept / summarized / omitted<br />exact fallback retained</code></article>
+              <article class="arch-zone" data-zone="trust"><h3>Claim authority</h3><p>Verified claim-ledger history derives trust without turning remembered content into action authority.</p><code>hash chain / snapshot<br />retained-tail verification</code></article>
             </div>
-            <div class="arch-legend"><span><i class="authority-key"></i> authoritative durable state</span><span><i class="witness-key"></i> receipt / trust evidence</span><span><i></i> derived or bounded surface</span></div>
-            <p class="arch-summary" id="archSummary">Host lifecycle is explicit: hooks are automatic where supported; rule-tier integrations require the host or agent to invoke MCP workflows. Both must fail without turning missing memory into a blocked prompt.</p>
+            <p class="arch-summary" id="archSummary">Host lifecycle is explicit: hooks are automatic where supported; rule-tier integrations require the host or agent to invoke MCP workflows. Missing memory must never block a prompt.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="ownership" aria-labelledby="ownership-title">
+    <section class="section" aria-labelledby="ownership-title">
       <div class="wrap">
         <div class="section-head">
-          <div><div class="eyebrow">03 · Preservation contract</div><h2 id="ownership-title">What is kept—and who owns it.</h2></div>
-          <p>The product story is not “more memory.” It is explicit ownership of durable state, derived indexes, execution evidence, and authority decisions.</p>
+          <div><div class="section-kicker">05 · Preservation contract</div><h2 id="ownership-title">What is kept—and who owns it.</h2></div>
+          <p>The product story is not “more memory.” It is explicit ownership of durable state, acceleration artifacts, execution evidence, compaction fallback, and trust decisions.</p>
         </div>
-        <div class="ownership-grid" role="table" aria-label="Artifact ownership and claim boundaries">
+        <div class="ownership-grid" role="table" aria-label="Preservation ownership contract">
           <div class="ownership-row head" role="row"><div role="columnheader">Artifact</div><div role="columnheader">Canonical owner</div><div role="columnheader">Recoverability</div><div role="columnheader">Claim boundary</div></div>
           <div class="ownership-row" role="row"><div role="cell">Searchable memory</div><div role="cell">SQLite <code>memory.db</code></div><div role="cell">WAL, integrity checks, FTS/vector reconciliation</div><div class="qualified" role="cell">Local store ≠ encrypted store</div></div>
           <div class="ownership-row" role="row"><div role="cell">Vector acceleration</div><div role="cell">Derived index / candidate artifact</div><div role="cell">Rebuild or exact f32 fallback where configured</div><div class="qualified" role="cell">Index ≠ source of truth</div></div>
-          <div class="ownership-row" role="row"><div role="cell">Search execution</div><div role="cell">Durable retrieval receipt</div><div role="cell">Replay from stored inputs only when explicitly retained</div><div class="qualified" role="cell">Receipt ≠ factual truth</div></div>
+          <div class="ownership-row" role="row"><div role="cell">Search execution</div><div role="cell">Durable retrieval receipt</div><div role="cell">Replay only when complete inputs were retained</div><div class="qualified" role="cell">Receipt ≠ factual truth</div></div>
           <div class="ownership-row" role="row"><div role="cell">Compacted context</div><div role="cell">Context Governor receipt store</div><div role="cell">Search and exact expansion of fallback records</div><div class="qualified" role="cell">Recoverability ≠ task success</div></div>
-          <div class="ownership-row" role="row"><div role="cell">Claim trust</div><div role="cell">Verified claim-ledger history</div><div role="cell">Hash-chain / snapshot + retained tail verification</div><div class="qualified" role="cell">Trust enrichment ≠ action authority</div></div>
+          <div class="ownership-row" role="row"><div role="cell">Claim trust</div><div role="cell">Verified claim-ledger history</div><div role="cell">Hash chain, snapshot, and retained-tail verification</div><div class="qualified" role="cell">Trust ≠ action authority</div></div>
         </div>
       </div>
     </section>
 
-    <section class="install" id="install" aria-labelledby="install-title">
+    <section class="section" id="products" aria-labelledby="products-title">
       <div class="wrap">
         <div class="section-head">
-          <div><div class="eyebrow">04 · Install paths</div><h2 id="install-title">Start where your agent already works.</h2></div>
-          <p>These are evaluator paths sourced from current READMEs. Public launch still requires clean-machine install receipts and source/package parity.</p>
+          <div><div class="section-kicker">06 · What the full stack can become</div><h2 id="products-title">Six products hiding in one trust substrate.</h2></div>
+          <p>These compositions turn the libraries into legible products. “Now,” “Next,” and “Research” describe sequencing—not unsupported readiness claims.</p>
         </div>
-        <div class="install-shell">
-          <div class="host-tabs" role="tablist" aria-label="Host install options">
-            <button class="host-tab" id="host-tab-claude" role="tab" aria-selected="true" aria-controls="installPanel" tabindex="0" data-host="claude" type="button">Claude Code <span>Hook tier</span></button>
-            <button class="host-tab" id="host-tab-codex" role="tab" aria-selected="false" aria-controls="installPanel" tabindex="-1" data-host="codex" type="button">Codex CLI <span>Hook tier</span></button>
-            <button class="host-tab" id="host-tab-hermes" role="tab" aria-selected="false" aria-controls="installPanel" tabindex="-1" data-host="hermes" type="button">Hermes Agent <span>MCP + plugin</span></button>
-            <button class="host-tab" id="host-tab-mcp" role="tab" aria-selected="false" aria-controls="installPanel" tabindex="-1" data-host="mcp" type="button">MCP-only hosts <span>Rules tier</span></button>
+        <div class="composition-shell">
+          <div class="composition-tabs" role="tablist" aria-label="Product compositions">
+            <button class="composition-tab" id="product-tab-witnessed-agent" role="tab" aria-selected="true" aria-controls="compositionPanel" tabindex="0" data-product="witnessed-agent"><small>P–01</small><b>Witnessed coding agent</b></button>
+            <button class="composition-tab" id="product-tab-truth-gate" role="tab" aria-selected="false" aria-controls="compositionPanel" tabindex="-1" data-product="truth-gate"><small>P–02</small><b>Release Truth Gate</b></button>
+            <button class="composition-tab" id="product-tab-operator-memory" role="tab" aria-selected="false" aria-controls="compositionPanel" tabindex="-1" data-product="operator-memory"><small>P–03</small><b>Operator Memory OS</b></button>
+            <button class="composition-tab" id="product-tab-governed-kernel" role="tab" aria-selected="false" aria-controls="compositionPanel" tabindex="-1" data-product="governed-kernel"><small>P–04</small><b>Governed agent kernel</b></button>
+            <button class="composition-tab" id="product-tab-context-fabric" role="tab" aria-selected="false" aria-controls="compositionPanel" tabindex="-1" data-product="context-fabric"><small>P–05</small><b>Long-context fabric</b></button>
+            <button class="composition-tab" id="product-tab-evidence-mcp" role="tab" aria-selected="false" aria-controls="compositionPanel" tabindex="-1" data-product="evidence-mcp"><small>P–06</small><b>Evidence-native MCP</b></button>
           </div>
-          <div class="install-panel" id="installPanel" role="tabpanel" tabindex="0" aria-labelledby="host-tab-claude">
-            <div class="install-panel-head"><h3 id="installHostTitle">Claude Code · plugin path</h3><button class="install-copy" id="copyInstall" type="button">Copy commands</button></div>
-            <pre class="install-code" id="installCode"><span class="prompt">$</span> /plugin marketplace add RecursiveIntell/agent-memory-kits
-<span class="prompt">$</span> /plugin install semantic-memory@semantic-memory-kit
-<span class="prompt">$</span> /memory-setup</pre>
-            <p class="install-note" id="installNote"><strong>Evaluation note:</strong> restart once so hooks load, ingest a repository you actually use, then run the doctor. An empty Day-1 store returning no recall is expected behavior.</p>
+          <div class="composition-panel" id="compositionPanel" role="tabpanel" tabindex="0" aria-labelledby="product-tab-witnessed-agent">
+            <span class="composition-lane" id="productLane">Now · highest integration leverage</span>
+            <h3 id="productTitle">Witnessed coding agent</h3>
+            <p class="composition-promise" id="productPromise">A coding agent whose memory, tool calls, policy decisions, and final claims can be replayed.</p>
+            <div class="composition-grid">
+              <div><b>Product thesis</b><span id="productThesis">The shortest path to demonstrate the whole stack without requiring every subsystem to become a platform first.</span></div>
+              <div><b>Composition</b><span id="productCrates">semantic-memory · llm-tool-runtime · agent-graph · stack-ids · claim-ledger · knowledge-runtime</span></div>
+              <div><b>Emits</b><span id="productEmits">typed tool results · policy decisions · evidence-linked claims · replay bundle</span></div>
+            </div>
+            <div class="composition-gate"><b>Acceptance gate</b> <span id="productGate">Ten representative coding tasks replay to the same evidence graph; ordinary failures never surface as completion.</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="evidence" id="evidence" aria-labelledby="evidence-title">
+    <section class="section" id="evidence" aria-labelledby="evidence-title">
       <div class="wrap">
         <div class="section-head">
-          <div><div class="eyebrow">05 · Evidence</div><h2 id="evidence-title">Inspect the scope—not just the status.</h2></div>
+          <div><div class="section-kicker">07 · Evidence</div><h2 id="evidence-title">Inspect the scope—not just the status.</h2></div>
           <p>Current evidence supports strong subsystem claims. It does not support a release-wide “production ready,” “secure,” or live/source parity claim.</p>
         </div>
-        <div class="evidence-layout">
-          <div class="status-ledger" role="table" aria-label="Current audit status">
-            <div class="status-row head" role="row"><div role="columnheader">Subject</div><div role="columnheader">Status</div><div role="columnheader">Scope</div><div role="columnheader">Observed</div></div>
-            <div class="status-row" role="row"><div class="subject" role="cell">semantic-memory source</div><div class="status-badge pass" role="cell">Pass</div><div class="status-scope" role="cell">all-feature/all-target tests + Clippy in audited local source</div><div class="status-date" role="cell">2026-07-12</div></div>
-            <div class="status-row" role="row"><div class="subject" role="cell">semantic-memory-mcp source</div><div class="status-badge pass" role="cell">Pass</div><div class="status-scope" role="cell">default all-target tests, full-feature tests, and Clippy</div><div class="status-date" role="cell">2026-07-12</div></div>
-            <div class="status-row" role="row"><div class="subject" role="cell">release-wide platform claim</div><div class="status-badge blocked" role="cell">Blocked</div><div class="status-scope" role="cell">advisories, package/path drift, dirty attribution, and source/live mismatch</div><div class="status-date" role="cell">2026-07-12</div></div>
-          </div>
-          <aside class="evidence-aside">
-            <h3>Evidence vocabulary</h3>
-            <ul class="boundary-list">
-              <li><b>Source</b><span>Tests the audited checkout and exact command scope.</span></li>
-              <li><b>Package</b><span>Requires packed-crate dependency and clean-install parity.</span></li>
-              <li><b>Live</b><span>Requires artifact hashes, selected profile, and canary verification.</span></li>
-              <li><b>Receipt</b><span>Records execution evidence; it is not correctness certification.</span></li>
+        <div class="evidence-verdict">
+          <div class="verdict-state"><small>Current audit verdict · 2026-07-16</small><strong>Source-hardened. Not release-certified.</strong><span>Evidence is anchored to the connected Libraries repository and its observed CI history.</span></div>
+          <div class="verdict-detail">
+            <p>The hardening work closed meaningful fail-open paths across graph execution, governance, codecs, queues, identifiers, ledgers, and signed envelopes. The release boundary is still open.</p>
+            <ul>
+              <li><b>Observed failure</b><span>The PR-head hardening workflow failed in make, semantic-memory feature lanes, and formatting.</span></li>
+              <li><b>Merge timing</b><span>The hardening PR merged before the observed workflow reached a successful terminal state.</span></li>
+              <li><b>Missing proof</b><span>No green post-merge certification run was observed for the default-branch commit.</span></li>
+              <li><b>Trigger gap</b><span>The audited workflow did not include the current default branch in its push trigger.</span></li>
             </ul>
-          </aside>
+          </div>
+        </div>
+
+        <div class="status-table" role="table" aria-label="Scoped evidence status">
+          <div class="status-row head" role="row"><div role="columnheader">Subject</div><div role="columnheader">Status</div><div role="columnheader">Scope</div><div role="columnheader">Observed</div></div>
+          <div class="status-row" role="row"><div role="cell">semantic-memory source</div><div role="cell"><span class="status-badge pass">Pass</span></div><div role="cell">All-feature/all-target tests plus Clippy in the July 12 audited source scope</div><div role="cell">2026-07-12</div></div>
+          <div class="status-row" role="row"><div role="cell">semantic-memory-mcp source</div><div role="cell"><span class="status-badge pass">Pass</span></div><div role="cell">Default all-target tests, full-feature tests, and Clippy in the July 12 source scope</div><div role="cell">2026-07-12</div></div>
+          <div class="status-row" role="row"><div role="cell">release-wide platform claim</div><div role="cell"><span class="status-badge blocked">Blocked</span></div><div role="cell">Failed PR-head workflow, merge timing, and absent post-merge certification</div><div role="cell">2026-07-16</div></div>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-card"><h3>Evidence vocabulary</h3><ul><li><b>Source</b><span>Tests the audited checkout and exact command scope.</span></li><li><b>Package</b><span>Requires packed-crate dependency and clean-install parity.</span></li><li><b>Live</b><span>Requires artifact hashes, selected profile, and canary verification.</span></li><li><b>Receipt</b><span>Records execution evidence; it is not correctness certification.</span></li></ul></article>
+          <article class="evidence-card"><h3>Release truth gate</h3><ul><li><b>Bind</b><span>Default-branch commit, artifact digest, CI run, configuration, and public claims.</span></li><li><b>Refuse</b><span>Stale status, missing sources, unsupported benchmark claims, or incomplete closures.</span></li><li><b>Emit</b><span>A terminal certificate, omission receipt, and human-readable evidence pack.</span></li><li><b>Dogfood</b><span>Use the stack’s own receipts and ledgers to certify the stack itself.</span></li></ul></article>
         </div>
 
         <details class="receipt-drawer">
@@ -643,287 +362,89 @@
   "state_view": { "kind": "Current" },
   "degradations": []
 }</pre>
-            <div class="receipt-explain"><h4>What this can demonstrate</h4><p>Which execution path was recorded, whether cache was bypassed, exactness evidence, state view, and whether degradations were present.</p><h4>What this cannot demonstrate</h4><p>That the result is factually true, that a later assertion is authorized, that an action is permitted, or that the full system is secure.</p><p>Fields are drawn from the current witnessed-search contract; identifiers and content are deliberately redacted.</p></div>
+            <div class="receipt-explain"><h4>What this can demonstrate</h4><p>Which execution path was recorded, whether cache was bypassed, exactness evidence, state view, and whether degradations were present.</p><h4>What it cannot demonstrate</h4><p>That the result is factually true, that a later assertion is authorized, that an action is permitted, or that the full system is secure.</p><p>Receipts prove recorded evidence—not total correctness.</p></div>
           </div>
         </details>
 
         <div class="benchmark">
           <div class="benchmark-head"><h3>Frozen SciFact retrieval snapshot</h3><p>A scoped evaluator of baseline FTS-only, exact-f32 vector-only, and hybrid APIs. It is not general-domain superiority evidence.</p></div>
-          <div class="bench-wrap">
-            <table class="bench-table">
-              <thead><tr><th>Mode</th><th>nDCG@10</th><th>Recall@10</th><th>Mean latency</th></tr></thead>
-              <tbody><tr><td>FTS-only</td><td>0.631895</td><td>0.743667</td><td>9.726 ms</td></tr><tr><td>Vector-only</td><td>0.604407</td><td>0.744000</td><td>15.700 ms</td></tr><tr><td>Hybrid</td><td>0.673977</td><td>0.811750</td><td>23.845 ms</td></tr></tbody>
-            </table>
-          </div>
-          <p class="bench-caption">Scope: official SciFact test corpus, all-MiniLM embeddings, persisted store, frozen configuration and deterministic held-out split. Graph retrieval, native sparse/SPLADE, token-level late interaction, Matryoshka quality, and model quality were not evaluated.</p>
+          <div class="bench-wrap"><table class="bench-table"><thead><tr><th>Mode</th><th>nDCG@10</th><th>Recall@10</th><th>Mean latency</th></tr></thead><tbody><tr><td>FTS-only</td><td>0.631895</td><td>0.743667</td><td>9.726 ms</td></tr><tr><td>Vector-only</td><td>0.604407</td><td>0.744000</td><td>15.700 ms</td></tr><tr><td>Hybrid</td><td>0.673977</td><td>0.811750</td><td>23.845 ms</td></tr></tbody></table></div>
+          <p class="bench-caption">Scope: official SciFact test corpus, all-MiniLM embeddings, persisted store, frozen configuration, deterministic held-out split. Graph retrieval, native sparse/SPLADE, token-level late interaction, Matryoshka quality, and model quality were not evaluated.</p>
         </div>
       </div>
     </section>
 
-    <section class="resources" id="resources" aria-labelledby="resources-title">
+    <section class="section" id="frontier" aria-labelledby="frontier-title">
       <div class="wrap">
         <div class="section-head">
-          <div><div class="eyebrow">06 · Developer resources</div><h2 id="resources-title">Go to the source.</h2></div>
-          <p>The site should route technical evaluation into canonical repositories and task-based docs—not fork product truth into marketing copy.</p>
+          <div><div class="section-kicker">08 · Frontier radar</div><h2 id="frontier-title">Research that changes the build.</h2></div>
+          <p>The radar tracks memory, capability security, interop, provenance, verification, and compression. Experimental 2026 preprints remain clearly separated from current product evidence.</p>
+        </div>
+        <div class="research-controls" aria-label="Filter research horizon">
+          <button class="research-filter" type="button" data-research-filter="all" aria-pressed="true">All</button>
+          <button class="research-filter" type="button" data-research-filter="current" aria-pressed="false">Current</button>
+          <button class="research-filter" type="button" data-research-filter="next" aria-pressed="false">Next</button>
+          <button class="research-filter" type="button" data-research-filter="research" aria-pressed="false">Research</button>
+        </div>
+        <div class="research-grid">
+          <a class="research-card" data-horizon="research" href="https://arxiv.org/html/2601.03236v2" target="_blank" rel="noreferrer"><div class="research-top"><span>MEM–01</span><span>Research</span></div><h3>Multi-graph memory</h3><p>Represent temporal, causal, semantic, and entity relations as distinct graphs joined by typed identity.</p><span class="research-source">MAGMA · HippoRAG 2 ↗</span></a>
+          <a class="research-card" data-horizon="current" href="https://openreview.net/forum?id=DT7JyQC3MR" target="_blank" rel="noreferrer"><div class="research-top"><span>EVAL–02</span><span>Current</span></div><h3>Memory that can be falsified</h3><p>Gate memory on extraction, cross-session reasoning, updates, abstention, long-range learning, and selective forgetting.</p><span class="research-source">LongMemEval · MemoryAgentBench ↗</span></a>
+          <a class="research-card" data-horizon="next" href="https://arxiv.org/abs/2503.18813" target="_blank" rel="noreferrer"><div class="research-top"><span>SEC–03</span><span>Next</span></div><h3>Capability-secure agents</h3><p>Compile dataflow and authority into capabilities; test the result against realistic indirect prompt injection.</p><span class="research-source">CaMeL · AgentDojo · WASI 0.3 ↗</span></a>
+          <a class="research-card" data-horizon="next" href="https://modelcontextprotocol.io/specification/2025-11-25" target="_blank" rel="noreferrer"><div class="research-top"><span>OBS–04</span><span>Next</span></div><h3>Interoperable evidence trails</h3><p>Carry trace, provenance, policy, and claim identifiers across model, tool, and agent boundaries.</p><span class="research-source">MCP · OpenTelemetry · W3C PROV ↗</span></a>
+          <a class="research-card" data-horizon="next" href="https://slsa.dev/spec/v1.2/build-requirements" target="_blank" rel="noreferrer"><div class="research-top"><span>SUP–05</span><span>Next</span></div><h3>Supply-chain-grade AI provenance</h3><p>Bind source, builder, parameters, artifacts, and claims into signed envelopes instead of loose reports.</p><span class="research-source">SLSA 1.2 · C2PA 2.4 ↗</span></a>
+          <a class="research-card" data-horizon="research" href="https://arxiv.org/abs/2402.02750" target="_blank" rel="noreferrer"><div class="research-top"><span>KV–06</span><span>Research</span></div><h3>Measured long-context compression</h3><p>Allocate cache and precision against explicit quality budgets, record drift, and preserve a typed fallback path.</p><span class="research-source">KIVI · STAR-KV · lossless KV work ↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap" aria-labelledby="roadmap-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">09 · 180-day sequence</div><h2 id="roadmap-title">Certify first. Then compound.</h2></div>
+          <p>The highest-leverage sequence begins by repairing release truth, then uses that discipline to ship an inspectable agent and a user-facing memory product.</p>
+        </div>
+        <div class="roadmap-grid">
+          <article class="roadmap-phase"><small>Days 0–30</small><h3>Restore certification</h3><p>Make the default-branch release boundary terminal, reproducible, and claim-bound.</p><ul><li>Fix failed CI lanes and formatting</li><li>Run post-merge default-branch gates</li><li>Bind artifacts, digests, configuration, and claims</li></ul><span class="roadmap-gate">Gate: one green release certificate</span></article>
+          <article class="roadmap-phase"><small>Days 31–60</small><h3>Dogfood Truth Gate</h3><p>Turn the internal evidence discipline into an adoptable release-control product.</p><ul><li>Reject stale or unbound status</li><li>Emit omission receipts</li><li>Generate a human-readable evidence pack</li></ul><span class="roadmap-gate">Gate: the stack certifies itself</span></article>
+          <article class="roadmap-phase"><small>Days 61–120</small><h3>Witnessed coding agent</h3><p>Compose memory, tools, policy, claims, and replay around representative coding work.</p><ul><li>Typed failure stays failure</li><li>Tool calls and claims share trace identity</li><li>Replay reconstructs the evidence graph</li></ul><span class="roadmap-gate">Gate: ten stable replay tasks</span></article>
+          <article class="roadmap-phase"><small>Days 121–180</small><h3>Operator Memory OS</h3><p>Make temporal truth, contradiction, provenance, and forgetting legible to an operator.</p><ul><li>Longitudinal memory evaluation</li><li>Update and abstention targets</li><li>Selective-forgetting receipts</li></ul><span class="roadmap-gate">Gate: published memory scorecard</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="resources" aria-labelledby="resources-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">10 · Developer resources</div><h2 id="resources-title">Go to the source.</h2></div>
+          <p>The website routes technical evaluation into canonical repositories and task-based documentation instead of forking product truth into marketing copy.</p>
         </div>
         <div class="resource-list">
           <a class="resource-link" href="https://github.com/RecursiveIntell/agent-memory-kits" target="_blank" rel="noreferrer"><span class="n">01</span><b>Agent Memory Kits</b><span>Host setup, integration tiers, doctors, ingester, and companion workflows.</span><i>GitHub ↗</i></a>
           <a class="resource-link" href="https://github.com/RecursiveIntell/semantic-memory-mcp" target="_blank" rel="noreferrer"><span class="n">02</span><b>Semantic Memory MCP</b><span>CLI, profiles, witnessed retrieval, replay, trust, security, and integrations.</span><i>GitHub ↗</i></a>
           <a class="resource-link" href="https://github.com/RecursiveIntell/semantic-memory" target="_blank" rel="noreferrer"><span class="n">03</span><b>Semantic Memory</b><span>Production retrieval contract, quick start, features, governed capabilities, and evaluation.</span><i>GitHub ↗</i></a>
-          <a class="resource-link" href="https://docs.rs/semantic-memory" target="_blank" rel="noreferrer"><span class="n">04</span><b>Rust API documentation</b><span>Published types and APIs for the semantic-memory crate.</span><i>docs.rs ↗</i></a>
+          <a class="resource-link" href="https://docs.rs/semantic-memory/latest/semantic_memory/" target="_blank" rel="noreferrer"><span class="n">04</span><b>Rust API documentation</b><span>Published types and APIs for the semantic-memory crate.</span><i>docs.rs ↗</i></a>
+          <a class="resource-link" href="/concepts"><span class="n">05</span><b>Design history</b><span>The Systems Monograph, Witness Plane, and Chain of Custody council directions.</span><i>Archive →</i></a>
         </div>
       </div>
     </section>
 
-    <section class="final-cta" aria-labelledby="cta-title">
-      <div class="wrap cta-grid">
-        <div><div class="eyebrow">Choose the next action</div><h2 id="cta-title">Install it. Inspect it. Challenge the evidence.</h2></div>
-        <div class="cta-actions"><a class="button-primary" href="#install">Choose an integration <span>→</span></a><a class="button-secondary" href="mailto:josh@recursiveintell.com?subject=RecursiveIntell%20memory%20integration">Discuss an integration <span>↗</span></a></div>
+    <section class="section" aria-labelledby="cta-title">
+      <div class="wrap final-cta">
+        <div><div class="section-kicker">Choose the next action</div><h2 id="cta-title">Install it. Inspect it. Challenge the evidence.</h2></div>
+        <div class="cta-actions"><a class="button-primary" href="/install">Open the install guide <span>→</span></a><a class="button-secondary" href="mailto:josh@recursiveintell.com?subject=RecursiveIntell%20memory%20integration">Discuss an integration <span>↗</span></a></div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="wrap footer-inner">
-      <div class="footer-col"><b>RecursiveIntell</b>Local-first memory infrastructure for AI coding agents.<br />Apache-2.0 product repositories.</div>
-      <div class="footer-col"><b>Claim boundary</b>Source evidence is scoped. Receipts record execution evidence, not total correctness.</div>
-      <div class="roko-colophon"><span>Roko retained as a footer signature only.</span><span class="roko-dot" aria-hidden="true"></span></div>
+      <div class="footer-col"><b>RecursiveIntell</b>Local-first memory and trust infrastructure for AI coding agents.<br />Apache-2.0 product repositories.</div>
+      <div class="footer-col"><b>Claim boundary</b>Source evidence is scoped. Receipts record execution evidence—not total correctness, factual truth, security, or task success.</div>
+      <div class="roko"><span>Roko retained as a footer signature.</span><span class="roko-mark" aria-hidden="true"></span></div>
     </div>
   </footer>
 
   <nav class="mobile-actions" aria-label="Quick actions"><a href="#install">Install</a><a href="#resources">Docs</a></nav>
-
-  <script>
-    const layers = {
-      kits: {
-        title: "Recommended entry · host integration",
-        command: "/plugin marketplace add RecursiveIntell/agent-memory-kits\n/plugin install semantic-memory@semantic-memory-kit\n/memory-setup",
-        hint: "Claude Code example. A new store starts empty; run the doctor and ingest a real repository before evaluating recall.",
-        tabId: "tab-kits"
-      },
-      mcp: {
-        title: "Protocol entry · published MCP server",
-        command: "cargo install semantic-memory-mcp --locked --version '=0.5.4'\nsemantic-memory-mcp \\\n  --memory-dir \"$HOME/.local/share/semantic-memory\" \\\n  --tool-profile agent",
-        hint: "Registry version checked with cargo search. Public launch still requires a clean-install package receipt and source/package parity.",
-        tabId: "tab-mcp"
-      },
-      core: {
-        title: "Library entry · Rust retrieval core",
-        command: "cargo add semantic-memory@0.5.10\n# then start from the MockEmbedder quick start\n# before selecting a production embedder",
-        hint: "Registry version checked with cargo search. The quick start uses a deterministic MockEmbedder and makes no hosted-service requirement.",
-        tabId: "tab-core"
-      }
-    };
-
-    const installPaths = {
-      claude: {
-        title: "Claude Code · plugin path",
-        code: "/plugin marketplace add RecursiveIntell/agent-memory-kits\n/plugin install semantic-memory@semantic-memory-kit\n/memory-setup",
-        note: "Evaluation note: restart once so hooks load, ingest a repository you actually use, then run the doctor. An empty Day-1 store returning no recall is expected behavior."
-      },
-      codex: {
-        title: "Codex CLI · plugin path",
-        code: "git clone https://github.com/RecursiveIntell/agent-memory-kits\ncd agent-memory-kits\ncodex plugin marketplace add ./codex\ncodex plugin add semantic-memory@semantic-memory-codex-kit",
-        note: "Evaluation note: this is a hook-capable reference integration. Use one canonical store directory and one owner for a warm HTTP port."
-      },
-      hermes: {
-        title: "Hermes Agent · plugin + MCP path",
-        code: "git clone https://github.com/RecursiveIntell/agent-memory-kits\ncd agent-memory-kits\ncp -R hermes \"$HOME/.hermes/plugins/semantic-memory-mcp\"\nhermes plugins enable semantic-memory-mcp\nhermes mcp add semantic_memory \\\n   --command semantic-memory-mcp \\\n   --args --memory-dir \"$HOME/.local/share/semantic-memory\" --tool-profile agent\nhermes mcp list\nhermes mcp test semantic_memory",
-        note: "Evaluation note: --args consumes the remaining arguments and must come last. Restart Hermes after changing plugin code; do not hand-edit legacy configuration as the primary path."
-      },
-      mcp: {
-        title: "MCP + rules tier · example project setup",
-        code: "git clone https://github.com/RecursiveIntell/agent-memory-kits\ncd agent-memory-kits\ncursor/scripts/setup.sh --write-project /path/to/project\nshared/scripts/doctor-all.py --deep",
-        note: "Boundary: Cursor, Cline, Roo Code, Windsurf, Continue, and OpenCode use MCP plus host-native rules/context. This does not claim hidden prompt/session hooks."
-      }
-    };
-
-    const archSummaries = {
-      host: "Host lifecycle is explicit: hooks are automatic where supported; rule-tier integrations require the host or agent to invoke MCP workflows. Both must fail without turning missing memory into a blocked prompt.",
-      memory: "SQLite is the authoritative searchable state. FTS5, raw embeddings, vector indexes, sparse artifacts, and candidate codecs remain rebuildable or derived acceleration paths—not shadow truth stores.",
-      trust: "Claim trust remains a separate verified authority. Ledger verification failure disables trust enrichment and ledger writes while ordinary semantic storage and retrieval continue without promotion of unverified state.",
-      operator: "Mutation, deletion, import, model feedback, vacuum, rebuild, and broad maintenance belong to an explicit operator context. Tool annotations do not replace client-side approvals or authority checks."
-    };
-
-    function textFromPre(pre) {
-      return pre.innerText.replace(/^\$\s?/gm, "").trim();
-    }
-
-    async function copyText(text, button) {
-      const original = button.textContent;
-      try {
-        await navigator.clipboard.writeText(text);
-        button.textContent = "Copied";
-      } catch (_) {
-        const area = document.createElement("textarea");
-        area.value = text;
-        area.style.position = "fixed";
-        area.style.opacity = "0";
-        document.body.appendChild(area);
-        area.select();
-        document.execCommand("copy");
-        area.remove();
-        button.textContent = "Copied";
-      }
-      setTimeout(() => { button.textContent = original; }, 1400);
-    }
-
-    const layerTabs = [...document.querySelectorAll(".layer-tab")];
-    const layerPanel = document.getElementById("layerPanel");
-    const layerTitle = document.getElementById("layerTitle");
-    const layerCommand = document.getElementById("layerCommand");
-    const layerHint = document.getElementById("layerHint");
-    const traceNodes = [...document.querySelectorAll(".trace-node")];
-
-    function renderCommand(text, target) {
-      target.textContent = "";
-      text.split("\n").forEach((line, index) => {
-        if (index) target.appendChild(document.createTextNode("\n"));
-        const continuation = /^\s/.test(line);
-        if (continuation) {
-          target.appendChild(document.createTextNode(`  ${line.trimStart()}`));
-          return;
-        }
-        if (line.startsWith("#")) {
-          target.appendChild(document.createTextNode(line));
-          return;
-        }
-        const prompt = document.createElement("span");
-        prompt.className = "prompt";
-        prompt.textContent = "$ ";
-        target.appendChild(prompt);
-        target.appendChild(document.createTextNode(line));
-      });
-    }
-
-    function selectLayer(key, moveFocus = false) {
-      const item = layers[key];
-      layerTabs.forEach(tab => {
-        const selected = tab.dataset.layer === key;
-        tab.setAttribute("aria-selected", String(selected));
-        tab.tabIndex = selected ? 0 : -1;
-      });
-      layerPanel.setAttribute("aria-labelledby", item.tabId);
-      layerTitle.textContent = item.title;
-      renderCommand(item.command, layerCommand);
-      layerHint.textContent = item.hint;
-      traceNodes.forEach(node => node.classList.toggle("layer-focus", node.dataset.layerNode === key));
-      if (moveFocus) document.getElementById(item.tabId).focus();
-    }
-
-    layerTabs.forEach((tab, index) => {
-      tab.addEventListener("click", () => selectLayer(tab.dataset.layer));
-      tab.addEventListener("keydown", event => {
-        if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
-        event.preventDefault();
-        let next = index;
-        if (["ArrowLeft", "ArrowUp"].includes(event.key)) next = (index - 1 + layerTabs.length) % layerTabs.length;
-        if (["ArrowRight", "ArrowDown"].includes(event.key)) next = (index + 1) % layerTabs.length;
-        if (event.key === "Home") next = 0;
-        if (event.key === "End") next = layerTabs.length - 1;
-        selectLayer(layerTabs[next].dataset.layer, true);
-      });
-    });
-
-    document.getElementById("copyLayer").addEventListener("click", event => copyText(textFromPre(layerCommand), event.currentTarget));
-
-    let traceTimer = null;
-    document.getElementById("runTrace").addEventListener("click", event => {
-      const traceButton = event.currentTarget;
-      if (traceTimer) clearInterval(traceTimer);
-      traceNodes.forEach(node => node.classList.remove("active", "complete"));
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      let index = 0;
-      const advance = () => {
-        traceNodes.forEach((node, i) => {
-          node.classList.toggle("active", i === index);
-          node.classList.toggle("complete", i < index);
-        });
-        index += 1;
-        if (index > traceNodes.length) {
-          clearInterval(traceTimer);
-          traceTimer = null;
-          traceNodes.forEach(node => node.classList.remove("active"));
-          traceNodes.forEach(node => node.classList.add("complete"));
-          traceButton.textContent = "Trace complete";
-          setTimeout(() => { traceButton.textContent = "Run trace"; }, 1400);
-        }
-      };
-      if (reduced) {
-        traceNodes.forEach(node => node.classList.add("complete"));
-        traceButton.textContent = "Trace complete";
-        setTimeout(() => { traceButton.textContent = "Run trace"; }, 1400);
-      } else {
-        advance();
-        traceTimer = setInterval(advance, 180);
-      }
-    });
-
-    const archButtons = [...document.querySelectorAll(".arch-button")];
-    archButtons.forEach(button => button.addEventListener("click", () => {
-      const key = button.dataset.arch;
-      archButtons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
-      document.querySelectorAll("[data-zone]").forEach(zone => zone.classList.toggle("highlight", zone.dataset.zone === key));
-      document.getElementById("archSummary").textContent = archSummaries[key];
-    }));
-
-    const hostTabs = [...document.querySelectorAll(".host-tab")];
-    const installTitle = document.getElementById("installHostTitle");
-    const installCode = document.getElementById("installCode");
-    const installNote = document.getElementById("installNote");
-    const installPanel = document.getElementById("installPanel");
-
-    function selectHost(tab, moveFocus = false) {
-      const item = installPaths[tab.dataset.host];
-      hostTabs.forEach(other => {
-        const selected = other === tab;
-        other.setAttribute("aria-selected", String(selected));
-        other.tabIndex = selected ? 0 : -1;
-      });
-      installPanel.setAttribute("aria-labelledby", tab.id);
-      installTitle.textContent = item.title;
-      renderCommand(item.code, installCode);
-      installNote.innerHTML = `<strong>Evaluation note:</strong> ${item.note.replace(/^Evaluation note:\s*/i, "")}`;
-      if (moveFocus) tab.focus();
-    }
-
-    hostTabs.forEach((tab, index) => {
-      tab.addEventListener("click", () => selectHost(tab));
-      tab.addEventListener("keydown", event => {
-        if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) return;
-        event.preventDefault();
-        let next = index;
-        if (["ArrowLeft", "ArrowUp"].includes(event.key)) next = (index - 1 + hostTabs.length) % hostTabs.length;
-        if (["ArrowRight", "ArrowDown"].includes(event.key)) next = (index + 1) % hostTabs.length;
-        if (event.key === "Home") next = 0;
-        if (event.key === "End") next = hostTabs.length - 1;
-        selectHost(hostTabs[next], true);
-      });
-    });
-    document.getElementById("copyInstall").addEventListener("click", event => copyText(textFromPre(installCode), event.currentTarget));
-
-    const menuButton = document.getElementById("menuButton");
-    const mobileMenu = document.getElementById("mobileMenu");
-
-    function closeMobileMenu(returnFocus = false) {
-      mobileMenu.classList.remove("open");
-      menuButton.setAttribute("aria-expanded", "false");
-      menuButton.textContent = "Menu";
-      if (returnFocus) menuButton.focus();
-    }
-
-    menuButton.addEventListener("click", () => {
-      const open = !mobileMenu.classList.contains("open");
-      mobileMenu.classList.toggle("open", open);
-      menuButton.setAttribute("aria-expanded", String(open));
-      menuButton.textContent = open ? "Close" : "Menu";
-    });
-    mobileMenu.querySelectorAll("a").forEach(link => link.addEventListener("click", () => closeMobileMenu()));
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape" && mobileMenu.classList.contains("open")) closeMobileMenu(true);
-    });
-
-    selectLayer("kits");
-  </script>
+  <script src="/site.js" defer></script>
 </body>
 </html>
