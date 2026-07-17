@@ -1,6 +1,11 @@
 .DS_Store
 Thumbs.db
 *.log
+.env*
+!.env.example
+.next/
+node_modules/
+out/
 .vercel/
-__pycache__/
-*.pyc
+*.tsbuildinfo
+next-env.d.ts

@@ -1,56 +1,31 @@
-# recursiveintell-web
+# RecursiveIntell Web
 
 The production source for [recursiveintell.com](https://recursiveintell.com/).
 
-This edition synthesizes the original **Witness Plane** agent-memory product site with the broader **Systems Observatory** for the RecursiveIntell libraries.
+This release combines the agent-memory installation experience with a detailed map of the broader RecursiveIntell trust substrate.
 
-## Product surface
+## Routes
 
-- immediate installation paths for Claude Code, Codex CLI, Hermes Agent, six MCP/rules hosts, direct MCP clients, and Rust applications
-- the `agent-memory-kits` → `semantic-memory-mcp` → `semantic-memory` product spine
-- witnessed retrieval, SQLite authority, Context Governor, claim trust, and operator boundaries
-- the preservation/ownership contract, scoped evidence vocabulary, receipt example, and SciFact snapshot
-- six product compositions, frontier research radar, and a 180-day execution sequence
-- preserved design-history route at `/concepts`
+- `/` — focused product overview and public system pulse
+- `/activity` — cached public GitHub and crates.io engineering telemetry
+- `/libraries` — exhaustive 97-package audited Library Atlas
+- `/install` — six installation paths and verification steps
+- `/concepts` — eight-chapter architectural field manual
+- `/api/metrics` — public-only, source-labeled telemetry with dated fallbacks
 
-## Architecture
-
-The production site is deliberately buildless: standalone HTML, CSS, and JavaScript served from the repository root by Vercel. There is no package manager, application runtime, or build step.
-
-| Path | Purpose |
-|---|---|
-| `index.html` | Main product and systems-observatory experience |
-| `install.html` | Full six-path installation field guide |
-| `concepts.html` | Preserved design council history |
-| `styles.css` | Shared visual and responsive system |
-| `site.js` | Accessible tabs, copying, observatory, trace, filters, and navigation |
-| `scripts/verify_static.py` | Fail-fast content, link, accessibility-contract, syntax, SEO, and hosting verifier |
-| `vercel.json` | No-build deployment and security headers |
-
-## Local preview
+## Local verification
 
 ```bash
-python3 -m http.server 8765 --bind 127.0.0.1
+npm ci
+npm test
 ```
 
-Open:
-
-- `http://127.0.0.1:8765/`
-- `http://127.0.0.1:8765/install.html`
-- `http://127.0.0.1:8765/concepts.html`
-
-## Verification
-
-```bash
-python3 scripts/verify_static.py
-```
-
-GitHub Actions runs the same verifier on pull requests and pushes to `main`.
+The metrics endpoint uses only public metadata. `GITHUB_TOKEN` is optional and server-only; it raises GitHub API limits when configured. Crates.io requests are sequential and the response is cached for 15 minutes.
 
 ## Evidence boundary
 
-The public status is **source-hardened, not release-certified**. Source tests, package evidence, live evidence, and execution receipts are distinct scopes. A receipt records observed execution evidence; it does not prove factual truth, correctness, security, authorization, or task success.
+The public status is source-hardened, not release-certified. A receipt records observed execution evidence; it does not prove factual truth, correctness, security, authorization, or task success.
 
 ## Backup
 
-The untouched pre-synthesis production tree is preserved at `archive/pre-stack-synthesis-2026-07-16`.
+The production tree immediately before this release is preserved at `archive/pre-live-metrics-catalog-2026-07-16`.
