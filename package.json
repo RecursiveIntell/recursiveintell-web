@@ -9,11 +9,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "verify:truth": "node scripts/verify-public-truth.mjs",
+    "verify:routes": "node scripts/verify-route-contracts.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "npm run lint && npm run typecheck && npm run build"
+    "test": "npm run verify:truth && npm run lint && npm run typecheck && npm run build"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "next": "16.2.6",
     "react": "19.2.6",
     "react-dom": "19.2.6"

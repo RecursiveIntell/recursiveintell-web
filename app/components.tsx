@@ -2,10 +2,20 @@ import Link from "next/link";
 
 const routes = [
   ["Overview", "/", "overview"],
-  ["Activity", "/activity", "activity"],
-  ["Libraries", "/libraries", "libraries"],
   ["Install", "/install", "install"],
-  ["Concepts", "/concepts", "concepts"],
+  ["Libraries", "/libraries", "libraries"],
+  ["Proof", "/proof", "proof"],
+  ["Activity", "/activity", "activity"],
+  ["About", "/about", "about"],
+] as const;
+
+const mobileExtras = [
+  ["Stack composer", "/compose"],
+  ["Services", "/services"],
+  ["Pro", "/pro"],
+  ["Field manual", "/concepts"],
+  ["Benchmarks", "/benchmarks"],
+  ["Changelog", "/changelog"],
 ] as const;
 
 export function Mark() {
@@ -20,9 +30,9 @@ export function Header({ current }: { current: string }) {
         <nav className="desktop-nav" aria-label="Primary navigation">
           {routes.map(([label, href, key]) => <Link key={key} href={href} aria-current={current === key ? "page" : undefined}>{label}</Link>)}
         </nav>
-        <a className="header-source" href="https://github.com/RecursiveIntell" target="_blank" rel="noreferrer">GitHub ↗</a>
-        <Link className="header-cta" href="/install">Install memory →</Link>
-        <details className="mobile-nav"><summary>Menu</summary><nav>{routes.map(([label, href, key]) => <Link key={key} href={href} aria-current={current === key ? "page" : undefined}>{label}</Link>)}<a href="https://github.com/RecursiveIntell" target="_blank" rel="noreferrer">GitHub ↗</a></nav></details>
+        <a className="header-source" href="https://github.com/RecursiveIntell" target="_blank" rel="noreferrer" data-event="github_repo_opened" data-event-context="header">GitHub ↗</a>
+        <Link className="header-cta" href="/services" data-event="services_opened" data-event-context="header">Work with me →</Link>
+        <details className="mobile-nav"><summary>Menu</summary><nav>{routes.map(([label, href, key]) => <Link key={key} href={href} aria-current={current === key ? "page" : undefined}>{label}</Link>)}{mobileExtras.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}<a href="https://github.com/RecursiveIntell" target="_blank" rel="noreferrer" data-event="github_repo_opened" data-event-context="mobile_nav">GitHub ↗</a></nav></details>
       </div>
     </header></>
   );
@@ -30,7 +40,12 @@ export function Header({ current }: { current: string }) {
 
 export function Footer() {
   return (
-    <footer className="site-footer"><div className="wrap footer-grid"><div><strong>RecursiveIntell</strong><p>Local-first memory and trust infrastructure for AI agents.</p></div><div><strong>Navigate</strong><p><Link href="/libraries">Library Atlas</Link><br /><Link href="/activity">Engineering activity</Link><br /><Link href="/install">Install agent memory</Link></p></div><div className="footer-mark"><span>Receipts record evidence—not total correctness.</span><Mark /></div></div></footer>
+    <footer className="site-footer"><div className="wrap footer-grid">
+      <div><strong>RecursiveIntell</strong><p>Local-first memory and trust infrastructure for AI agents—built by Josh Stevenson.</p><a href="mailto:J.stevenson.cs@gmail.com" data-event="contact_started" data-event-context="footer">J.stevenson.cs@gmail.com ↗</a></div>
+      <div><strong>Use the stack</strong><p><Link href="/install">Install agent memory</Link><br /><Link href="/libraries">Library Atlas</Link><br /><Link href="/compose">Stack Composer</Link><br /><Link href="/proof">Evidence Proofroom</Link><br /><Link href="/activity">Engineering activity</Link></p></div>
+      <div><strong>Work together</strong><p><Link href="/services">Integration services</Link><br /><Link href="/pro">RecursiveIntell Pro</Link><br /><Link href="/work">Engineering work</Link><br /><Link href="/about">About Josh</Link></p></div>
+      <div className="footer-mark"><span>Receipts record scoped execution evidence—not factual truth, correctness, security, authorization, or task success.</span><Mark /></div>
+    </div><div className="wrap footer-base"><span>© {new Date().getUTCFullYear()} RecursiveIntell</span><nav aria-label="Secondary navigation"><Link href="/concepts">Field manual</Link><Link href="/benchmarks">Benchmarks</Link><Link href="/changelog">Changelog</Link><Link href="/privacy">Privacy</Link><a href="https://github.com/RecursiveIntell" target="_blank" rel="noreferrer">GitHub ↗</a></nav></div></footer>
   );
 }
 

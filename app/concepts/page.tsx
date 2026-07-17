@@ -2,7 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer, Header } from "../components";
 
-export const metadata: Metadata = { title: "How the System Thinks — RecursiveIntell", description: "The RecursiveIntell field manual for memory, time, receipts, typed boundaries, replay, and measured compression." };
+export const metadata: Metadata = {
+  title: "How the System Thinks — RecursiveIntell",
+  description: "The RecursiveIntell field manual for memory, time, receipts, typed boundaries, replay, and measured compression.",
+  alternates: { canonical: "/concepts" },
+  openGraph: {
+    title: "The RecursiveIntell Field Manual",
+    description: "Time, memory, receipts, replay, authority, and typed failure—without collapsing their boundaries.",
+    url: "/concepts",
+    images: [{ url: "/api/og?title=The%20RecursiveIntell%20Field%20Manual&kicker=EIGHT%20ARCHITECTURAL%20CHAPTERS&detail=Time%20%C2%B7%20authority%20%C2%B7%20receipts%20%C2%B7%20replay&accent=amber", width: 1200, height: 630 }],
+  },
+};
 
 const chapters = [
   { id: "memory", number: "01 / MEMORY", title: "Memory is not authority.", definition: "Memory preserves searchable state. Authority decides whether a claim may be trusted or an action may be taken. Combining those jobs turns retrieved text into accidental policy.", contrasts: ["Remembered ≠ verified", "Relevant ≠ authorized", "Local ≠ encrypted"], example: "semantic-memory + claim-ledger", proof: "SQLite owns durable searchable facts. A separately verified ledger can enrich trust without becoming a shadow memory database.", failure: "Ledger verification failure disables enrichment and writes; ordinary memory retrieval continues without promotion." },

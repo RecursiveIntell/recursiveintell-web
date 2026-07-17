@@ -6,6 +6,13 @@ import ActivityClient, { type CrateSnapshot, type GitHubSnapshot } from "./Activ
 export const metadata: Metadata = {
   title: "Live Engineering Activity — RecursiveIntell",
   description: "Live, scoped public GitHub and crates.io activity for RecursiveIntell.",
+  alternates: { canonical: "/activity" },
+  openGraph: {
+    title: "Live Engineering Activity — RecursiveIntell",
+    description: "Public repository and crate movement, with explicit freshness and fallback state.",
+    url: "/activity",
+    images: [{ url: "/api/og?title=The%20work%20leaves%20a%20signal.&kicker=LIVE%20ENGINEERING%20TIMELINE&detail=GitHub%20%2B%20crates.io%20%C2%B7%20scoped%20and%20dated&accent=green", width: 1200, height: 630 }],
+  },
 };
 
 const githubSnapshot: GitHubSnapshot = {
