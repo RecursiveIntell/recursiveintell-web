@@ -8,10 +8,10 @@ const ogImage = "/api/og?title=Bounded%20work.%20Inspectable%20outcomes.&kicker=
 
 export const metadata: Metadata = {
   title: "Agent Memory & Local-First Architecture Services — RecursiveIntell",
-  description: "Two bounded engineering offers: an agent-memory integration sprint and a local-first agent architecture review.",
+  description: "Three bounded engineering offers: agent-memory integration, local-first architecture review, and agent reliability audit.",
   alternates: { canonical: "/services" },
-  openGraph: { title: "RecursiveIntell Engineering Services", description: "Bounded integration and architecture work for inspectable, local-first agent systems.", url: "/services", type: "website", images: [{ url: ogImage, width: 1200, height: 630, alt: "RecursiveIntell engineering services" }] },
-  twitter: { card: "summary_large_image", title: "RecursiveIntell Services", description: "Agent-memory integration and local-first architecture review.", images: [ogImage] },
+  openGraph: { title: "RecursiveIntell Engineering Services", description: "Bounded integration, architecture review, and agent reliability audit work for inspectable, local-first agent systems.", url: "/services", type: "website", images: [{ url: ogImage, width: 1200, height: 630, alt: "RecursiveIntell engineering services" }] },
+  twitter: { card: "summary_large_image", title: "RecursiveIntell Services", description: "Agent-memory integration, architecture review, and agent reliability audit.", images: [ogImage] },
 };
 
 export default function ServicesPage() {
@@ -23,9 +23,9 @@ export default function ServicesPage() {
           eyebrow="Services / focused engineering"
           title="Bounded work. Inspectable"
           accent="outcomes."
-          lede="Two focused engagements for teams that need durable agent memory or clearer local-first system boundaries. Scope, artifacts, and exclusions are visible before the conversation begins."
+          lede="Three focused engagements for teams that need durable agent memory, clearer local-first system boundaries, or replayable evidence for a difficult agent workflow. Scope, artifacts, and exclusions are visible before the conversation begins."
           actions={<><a className={styles.primary} href="mailto:J.stevenson.cs@gmail.com?subject=RecursiveIntell%20service%20inquiry&body=Offer%3A%20%0ASystem%20or%20repository%3A%20%0AConstraint%3A%20%0ADesired%20evidence%3A%20" data-event="contact_started" data-event-label="services_general">Describe the problem <span>↗</span></a><Link className={styles.secondary} href="/work" data-event="work_opened" data-event-context="services_hero">Inspect the work <span>→</span></Link></>}
-          panelLabel="Engagement / two offers"
+          panelLabel="Engagement / three offers"
           panelState="Fit confirmed by reply"
           panelTitle={<>Start with the <span className={styles.accent}>boundary.</span></>}
           panelCopy={<p>Send the system, the constraint, and the evidence you need at the end. Availability, timeline, exact scope, and price are confirmed only after fit is established.</p>}
@@ -34,7 +34,7 @@ export default function ServicesPage() {
 
         <section className={styles.section}>
           <div className={styles.wrap}>
-            <SectionHeader label="01 / Productized offers" title={<>Choose the smallest useful <span className={styles.accent}>intervention.</span></>} copy="Both offers end in artifacts your team can inspect and retain. Neither hides discovery, implementation, and assurance inside an ambiguous consulting package." />
+            <SectionHeader label="01 / Productized offers" title={<>Choose the smallest useful <span className={styles.accent}>intervention.</span></>} copy="All three offers end in artifacts your team can inspect and retain. None hides discovery, implementation, and assurance inside an ambiguous consulting package." />
             <div className={styles.offerGrid}>
               <article className={styles.offer}>
                 <span className={styles.cardLabel}>Offer A / hands-on integration</span>
@@ -56,6 +56,16 @@ export default function ServicesPage() {
                 </div>
                 <a className={styles.textLink} href="mailto:J.stevenson.cs@gmail.com?subject=Local-First%20Agent%20Architecture%20Review&body=System%20surface%3A%20%0ACurrent%20architecture%3A%20%0AMost%20important%20constraint%3A%20%0ADesired%20decision%3A%20" data-event="contact_started" data-event-label="architecture_review">Ask about this review <span>↗</span></a>
               </article>
+              <article className={styles.offer}>
+                <span className={styles.cardLabel}>Offer C / reliability audit</span>
+                <h3>Agent Reliability Audit</h3>
+                <p>Inspect one difficult agent workflow and turn the observed failure surface into replayable cases, explicit evidence boundaries, and a prioritized hardening plan.</p>
+                <div className={styles.offerScope}>
+                  <div><h4>Included</h4><ul><li>Workflow and authority map</li><li>Representative failure corpus</li><li>Evidence and replay contract</li><li>Acceptance tests and hardening backlog</li></ul></div>
+                  <div><h4>Boundary</h4><ul><li>One agreed workflow and scope</li><li>Review, not a certification</li><li>Not a penetration test or legal review</li><li>No guarantee of universal agent correctness</li></ul></div>
+                </div>
+                <a className={styles.textLink} href="mailto:J.stevenson.cs@gmail.com?subject=Agent%20Reliability%20Audit&body=Agent%20workflow%3A%20%0AObserved%20failure%20or%20risk%3A%20%0ASystem%20boundary%3A%20%0ADesired%20evidence%3A%20" data-event="contact_started" data-event-label="agent_reliability_audit">Ask about this audit <span>↗</span></a>
+              </article>
             </div>
           </div>
         </section>
@@ -65,7 +75,7 @@ export default function ServicesPage() {
             <SectionHeader label="02 / Three distinct lanes" title="Adopt, engage, or explore Pro." copy="Open-source adoption, engineering services, and the commercial Pro overlay solve different problems. They should never be blurred into one vague call to action." />
             <div className={styles.laneGrid}>
               <article className={styles.lane}><span className={styles.cardLabel}>Open source</span><strong>Install free</strong><p>Use the public memory stack and installation guidance directly. No sales conversation is required.</p><Link className={styles.textLink} href="/install" data-event="install_opened" data-event-context="services_lane">Choose an install path <span>→</span></Link></article>
-              <article className={styles.lane}><span className={styles.cardLabel}>Engineering service</span><strong>Apply it with Josh</strong><p>Use one of the two bounded engagements above when integration or architecture judgment is the constraint.</p><a className={styles.textLink} href="mailto:J.stevenson.cs@gmail.com?subject=RecursiveIntell%20services" data-event="contact_started" data-event-label="services_lane">Open a conversation <span>↗</span></a></article>
+              <article className={styles.lane}><span className={styles.cardLabel}>Engineering service</span><strong>Apply it with Josh</strong><p>Use one of the three bounded engagements above when integration, architecture judgment, or agent reliability is the constraint.</p><a className={styles.textLink} href="mailto:J.stevenson.cs@gmail.com?subject=RecursiveIntell%20services" data-event="contact_started" data-event-label="services_lane">Open a conversation <span>↗</span></a></article>
               <article className={styles.lane}><span className={styles.cardLabel}>Commercial overlay</span><strong>Explore Pro</strong><p>For Release Gate, Verify Patch, proof packets, Forge administration, and Agent Guard posture workflows.</p><Link className={styles.textLink} href="/pro" data-event="pro_opened" data-event-context="services_lane">Review Pro scope <span>→</span></Link></article>
             </div>
           </div>
