@@ -1,124 +1,246 @@
 import Link from "next/link";
-import { Footer, Header, SectionHead } from "./components";
-import LivePulse from "./LivePulse";
-import MemoryTimeMachine from "./MemoryTimeMachine";
-
-const planes = [
-  ["01", "Memory + provenance", "Durable retrieval, temporal state, claims, and source lineage.", "7 packages", "/domains/memory-knowledge-and-provenance"],
-  ["02", "Verification + authority", "Permits, decisions, attestations, settlement, and refutation.", "22 packages", "/domains/verification-governance-and-authority"],
-  ["03", "Contracts + identity", "Wire-visible schemas, canonical IDs, and boundary compilation.", "5 packages", "/domains/contracts-schemas-and-identity"],
-  ["04", "Agent execution", "Typed graphs, bounded plans, resumability, and tool effects.", "7 packages", "/domains/agent-orchestration-and-execution"],
-  ["05", "Compression + evaluation", "Measured vector and KV codecs with explicit quality gates.", "9 packages", "/domains/compression-vector-storage-and-evaluation"],
-  ["06", "Security + boundaries", "Fail-closed admission, sandboxing, policies, and typed failure.", "7 packages", "/domains/security-and-boundaries"],
-] as const;
+import { Footer, Header, StatusBadge } from "./components/SiteChrome";
+import { InstallCockpit } from "./components/InstallCockpit";
+import { LiveRegistry } from "./components/LiveRegistry";
+import { MemoryProof } from "./components/MemoryProof";
+import { MeshStory } from "./components/MeshStory";
+import { NodeConsole } from "./components/NodeConsole";
+import { DeploymentPaths } from "./components/DeploymentPaths";
+import { coreLinks, statusLanes } from "./content";
 
 const outcomes = [
-  ["01 / ADOPT", "Give an agent durable memory", "Choose your host, run a short verified path, and keep authority on your machine.", "/install", "Open the Install Cockpit"],
-  ["02 / EVALUATE", "Interrogate the evidence model", "Walk through a redacted receipt, replay boundary, and the claims the system refuses to make.", "/proof", "Enter the Proofroom"],
-  ["03 / INTEGRATE", "Build the right trust boundary", "Scope an agent-memory integration or evidence/release-truth audit with Josh Stevenson.", "/services", "Explore integration services"],
-] as const;
-
-const products = [
-  ["NOW · HIGHEST INTEGRATION LEVERAGE", "Witnessed coding agent", "Memory, tool calls, policy decisions, and final claims share one inspectable evidence graph.", "semantic-memory · llm-tool-runtime · agent-graph · claim-ledger"],
-  ["NOW · FASTEST TRUST WEDGE", "Release Truth Gate", "A release boundary that refuses stale status, unsupported claims, and unbound artifacts.", "claim-ledger · attestation-exchange · verification-policy · receipt-bench"],
-  ["NEXT · STRONGEST USER WEDGE", "Operator Memory OS", "Local-first working memory that understands what changed, what was superseded, and what still needs proof.", "semantic-memory · bitemporal-runtime · living-memory · knowledge-runtime"],
-] as const;
+  ["01", "An agent that compounds", "Decisions, corrections, conventions, failed approaches, and open questions survive the session boundary."],
+  ["02", "A memory that spans devices", "Search authorized device shards from another machine without flattening origin, actor, time, or namespace."],
+  ["03", "An answer that brings evidence", "Witnessed retrieval can return source identity and an execution receipt alongside the result."],
+  ["04", "A system the operator owns", "SQLite remains the durable authority; models, indexes, and compressed candidates stay replaceable."],
+];
 
 export default function Home() {
   return (
-    <>
-      <Header current="overview" />
-      <main id="main">
-        <section className="hero home-hero">
-          <div className="grid-bg" aria-hidden="true" />
-          <div className="wrap hero-grid hero-grid-machine">
-            <div className="hero-copy">
-              <span className="eyebrow">Open-source Rust + MCP infrastructure</span>
-              <h1>Install persistent memory. <em>Keep the receipt.</em></h1>
-              <p>Give the coding agent you already use durable, local-first memory—then inspect what it retrieved, what changed over time, and what the evidence can actually support.</p>
-              <div className="actions">
-                <Link className="button primary" href="/install" data-event="primary_cta_clicked" data-event-context="hero">Install agent memory <span>→</span></Link>
-                <Link className="button secondary" href="/proof" data-event="proof_opened" data-event-context="hero">See the proof model <span>→</span></Link>
-              </div>
-              <div className="source-rail"><span>Local-first</span><span>SQLite-authoritative</span><span>Temporal state</span><span>Receipts ≠ factual truth</span></div>
-            </div>
-            <MemoryTimeMachine />
-          </div>
-        </section>
+    <main>
+      <Header />
 
-        <section className="section pulse-section">
-          <div className="wrap pulse-stage">
-            <LivePulse />
-            <div className="pulse-narrative">
-              <span className="kicker">PUBLIC SYSTEM SIGNAL</span>
-              <h2>Trust starts with visible movement—and visible limits.</h2>
-              <p>Repository pushes and crate releases update from public sources. If an upstream service fails, the interface says so and falls back to a dated snapshot instead of pretending freshness.</p>
-              <div className="micro-proof"><span>LIVE</span><b>Public GitHub + crates.io</b><span>DATED</span><b>Audited Library snapshot</b><span>SCOPED</span><b>No private activity counts</b></div>
-              <Link href="/activity" data-event="activity_opened" data-event-context="home_pulse">Inspect the engineering timeline →</Link>
+      <section className="hero">
+        <div className="hero-art" />
+        <div className="hero-mask" />
+        <div className="hero-network">
+          {Array.from({ length: 26 }, (_, index) => <i key={index} style={{ "--i": index } as React.CSSProperties} />)}
+        </div>
+        <div className="shell hero-inner">
+          <div className="hero-copy">
+            <p className="eyebrow"><span>μνήμη / MEMORY</span>LOCAL-FIRST AI INFRASTRUCTURE</p>
+            <h1>
+              Your agents<br />
+              should remember<br />
+              <em>together.</em>
+            </h1>
+            <p className="hero-lede">
+              Mnemes is your personal, self-hosted agent memory server. Run it on hardware you already own, connect the agents and devices you authorize, and keep accumulated context inside a boundary you control.
+            </p>
+            <div className="hero-actions">
+              <Link className="button button-primary" href="/install">Choose your setup <span>→</span></Link>
+              <Link className="button button-secondary" href="/product">See what Mnemes is <span>↗</span></Link>
+            </div>
+            <div className="hero-rail">
+              <span>DEVICE-AWARE</span><span>SQLITE-AUTHORITATIVE</span><span>BITEMPORAL</span><span>RECEIPT-BEARING</span>
             </div>
           </div>
-        </section>
 
-        <section className="section outcome-section">
-          <div className="wrap">
-            <SectionHead index="01 · CHOOSE THE OUTCOME" title="Three clear ways to enter the system." body="Adopt the open-source memory plane, evaluate its evidence model, or bring the architecture into a real integration boundary." />
-            <div className="outcome-grid">{outcomes.map(([index, title, body, href, action]) => <Link href={href} key={title} data-event="path_selected" data-event-label={href}><small>{index}</small><h3>{title}</h3><p>{body}</p><b>{action} →</b></Link>)}</div>
-          </div>
-        </section>
-
-        <section className="section stack-section">
-          <div className="wrap">
-            <SectionHead index="02 · USE IT TODAY" title="One memory system. Three entry layers." body="Choose the layer that matches the job: operator kits, a protocol server, or the authoritative Rust retrieval core." />
-            <div className="spine">
-              <article><small>03 / USE</small><h3>Agent Memory Kits</h3><code>agent-memory-kits</code><p>Host-specific setup, lifecycle integration, doctors, ingestion, recall, compaction, and claim/evidence workflows.</p><Link href="/install">Choose a host →</Link></article>
-              <article><small>02 / SERVE</small><h3>Semantic Memory MCP</h3><code>semantic-memory-mcp · 0.5.4</code><p>Bounded MCP profiles, witnessed retrieval, replay, graph access, and separate assertion/action authority decisions.</p><a href="https://github.com/RecursiveIntell/semantic-memory-mcp" target="_blank" rel="noreferrer" data-event="github_repo_opened" data-event-context="product_spine">Inspect the server ↗</a></article>
-              <article><small>01 / OWN</small><h3>Semantic Memory</h3><code>semantic-memory · 0.5.11</code><p>SQLite-authoritative hybrid retrieval, weighted RRF, bitemporal views, explained ranking, and durable receipts.</p><a href="https://github.com/RecursiveIntell/semantic-memory" target="_blank" rel="noreferrer" data-event="github_repo_opened" data-event-context="product_spine">Inspect the core ↗</a></article>
+          <aside className="hero-proof-card" aria-label="Current architecture status">
+            <header><i /> CURRENT SOURCE BOUNDARY</header>
+            <div className="hero-stack">
+              <article><span>03</span><div><b>Mnemes</b><small>self-hosted memory server</small></div><StatusBadge>released</StatusBadge></article>
+              <i />
+              <article><span>02</span><div><b>semantic-memory-mcp</b><small>single-device or server protocol</small></div><StatusBadge>released</StatusBadge></article>
+              <i />
+              <article><span>01</span><div><b>semantic-memory</b><small>authoritative memory engine</small></div><StatusBadge>released</StatusBadge></article>
             </div>
-          </div>
-        </section>
+            <footer>
+              <span><b>NOW</b> server-owned device shards + routed witnessed search</span>
+              <span><b>NEXT</b> continuous device-owned replication</span>
+            </footer>
+          </aside>
+        </div>
+        <div className="hero-scroll">DESCEND INTO THE SYSTEM <i /></div>
+      </section>
 
-        <section className="section trace-section">
-          <div className="wrap">
-            <SectionHead index="03 · WITNESSED RETRIEVAL" title="Follow one answer all the way out." body="The retrieval path stays inspectable. Degradation in one plane cannot silently promote another." />
-            <div className="trace">
-              <div className="trace-query"><span>QUERY / CURRENT</span><b>“What did we decide about package truth?”</b></div>
-              <div className="trace-lane">{["HOST", "CONTRACT", "FTS5 / BM25", "DENSE", "WEIGHTED RRF", "STATE", "WITNESS"].map((name, index) => <div key={name}><small>{String(index + 1).padStart(2, "0")}</small><b>{name}</b><i /></div>)}</div>
-              <div className="trace-result"><code>state CURRENT · receipt mcp-witness-… · replay inputs NOT RETAINED</code><span>Receipt ≠ truth</span></div>
+      <div className="shell home-registry" data-reveal>
+        <LiveRegistry compactMode />
+        <div className="portfolio-home-link">
+          <div><span>COMPLETE RECURSIVEINTELL PORTFOLIO</span><p>Every public repository and crate, plus the 97-package audited Library Atlas.</p></div>
+          <Link href="/portfolio">Open live portfolio <span>→</span></Link>
+        </div>
+      </div>
+
+      <section className="home-thesis shell" data-reveal>
+        <p className="section-mark">00 / THE PRODUCT</p>
+        <div>
+          <h2>The product is software.<br />The hardware is <em>your choice.</em></h2>
+          <p>
+            Mnemes runs as a personal server on hardware you already own. Node R1 is the ready-to-go option, not a requirement. If you only need one device, Agent Memory Kits and semantic-memory-mcp provide the same underlying memory engine without the Mnemes server layer.
+          </p>
+        </div>
+      </section>
+
+      <section className="deployment-home-section">
+        <div className="shell">
+          <div className="section-heading" data-reveal>
+            <div><p className="section-mark">00B / CHOOSE THE BOUNDARY</p><h2>One device. Your server.<br />Or <em>ready-to-go.</em></h2></div>
+            <p>Memory quality comes from the semantic-memory engine. Mnemes adds the personal server, device identity, server-side memory copies, and cross-device routing. Node R1 adds convenience.</p>
+          </div>
+          <div data-reveal><DeploymentPaths /></div>
+        </div>
+      </section>
+
+      <section className="outcome-section">
+        <div className="shell">
+          <div className="section-heading" data-reveal>
+            <div><p className="section-mark">01 / THE COMPOUNDING CURVE</p><h2>The first session is empty.<br /><em>That is not the product.</em></h2></div>
+            <p>The product is the curve: memory becoming more useful as durable decisions, evidence, corrections, and cross-device context accumulate.</p>
+          </div>
+          <div className="curve" data-reveal>
+            <div className="curve-line"><i /><i /><i /><i /></div>
+            {[
+              ["DAY 1", "quiet by design", "The recall hook waits. Nothing invented."],
+              ["DAY 7", "context appears", "Conventions and active work begin returning."],
+              ["DAY 30", "decisions compound", "Prior failures and architecture stop repeating."],
+              ["DAY 90+", "continuity emerges", "Cross-session questions have sourced answers."],
+            ].map((item, index) => (
+              <article key={item[0]}><span>0{index + 1}</span><small>{item[0]}</small><h3>{item[1]}</h3><p>{item[2]}</p></article>
+            ))}
+          </div>
+          <div className="outcome-grid" data-reveal>
+            {outcomes.map((item) => <article key={item[0]}><span>{item[0]}</span><h3>{item[1]}</h3><p>{item[2]}</p></article>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="mesh-section">
+        <div className="shell">
+          <div className="section-heading" data-reveal>
+            <div><p className="section-mark">02 / THE PRIVATE MEMORY FABRIC</p><h2>Ask one device<br />what <em>another learned.</em></h2></div>
+            <p>Explore the current server-shard architecture, then switch to the device-owned replication target. The status boundary changes with the diagram instead of hiding in a footnote.</p>
+          </div>
+          <div data-reveal><MeshStory /></div>
+          <div className="section-link"><Link href="/product">Explore the full Mnemes product boundary <span>→</span></Link></div>
+        </div>
+      </section>
+
+      <section className="node-home-section">
+        <div className="shell">
+          <div className="section-heading" data-reveal>
+            <div><p className="section-mark">03 / OPTIONAL READY-TO-GO HARDWARE</p><h2>A private memory server<br />you can <em>pick up.</em></h2></div>
+            <p>Mnemes Node R1 packages the same self-hostable server into an early built-to-order appliance for people who lack suitable hardware or prefer a configured system.</p>
+          </div>
+          <div data-reveal><NodeConsole compact /></div>
+          <div className="node-home-cta" data-reveal>
+            <div>
+              <StatusBadge tone="observed">founder-reported prototype · July 2026</StatusBadge>
+              <p>You do not need Node R1 to use Mnemes. Configuration, enclosure, onboarding, and measured endurance are still being productized.</p>
             </div>
-            <div className="trace-actions"><Link href="/proof">Annotate a real receipt fixture →</Link><Link href="/concepts#receipts">Read the evidence vocabulary →</Link></div>
+            <Link className="button button-primary" href="/node">Explore Mnemes Node R1 <span>→</span></Link>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="section paper">
-          <div className="wrap">
-            <SectionHead index="04 · CAPABILITY PLANES" title="The stack separates what most systems blur." body="Six responsibilities form the trust substrate. Open a plane for its packages, dependency shape, and explicit limitations." />
-            <div className="plane-grid">{planes.map(([index, title, body, count, href]) => <Link href={href} key={title}><small>{index}</small><h3>{title}</h3><p>{body}</p><b>{count} →</b></Link>)}</div>
-            <div className="paper-action"><Link href="/libraries">Search all 97 audited package records →</Link><a href="/data/library-catalog.json" download>Download the public catalog JSON ↓</a></div>
+      <section className="proof-section">
+        <div className="shell">
+          <div className="section-heading" data-reveal>
+            <div><p className="section-mark">04 / DENSE MEMORY IN MOTION</p><h2>Find one current answer<br />inside <em>64,000 records.</em></h2></div>
+            <p>Run the model. Watch lexical and semantic candidates activate, graph context expand, temporal conflicts resolve, and the final answer arrive with source and receipt identity.</p>
           </div>
-        </section>
+          <div data-reveal><MemoryProof /></div>
+          <div className="section-link"><Link href="/proof">Open the full proof room <span>→</span></Link></div>
+        </div>
+      </section>
 
-        <section className="section">
-          <div className="wrap">
-            <SectionHead index="05 · FLAGSHIP COMPOSITIONS" title="Three products emerging from one trust substrate." body="Maturity labels describe sequencing—not blanket readiness claims." />
-            <div className="product-grid">{products.map(([lane, title, body, crates]) => <article key={title}><small>{lane}</small><h3>{title}</h3><p>{body}</p><code>{crates}</code></article>)}</div>
+      <section className="stack-section">
+        <div className="shell">
+          <div className="section-heading" data-reveal>
+            <div><p className="section-mark">05 / ONE SYSTEM, THREE OWNERS</p><h2>Server.<br />Protocol.<br /><em>Engine.</em></h2></div>
+            <p>Mnemes does not swallow the stack. Each crate owns one layer, and each layer has explicit refusal boundaries.</p>
           </div>
-        </section>
+          <div className="stack-cards" data-reveal>
+            <article>
+              <span>03 / PRODUCT</span><StatusBadge>Mnemes</StatusBadge>
+              <h3>Personal memory server</h3>
+              <p>Self-hosted device and actor identity, control metadata, routed shard search, operation envelopes, provenance edges, and routing receipts.</p>
+              <div><a href={coreLinks.mnemesGithub} target="_blank" rel="noreferrer">GitHub ↗</a><a href={coreLinks.mnemesCrate} target="_blank" rel="noreferrer">crates.io ↗</a></div>
+            </article>
+            <article>
+              <span>02 / PROTOCOL</span><StatusBadge>semantic-memory-mcp</StatusBadge>
+              <h3>Agent-facing MCP server</h3>
+              <p>Profiles bound the exposed tools. Agents can retrieve through stdio or loopback HTTP without automatically receiving mutation or administration.</p>
+              <div><a href={coreLinks.mcpGithub} target="_blank" rel="noreferrer">GitHub ↗</a><a href={coreLinks.mcpCrate} target="_blank" rel="noreferrer">crates.io ↗</a></div>
+            </article>
+            <article>
+              <span>01 / ENGINE</span><StatusBadge>semantic-memory</StatusBadge>
+              <h3>Authoritative local memory</h3>
+              <p>SQLite, FTS5, dense vectors, weighted RRF, temporal views, graph relationships, provenance, receipts, replay, integrity, and recovery.</p>
+              <div><a href={coreLinks.memoryGithub} target="_blank" rel="noreferrer">GitHub ↗</a><a href={coreLinks.memoryCrate} target="_blank" rel="noreferrer">crates.io ↗</a></div>
+            </article>
+          </div>
+          <div className="section-link"><Link href="/platform">Map the entire platform <span>→</span></Link></div>
+        </div>
+      </section>
 
-        <section className="section evidence">
-          <div className="wrap">
-            <SectionHead index="06 · EVIDENCE" title="Inspect the scope—not just the status." body="Strong subsystem evidence exists. That does not automatically certify a release, prove correctness, or authorize an action." />
-            <div className="evidence-grid"><div><small>CURRENT AUDIT POSTURE</small><strong>Source-hardened.<br />Not release-certified.</strong><p>Source, package, live, and receipt evidence remain separate scopes.</p></div><div><span>Source</span><b>Exact checkout + command scope</b><span>Package</span><b>Packed crate + clean-install parity</b><span>Live</span><b>Artifact identity + runtime canary</b><span>Receipt</span><b>Observed evidence—not correctness</b></div><Link href="/proof"><span>PROOFROOM</span><strong>Inspect receipts, replay, ownership, and typed failure →</strong></Link></div>
+      <section className="status-section">
+        <div className="shell">
+          <div className="section-heading" data-reveal>
+            <div><p className="section-mark">06 / CLAIMS WITH EDGES</p><h2>See the ambition.<br /><em>Keep the boundary.</em></h2></div>
+            <p>The site distinguishes what current source establishes, what has been observed on hardware, and what still needs end-to-end synchronization proof.</p>
           </div>
-        </section>
+          <div className="status-lanes" data-reveal>
+            {statusLanes.map((lane, index) => (
+              <article key={lane.title}>
+                <span>0{index + 1}</span>
+                <StatusBadge tone={lane.status === "released" ? "released" : "development"}>{lane.status}</StatusBadge>
+                <h3>{lane.title}</h3>
+                <p>{lane.body}</p>
+              </article>
+            ))}
+          </div>
+          <blockquote className="receipt-law" data-reveal>
+            <span>THE RECEIPT LAW</span>
+            <p>A receipt records observed execution evidence. It does not prove factual truth, correctness, security, authorization, or task success.</p>
+          </blockquote>
+        </div>
+      </section>
 
-        <section className="section final-conversion">
-          <div className="wrap conversion-grid">
-            <div><span className="kicker">FROM INTEREST TO FIRST RECALL</span><h2>Make one agent remember—then decide how deep the boundary should go.</h2></div>
-            <div><p>Start with the guided open-source path. If the integration touches release truth, governance, or evidence architecture, scope the boundary directly with Josh.</p><div className="actions"><Link className="button primary" href="/install" data-event="primary_cta_clicked" data-event-context="final_cta">Open Install Cockpit <span>→</span></Link><Link className="button secondary" href="/services" data-event="services_opened" data-event-context="final_cta">Work with Josh <span>→</span></Link></div></div>
+      <section className="install-section">
+        <div className="shell">
+          <div className="section-heading" data-reveal>
+            <div><p className="section-mark">07 / FROM INTEREST TO FIRST RECALL</p><h2>Start where you are.<br /><em>Keep what compounds.</em></h2></div>
+            <p>Use one device with an Agent Memory Kit, install Mnemes on your own server, or choose Node R1 when you want the system assembled.</p>
           </div>
-        </section>
-      </main>
+          <div data-reveal><InstallCockpit compact /></div>
+          <div className="section-link"><Link href="/install">Open the full installation cockpit <span>→</span></Link></div>
+        </div>
+      </section>
+
+      <section className="portal-section">
+        <div className="shell portal-grid" data-reveal>
+          <Link href="/product"><span>PRODUCT</span><h3>Mnemes, without the mythology haze.</h3><p>Current architecture, target replication, trust boundaries, API surface, and device lifecycle.</p><b>ENTER PRODUCT →</b></Link>
+          <Link href="/proof"><span>PROOF</span><h3>Interrogate how memory knows.</h3><p>Dense retrieval, temporal resolution, receipts, evidence scopes, and public source status.</p><b>ENTER PROOF →</b></Link>
+          <Link href="/platform"><span>PLATFORM</span><h3>See every layer and owner.</h3><p>Engine, MCP protocol, Mnemes control plane, host kits, compression, and adjacent trust primitives.</p><b>ENTER PLATFORM →</b></Link>
+          <Link href="/about"><span>PERSON</span><h3>Meet the engineer behind it.</h3><p>Josh Stevenson, RecursiveIntell, the public portfolio, and bounded ways to work together.</p><b>ENTER PERSON →</b></Link>
+        </div>
+      </section>
+
+      <section className="closing">
+        <div className="closing-art" />
+        <div className="shell closing-inner" data-reveal>
+          <p className="section-mark">MNEMES / THE LIVING ARCHIVE</p>
+          <h2>Memory should remember<br /><em>how it knows.</em></h2>
+          <p>Start with one agent on one device. Add your own Mnemes server when those memories should travel. Choose Node R1 only if you want the hardware handled too.</p>
+          <div>
+            <Link className="button button-primary" href="/install">Create the first memory <span>→</span></Link>
+            <a className="button button-secondary" href={coreLinks.mnemesGithub} target="_blank" rel="noreferrer">Inspect Mnemes source <span>↗</span></a>
+          </div>
+        </div>
+      </section>
+
       <Footer />
-    </>
+    </main>
   );
 }

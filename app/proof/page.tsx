@@ -1,83 +1,103 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Footer, Header } from "../components";
-import ReceiptLab from "./ReceiptLab";
-import { ObservatoryHero, SectionHeader } from "./Observatory";
-import styles from "./observatory.module.css";
-
-const ogImage = "/api/og?title=See%20the%20path.%20Keep%20the%20limits.&kicker=PROOFROOM%20%2F%20RECEIPT%20INSPECTOR&detail=Deterministic%20fixture%20%C2%B7%20replay%20diff&accent=cyan";
+import { Footer, Header, PageIntro, StatusBadge } from "../components/SiteChrome";
+import { LiveRegistry } from "../components/LiveRegistry";
+import { MemoryProof } from "../components/MemoryProof";
 
 export const metadata: Metadata = {
-  title: "Release Proofroom & Receipt Inspector — RecursiveIntell",
-  description: "Inspect a deterministic receipt fixture, compare replay states, and learn the evidence boundaries behind RecursiveIntell systems.",
-  alternates: { canonical: "/proof" },
-  openGraph: { title: "RecursiveIntell Proofroom", description: "An interactive, deterministic receipt anatomy and replay-diff demonstration.", url: "/proof", type: "website", images: [{ url: ogImage, width: 1200, height: 630, alt: "RecursiveIntell receipt inspector and replay diff" }] },
-  twitter: { card: "summary_large_image", title: "RecursiveIntell Proofroom", description: "See what a receipt can show—and what it cannot prove.", images: [ogImage] },
+  title: "Proof",
+  description: "Inspect dense retrieval, temporal resolution, execution receipts, evidence scopes, and live public status across the Mnemes stack.",
 };
+
+const receipt = [
+  ["request", "search · current · namespaces[architecture]"],
+  ["candidates", "FTS5 428 · dense 612 · graph 84"],
+  ["fusion", "weighted RRF · k=60 · top 48"],
+  ["state", "3 superseded · 1 contradicted · 0 silently dropped"],
+  ["exactness", "compressed candidates · exact f32 rerank"],
+  ["result", "12 visible · source identities retained"],
+  ["replay", "inputs not retained · digests retained"],
+];
 
 export default function ProofPage() {
   return (
-    <div className={styles.page}>
-      <Header current="proof" />
-      <main id="main">
-        <ObservatoryHero
-          eyebrow="Proofroom / deterministic fixture"
-          title="See the path. Keep the"
-          accent="limits."
-          lede="Receipts can bind an execution to its state view, candidate path, degradations, result, and replay boundary. They make the path inspectable; they do not turn the result into truth."
-          actions={<><a className={styles.primary} href="#inspector" data-event="demo_started" data-event-label="receipt_anatomy">Open the inspector <span>↓</span></a><Link className={styles.secondary} href="/benchmarks" data-event="benchmarks_opened" data-event-context="proof_hero">Read benchmark method <span>→</span></Link></>}
-          panelLabel="Proof / fixture state"
-          panelState="Deterministic · redacted"
-          panelTitle={<>Evidence is useful when its <span className={styles.accent}>scope survives.</span></>}
-          panelCopy={<p>The interactive object below uses two precomputed teaching runs. It makes no network request, executes no model, and never represents a visitor’s local system.</p>}
-          panelFoot="Receipt ≠ correctness · replay ≠ authority"
-        />
+    <main>
+      <Header />
+      <PageIntro
+        index="02"
+        eyebrow="THE PROOF"
+        title="Do not trust the answer."
+        accent="Inspect its path."
+        body="Mnemes inherits a strict evidence vocabulary from the stack beneath it. Search receipts, route receipts, source spans, temporal state, and integrity checks can make behavior inspectable—without pretending inspection makes the answer true."
+      />
 
-        <section className={styles.section} id="inspector">
-          <div className={styles.wrap}>
-            <SectionHeader label="01 / Receipt inspector" title={<>Anatomy, then <span className={styles.accent}>difference.</span></>} copy="Select a field to understand its role. Then compare Run A and Run B to see how retained state changes an answer without erasing the boundary around that answer." />
-            <ReceiptLab />
-          </div>
-        </section>
+      <section className="content-section shell">
+        <div className="section-heading" data-reveal>
+          <div><p className="section-mark">01 / RETRIEVAL UNDER PRESSURE</p><h2>Meaning, exact language,<br />relationships, and <em>time.</em></h2></div>
+          <p>Change the archive density, choose a failure or cross-device scenario, and run the five-stage retrieval model.</p>
+        </div>
+        <div data-reveal><MemoryProof extended /></div>
+      </section>
 
-        <section className={`${styles.section} ${styles.sectionInk}`}>
-          <div className={styles.wrap}>
-            <SectionHeader label="02 / Evidence scopes" title="One word. Four boundaries." copy="“Proof” becomes dangerous when source evidence, package declarations, live observations, and execution receipts are blended into a single confidence claim." />
-            <div className={styles.proofGrid}>
-              <article className={styles.proofCard}><span className={styles.cardLabel}>SOURCE</span><h3>What a source declares</h3><p>README, manifest, code, schema, or repository history. It can establish what was written at a revision—not whether every runtime path behaves accordingly.</p></article>
-              <article className={styles.proofCard}><span className={styles.cardLabel}>PACKAGE</span><h3>What an artifact contains</h3><p>Published version, features, dependencies, ownership, and declared metadata. Publication alone is not evidence of production suitability.</p></article>
-              <article className={styles.proofCard}><span className={styles.cardLabel}>LIVE / SNAPSHOT</span><h3>What a service reported</h3><p>Repository or registry state observed at a named time. Cached observations must not pose as current live telemetry.</p></article>
-              <article className={styles.proofCard}><span className={styles.cardLabel}>RECEIPT</span><h3>What this execution recorded</h3><p>Inputs, state view, backend, degradations, result, and retained replay material within a bounded run.</p></article>
-              <article className={styles.proofCard}><span className={styles.cardLabel}>NOT PROVEN</span><h3>Total correctness</h3><p>No receipt, benchmark, or release event proves factual truth, security, authorization, or the absence of unobserved failure.</p></article>
-              <article className={styles.proofCard}><span className={styles.cardLabel}>NEXT INSPECTION</span><h3>Follow the artifact</h3><p>Open the source, registry record, change event, or benchmark contract attached to the specific claim.</p><Link className={styles.textLink} href="/changelog" data-event="changelog_opened" data-event-context="proof_scope">Open release evidence <span>→</span></Link></article>
-            </div>
+      <section className="content-section receipt-section">
+        <div className="shell">
+          <div className="section-heading" data-reveal>
+            <div><p className="section-mark">02 / ONE RECEIPT, OPENED</p><h2>What happened<br /><em>without claiming why.</em></h2></div>
+            <p>A receipt can bind backend, candidates, exactness, fallback, degradation, temporal filters, and result identity. It cannot certify factual truth or permission to act.</p>
           </div>
-        </section>
+          <div className="receipt-inspector" data-reveal>
+            <aside>
+              <header><span>receipt</span><b>search-8c31…e91</b></header>
+              {receipt.map((item, index) => <div key={item[0]}><span>0{index + 1}</span><b>{item[0]}</b><p>{item[1]}</p></div>)}
+            </aside>
+            <article>
+              <div className="receipt-seal"><i /><span>R</span><i /></div>
+              <StatusBadge>execution observed</StatusBadge>
+              <h3>A witness for the path.<br />Not a verdict on reality.</h3>
+              <p>The receipt says which path produced a named result set under a named scope. Assertion authority, action authority, and claim truth remain separate decisions.</p>
+              <blockquote>receipt ≠ correctness<br />relevance ≠ authority<br />memory ≠ permission</blockquote>
+            </article>
+          </div>
+        </div>
+      </section>
 
-        <section className={`${styles.section} ${styles.sectionPaper}`}>
-          <div className={styles.wrap}>
-            <div className={styles.principles}>
-              <div className={styles.principleIntro}><span className={styles.overline}>03 / Replay contract</span><h2>Reproduction requires retention.</h2><p>A receipt can identify an execution without carrying enough material to reproduce it. Retention is a deliberate privacy, storage, and authority decision.</p></div>
-              <div className={styles.principleList}>
-                <article className={styles.principle}><span className={styles.micro}>IDENTITY</span><strong>Receipt only</strong><p>Correlate a past execution and its declared result without claiming it can be rerun.</p></article>
-                <article className={styles.principle}><span className={styles.micro}>MATERIAL</span><strong>Replayable</strong><p>Required fixture, prompt, state, configuration, and artifact versions were deliberately retained.</p></article>
-                <article className={styles.principle}><span className={styles.micro}>LOSS</span><strong>Degraded replay</strong><p>Some required source is missing or no longer available, and that gap remains visible.</p></article>
-                <article className={styles.principle}><span className={styles.micro}>AUTHORITY</span><strong>Inspection only</strong><p>Reproducing an execution does not grant permission to repeat its effects in the world.</p></article>
-              </div>
-            </div>
-          </div>
-        </section>
+      <section className="content-section shell">
+        <div className="section-heading" data-reveal>
+          <div><p className="section-mark">03 / EVIDENCE SCOPES</p><h2>Every green light<br />needs a <em>noun.</em></h2></div>
+          <p>A source pass, package pass, live canary, and receipt are different kinds of evidence. “Verified” without a scope is just decorative certainty.</p>
+        </div>
+        <div className="evidence-scopes" data-reveal>
+          <article><span>SOURCE</span><h3>Current checkout</h3><p>Files, commit, features, migrations, contracts, and tests inspected at one source identity.</p></article>
+          <article><span>PACKAGE</span><h3>Shipped artifact</h3><p>The crate or package contains the declared assets and survives a fresh install path.</p></article>
+          <article><span>LIVE</span><h3>Observed runtime</h3><p>A named binary and configuration exercised a named behavior in a named environment.</p></article>
+          <article><span>RECEIPT</span><h3>Recorded execution</h3><p>A typed artifact records what ran, what degraded, and what output identity was observed.</p></article>
+        </div>
+      </section>
 
-        <section className={styles.section}>
-          <div className={styles.wrap}>
-            <div className={styles.callout}>
-              <div><span className={styles.overline}>From fixture to system</span><h2>Install the open path.</h2></div>
-              <div><p>The Proofroom is a teaching surface. The install guide connects a supported host to the public agent-memory stack; the Pro path addresses commercial release and proof workflows.</p><div className={styles.actions}><Link className={styles.primary} href="/install" data-event="install_opened" data-event-context="proof_bottom">Install agent memory <span>→</span></Link><Link className={styles.secondary} href="/pro" data-event="pro_opened" data-event-context="proof_bottom">Explore Pro <span>→</span></Link></div></div>
-            </div>
+      <section className="content-section public-proof">
+        <div className="shell">
+          <div className="section-heading" data-reveal>
+            <div><p className="section-mark">04 / PUBLIC SYSTEM PULSE</p><h2>Source you can open.<br /><em>Freshness you can see.</em></h2></div>
+            <p>Current registry and repository data is requested directly where possible. Partial failure stays partial instead of manufacturing a fully live dashboard.</p>
           </div>
-        </section>
-      </main>
+          <div data-reveal><LiveRegistry /></div>
+        </div>
+      </section>
+
+      <section className="content-section shell">
+        <div className="proof-boundary" data-reveal>
+          <div><p className="section-mark">05 / THE PUBLIC BOUNDARY</p><h2>Source-hardened.<br /><em>Not release-certified.</em></h2></div>
+          <div>
+            <h3>Safe to say</h3>
+            <p>Open-source Rust crates exist; canonical SQLite state, routed server shards, temporal views, provenance, bounded MCP profiles, and optional receipts are present in current source.</p>
+          </div>
+          <div>
+            <h3>Not established here</h3>
+            <p>Production readiness, security certification, universal truth, autonomous permission, competitor superiority, device-owned continuous replication, or performance outside a named benchmark receipt.</p>
+          </div>
+        </div>
+      </section>
       <Footer />
-    </div>
+    </main>
   );
 }
+

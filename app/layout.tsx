@@ -1,100 +1,81 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-import SiteAnalytics from "./SiteAnalytics";
+import { SiteEffects } from "./components/SiteEffects";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Mnemes",
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Cross-platform",
+  description:
+    "A personal, self-hosted agent memory server for local-first AI agents, with routed cross-device search, temporal state, provenance, and receipts.",
+  url: "https://mneme-memory.sik-mindz.chatgpt.site",
+  codeRepository: "https://github.com/RecursiveIntell/mnemes",
+  author: {
+    "@type": "Person",
+    name: "Josh Stevenson",
+    url: "https://recursiveintell.com",
+  },
+};
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://recursiveintell.com"),
   title: {
-    default: "RecursiveIntell — Agent Memory That Can Show Its Work",
-    template: "%s",
+    default: "Mnemes — Memory, With a Witness",
+    template: "%s · Mnemes",
   },
   description:
-    "Local-first agent memory, live engineering activity, and an exhaustive atlas of the RecursiveIntell trust substrate.",
-  applicationName: "RecursiveIntell",
-  authors: [{ name: "Josh Stevenson", url: "https://github.com/RecursiveIntell" }],
-  creator: "Josh Stevenson",
-  publisher: "RecursiveIntell",
-  category: "Developer Tools",
-  alternates: { canonical: "/", types: { "application/rss+xml": "/feed.xml" } },
+    "Mnemes is a personal, self-hosted agent memory server. Run it on your own hardware, start with one-device Agent Memory Kits, or choose the optional Node R1 appliance.",
+  keywords: [
+    "Mnemes",
+    "agent memory",
+    "semantic memory",
+    "MCP server",
+    "local-first AI",
+    "cross-device memory",
+    "RecursiveIntell",
+  ],
+  metadataBase: new URL("https://mneme-memory.sik-mindz.chatgpt.site"),
+  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   openGraph: {
-    title: "RecursiveIntell — Agent Memory That Can Show Its Work",
-    description: "Persistent agent memory with typed boundaries, temporal truth, receipts, replay, and measured compression.",
-    url: "https://recursiveintell.com",
-    siteName: "RecursiveIntell",
+    title: "Mnemes — Memory, With a Witness",
+    description:
+      "Your personal, self-hosted agent memory server—run on your hardware, with an optional ready-to-go Node R1.",
+    url: "/",
+    siteName: "Mnemes",
     type: "website",
-    locale: "en_US",
-    images: [{ url: "/api/og", width: 1200, height: 630, alt: "RecursiveIntell — agent memory that can show its work" }],
+    images: [
+      {
+        url: "/mnemes-social.webp",
+        width: 1200,
+        height: 630,
+        alt: "Mnemes, an ancient memory divinity rendered as a local-first computational system",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "RecursiveIntell — Agent Memory That Can Show Its Work",
-    description: "Local-first agent memory with inspectable evidence, temporal truth, and replay.",
-    images: ["/api/og"],
+    title: "Mnemes — Memory, With a Witness",
+    description:
+      "Self-hosted agent memory for one device or every device you authorize, with temporal state, provenance, and receipts.",
+    images: ["/mnemes-social.webp"],
   },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
-  icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-  },
+  other: { "codex-preview": "development" },
 };
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://recursiveintell.com/#website",
-      url: "https://recursiveintell.com/",
-      name: "RecursiveIntell",
-      description: "Local-first agent memory and evidence infrastructure.",
-      publisher: { "@id": "https://recursiveintell.com/#organization" },
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://recursiveintell.com/#organization",
-      name: "RecursiveIntell",
-      url: "https://recursiveintell.com/",
-      founder: { "@id": "https://recursiveintell.com/#josh-stevenson" },
-      sameAs: ["https://github.com/RecursiveIntell", "https://crates.io/users/RecursiveIntell"],
-    },
-    {
-      "@type": "Person",
-      "@id": "https://recursiveintell.com/#josh-stevenson",
-      name: "Josh Stevenson",
-      url: "https://recursiveintell.com/about",
-      sameAs: ["https://github.com/RecursiveIntell"],
-    },
-  ],
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
-        <SiteAnalytics />
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+        <SiteEffects />
         {children}
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );
