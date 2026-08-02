@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://mneme-memory.sik-mindz.chatgpt.site/sitemap.xml",
+    sitemap: "https://recursiveintell.com/sitemap.xml",
   };
 }

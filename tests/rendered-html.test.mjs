@@ -7,6 +7,8 @@ import {
   portfolioSourceStatus,
 } from "../app/lib/portfolio-state.ts";
 import { resolveRegistryItem } from "../app/lib/registry-state.ts";
+import robots from "../app/robots.ts";
+import sitemap from "../app/sitemap.ts";
 import { projectLibraryAtlas } from "../scripts/project-library-atlas.mjs";
 
 const crateSnapshot = JSON.parse(
@@ -16,58 +18,37 @@ const crateSnapshot = JSON.parse(
 const developmentPreviewMeta =
   /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
 
+const builtPagePath = new Map([
+  ["/", "../.next/server/app/index.html"],
+  ["/product", "../.next/server/app/product.html"],
+  ["/node", "../.next/server/app/node.html"],
+  ["/install", "../.next/server/app/install.html"],
+  ["/portfolio", "../.next/server/app/portfolio.html"],
+  ["/josh", "../.next/server/app/josh.html"],
+]);
+
+async function readBuiltPage(route) {
+  const path = builtPagePath.get(route);
+  assert.ok(path, `No built HTML path registered for ${route}`);
+  return readFile(new URL(path, import.meta.url), "utf8");
+}
+
+async function getBuiltPortfolioApi() {
+  const routeUrl = new URL("../.next/server/app/api/portfolio/route.js", import.meta.url);
+  routeUrl.searchParams.set("portfolio-api", `${process.pid}-${Date.now()}`);
+  const route = await import(routeUrl.href);
+  const get = route.default?.routeModule?.userland?.GET;
+  assert.equal(typeof get, "function", "Next build must expose the portfolio GET handler");
+  return get;
+}
+
 test("renders development preview metadata", async () => {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
-
-  const response = await worker.fetch(
-    new Request("http://localhost/", {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
-
-  assert.equal(response.status, 200);
-  assert.match(
-    response.headers.get("content-type") ?? "",
-    /^text\/html\b/i,
-  );
-  assert.match(await response.text(), developmentPreviewMeta);
+  assert.match(await readBuiltPage("/"), developmentPreviewMeta);
 });
 
 test("preserves the software-first deployment hierarchy across public routes", async () => {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("hierarchy", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
-  const env = {
-    ASSETS: {
-      fetch: async () => new Response("Not found", { status: 404 }),
-    },
-  };
-  const ctx = {
-    waitUntil() {},
-    passThroughOnException() {},
-  };
-
   const routes = await Promise.all(
-    ["/", "/product", "/node", "/install", "/portfolio"].map(async (path) => {
-      const response = await worker.fetch(
-        new Request(`http://localhost${path}`, { headers: { accept: "text/html" } }),
-        env,
-        ctx,
-      );
-      assert.equal(response.status, 200, path);
-      return [path, await response.text()];
-    }),
+    ["/", "/product", "/node", "/install", "/portfolio"].map(async (path) => [path, await readBuiltPage(path)]),
   );
   const html = Object.fromEntries(routes);
 
@@ -83,22 +64,39 @@ test("preserves the software-first deployment hierarchy across public routes", a
   assert.doesNotMatch(html["/product"], /Hardware runs today/i);
 });
 
+test("renders the card-linked Josh service route with explicit boundaries and complete social metadata", async () => {
+  const html = await readBuiltPage("/josh");
+  assert.match(html, /Josh Stevenson \| RecursiveIntell/i);
+  assert.match(html, /AI that fits/i);
+  assert.match(html, /the way your/i);
+  assert.match(html, /already works/i);
+  assert.match(html, /\$1,250/);
+  assert.match(html, /\(256\) 677-8909/);
+  assert.match(html, /josh@recursiveintell\.com/);
+  assert.match(html, /No annual contract/i);
+  assert.match(html, /rel="canonical" href="https:\/\/recursiveintell\.com\/josh"/i);
+  assert.match(html, /property="og:image" content="https:\/\/recursiveintell\.com\/josh-social\.png"/i);
+  assert.match(html, /name="twitter:image" content="https:\/\/recursiveintell\.com\/josh-social\.png"/i);
+  assert.match(html, /name="twitter:card" content="summary_large_image"/i);
+  assert.doesNotMatch(html, /"applicationCategory":"DeveloperApplication"/);
+  assert.doesNotMatch(html, /data-reveal/);
+
+  const socialImage = await readFile(new URL("../public/josh-social.png", import.meta.url));
+  assert.equal(socialImage.toString("ascii", 1, 4), "PNG");
+  assert.equal(socialImage.readUInt32BE(16), 1200);
+  assert.equal(socialImage.readUInt32BE(20), 630);
+});
+
+test("publishes the card route through the canonical crawl surfaces", () => {
+  assert.equal(robots().sitemap, "https://recursiveintell.com/sitemap.xml");
+  const joshRoute = sitemap().find((entry) => entry.url === "https://recursiveintell.com/josh");
+  assert.ok(joshRoute);
+  assert.equal(joshRoute.priority, 0.8);
+});
+
 test("portfolio API rejects unsupported query widening", async () => {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("portfolio-api", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
-  const response = await worker.fetch(
-    new Request("http://localhost/api/portfolio?scope=private"),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
+  const portfolioGet = await getBuiltPortfolioApi();
+  const response = await portfolioGet(new Request("http://localhost/api/portfolio?scope=private"));
 
   assert.equal(response.status, 400);
   assert.deepEqual(await response.json(), { error: "Query parameters are not supported" });
@@ -375,25 +373,12 @@ function crateRecord(name, index = 0) {
   };
 }
 
-async function invokePortfolioApi(label, upstreamFetch) {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("upstream-case", `${label}-${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
+async function invokePortfolioApi(upstreamFetch) {
+  const portfolioGet = await getBuiltPortfolioApi();
   const originalFetch = globalThis.fetch;
   globalThis.fetch = upstreamFetch;
   try {
-    const response = await worker.fetch(
-      new Request("http://localhost/api/portfolio"),
-      {
-        ASSETS: {
-          fetch: async () => new Response("Not found", { status: 404 }),
-        },
-      },
-      {
-        waitUntil() {},
-        passThroughOnException() {},
-      },
-    );
+    const response = await portfolioGet(new Request("http://localhost/api/portfolio"));
     return { response, payload: await response.json() };
   } finally {
     globalThis.fetch = originalFetch;
@@ -401,7 +386,7 @@ async function invokePortfolioApi(label, upstreamFetch) {
 }
 
 test("portfolio API keeps live, partial, and failed public sources isolated", async () => {
-  const complete = await invokePortfolioApi("complete", async (input) => {
+  const complete = await invokePortfolioApi(async (input) => {
     const url = new URL(typeof input === "string" ? input : input.url);
     if (url.pathname === "/users/RecursiveIntell") return jsonResponse(githubProfile(2));
     if (url.pathname.endsWith("/repos")) {
@@ -426,7 +411,7 @@ test("portfolio API keeps live, partial, and failed public sources isolated", as
   assert.equal(complete.payload.meta.sources.crates.inventoryComplete, true);
   assert.equal(complete.payload.crates.items.length, 2);
 
-  const partial = await invokePortfolioApi("partial-github", async (input) => {
+  const partial = await invokePortfolioApi(async (input) => {
     const url = new URL(typeof input === "string" ? input : input.url);
     if (url.pathname === "/users/RecursiveIntell") return jsonResponse(githubProfile(1_000));
     if (url.pathname.endsWith("/repos")) {
@@ -450,7 +435,7 @@ test("portfolio API keeps live, partial, and failed public sources isolated", as
   assert.equal(partial.payload.github.repositories.length, 1_000);
   assert.equal(partial.payload.meta.sources.crates.state, "live");
 
-  const unavailable = await invokePortfolioApi("unavailable", async () => (
+  const unavailable = await invokePortfolioApi(async () => (
     jsonResponse({ error: "upstream unavailable" }, 503)
   ));
   assert.equal(unavailable.response.status, 200);
