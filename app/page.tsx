@@ -35,7 +35,7 @@ export default function Home() {
               <em>together.</em>
             </h1>
             <p className="hero-lede">
-              Mnemes is your personal, self-hosted agent memory server. Run it on hardware you already own, connect the agents and devices you authorize, and keep accumulated context inside a boundary you control.
+              Hermes Agent runs locally with Rust acceleration, persistent memory, and multi-agent graphs. Mnemes adds a self-hosted memory server with device identity, cross-device search, and replication — all on hardware you control.
             </p>
             <div className="hero-actions">
               <Link className="button button-primary" href="/install">Choose your setup <span>→</span></Link>
@@ -49,6 +49,8 @@ export default function Home() {
           <aside className="hero-proof-card" aria-label="Current architecture status">
             <header><i /> CURRENT SOURCE BOUNDARY</header>
             <div className="hero-stack">
+              <article><span>04</span><div><b>Hermes Agent</b><small>full agent with Rust acceleration, 70+ skills</small></div><StatusBadge>released</StatusBadge></article>
+              <i />
               <article><span>03</span><div><b>Mnemes</b><small>self-hosted memory server</small></div><StatusBadge>released</StatusBadge></article>
               <i />
               <article><span>02</span><div><b>semantic-memory-mcp</b><small>single-device or server protocol</small></div><StatusBadge>released</StatusBadge></article>
@@ -56,7 +58,7 @@ export default function Home() {
               <article><span>01</span><div><b>semantic-memory</b><small>authoritative memory engine</small></div><StatusBadge>released</StatusBadge></article>
             </div>
             <footer>
-              <span><b>NOW</b> server-owned device shards + routed witnessed search</span>
+              <span><b>NOW</b> Hermes agent stack + server-owned device shards + routed witnessed search</span>
               <span><b>NEXT</b> continuous device-owned replication</span>
             </footer>
           </aside>

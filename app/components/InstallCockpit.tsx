@@ -4,6 +4,20 @@ import { useState } from "react";
 
 const paths = [
   {
+    id: "hermes",
+    label: "Hermes Agent",
+    eyebrow: "FULL AGENT STACK",
+    title: "One command. Complete AI agent.",
+    body: "Install Hermes Agent with Rust acceleration, 70+ skills, agent hooks, and 5 MCP servers — all pre-configured. Starts with a single curl command.",
+    commands: [
+      "curl -fsSL https://recursiveintell.com/hermes/install.sh | bash -s -- --with-josh-setup",
+      "echo 'OPENAI_API_KEY=sk-...' >> ~/.hermes/agent-graph.env",
+      "systemctl --user start semantic-memory agent-graph-mcpd",
+      "hermes setup && hermes",
+    ],
+    note: "Full Josh's setup: llm-pipeline, context-governor, poly-kv, semantic-memory, agent-graph, claim-ledger, cea-graph, pilot-bridge, 70+ skills, 12 hooks. Use --help to see all flags. Skips Rust wheels: --skip-rust. Minimal: omit --with-josh-setup.",
+  },
+  {
     id: "server",
     label: "Your Mnemes server",
     eyebrow: "SELF-HOST ON YOUR HARDWARE",
@@ -59,7 +73,7 @@ const paths = [
 ];
 
 export function InstallCockpit({ compact = false }: { compact?: boolean }) {
-  const [selected, setSelected] = useState(compact ? 0 : 1);
+  const [selected, setSelected] = useState(0);
   const [copied, setCopied] = useState<number | null>(null);
   const item = paths[selected];
 

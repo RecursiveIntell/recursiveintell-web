@@ -6,7 +6,7 @@ import { coreLinks } from "../content";
 
 export const metadata: Metadata = {
   title: "Install",
-  description: "Install Mnemes, semantic-memory-mcp, or a host-specific Agent Memory Kit with copyable local-first commands.",
+  description: "Install Hermes Agent (full AI agent), Mnemes memory server, or an Agent Memory Kit with copyable local-first commands.",
 };
 
 export default function InstallPage() {
@@ -18,7 +18,7 @@ export default function InstallPage() {
         eyebrow="INSTALL COCKPIT"
         title="Use the hardware"
         accent="that already fits."
-        body="Install the same memory engine at the boundary you need: one local agent through Agent Memory Kits, your own personal Mnemes server, or the optional Node R1 appliance."
+        body="Start with the full Hermes Agent (one command), install the memory engine at any boundary, or run a dedicated Mnemes server."
       />
 
       <section className="content-section shell">
