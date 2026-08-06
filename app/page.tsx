@@ -8,6 +8,23 @@ import { NodeConsole } from "./components/NodeConsole";
 import { DeploymentPaths } from "./components/DeploymentPaths";
 import { coreLinks, statusLanes } from "./content";
 
+const mnemesStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Mnemes",
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Cross-platform",
+  description:
+    "A personal, self-hosted agent memory server for local-first AI agents, with routed cross-device search, temporal state, provenance, and receipts.",
+  url: "https://recursiveintell.com",
+  codeRepository: "https://github.com/RecursiveIntell/mnemes",
+  author: {
+    "@type": "Person",
+    name: "Josh Stevenson",
+    url: "https://recursiveintell.com",
+  },
+};
+
 const outcomes = [
   ["01", "An agent that compounds", "Decisions, corrections, conventions, failed approaches, and open questions survive the session boundary."],
   ["02", "A memory that spans devices", "Search authorized device shards from another machine without flattening origin, actor, time, or namespace."],
@@ -18,6 +35,10 @@ const outcomes = [
 export default function Home() {
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(mnemesStructuredData) }}
+      />
       <Header />
 
       <section className="hero">

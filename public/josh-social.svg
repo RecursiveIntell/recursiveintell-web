@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">RecursiveIntell business systems by Josh Stevenson</title>
+  <desc id="description">An orchid, rose, cream, and black social card for RecursiveIntell business workflow systems.</desc>
+  <rect width="1200" height="630" fill="#f8f1e5"/>
+  <rect width="108" height="630" fill="#7d44a4"/>
+  <path d="M0 514H636L1170 0" fill="none" stroke="#df6b9f" stroke-width="4" opacity=".9"/>
+  <path d="M0 562H686L1200 50" fill="none" stroke="#7d44a4" stroke-width="2" opacity=".5"/>
+  <rect x="705" y="72" width="390" height="462" fill="#141315"/>
+  <rect x="727" y="94" width="346" height="418" fill="none" stroke="#f8f1e5" stroke-opacity=".42"/>
+  <circle cx="1045" cy="122" r="9" fill="#df6b9f"/>
+  <path d="M999 122h29" stroke="#df6b9f" stroke-width="2"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#141315">
+    <text x="158" y="126" font-size="24" font-weight="700" letter-spacing="7">RECURSIVE</text>
+    <text x="158" y="157" font-size="24" font-weight="700" letter-spacing="7" fill="#7d44a4">INTELL</text>
+    <text x="158" y="253" font-size="20" font-weight="700" letter-spacing="3" fill="#7d44a4">AI SYSTEMS BUILT AROUND</text>
+    <text x="158" y="322" font-family="Georgia, Times New Roman, serif" font-size="68" letter-spacing="-2">YOUR</text>
+    <text x="158" y="385" font-family="Georgia, Times New Roman, serif" font-size="68" letter-spacing="-2" fill="#7d44a4">BUSINESS.</text>
+    <text x="158" y="463" font-size="17" font-weight="700" letter-spacing="2">CUSTOM AGENTS  /  WORKFLOW AUTOMATION</text>
+    <text x="158" y="493" font-size="17" font-weight="700" letter-spacing="2">BUSINESS KNOWLEDGE  /  TOOL INTEGRATIONS</text>
+    <text x="158" y="555" font-size="17" font-weight="700" letter-spacing="2" fill="#7d44a4">JOSH STEVENSON  ·  RECURSIVEINTELL.COM/JOSH</text>
+  </g>
+  <g fill="#f8f1e5" font-family="Arial, Helvetica, sans-serif">
+    <text x="754" y="164" font-size="14" font-weight="700" letter-spacing="3" fill="#f8d5e3">A SMALL, USEFUL FIRST SYSTEM</text>
+    <text x="754" y="240" font-family="Georgia, Times New Roman, serif" font-size="35" letter-spacing="-1">WHAT REPEATS</text>
+    <text x="754" y="274" font-size="17" fill="#f8f1e5">Calls · forms · email · paperwork</text>
+    <path d="M754 310h245" stroke="#df6b9f" stroke-width="2"/>
+    <text x="754" y="357" font-family="Georgia, Times New Roman, serif" font-size="35" letter-spacing="-1">WHAT HELPS</text>
+    <text x="754" y="391" font-size="17" fill="#f8f1e5">AI workflow · useful knowledge · tools</text>
+    <path d="M754 428h245" stroke="#df6b9f" stroke-width="2"/>
+    <text x="754" y="469" font-size="14" font-weight="700" letter-spacing="3" fill="#f8d5e3">YOUR WORK  ·  YOUR CONTROL</text>
+  </g>
+</svg>

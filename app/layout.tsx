@@ -5,22 +5,6 @@ import { SiteEffects } from "./components/SiteEffects";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Mnemes",
-  applicationCategory: "DeveloperApplication",
-  operatingSystem: "Cross-platform",
-  description:
-    "A personal, self-hosted agent memory server for local-first AI agents, with routed cross-device search, temporal state, provenance, and receipts.",
-  url: "https://mneme-memory.sik-mindz.chatgpt.site",
-  codeRepository: "https://github.com/RecursiveIntell/mnemes",
-  author: {
-    "@type": "Person",
-    name: "Josh Stevenson",
-    url: "https://recursiveintell.com",
-  },
-};
 
 export const metadata: Metadata = {
   title: {
@@ -38,7 +22,7 @@ export const metadata: Metadata = {
     "cross-device memory",
     "RecursiveIntell",
   ],
-  metadataBase: new URL("https://mneme-memory.sik-mindz.chatgpt.site"),
+  metadataBase: new URL("https://recursiveintell.com"),
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   openGraph: {
     title: "Mnemes — Memory, With a Witness",
@@ -70,10 +54,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
         <SiteEffects />
         {children}
       </body>
