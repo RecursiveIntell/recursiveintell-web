@@ -73,7 +73,7 @@ function upstreamHeaders(url: string): HeadersInit {
   }
   return {
     Accept: "application/json",
-    "User-Agent": "mnemes-portfolio/1.0 (+https://mneme-memory.sik-mindz.chatgpt.site)",
+    "User-Agent": "recursiveintell-portfolio/1.0 (+https://recursiveintell.com)",
   };
 }
 

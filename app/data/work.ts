@@ -1,0 +1,43 @@
+export const workCases = [
+  {
+    number: "01",
+    title: "Mnemes and semantic-memory",
+    problem: "Agent memory must persist, retrieve relevant prior state, preserve provenance and time, and remain operator-owned.",
+    built: "A Rust-first memory engine, MCP access layer, agent integration kits, and self-hosted Mnemes server with explicit ownership boundaries.",
+    evidence: "Public repositories, crates, documentation, tests, and a dedicated product/proof surface.",
+    boundary: "Public artifacts establish implementation scope, not customer adoption, universal correctness, or production fitness.",
+    source: "https://github.com/RecursiveIntell/semantic-memory",
+    sourceLabel: "Inspect semantic-memory",
+  },
+  {
+    number: "02",
+    title: "Hermes integration path",
+    problem: "A capable Python agent stack can become resource-heavy when persistent memory, services, and multiple agents run together.",
+    built: "A RecursiveIntell-enhanced Hermes path integrating Rust services, memory tooling, MCP installation, and multi-agent orchestration.",
+    evidence: "Public installer source and a public demonstration that Hermes creator Teknium highlighted on August 5, 2026.",
+    boundary: "The interaction is not a partnership or testimonial, and the public demonstration is not an independently reproduced benchmark.",
+    source: "https://x.com/Teknium/status/2084892532392276364",
+    sourceLabel: "View the public interaction",
+  },
+  {
+    number: "03",
+    title: "ClaimLedger and agent-graph",
+    problem: "Agent plans and claims lose value when evidence identity, promotion rules, execution history, and failure states remain implicit.",
+    built: "Public Rust components for claim/evidence history, typed graph execution, receipt-bearing tool paths, and bounded orchestration.",
+    evidence: "Published crates, public source, schemas, examples, and test surfaces that can be inspected directly.",
+    boundary: "Receipts report observed execution. They do not prove factual truth, authorization, security, or task success.",
+    source: "https://crates.io/crates/claim-ledger",
+    sourceLabel: "Inspect claim-ledger",
+  },
+  {
+    number: "04",
+    title: "turbo-quant and compression research",
+    problem: "Resource-constrained AI needs smaller representations without hiding formats, quality budgets, or exact fallback paths.",
+    built: "Experimental Rust quantization and compression primitives with explicit codecs, benchmark surfaces, and raw/exact escape hatches.",
+    evidence: "Published package records and public source for turbo-quant and related components.",
+    boundary: "No comparative performance or memory-savings claim is published here without a reproducible, revision-bound benchmark.",
+    source: "https://github.com/RecursiveIntell/turbo-quant",
+    sourceLabel: "Inspect turbo-quant",
+  },
+] as const;
+

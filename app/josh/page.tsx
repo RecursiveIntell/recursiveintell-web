@@ -1,302 +1,113 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-
-const contact = {
-  email: "josh@recursiveintell.com",
-  phoneDisplay: "(256) 677-8909",
-  phoneHref: "tel:+12566778909",
-  introHref:
-    "mailto:josh@recursiveintell.com?subject=I%20have%20a%20workflow%20to%20discuss&body=Hi%20Josh%2C%0A%0AThe%20task%20my%20business%20repeats%20is%3A%0A%0AThe%20tools%20or%20information%20involved%20are%3A%0A%0A",
-};
-
-const capabilities = [
-  {
-    number: "01",
-    title: "Repeated work, handled better.",
-    body: "Turn a clear, repeatable loop into a dependable workflow: intake, follow-up, paperwork, reminders, summaries, or internal handoffs.",
-  },
-  {
-    number: "02",
-    title: "Answers from your own information.",
-    body: "Give your team a helpful assistant built around approved manuals, policies, services, notes, and procedures instead of a generic chat window.",
-  },
-  {
-    number: "03",
-    title: "Your tools, working together.",
-    body: "Connect the systems your team already relies on, from inboxes and calendars to forms, spreadsheets, and line-of-business software.",
-  },
-  {
-    number: "04",
-    title: "People stay in charge.",
-    body: "Important actions can be designed around human review, clear handoffs, source-aware answers, and an explicit answer when a system cannot complete something safely.",
-  },
-];
-
-const businessContexts = [
-  ["Service & appointment teams", "Missed inquiries, booking, customer follow-up, staff coordination."],
-  ["Retail & hospitality", "Customer questions, recurring messages, inventory and operating checklists."],
-  ["Trades & field work", "Quotes, job details, forms, status updates, repeat scheduling."],
-  ["Offices & community organizations", "Documents, procedures, intake, reporting, and shared knowledge."],
-];
-
-const engagementSteps = [
-  ["01", "Bring one loop.", "Tell me what happens over and over, where it gets stuck, and what a useful result would look like."],
-  ["02", "Map the real work.", "I look at the people, tools, information, exceptions, and approval points before suggesting a system."],
-  ["03", "Build the smallest useful version.", "We start with a named boundary, test it with the people who use it, then make the handoff clear."],
-  ["04", "Keep control after launch.", "You get plain-language documentation, client-owned accounts, and optional care if you want ongoing help."],
-];
-
-const plans = [
-  {
-    name: "First Win",
-    price: "$1,250",
-    care: "$199/mo optional care",
-    summary: "For one painful, repetitive task that needs a practical first system.",
-    includes: [
-      "One workflow map and fixed written scope",
-      "One focused AI workflow or knowledge assistant",
-      "One limited connection to the tools you already use",
-      "Plain-language handoff and 30 days of launch care",
-    ],
-  },
-  {
-    name: "Focused Workflow",
-    price: "$3,000",
-    care: "$499/mo optional care",
-    summary: "For an end-to-end team workflow where the handoffs and safeguards matter.",
-    featured: true,
-    includes: [
-      "One end-to-end workflow with a clear owner",
-      "Up to three scoped tool or data connections",
-      "Human approval points and documented exceptions",
-      "Team walkthrough, handoff, and 30 days of launch care",
-    ],
-  },
-  {
-    name: "Connected Operations",
-    price: "$6,000+",
-    care: "$999+/mo optional care",
-    summary: "For several connected workflows, deeper integrations, or a system your team will keep improving.",
-    includes: [
-      "A phased implementation plan before the build",
-      "Multiple named workflows and integration boundaries",
-      "Shared knowledge, review, and operational visibility where useful",
-      "Written operating handoff and an optional improvement cadence",
-    ],
-  },
-];
+import { BusinessFooter, BusinessHeader } from "../components/business/BusinessChrome";
+import { CircuitTrace } from "../components/business/CircuitTrace";
+import { contact } from "../config/site";
+import { credibilitySignal, serviceCategories } from "../data/business";
 
 export const metadata: Metadata = {
   title: { absolute: "Josh Stevenson | RecursiveIntell" },
   description:
-    "Practical custom AI systems, workflow automation, business knowledge assistants, and tool integrations built around how your business already works.",
-  keywords: ["custom AI systems", "workflow automation", "business knowledge", "tool integrations", "RecursiveIntell", "Josh Stevenson"],
-  alternates: { canonical: "https://recursiveintell.com/josh" },
+    "AI systems, workflow automation, business knowledge, integrations, and technical consulting built around how your business already works.",
+  alternates: { canonical: "/josh" },
   openGraph: {
     title: "Josh Stevenson | RecursiveIntell",
-    description: "Practical AI systems built around your business, your people, and your information.",
-    url: "https://recursiveintell.com/josh",
+    description: "AI systems built around your business.",
+    url: "/josh",
     siteName: "RecursiveIntell",
     type: "website",
-    images: [
-      {
-        url: "/josh-social.png",
-        width: 1200,
-        height: 630,
-        alt: "RecursiveIntell business systems by Josh Stevenson",
-      },
-    ],
+    images: [{ url: "/josh-social.png", width: 1200, height: 630, alt: "RecursiveIntell business systems by Josh Stevenson" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Josh Stevenson | RecursiveIntell",
-    description: "Practical AI systems built around your business, your people, and your information.",
+    description: "AI systems built around your business.",
     images: ["/josh-social.png"],
   },
 };
 
 export default function JoshPage() {
   return (
-    <main className="josh-page">
-      <header className="josh-header">
-        <div className="josh-shell josh-header-inner">
-          <Link className="josh-wordmark" href="/" aria-label="RecursiveIntell home">
-            <span>RECURSIVE</span><strong>INTELL</strong>
-          </Link>
-          <nav aria-label="Josh service page navigation">
-            <a href="#how-it-helps">How it helps</a>
-            <a href="#ways-to-start">Ways to start</a>
-            <a href="#proof">The work behind it</a>
-          </nav>
-          <a className="josh-header-contact" href={contact.phoneHref}>{contact.phoneDisplay}</a>
-        </div>
-      </header>
+    <main className="business-page card-page">
+      <BusinessHeader />
 
-      <section className="josh-hero">
-        <div className="josh-hero-grid" aria-hidden="true" />
-        <div className="josh-shell josh-hero-layout">
-          <div className="josh-hero-copy">
-            <p className="josh-kicker"><span>01</span> YOU FOUND THE CARD. NOW MAKE THE WORK EASIER.</p>
-            <h1>AI that fits<br />the way your <em>business</em><br />already works.</h1>
-            <p className="josh-hero-lede">
-              Bring one task your team repeats: missed inquiries, manual follow-up, scattered paperwork, hard-to-find answers, or tools that refuse to cooperate. I map it, build the useful part, and leave you with a clear handoff.
-            </p>
-            <div className="josh-actions">
-              <a className="josh-button josh-button-primary" href={contact.introHref}>Tell me what repeats <span>→</span></a>
-              <a className="josh-button josh-button-quiet" href={contact.phoneHref}>Call Josh <span>↗</span></a>
+      <section className="card-hero">
+        <CircuitTrace />
+        <div className="business-shell card-hero-grid">
+          <div>
+            <p className="business-kicker"><span>JOSH STEVENSON</span> FOUNDER / AI SYSTEMS ENGINEER</p>
+            <h1>AI systems built<br />around <em>your business.</em></h1>
+            <p>I build practical agents, automation, knowledge systems, integrations, and provide focused technical consulting around the work your business already does.</p>
+            <div className="business-actions">
+              <a className="business-button business-button-primary" href={contact.introHref}>Describe a repeated task <span>→</span></a>
+              <a className="business-button business-button-secondary" href={contact.phoneHref}>Call Josh</a>
             </div>
-            <p className="josh-hero-note">Small first projects welcome. No pressure to buy a large system.</p>
+            <div className="business-proof-rail"><span>Local-first options</span><span>Human approvals</span><span>Traceable execution</span></div>
           </div>
-
-          <aside className="josh-signal-card" aria-label="Example workflow system">
-            <header><i /> A SYSTEM WITH A CLEAR HANDOFF</header>
-            <div className="josh-signal-flow">
-              <div><span>01</span><b>What repeats</b><small>Calls · forms · email · paperwork</small></div>
-              <i />
-              <div><span>02</span><b>What helps</b><small>AI workflow · useful knowledge · connected tools</small></div>
-              <i />
-              <div><span>03</span><b>Who decides</b><small>Your team · review where it matters</small></div>
-            </div>
-            <footer><span>YOUR WORK</span><i /><span>YOUR CONTROL</span></footer>
+          <aside className="card-contact-card">
+            <span className="card-contact-rail" aria-hidden="true" />
+            <small>DIRECT CONTACT</small>
+            <strong>{contact.name}</strong>
+            <span>{contact.role}</span>
+            <a href={contact.phoneHref}>{contact.phoneDisplay}</a>
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>
           </aside>
         </div>
       </section>
 
-      <section id="how-it-helps" className="josh-section josh-capabilities">
-        <div className="josh-shell">
-          <div className="josh-section-heading">
-            <div>
-              <p className="josh-index">02 / WHERE IT HELPS</p>
-              <h2>Not a generic bot.<br /><em>A useful system.</em></h2>
-            </div>
-            <p>The goal is not to put AI everywhere. It is to remove friction from work that costs your team attention, time, or consistency.</p>
+      <section className="business-section">
+        <div className="business-shell">
+          <div className="business-section-heading compact">
+            <div><p className="business-index">WHAT I CAN BUILD</p><h2>Start with one<br /><em>useful change.</em></h2></div>
+            <p>You do not need a perfect software stack or a large first project. The best starting point is often one repeated task with a clear owner.</p>
           </div>
-          <div className="josh-capability-grid">
-            {capabilities.map((capability) => (
-              <article key={capability.number}>
-                <span>{capability.number}</span>
-                <h3>{capability.title}</h3>
-                <p>{capability.body}</p>
-              </article>
-            ))}
+          <div className="business-service-grid">
+            {serviceCategories.map((service) => <article key={service.number}><span>{service.number}</span><h3>{service.title}</h3><p>{service.body}</p></article>)}
           </div>
         </div>
       </section>
 
-      <section className="josh-inclusion-section">
-        <div className="josh-shell josh-inclusion-layout">
+      <section className="business-section business-card-first-project">
+        <div className="business-shell business-card-project-grid">
+          <div><p className="business-index">A PRACTICAL FIRST PROJECT</p><h2>Bring the task that<br /><em>keeps repeating.</em></h2></div>
           <div>
-            <p className="josh-index">03 / BUILT FOR THE WAY YOU WORK</p>
-            <h2>You do not need a big team,<br />a big budget, or perfect software<br />to <em>start useful.</em></h2>
-            <p>
-              I work with businesses that run on a mixture of people, phone calls, paper, spreadsheets, and specialized software. We can start with one useful change, communicate in plain language, and make sure your team can actually use what gets built.
-            </p>
-          </div>
-          <div className="josh-context-grid">
-            {businessContexts.map(([title, body], index) => (
-              <article key={title}>
-                <span>0{index + 1}</span>
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </article>
-            ))}
+            <p>Examples include missed inquiry follow-up, repeated reports, scattered operational knowledge, document intake, or data that must move carefully between tools.</p>
+            <ol>
+              <li><span>01</span><div><strong>Show me the current work.</strong><p>A rough description, example, or screen share is enough.</p></div></li>
+              <li><span>02</span><div><strong>Choose the smallest useful boundary.</strong><p>We name what the system handles, what stays human, and what it must refuse.</p></div></li>
+              <li><span>03</span><div><strong>Confirm the proof gate.</strong><p>You know the deliverable, acceptance test, dependencies, and limits before a build starts.</p></div></li>
+            </ol>
           </div>
         </div>
       </section>
 
-      <section className="josh-section josh-process-section">
-        <div className="josh-shell">
-          <div className="josh-section-heading">
-            <div>
-              <p className="josh-index">04 / HOW WE WORK</p>
-              <h2>Start with the<br /><em>smallest useful win.</em></h2>
-            </div>
-            <p>No mysterious black box and no pressure to automate something that should stay human. Every build starts with the current workflow, not a template looking for a problem.</p>
-          </div>
-          <ol className="josh-process">
-            {engagementSteps.map(([number, title, body]) => (
-              <li key={number}>
-                <span>{number}</span>
-                <div><h3>{title}</h3><p>{body}</p></div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section id="ways-to-start" className="josh-pricing-section">
-        <div className="josh-pricing-radiance" aria-hidden="true" />
-        <div className="josh-shell">
-          <div className="josh-pricing-head">
-            <div>
-              <p className="josh-index">05 / CLEAR STARTING POINTS</p>
-              <h2>Choose the amount<br />of help you <em>actually need.</em></h2>
-            </div>
-            <p>These are starting prices, not mystery packages. Before a build, you receive a plain-language scope that says what is included, what is not, and who owns each part.</p>
-          </div>
-          <div className="josh-price-grid">
-            {plans.map((plan) => (
-              <article className={plan.featured ? "josh-price-card josh-price-featured" : "josh-price-card"} key={plan.name}>
-                {plan.featured && <b className="josh-popular">A good place to start</b>}
-                <p>{plan.name}</p>
-                <strong>{plan.price}</strong>
-                <small>{plan.care}</small>
-                <h3>{plan.summary}</h3>
-                <ul>{plan.includes.map((item) => <li key={item}>{item}</li>)}</ul>
-                <a href={contact.introHref}>Ask about this start <span>→</span></a>
-              </article>
-            ))}
-          </div>
-          <div className="josh-pricing-notes">
-            <div><b>Not ready to build?</b><p>A $250 workflow-map session is available on its own and is credited toward a build if we move forward.</p></div>
-            <div><b>What care means</b><p>Optional monthly care covers agreed monitoring, small improvements, and support. No annual contract. You are not locked in.</p></div>
-            <div><b>Clear boundaries</b><p>Third-party software, model/API, phone, hosting, and client-system fees are separate. New scope is approved in writing at $125/hr.</p></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="proof" className="josh-proof-section">
-        <div className="josh-shell josh-proof-layout">
+      <section className="business-section business-card-proof">
+        <div className="business-shell business-card-proof-grid">
+          <div><p className="business-index">PUBLIC WORK</p><h2>Technical depth<br /><em>you can inspect.</em></h2></div>
           <div>
-            <p className="josh-index">06 / THE WORK BEHIND THE WORK</p>
-            <h2>Built by an engineer<br />who cares about what<br /><em>actually happens.</em></h2>
-          </div>
-          <div className="josh-proof-copy">
-            <p>I&apos;m Josh Stevenson, an independent systems engineer and the founder of RecursiveIntell. The public work behind this page includes local AI memory, source-aware retrieval, controlled AI workflows, and operator-focused infrastructure.</p>
-            <p>That does not mean every problem should be automated. It means the systems I build can be designed to show their sources, preserve important decisions, and make their limits visible instead of pretending to be infallible.</p>
-            <div className="josh-proof-links">
-              <Link href="/portfolio">Browse the public work <span>→</span></Link>
-              <Link href="/proof">See the technical proof model <span>→</span></Link>
-              <a href="https://github.com/RecursiveIntell" target="_blank" rel="noreferrer">Open GitHub <span>↗</span></a>
-            </div>
+            <p>My public work spans local AI memory, agent graphs, claim and execution evidence, Rust infrastructure, compression research, and a customized Hermes Agent path.</p>
+            <div className="business-inline-recognition"><span>HERMES / PUBLIC SIGNAL</span><strong>Teknium highlighted Josh’s RecursiveIntell-enhanced Hermes demonstration.</strong></div>
+            <p>{credibilitySignal.body}</p>
+            <p className="business-boundary-note">{credibilitySignal.boundary}</p>
+            <div className="business-text-links"><Link href="/work">See selected work <span>→</span></Link><a href={credibilitySignal.href} target="_blank" rel="noreferrer">View Teknium’s post <span>↗</span></a><a href="https://github.com/RecursiveIntell" target="_blank" rel="noreferrer">Open GitHub <span>↗</span></a></div>
           </div>
         </div>
       </section>
 
-      <section className="josh-closing">
-        <div className="josh-closing-lines" aria-hidden="true" />
-        <div className="josh-shell josh-closing-layout">
+      <section className="business-closing card-closing">
+        <div className="business-shell business-closing-grid">
+          <div><p className="business-index">START HERE</p><h2>Tell me what<br /><em>keeps repeating.</em></h2></div>
           <div>
-            <p className="josh-index">YOUR FIRST MOVE</p>
-            <h2>Tell me the task<br />your business keeps<br /><em>doing by hand.</em></h2>
-          </div>
-          <div>
-            <p>Send a sentence, call, or bring it up the next time you see me. We will figure out whether there is a useful first system to build.</p>
-            <div className="josh-actions">
-              <a className="josh-button josh-button-primary" href={contact.introHref}>Start the conversation <span>→</span></a>
-              <a className="josh-button josh-button-light" href={`mailto:${contact.email}`}>{contact.email} <span>↗</span></a>
-            </div>
-            <a className="josh-phone" href={contact.phoneHref}>{contact.phoneDisplay}</a>
+            <p>I’ll help you decide whether it needs a workflow map, a small pilot, a knowledge system, or technical consulting.</p>
+            <div className="business-actions"><a className="business-button business-button-primary" href={contact.introHref}>Email the task <span>→</span></a><a className="business-button business-button-light" href={contact.phoneHref}>Call {contact.phoneDisplay}</a></div>
           </div>
         </div>
       </section>
 
-      <footer className="josh-footer">
-        <div className="josh-shell">
-          <p><span>RECURSIVE</span> <strong>INTELL</strong></p>
-          <small>JOSH STEVENSON · FOUNDER / AI SYSTEMS ENGINEER</small>
-        </div>
-      </footer>
+      <nav className="card-mobile-actions" aria-label="Contact Josh">
+        <a href={contact.phoneHref}>Call</a><a href={contact.textHref}>Text</a><a href={`mailto:${contact.email}`}>Email</a>
+      </nav>
+      <BusinessFooter />
     </main>
   );
 }

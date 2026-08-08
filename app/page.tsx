@@ -1,269 +1,210 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { Footer, Header, StatusBadge } from "./components/SiteChrome";
-import { InstallCockpit } from "./components/InstallCockpit";
-import { LiveRegistry } from "./components/LiveRegistry";
-import { MemoryProof } from "./components/MemoryProof";
-import { MeshStory } from "./components/MeshStory";
-import { NodeConsole } from "./components/NodeConsole";
-import { DeploymentPaths } from "./components/DeploymentPaths";
-import { coreLinks, statusLanes } from "./content";
+import { BusinessFooter, BusinessHeader } from "./components/business/BusinessChrome";
+import { CircuitTrace } from "./components/business/CircuitTrace";
+import { WorkflowSelector } from "./components/business/WorkflowSelector";
+import { contact, site } from "./config/site";
+import { credibilitySignal, processSteps, serviceCategories } from "./data/business";
+import { consultingAreas } from "./data/services";
+import { workCases } from "./data/work";
 
-const mnemesStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Mnemes",
-  applicationCategory: "DeveloperApplication",
-  operatingSystem: "Cross-platform",
-  description:
-    "A personal, self-hosted agent memory server for local-first AI agents, with routed cross-device search, temporal state, provenance, and receipts.",
-  url: "https://recursiveintell.com",
-  codeRepository: "https://github.com/RecursiveIntell/mnemes",
-  author: {
-    "@type": "Person",
-    name: "Josh Stevenson",
-    url: "https://recursiveintell.com",
+export const metadata: Metadata = {
+  title: { absolute: "RecursiveIntell | AI Systems Built Around Your Business" },
+  description: site.description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "AI systems built around your business.",
+    description: site.description,
+    url: "/",
+    siteName: site.name,
+    type: "website",
+    images: [{ url: "/josh-social.png", width: 1200, height: 630, alt: "RecursiveIntell AI systems by Josh Stevenson" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI systems built around your business.",
+    description: site.description,
+    images: ["/josh-social.png"],
   },
 };
 
-const outcomes = [
-  ["01", "An agent that compounds", "Decisions, corrections, conventions, failed approaches, and open questions survive the session boundary."],
-  ["02", "A memory that spans devices", "Search authorized device shards from another machine without flattening origin, actor, time, or namespace."],
-  ["03", "An answer that brings evidence", "Witnessed retrieval can return source identity and an execution receipt alongside the result."],
-  ["04", "A system the operator owns", "SQLite remains the durable authority; models, indexes, and compressed candidates stay replaceable."],
-];
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      name: site.name,
+      url: site.url,
+      description: site.description,
+    },
+    {
+      "@type": "Person",
+      name: contact.name,
+      jobTitle: "Founder / AI Systems Engineer",
+      url: `${site.url}/about`,
+      email: contact.email,
+      sameAs: ["https://github.com/RecursiveIntell", "https://x.com/RecursiveIntell"],
+    },
+    {
+      "@type": "Organization",
+      name: site.name,
+      url: site.url,
+      founder: { "@type": "Person", name: contact.name },
+      description: "A founder-led applied R&D studio and public engineering portfolio for local-first AI and infrastructure systems.",
+    },
+  ],
+};
 
-export default function Home() {
+export default function BusinessHome() {
   return (
-    <main>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(mnemesStructuredData) }}
-      />
-      <Header />
+    <main className="business-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <BusinessHeader />
 
-      <section className="hero">
-        <div className="hero-art" />
-        <div className="hero-mask" />
-        <div className="hero-network">
-          {Array.from({ length: 26 }, (_, index) => <i key={index} style={{ "--i": index } as React.CSSProperties} />)}
-        </div>
-        <div className="shell hero-inner">
-          <div className="hero-copy">
-            <p className="eyebrow"><span>μνήμη / MEMORY</span>LOCAL-FIRST AI INFRASTRUCTURE</p>
-            <h1>
-              Your agents<br />
-              should remember<br />
-              <em>together.</em>
-            </h1>
-            <p className="hero-lede">
-              Hermes Agent runs locally with Rust acceleration, persistent memory, and multi-agent graphs. Mnemes adds a self-hosted memory server with device identity, cross-device search, and replication — all on hardware you control.
+      <section className="business-hero">
+        <CircuitTrace />
+        <div className="business-shell business-hero-grid">
+          <div className="business-hero-copy">
+            <p className="business-kicker"><span>01</span> CUSTOM AI SYSTEMS / RECURSIVEINTELL</p>
+            <h1>AI systems built<br />around <em>your business.</em></h1>
+            <p className="business-hero-lede">
+              I design and build custom agents, workflow automation, business knowledge systems, and tool integrations around the work your business already does. Local-first options, human approvals, and traceable execution stay explicit.
             </p>
-            <div className="hero-actions">
-              <Link className="button button-primary" href="/install">Choose your setup <span>→</span></Link>
-              <Link className="button button-secondary" href="/product">See what Mnemes is <span>↗</span></Link>
+            <div className="business-actions">
+              <a className="business-button business-button-primary" href={contact.introHref}>Describe a repeated task <span>→</span></a>
+              <Link className="business-button business-button-secondary" href="/work">See working systems <span>↗</span></Link>
             </div>
-            <div className="hero-rail">
-              <span>DEVICE-AWARE</span><span>SQLITE-AUTHORITATIVE</span><span>BITEMPORAL</span><span>RECEIPT-BEARING</span>
+            <div className="business-proof-rail">
+              <span>Local-first options</span><span>Human approvals</span><span>Traceable execution</span>
             </div>
           </div>
-
-          <aside className="hero-proof-card" aria-label="Current architecture status">
-            <header><i /> CURRENT SOURCE BOUNDARY</header>
-            <div className="hero-stack">
-              <article><span>04</span><div><b>Hermes Agent</b><small>full agent with Rust acceleration, 70+ skills</small></div><StatusBadge>released</StatusBadge></article>
-              <i />
-              <article><span>03</span><div><b>Mnemes</b><small>self-hosted memory server</small></div><StatusBadge>released</StatusBadge></article>
-              <i />
-              <article><span>02</span><div><b>semantic-memory-mcp</b><small>single-device or server protocol</small></div><StatusBadge>released</StatusBadge></article>
-              <i />
-              <article><span>01</span><div><b>semantic-memory</b><small>authoritative memory engine</small></div><StatusBadge>released</StatusBadge></article>
-            </div>
-            <footer>
-              <span><b>NOW</b> Hermes agent stack + server-owned device shards + routed witnessed search</span>
-              <span><b>NEXT</b> continuous device-owned replication</span>
-            </footer>
+          <aside className="business-card-mirror" aria-label="RecursiveIntell services and approach">
+            <span className="business-card-mirror-rail" aria-hidden="true" />
+            <span className="business-card-mirror-lines" aria-hidden="true" />
+            <div className="business-card-mirror-wordmark"><b>RECURSIVE</b> <strong>INTELL</strong></div>
+            <p>PUT AI TO WORK</p>
+            <div className="business-card-mirror-title">WHERE IT<br />MATTERS.</div>
+            <small>CONSULTING + IMPLEMENTATION</small>
+            <ol>
+              {serviceCategories.map((service) => <li key={service.number}><span>{service.number}</span>{service.title}</li>)}
+            </ol>
+            <footer>START WITH ONE REPEATED TASK</footer>
           </aside>
         </div>
-        <div className="hero-scroll">DESCEND INTO THE SYSTEM <i /></div>
       </section>
 
-      <div className="shell home-registry" data-reveal>
-        <LiveRegistry compactMode />
-        <div className="portfolio-home-link">
-          <div><span>COMPLETE RECURSIVEINTELL PORTFOLIO</span><p>Every public repository and crate, plus the 97-package audited Library Atlas.</p></div>
-          <Link href="/portfolio">Open live portfolio <span>→</span></Link>
-        </div>
-      </div>
-
-      <section className="home-thesis shell" data-reveal>
-        <p className="section-mark">00 / THE PRODUCT</p>
-        <div>
-          <h2>The product is software.<br />The hardware is <em>your choice.</em></h2>
-          <p>
-            Mnemes runs as a personal server on hardware you already own. Node R1 is the ready-to-go option, not a requirement. If you only need one device, Agent Memory Kits and semantic-memory-mcp provide the same underlying memory engine without the Mnemes server layer.
-          </p>
-        </div>
-      </section>
-
-      <section className="deployment-home-section">
-        <div className="shell">
-          <div className="section-heading" data-reveal>
-            <div><p className="section-mark">00B / CHOOSE THE BOUNDARY</p><h2>One device. Your server.<br />Or <em>ready-to-go.</em></h2></div>
-            <p>Memory quality comes from the semantic-memory engine. Mnemes adds the personal server, device identity, server-side memory copies, and cross-device routing. Node R1 adds convenience.</p>
+      <section className="business-section business-services-preview">
+        <div className="business-shell">
+          <div className="business-section-heading">
+            <div><p className="business-index">02 / WHAT I BUILD</p><h2>Useful systems.<br /><em>Clear boundaries.</em></h2></div>
+            <p>Start with a business problem, not a generic bot. Every system names its source data, tools, decision points, human owner, and failure behavior.</p>
           </div>
-          <div data-reveal><DeploymentPaths /></div>
-        </div>
-      </section>
-
-      <section className="outcome-section">
-        <div className="shell">
-          <div className="section-heading" data-reveal>
-            <div><p className="section-mark">01 / THE COMPOUNDING CURVE</p><h2>The first session is empty.<br /><em>That is not the product.</em></h2></div>
-            <p>The product is the curve: memory becoming more useful as durable decisions, evidence, corrections, and cross-device context accumulate.</p>
-          </div>
-          <div className="curve" data-reveal>
-            <div className="curve-line"><i /><i /><i /><i /></div>
-            {[
-              ["DAY 1", "quiet by design", "The recall hook waits. Nothing invented."],
-              ["DAY 7", "context appears", "Conventions and active work begin returning."],
-              ["DAY 30", "decisions compound", "Prior failures and architecture stop repeating."],
-              ["DAY 90+", "continuity emerges", "Cross-session questions have sourced answers."],
-            ].map((item, index) => (
-              <article key={item[0]}><span>0{index + 1}</span><small>{item[0]}</small><h3>{item[1]}</h3><p>{item[2]}</p></article>
+          <div className="business-service-grid">
+            {serviceCategories.map((service) => (
+              <article key={service.number}><span>{service.number}</span><h3>{service.title}</h3><p>{service.body}</p></article>
             ))}
           </div>
-          <div className="outcome-grid" data-reveal>
-            {outcomes.map((item) => <article key={item[0]}><span>{item[0]}</span><h3>{item[1]}</h3><p>{item[2]}</p></article>)}
-          </div>
+          <div className="business-section-link"><Link href="/services">Explore services + consulting <span>→</span></Link></div>
         </div>
       </section>
 
-      <section className="mesh-section">
-        <div className="shell">
-          <div className="section-heading" data-reveal>
-            <div><p className="section-mark">02 / THE PRIVATE MEMORY FABRIC</p><h2>Ask one device<br />what <em>another learned.</em></h2></div>
-            <p>Explore the current server-shard architecture, then switch to the device-owned replication target. The status boundary changes with the diagram instead of hiding in a footnote.</p>
+      <section className="business-section business-consulting-home">
+        <div className="business-shell business-consulting-layout">
+          <div className="business-consulting-lead">
+            <p className="business-index">03 / FOCUSED CONSULTING</p>
+            <h2>Judgment first.<br /><em>Then the build.</em></h2>
+            <p>Not every useful engagement needs a new product. I can map the workflow, review an agent architecture, pressure-test a local-first design, or define the evidence gate your team needs before committing to implementation.</p>
+            <Link className="business-button business-button-primary" href="/services">See consulting engagements <span>→</span></Link>
           </div>
-          <div data-reveal><MeshStory /></div>
-          <div className="section-link"><Link href="/product">Explore the full Mnemes product boundary <span>→</span></Link></div>
-        </div>
-      </section>
-
-      <section className="node-home-section">
-        <div className="shell">
-          <div className="section-heading" data-reveal>
-            <div><p className="section-mark">03 / OPTIONAL READY-TO-GO HARDWARE</p><h2>A private memory server<br />you can <em>pick up.</em></h2></div>
-            <p>Mnemes Node R1 packages the same self-hostable server into an early built-to-order appliance for people who lack suitable hardware or prefer a configured system.</p>
-          </div>
-          <div data-reveal><NodeConsole compact /></div>
-          <div className="node-home-cta" data-reveal>
-            <div>
-              <StatusBadge tone="observed">founder-reported prototype · July 2026</StatusBadge>
-              <p>You do not need Node R1 to use Mnemes. Configuration, enclosure, onboarding, and measured endurance are still being productized.</p>
-            </div>
-            <Link className="button button-primary" href="/node">Explore Mnemes Node R1 <span>→</span></Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="proof-section">
-        <div className="shell">
-          <div className="section-heading" data-reveal>
-            <div><p className="section-mark">04 / DENSE MEMORY IN MOTION</p><h2>Find one current answer<br />inside <em>64,000 records.</em></h2></div>
-            <p>Run the model. Watch lexical and semantic candidates activate, graph context expand, temporal conflicts resolve, and the final answer arrive with source and receipt identity.</p>
-          </div>
-          <div data-reveal><MemoryProof /></div>
-          <div className="section-link"><Link href="/proof">Open the full proof room <span>→</span></Link></div>
-        </div>
-      </section>
-
-      <section className="stack-section">
-        <div className="shell">
-          <div className="section-heading" data-reveal>
-            <div><p className="section-mark">05 / ONE SYSTEM, THREE OWNERS</p><h2>Server.<br />Protocol.<br /><em>Engine.</em></h2></div>
-            <p>Mnemes does not swallow the stack. Each crate owns one layer, and each layer has explicit refusal boundaries.</p>
-          </div>
-          <div className="stack-cards" data-reveal>
-            <article>
-              <span>03 / PRODUCT</span><StatusBadge>Mnemes</StatusBadge>
-              <h3>Personal memory server</h3>
-              <p>Self-hosted device and actor identity, control metadata, routed shard search, operation envelopes, provenance edges, and routing receipts.</p>
-              <div><a href={coreLinks.mnemesGithub} target="_blank" rel="noreferrer">GitHub ↗</a><a href={coreLinks.mnemesCrate} target="_blank" rel="noreferrer">crates.io ↗</a></div>
-            </article>
-            <article>
-              <span>02 / PROTOCOL</span><StatusBadge>semantic-memory-mcp</StatusBadge>
-              <h3>Agent-facing MCP server</h3>
-              <p>Profiles bound the exposed tools. Agents can retrieve through stdio or loopback HTTP without automatically receiving mutation or administration.</p>
-              <div><a href={coreLinks.mcpGithub} target="_blank" rel="noreferrer">GitHub ↗</a><a href={coreLinks.mcpCrate} target="_blank" rel="noreferrer">crates.io ↗</a></div>
-            </article>
-            <article>
-              <span>01 / ENGINE</span><StatusBadge>semantic-memory</StatusBadge>
-              <h3>Authoritative local memory</h3>
-              <p>SQLite, FTS5, dense vectors, weighted RRF, temporal views, graph relationships, provenance, receipts, replay, integrity, and recovery.</p>
-              <div><a href={coreLinks.memoryGithub} target="_blank" rel="noreferrer">GitHub ↗</a><a href={coreLinks.memoryCrate} target="_blank" rel="noreferrer">crates.io ↗</a></div>
-            </article>
-          </div>
-          <div className="section-link"><Link href="/platform">Map the entire platform <span>→</span></Link></div>
-        </div>
-      </section>
-
-      <section className="status-section">
-        <div className="shell">
-          <div className="section-heading" data-reveal>
-            <div><p className="section-mark">06 / CLAIMS WITH EDGES</p><h2>See the ambition.<br /><em>Keep the boundary.</em></h2></div>
-            <p>The site distinguishes what current source establishes, what has been observed on hardware, and what still needs end-to-end synchronization proof.</p>
-          </div>
-          <div className="status-lanes" data-reveal>
-            {statusLanes.map((lane, index) => (
-              <article key={lane.title}>
+          <div className="business-consulting-list">
+            {consultingAreas.map(([title, body], index) => (
+              <article key={title}>
                 <span>0{index + 1}</span>
-                <StatusBadge tone={lane.status === "released" ? "released" : "development"}>{lane.status}</StatusBadge>
-                <h3>{lane.title}</h3>
-                <p>{lane.body}</p>
+                <div><h3>{title}</h3><p>{body}</p></div>
               </article>
             ))}
           </div>
-          <blockquote className="receipt-law" data-reveal>
-            <span>THE RECEIPT LAW</span>
-            <p>A receipt records observed execution evidence. It does not prove factual truth, correctness, security, authorization, or task success.</p>
-          </blockquote>
         </div>
       </section>
 
-      <section className="install-section">
-        <div className="shell">
-          <div className="section-heading" data-reveal>
-            <div><p className="section-mark">07 / FROM INTEREST TO FIRST RECALL</p><h2>Start where you are.<br /><em>Keep what compounds.</em></h2></div>
-            <p>Use one device with an Agent Memory Kit, install Mnemes on your own server, or choose Node R1 when you want the system assembled.</p>
+      <section className="business-section business-workflow-section">
+        <div className="business-shell">
+          <div className="business-section-heading">
+            <div><p className="business-index">04 / SEE THE SHAPE</p><h2>From input to action.<br /><em>Nothing hidden.</em></h2></div>
+            <p>Choose a common workflow to see where evidence, approval, action, and failure should remain visible.</p>
           </div>
-          <div data-reveal><InstallCockpit compact /></div>
-          <div className="section-link"><Link href="/install">Open the full installation cockpit <span>→</span></Link></div>
+          <WorkflowSelector />
         </div>
       </section>
 
-      <section className="portal-section">
-        <div className="shell portal-grid" data-reveal>
-          <Link href="/product"><span>PRODUCT</span><h3>Mnemes, without the mythology haze.</h3><p>Current architecture, target replication, trust boundaries, API surface, and device lifecycle.</p><b>ENTER PRODUCT →</b></Link>
-          <Link href="/proof"><span>PROOF</span><h3>Interrogate how memory knows.</h3><p>Dense retrieval, temporal resolution, receipts, evidence scopes, and public source status.</p><b>ENTER PROOF →</b></Link>
-          <Link href="/platform"><span>PLATFORM</span><h3>See every layer and owner.</h3><p>Engine, MCP protocol, Mnemes control plane, host kits, compression, and adjacent trust primitives.</p><b>ENTER PLATFORM →</b></Link>
-          <Link href="/about"><span>PERSON</span><h3>Meet the engineer behind it.</h3><p>Josh Stevenson, RecursiveIntell, the public portfolio, and bounded ways to work together.</p><b>ENTER PERSON →</b></Link>
+      <section className="business-section business-process-section">
+        <div className="business-shell">
+          <div className="business-section-heading">
+            <div><p className="business-index">05 / HOW WE WORK</p><h2>Map. Build.<br /><em>Verify. Operate.</em></h2></div>
+            <p>Consulting and implementation use the same discipline: current evidence first, one canonical owner per concept, mapped acceptance gates, and a written remaining delta.</p>
+          </div>
+          <ol className="business-process-grid">
+            {processSteps.map(([number, title, body]) => <li key={number}><span>{number}</span><h3>{title}</h3><p>{body}</p></li>)}
+          </ol>
         </div>
       </section>
 
-      <section className="closing">
-        <div className="closing-art" />
-        <div className="shell closing-inner" data-reveal>
-          <p className="section-mark">MNEMES / THE LIVING ARCHIVE</p>
-          <h2>Memory should remember<br /><em>how it knows.</em></h2>
-          <p>Start with one agent on one device. Add your own Mnemes server when those memories should travel. Choose Node R1 only if you want the hardware handled too.</p>
+      <section className="business-section business-boundary-section">
+        <div className="business-shell business-boundary-grid">
+          <div><p className="business-index">06 / CONTROL STAYS EXPLICIT</p><h2>Local when useful.<br />Connected when required.<br /><em>Never blurred.</em></h2></div>
           <div>
-            <Link className="button button-primary" href="/install">Create the first memory <span>→</span></Link>
-            <a className="button button-secondary" href={coreLinks.mnemesGithub} target="_blank" rel="noreferrer">Inspect Mnemes source <span>↗</span></a>
+            <p>Local-first options can keep durable knowledge and sensitive workflows close to the business. Optional hosted models, APIs, email, phone, and business software remain external services when a design uses them.</p>
+            <p>Human approvals can sit before consequential actions. Execution records can show what ran and what the system observed. Neither feature guarantees correctness, authorization, security, or business success.</p>
           </div>
         </div>
       </section>
 
-      <Footer />
+      <section className="business-section business-proof-section">
+        <div className="business-shell">
+          <div className="business-section-heading">
+            <div><p className="business-index">07 / PUBLIC ENGINEERING PROOF</p><h2>Inspect the work<br /><em>behind the offer.</em></h2></div>
+            <p>Selected public systems demonstrate implementation scope across agent memory, orchestration, evidence, compression, and local-first infrastructure.</p>
+          </div>
+          <div className="business-case-preview">
+            {workCases.slice(0, 3).map((item) => (
+              <article key={item.number}><span>CASE / {item.number}</span><h3>{item.title}</h3><p>{item.built}</p><a href={item.source} target="_blank" rel="noreferrer">{item.sourceLabel} <span>↗</span></a></article>
+            ))}
+          </div>
+          <div className="business-recognition">
+            <div className="business-recognition-mark" aria-hidden="true"><span>H</span><i>↗</i></div>
+            <div><small>{credibilitySignal.date} · HERMES COMMUNITY</small><h3>Teknium highlighted<br />Josh’s Hermes work.</h3></div>
+            <div><p>{credibilitySignal.body}</p><p className="business-boundary-note">{credibilitySignal.boundary}</p><a href={credibilitySignal.href} target="_blank" rel="noreferrer">See the public interaction <span>↗</span></a></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="business-section business-founder-section">
+        <div className="business-shell business-founder-grid">
+          <div><p className="business-index">08 / FOUNDER + ENGINEER</p><h2>One accountable<br /><em>technical owner.</em></h2></div>
+          <div>
+            <p>Josh Stevenson is a systems engineer and founder/operator of RecursiveIntell. He builds local-first AI, agent infrastructure, memory systems, Rust libraries, and operator-grade workflows in public.</p>
+            <p>RecursiveIntell is a founder-led applied R&amp;D studio and public engineering portfolio. Public source shows breadth and implementation effort; it does not imply a team, customers, funding, compliance, or production suitability.</p>
+            <Link href="/about">About Josh + RecursiveIntell <span>→</span></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="business-closing">
+        <CircuitTrace tone="dark" />
+        <div className="business-shell business-closing-grid">
+          <div><p className="business-index">YOUR FIRST MOVE</p><h2>Tell me what your<br />business keeps<br /><em>doing by hand.</em></h2></div>
+          <div>
+            <p>A sentence is enough to start. I’ll help determine whether the right next move is a workflow map, a pilot, a knowledge build, or focused technical consulting.</p>
+            <div className="business-actions">
+              <a className="business-button business-button-primary" href={contact.introHref}>Start the conversation <span>→</span></a>
+              <a className="business-button business-button-light" href={contact.phoneHref}>Call {contact.phoneDisplay}</a>
+            </div>
+            <div className="business-direct-contact"><a href={contact.textHref}>Text Josh</a><a href={`mailto:${contact.email}`}>{contact.email}</a></div>
+          </div>
+        </div>
+      </section>
+
+      <BusinessFooter />
     </main>
   );
 }
