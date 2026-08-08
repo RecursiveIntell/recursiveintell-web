@@ -23,7 +23,7 @@ export function Header() {
   return (
     <header className="site-header">
       <div className="shell header-inner">
-        <Link className="wordmark" href="/" aria-label="Mnemes home">
+        <Link className="wordmark" href="/mnemes" aria-label="Mnemes home">
           <span className="wordmark-mark"><i />Μ</span>
           <span>MNEMES<small>MEMORY, WITH A WITNESS</small></span>
         </Link>
@@ -36,6 +36,7 @@ export function Header() {
           <i /><i />
         </button>
         <nav className={open ? "open" : ""} aria-label="Primary navigation">
+          <Link className="mnemes-business-bridge" href="/" onClick={() => setOpen(false)}>A RecursiveIntell system</Link>
           {navigation.map(([href, label]) => (
             <Link
               key={href}
@@ -60,7 +61,7 @@ export function Footer() {
     <footer className="site-footer">
       <div className="shell footer-grid">
         <div>
-          <Link className="wordmark" href="/">
+          <Link className="wordmark" href="/mnemes">
             <span className="wordmark-mark"><i />Μ</span>
             <span>MNEMES<small>MEMORY, WITH A WITNESS</small></span>
           </Link>
@@ -86,8 +87,8 @@ export function Footer() {
         </div>
         <div>
           <small>CONNECT</small>
-          <Link href="/about">About Josh</Link>
-          <a href={coreLinks.email}>J.stevenson.cs@gmail.com ↗</a>
+          <Link href="/about">About Josh + RecursiveIntell</Link>
+          <a href={coreLinks.email}>josh@recursiveintell.com ↗</a>
           <a href={coreLinks.recursiveGithub} target="_blank" rel="noreferrer">GitHub portfolio ↗</a>
           <a href={coreLinks.recursiveCrates} target="_blank" rel="noreferrer">crates.io portfolio ↗</a>
         </div>

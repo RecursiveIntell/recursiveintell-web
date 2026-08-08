@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./business.css";
 import { SiteEffects } from "./components/SiteEffects";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -8,44 +9,44 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 
 export const metadata: Metadata = {
   title: {
-    default: "Mnemes — Memory, With a Witness",
-    template: "%s · Mnemes",
+    default: "RecursiveIntell — AI Systems Built Around Your Business",
+    template: "%s · RecursiveIntell",
   },
   description:
-    "Mnemes is a personal, self-hosted agent memory server. Run it on your own hardware, start with one-device Agent Memory Kits, or choose the optional Node R1 appliance.",
+    "Custom AI systems, workflow automation, business knowledge, tool integrations, and evidence-led technical consulting by Josh Stevenson.",
   keywords: [
-    "Mnemes",
-    "agent memory",
-    "semantic memory",
-    "MCP server",
+    "custom AI systems",
+    "workflow automation",
+    "AI consulting",
+    "business knowledge",
+    "Hermes Agent",
     "local-first AI",
-    "cross-device memory",
     "RecursiveIntell",
   ],
   metadataBase: new URL("https://recursiveintell.com"),
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   openGraph: {
-    title: "Mnemes — Memory, With a Witness",
+    title: "AI systems built around your business.",
     description:
-      "Your personal, self-hosted agent memory server—run on your hardware, with an optional ready-to-go Node R1.",
+      "Custom agents, workflow automation, business knowledge, integrations, and technical consulting by Josh Stevenson.",
     url: "/",
-    siteName: "Mnemes",
+    siteName: "RecursiveIntell",
     type: "website",
     images: [
       {
-        url: "/mnemes-social.webp",
+        url: "/josh-social.png",
         width: 1200,
         height: 630,
-        alt: "Mnemes, an ancient memory divinity rendered as a local-first computational system",
+        alt: "RecursiveIntell AI systems by Josh Stevenson",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mnemes — Memory, With a Witness",
+    title: "AI systems built around your business.",
     description:
-      "Self-hosted agent memory for one device or every device you authorize, with temporal state, provenance, and receipts.",
-    images: ["/mnemes-social.webp"],
+      "Custom agents, workflow automation, business knowledge, integrations, and technical consulting.",
+    images: ["/josh-social.png"],
   },
   other: { "codex-preview": "development" },
 };

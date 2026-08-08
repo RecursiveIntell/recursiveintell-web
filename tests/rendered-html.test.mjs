@@ -20,6 +20,12 @@ const developmentPreviewMeta =
 
 const builtPagePath = new Map([
   ["/", "../.next/server/app/index.html"],
+  ["/mnemes", "../.next/server/app/mnemes.html"],
+  ["/services", "../.next/server/app/services.html"],
+  ["/work", "../.next/server/app/work.html"],
+  ["/about", "../.next/server/app/about.html"],
+  ["/privacy", "../.next/server/app/privacy.html"],
+  ["/pro", "../.next/server/app/pro.html"],
   ["/product", "../.next/server/app/product.html"],
   ["/node", "../.next/server/app/node.html"],
   ["/install", "../.next/server/app/install.html"],
@@ -48,11 +54,11 @@ test("renders development preview metadata", async () => {
 
 test("preserves the software-first deployment hierarchy across public routes", async () => {
   const routes = await Promise.all(
-    ["/", "/product", "/node", "/install", "/portfolio"].map(async (path) => [path, await readBuiltPage(path)]),
+    ["/mnemes", "/product", "/node", "/install", "/portfolio"].map(async (path) => [path, await readBuiltPage(path)]),
   );
   const html = Object.fromEntries(routes);
 
-  assert.match(html["/"], /personal,\s*self-hosted agent memory server/i);
+  assert.match(html["/mnemes"], /personal,\s*self-hosted agent memory server/i);
   assert.match(html["/product"], /Node R1 is optional/i);
   assert.match(html["/node"], /You do not need/i);
   assert.match(html["/install"], /Memory quality stays/i);
@@ -64,22 +70,63 @@ test("preserves the software-first deployment hierarchy across public routes", a
   assert.doesNotMatch(html["/product"], /Hardware runs today/i);
 });
 
+test("renders a business-first root with consulting, deterministic workflow boundaries, and bounded recognition", async () => {
+  const html = await readBuiltPage("/");
+  assert.match(html, /AI systems built/i);
+  assert.match(html, /around/i);
+  assert.match(html, /your business/i);
+  assert.match(html, /Custom Agents/);
+  assert.match(html, /Workflow Automation/);
+  assert.match(html, /Business Knowledge/);
+  assert.match(html, /Tool \+ Data Integrations/);
+  assert.match(html, /Services \+ consulting/i);
+  assert.match(html, /Judgment first/i);
+  assert.match(html, /Agent runtime architecture/i);
+  assert.match(html, /Example workflow, not a customer deployment claim/i);
+  assert.match(html, /Teknium, creator of Hermes Agent/i);
+  assert.match(html, /not a customer testimonial, partnership, or product endorsement/i);
+  assert.match(html, /https:\/\/x\.com\/Teknium\/status\/2084892532392276364/);
+  assert.match(html, /rel="canonical" href="https:\/\/recursiveintell\.com"/i);
+  assert.doesNotMatch(html, /"applicationCategory":"DeveloperApplication"/);
+  assert.doesNotMatch(html, /customers trust us|enterprise-ready|production-grade/i);
+});
+
+test("publishes intentional consulting, work, privacy, pro, and Mnemes routes", async () => {
+  const routes = await Promise.all(
+    ["/services", "/work", "/about", "/privacy", "/pro", "/mnemes"].map(async (path) => [path, await readBuiltPage(path)]),
+  );
+  const html = Object.fromEntries(routes);
+
+  assert.match(html["/services"], /AI Workflow Map/);
+  assert.match(html["/services"], /Custom Agent Pilot/);
+  assert.match(html["/services"], /Business Knowledge Build/);
+  assert.match(html["/services"], /Systems Consulting \+ Ongoing Care/);
+  assert.match(html["/services"], /Fixed scope confirmed after fit review/i);
+  assert.match(html["/work"], /Hermes integration path/);
+  assert.match(html["/about"], /founder-led applied R&amp;D studio/i);
+  assert.match(html["/privacy"], /does not implement an account system/i);
+  assert.match(html["/pro"], /Not a live product claim/i);
+  assert.match(html["/mnemes"], /A RecursiveIntell system/i);
+  assert.match(html["/mnemes"], /rel="canonical" href="https:\/\/recursiveintell\.com\/mnemes"/i);
+});
+
 test("renders the card-linked Josh service route with explicit boundaries and complete social metadata", async () => {
   const html = await readBuiltPage("/josh");
   assert.match(html, /Josh Stevenson \| RecursiveIntell/i);
-  assert.match(html, /AI that fits/i);
-  assert.match(html, /the way your/i);
-  assert.match(html, /already works/i);
-  assert.match(html, /\$1,250/);
+  assert.match(html, /AI systems built/i);
+  assert.match(html, /your business/i);
+  assert.match(html, /Local-first options/i);
+  assert.match(html, /Human approvals/i);
+  assert.match(html, /Traceable execution/i);
   assert.match(html, /\(256\) 677-8909/);
   assert.match(html, /josh@recursiveintell\.com/);
-  assert.match(html, /No annual contract/i);
   assert.match(html, /rel="canonical" href="https:\/\/recursiveintell\.com\/josh"/i);
   assert.match(html, /property="og:image" content="https:\/\/recursiveintell\.com\/josh-social\.png"/i);
   assert.match(html, /name="twitter:image" content="https:\/\/recursiveintell\.com\/josh-social\.png"/i);
   assert.match(html, /name="twitter:card" content="summary_large_image"/i);
   assert.doesNotMatch(html, /"applicationCategory":"DeveloperApplication"/);
   assert.doesNotMatch(html, /data-reveal/);
+  assert.doesNotMatch(html, /\$1,250|\$3,500|\$6,000/);
 
   const socialImage = await readFile(new URL("../public/josh-social.png", import.meta.url));
   assert.equal(socialImage.toString("ascii", 1, 4), "PNG");
@@ -91,7 +138,11 @@ test("publishes the card route through the canonical crawl surfaces", () => {
   assert.equal(robots().sitemap, "https://recursiveintell.com/sitemap.xml");
   const joshRoute = sitemap().find((entry) => entry.url === "https://recursiveintell.com/josh");
   assert.ok(joshRoute);
-  assert.equal(joshRoute.priority, 0.8);
+  assert.equal(joshRoute.priority, 0.9);
+  for (const route of ["/services", "/work", "/about", "/privacy", "/pro", "/mnemes"]) {
+    assert.ok(sitemap().some((entry) => entry.url === `https://recursiveintell.com${route}`));
+  }
+  assert.ok(sitemap().every((entry) => !entry.url.includes("mneme-memory.sik-mindz.chatgpt.site")));
 });
 
 test("portfolio API rejects unsupported query widening", async () => {
