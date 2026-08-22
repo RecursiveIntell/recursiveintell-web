@@ -113,13 +113,25 @@ test("publishes intentional consulting, work, privacy, pro, and Mnemes routes", 
 test("renders the card-linked Josh service route with explicit boundaries and complete social metadata", async () => {
   const html = await readBuiltPage("/josh");
   assert.match(html, /Josh Stevenson \| RecursiveIntell/i);
-  assert.match(html, /AI systems built/i);
-  assert.match(html, /your business/i);
-  assert.match(html, /Local-first options/i);
-  assert.match(html, /Human approvals/i);
-  assert.match(html, /Traceable execution/i);
+  assert.match(html, /AI infrastructure with/i);
+  assert.match(html, /evidence and limits visible/i);
+  assert.match(html, /Local authority/i);
+  assert.match(html, /Typed execution/i);
+  assert.match(html, /Receipts \+ replay/i);
+  assert.match(html, /id="proof"/i);
+  assert.match(html, /id="consulting"/i);
+  assert.match(html, /Current core \/ R&amp;D system/i);
+  assert.match(html, /Public R&amp;D components/i);
+  assert.match(html, /Experimental/i);
+  assert.match(html, /Mnemes and semantic-memory/i);
+  assert.match(html, /ClaimLedger and agent-graph/i);
+  assert.match(html, /turbo-quant and compression research/i);
+  assert.match(html, /proveKV hybrid-state research/i);
+  assert.match(html, /hostile_memory_integrity\.rs/i);
+  assert.match(html, /hostile-memory-integrity-receipt\.json/i);
+  assert.match(html, /does not establish truth, semantic quality, complete security, production fitness, or defense validation/i);
   assert.match(html, /\(256\) 677-8909/);
-  assert.match(html, /josh@recursiveintell\.com/);
+  assert.match(html, /j\.stevenson\.cs@gmail\.com/);
   assert.match(html, /rel="canonical" href="https:\/\/recursiveintell\.com\/josh"/i);
   assert.match(html, /property="og:image" content="https:\/\/recursiveintell\.com\/josh-social\.png"/i);
   assert.match(html, /name="twitter:image" content="https:\/\/recursiveintell\.com\/josh-social\.png"/i);
@@ -127,6 +139,7 @@ test("renders the card-linked Josh service route with explicit boundaries and co
   assert.doesNotMatch(html, /"applicationCategory":"DeveloperApplication"/);
   assert.doesNotMatch(html, /data-reveal/);
   assert.doesNotMatch(html, /\$1,250|\$3,500|\$6,000/);
+  assert.doesNotMatch(html, /defense customer|defense deployment|security certified|production-ready|benchmark superiority/i);
 
   const socialImage = await readFile(new URL("../public/josh-social.png", import.meta.url));
   assert.equal(socialImage.toString("ascii", 1, 4), "PNG");

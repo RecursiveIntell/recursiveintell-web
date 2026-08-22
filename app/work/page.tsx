@@ -24,7 +24,7 @@ export default function WorkPage() {
         <div className="business-shell work-case-list">
           {workCases.map((item) => (
             <article key={item.number} className="work-case">
-              <div><span>CASE / {item.number}</span><h2>{item.title}</h2></div>
+              <div><span>CASE / {item.number} · {item.maturity}</span><h2>{item.title}</h2></div>
               <dl>
                 <div><dt>Problem</dt><dd>{item.problem}</dd></div>
                 <div><dt>Built</dt><dd>{item.built}</dd></div>
@@ -46,4 +46,3 @@ export default function WorkPage() {
     </main>
   );
 }
-

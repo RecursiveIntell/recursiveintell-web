@@ -88,7 +88,7 @@ export function Footer() {
         <div>
           <small>CONNECT</small>
           <Link href="/about">About Josh + RecursiveIntell</Link>
-          <a href={coreLinks.email}>josh@recursiveintell.com ↗</a>
+          <a href={coreLinks.email}>j.stevenson.cs@gmail.com ↗</a>
           <a href={coreLinks.recursiveGithub} target="_blank" rel="noreferrer">GitHub portfolio ↗</a>
           <a href={coreLinks.recursiveCrates} target="_blank" rel="noreferrer">crates.io portfolio ↗</a>
         </div>
