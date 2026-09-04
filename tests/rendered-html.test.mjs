@@ -12,7 +12,10 @@ import sitemap from "../app/sitemap.ts";
 import { projectLibraryAtlas } from "../scripts/project-library-atlas.mjs";
 
 const crateSnapshot = JSON.parse(
-  await readFile(new URL("../app/data/published-crates.json", import.meta.url), "utf8"),
+  await readFile(
+    new URL("../app/data/published-crates.json", import.meta.url),
+    "utf8",
+  ),
 );
 
 const developmentPreviewMeta =
@@ -23,6 +26,10 @@ const builtPagePath = new Map([
   ["/mnemes", "../.next/server/app/mnemes.html"],
   ["/services", "../.next/server/app/services.html"],
   ["/work", "../.next/server/app/work.html"],
+  [
+    "/work/ares-approval-case",
+    "../.next/server/app/work/ares-approval-case.html",
+  ],
   ["/about", "../.next/server/app/about.html"],
   ["/privacy", "../.next/server/app/privacy.html"],
   ["/pro", "../.next/server/app/pro.html"],
@@ -40,13 +47,43 @@ async function readBuiltPage(route) {
 }
 
 async function getBuiltPortfolioApi() {
-  const routeUrl = new URL("../.next/server/app/api/portfolio/route.js", import.meta.url);
+  const routeUrl = new URL(
+    "../.next/server/app/api/portfolio/route.js",
+    import.meta.url,
+  );
   routeUrl.searchParams.set("portfolio-api", `${process.pid}-${Date.now()}`);
   const route = await import(routeUrl.href);
   const get = route.default?.routeModule?.userland?.GET;
-  assert.equal(typeof get, "function", "Next build must expose the portfolio GET handler");
+  assert.equal(
+    typeof get,
+    "function",
+    "Next build must expose the portfolio GET handler",
+  );
   return get;
 }
+
+test("career proof is reachable and contact actions use the corrected destination", async () => {
+  for (const route of ["/", "/josh", "/work", "/work/ares-approval-case"]) {
+    const html = await readBuiltPage(route);
+    assert.doesNotMatch(html, /677-8909|12566778909/);
+    assert.match(html, /href="tel:\+12564702816"/);
+  }
+  const josh = await readBuiltPage("/josh");
+  assert.match(josh, /href="sms:\+12564702816/);
+  assert.match(josh, /Discuss an engineering role/);
+  assert.match(josh, /href="\/work\/ares-approval-case"/);
+  const caseHtml = await readBuiltPage("/work/ares-approval-case");
+  assert.match(caseHtml, /Ares\/pull\/28/);
+  assert.match(
+    caseHtml,
+    /bae48e0afa7fe2183b6acf13b851b280805d63bf\/model_tools\.py/,
+  );
+  assert.match(caseHtml, /ARES_EFFECT_RECEIPT_FAILED/);
+  assert.match(caseHtml, /regression tests use test doubles/);
+  assert.ok(
+    sitemap().some((entry) => entry.url.endsWith("/work/ares-approval-case")),
+  );
+});
 
 test("renders development preview metadata", async () => {
   assert.match(await readBuiltPage("/"), developmentPreviewMeta);
@@ -54,7 +91,9 @@ test("renders development preview metadata", async () => {
 
 test("preserves the software-first deployment hierarchy across public routes", async () => {
   const routes = await Promise.all(
-    ["/mnemes", "/product", "/node", "/install", "/portfolio"].map(async (path) => [path, await readBuiltPage(path)]),
+    ["/mnemes", "/product", "/node", "/install", "/portfolio"].map(
+      async (path) => [path, await readBuiltPage(path)],
+    ),
   );
   const html = Object.fromEntries(routes);
 
@@ -70,30 +109,41 @@ test("preserves the software-first deployment hierarchy across public routes", a
   assert.doesNotMatch(html["/product"], /Hardware runs today/i);
 });
 
-test("renders a business-first root with consulting, deterministic workflow boundaries, and bounded recognition", async () => {
+test("studio home connects engineering work, systems, consulting and bounded recognition", async () => {
   const html = await readBuiltPage("/");
-  assert.match(html, /AI systems built/i);
-  assert.match(html, /around/i);
-  assert.match(html, /your business/i);
-  assert.match(html, /Custom Agents/);
-  assert.match(html, /Workflow Automation/);
-  assert.match(html, /Business Knowledge/);
-  assert.match(html, /Tool \+ Data Integrations/);
-  assert.match(html, /Services \+ consulting/i);
-  assert.match(html, /Judgment first/i);
-  assert.match(html, /Agent runtime architecture/i);
-  assert.match(html, /Example workflow, not a customer deployment claim/i);
+  assert.match(html, /AI systems\./);
+  assert.match(html, /Built to be/);
+  assert.match(html, /understood\./);
+  for (const route of [
+    "/work",
+    "/josh",
+    "/mnemes",
+    "/portfolio",
+    "/contact",
+    "/services",
+  ]) {
+    assert.ok(html.includes(`href="${route}"`), `home must link ${route}`);
+  }
+  assert.match(html, /independent/i);
   assert.match(html, /Teknium, creator of Hermes Agent/i);
-  assert.match(html, /not a customer testimonial, partnership, or product endorsement/i);
+  assert.match(
+    html,
+    /not a customer testimonial, partnership, or product endorsement/i,
+  );
   assert.match(html, /https:\/\/x\.com\/Teknium\/status\/2084892532392276364/);
   assert.match(html, /rel="canonical" href="https:\/\/recursiveintell\.com"/i);
   assert.doesNotMatch(html, /"applicationCategory":"DeveloperApplication"/);
-  assert.doesNotMatch(html, /customers trust us|enterprise-ready|production-grade/i);
+  assert.doesNotMatch(
+    html,
+    /customers trust us|enterprise-ready|production-grade/i,
+  );
 });
 
 test("publishes intentional consulting, work, privacy, pro, and Mnemes routes", async () => {
   const routes = await Promise.all(
-    ["/services", "/work", "/about", "/privacy", "/pro", "/mnemes"].map(async (path) => [path, await readBuiltPage(path)]),
+    ["/services", "/work", "/about", "/privacy", "/pro", "/mnemes"].map(
+      async (path) => [path, await readBuiltPage(path)],
+    ),
   );
   const html = Object.fromEntries(routes);
 
@@ -107,17 +157,17 @@ test("publishes intentional consulting, work, privacy, pro, and Mnemes routes", 
   assert.match(html["/privacy"], /does not implement an account system/i);
   assert.match(html["/pro"], /Not a live product claim/i);
   assert.match(html["/mnemes"], /A RecursiveIntell system/i);
-  assert.match(html["/mnemes"], /rel="canonical" href="https:\/\/recursiveintell\.com\/mnemes"/i);
+  assert.match(
+    html["/mnemes"],
+    /rel="canonical" href="https:\/\/recursiveintell\.com\/mnemes"/i,
+  );
 });
 
-test("renders the card-linked Josh service route with explicit boundaries and complete social metadata", async () => {
+test("renders the engineer profile with inspectable work and complete social metadata", async () => {
   const html = await readBuiltPage("/josh");
   assert.match(html, /Josh Stevenson \| RecursiveIntell/i);
-  assert.match(html, /AI infrastructure with/i);
-  assert.match(html, /evidence and limits visible/i);
-  assert.match(html, /Local authority/i);
-  assert.match(html, /Typed execution/i);
-  assert.match(html, /Receipts \+ replay/i);
+  assert.match(html, /I build agent runtimes/);
+  assert.match(html, /Discuss an engineering role/);
   assert.match(html, /id="proof"/i);
   assert.match(html, /id="consulting"/i);
   assert.match(html, /Current core \/ R&amp;D system/i);
@@ -129,19 +179,36 @@ test("renders the card-linked Josh service route with explicit boundaries and co
   assert.match(html, /proveKV hybrid-state research/i);
   assert.match(html, /hostile_memory_integrity\.rs/i);
   assert.match(html, /hostile-memory-integrity-receipt\.json/i);
-  assert.match(html, /does not establish truth, semantic quality, complete security, production fitness, or defense validation/i);
-  assert.match(html, /\(256\) 677-8909/);
+  assert.match(
+    html,
+    /does not establish factual truth, production fitness, or model-level prompt-injection resistance/i,
+  );
+  assert.match(html, /\(256\) 470-2816/);
   assert.match(html, /j\.stevenson\.cs@gmail\.com/);
-  assert.match(html, /rel="canonical" href="https:\/\/recursiveintell\.com\/josh"/i);
-  assert.match(html, /property="og:image" content="https:\/\/recursiveintell\.com\/josh-social\.png"/i);
-  assert.match(html, /name="twitter:image" content="https:\/\/recursiveintell\.com\/josh-social\.png"/i);
+  assert.match(
+    html,
+    /rel="canonical" href="https:\/\/recursiveintell\.com\/josh"/i,
+  );
+  assert.match(
+    html,
+    /property="og:image" content="https:\/\/recursiveintell\.com\/opengraph-image"/i,
+  );
+  assert.match(
+    html,
+    /name="twitter:image" content="https:\/\/recursiveintell\.com\/opengraph-image"/i,
+  );
   assert.match(html, /name="twitter:card" content="summary_large_image"/i);
   assert.doesNotMatch(html, /"applicationCategory":"DeveloperApplication"/);
   assert.doesNotMatch(html, /data-reveal/);
   assert.doesNotMatch(html, /\$1,250|\$3,500|\$6,000/);
-  assert.doesNotMatch(html, /defense customer|defense deployment|security certified|production-ready|benchmark superiority/i);
+  assert.doesNotMatch(
+    html,
+    /defense customer|defense deployment|security certified|production-ready|benchmark superiority/i,
+  );
 
-  const socialImage = await readFile(new URL("../public/josh-social.png", import.meta.url));
+  const socialImage = await readFile(
+    new URL("../.next/server/app/opengraph-image.body", import.meta.url),
+  );
   assert.equal(socialImage.toString("ascii", 1, 4), "PNG");
   assert.equal(socialImage.readUInt32BE(16), 1200);
   assert.equal(socialImage.readUInt32BE(20), 630);
@@ -149,25 +216,49 @@ test("renders the card-linked Josh service route with explicit boundaries and co
 
 test("publishes the card route through the canonical crawl surfaces", () => {
   assert.equal(robots().sitemap, "https://recursiveintell.com/sitemap.xml");
-  const joshRoute = sitemap().find((entry) => entry.url === "https://recursiveintell.com/josh");
+  const joshRoute = sitemap().find(
+    (entry) => entry.url === "https://recursiveintell.com/josh",
+  );
   assert.ok(joshRoute);
   assert.equal(joshRoute.priority, 0.9);
-  for (const route of ["/services", "/work", "/about", "/privacy", "/pro", "/mnemes"]) {
-    assert.ok(sitemap().some((entry) => entry.url === `https://recursiveintell.com${route}`));
+  for (const route of [
+    "/services",
+    "/work",
+    "/about",
+    "/privacy",
+    "/pro",
+    "/mnemes",
+  ]) {
+    assert.ok(
+      sitemap().some(
+        (entry) => entry.url === `https://recursiveintell.com${route}`,
+      ),
+    );
   }
-  assert.ok(sitemap().every((entry) => !entry.url.includes("mneme-memory.sik-mindz.chatgpt.site")));
+  assert.ok(
+    sitemap().every(
+      (entry) => !entry.url.includes("mneme-memory.sik-mindz.chatgpt.site"),
+    ),
+  );
 });
 
 test("portfolio API rejects unsupported query widening", async () => {
   const portfolioGet = await getBuiltPortfolioApi();
-  const response = await portfolioGet(new Request("http://localhost/api/portfolio?scope=private"));
+  const response = await portfolioGet(
+    new Request("http://localhost/api/portfolio?scope=private"),
+  );
 
   assert.equal(response.status, 400);
-  assert.deepEqual(await response.json(), { error: "Query parameters are not supported" });
+  assert.deepEqual(await response.json(), {
+    error: "Query parameters are not supported",
+  });
 });
 
 test("public Library Atlas is an allowlisted projection without private audit metadata", async () => {
-  const atlasPath = new URL("../app/data/library-catalog-public.json", import.meta.url);
+  const atlasPath = new URL(
+    "../app/data/library-catalog-public.json",
+    import.meta.url,
+  );
   const atlasText = await readFile(atlasPath, "utf8");
   const atlas = JSON.parse(atlasText);
 
@@ -176,7 +267,12 @@ test("public Library Atlas is an allowlisted projection without private audit me
   assert.equal(atlas.projection.generator, "scripts/project-library-atlas.mjs");
   assert.equal(atlas.counts.total_catalog_entries, 97);
   assert.equal(atlas.catalog.length, 97);
-  assert.equal(new Set(atlas.catalog.map((item) => `${item.ecosystem}:${item.package_name}`)).size, 97);
+  assert.equal(
+    new Set(
+      atlas.catalog.map((item) => `${item.ecosystem}:${item.package_name}`),
+    ).size,
+    97,
+  );
 
   const allowedRecordKeys = [
     "architectural_domain",
@@ -199,15 +295,21 @@ test("public Library Atlas is an allowlisted projection without private audit me
     "last_update_evidence",
     "source_manifest",
     "workspace_metadata",
-    "\"sha\"",
-    "\"path\"",
-    "\"branch\"",
+    '"sha"',
+    '"path"',
+    '"branch"',
   ]) {
     assert.doesNotMatch(atlasText, new RegExp(forbiddenKey, "i"));
   }
 
-  const retiredPublicAsset = new URL("../public/data/library-catalog.json", import.meta.url);
-  const retiredBuiltAsset = new URL("../dist/client/data/library-catalog.json", import.meta.url);
+  const retiredPublicAsset = new URL(
+    "../public/data/library-catalog.json",
+    import.meta.url,
+  );
+  const retiredBuiltAsset = new URL(
+    "../dist/client/data/library-catalog.json",
+    import.meta.url,
+  );
   await assert.rejects(access(fileURLToPath(retiredPublicAsset)));
   await assert.rejects(access(fileURLToPath(retiredBuiltAsset)));
 });
@@ -217,47 +319,46 @@ test("Library Atlas projection generator drops private audit fields by construct
     generated_at: "2026-07-27T00:00:00Z",
     repository: { name: "private/repository", branch: "private-branch" },
     audit_gaps: ["private gap"],
-    catalog: [{
-      package_name: "safe-package",
-      ecosystem: "Rust",
-      version: "1.0.0",
-      description: "Public description",
-      architectural_domain: "Memory",
-      sibling_dependencies: ["private-sibling-name"],
-      publication: {
-        state_key: "published",
-        state_label: "Published",
-        registry: {
-          downloads_total: 42,
-          registry_url: "https://crates.io/crates/safe-package",
+    catalog: [
+      {
+        package_name: "safe-package",
+        ecosystem: "Rust",
+        version: "1.0.0",
+        description: "Public description",
+        architectural_domain: "Memory",
+        sibling_dependencies: ["private-sibling-name"],
+        publication: {
+          state_key: "published",
+          state_label: "Published",
+          registry: {
+            downloads_total: 42,
+            registry_url: "https://crates.io/crates/safe-package",
+          },
         },
+        maturity_evidence: {
+          status: "active-development",
+          limitations: ["private limitation"],
+        },
+        workspace: { path: "/private/path" },
+        links: { source_manifest: "https://private.example/source" },
+        access_note: "private access note",
+        last_update_evidence: { sha: "deadbeef", branch: "private-branch" },
       },
-      maturity_evidence: {
-        status: "active-development",
-        limitations: ["private limitation"],
-      },
-      workspace: { path: "/private/path" },
-      links: { source_manifest: "https://private.example/source" },
-      access_note: "private access note",
-      last_update_evidence: { sha: "deadbeef", branch: "private-branch" },
-    }],
+    ],
   });
   const serialized = JSON.stringify(projection);
   assert.equal(projection.counts.total_catalog_entries, 1);
   assert.equal(projection.catalog[0].sibling_dependency_count, 1);
-  assert.deepEqual(
-    Object.keys(projection.catalog[0]).sort(),
-    [
-      "architectural_domain",
-      "description",
-      "ecosystem",
-      "maturity_evidence",
-      "package_name",
-      "publication",
-      "sibling_dependency_count",
-      "version",
-    ],
-  );
+  assert.deepEqual(Object.keys(projection.catalog[0]).sort(), [
+    "architectural_domain",
+    "description",
+    "ecosystem",
+    "maturity_evidence",
+    "package_name",
+    "publication",
+    "sibling_dependency_count",
+    "version",
+  ]);
   for (const privateValue of [
     "private/repository",
     "private-branch",
@@ -267,7 +368,10 @@ test("Library Atlas projection generator drops private audit fields by construct
     "private.example",
     "deadbeef",
   ]) {
-    assert.doesNotMatch(serialized, new RegExp(privateValue.replace(/[./]/g, "\\$&")));
+    assert.doesNotMatch(
+      serialized,
+      new RegExp(privateValue.replace(/[./]/g, "\\$&")),
+    );
   }
 });
 
@@ -275,48 +379,73 @@ test("portfolio source states stay explicit under live, stale, partial, snapshot
   const now = Date.parse("2026-07-27T18:00:00Z");
 
   assert.equal(portfolioSourceStatus({ loading: true }, now).state, "loading");
-  assert.equal(portfolioSourceStatus({ requestFailed: true }, now).state, "unavailable");
   assert.equal(
-    portfolioSourceStatus({
-      state: "partial",
-      generatedAt: "2026-07-27T17:59:00Z",
-    }, now).state,
+    portfolioSourceStatus({ requestFailed: true }, now).state,
+    "unavailable",
+  );
+  assert.equal(
+    portfolioSourceStatus(
+      {
+        state: "partial",
+        generatedAt: "2026-07-27T17:59:00Z",
+      },
+      now,
+    ).state,
     "partial",
   );
   assert.equal(
-    portfolioSourceStatus({
-      state: "snapshot",
-      observedAt: "2026-07-16T10:26:03Z",
-    }, now).state,
+    portfolioSourceStatus(
+      {
+        state: "snapshot",
+        observedAt: "2026-07-16T10:26:03Z",
+      },
+      now,
+    ).state,
     "snapshot",
   );
   assert.equal(
-    portfolioSourceStatus({
-      state: "live",
-      generatedAt: "2026-07-27T17:50:00Z",
-      cacheSeconds: 900,
-    }, now).state,
+    portfolioSourceStatus(
+      {
+        state: "live",
+        generatedAt: "2026-07-27T17:50:00Z",
+        cacheSeconds: 900,
+      },
+      now,
+    ).state,
     "live",
   );
   assert.equal(
-    portfolioSourceStatus({
-      state: "live",
-      generatedAt: "2026-07-27T16:00:00Z",
-      cacheSeconds: 900,
-    }, now).state,
+    portfolioSourceStatus(
+      {
+        state: "live",
+        generatedAt: "2026-07-27T16:00:00Z",
+        cacheSeconds: 900,
+      },
+      now,
+    ).state,
     "stale",
   );
 
-  const partial = portfolioDashboardState({
-    generatedAt: "2026-07-27T17:59:00Z",
-    cacheSeconds: 900,
-    sources: {
-      github: { state: "partial" },
-      crates: { state: "snapshot", observedAt: "2026-07-16T10:26:03Z" },
+  const partial = portfolioDashboardState(
+    {
+      generatedAt: "2026-07-27T17:59:00Z",
+      cacheSeconds: 900,
+      sources: {
+        github: { state: "partial" },
+        crates: { state: "snapshot", observedAt: "2026-07-16T10:26:03Z" },
+      },
     },
-  }, false, crateSnapshot.observed_at, now);
+    false,
+    crateSnapshot.observed_at,
+    now,
+  );
   assert.deepEqual(
-    [partial.github.state, partial.github.label, partial.crates.state, partial.crates.label],
+    [
+      partial.github.state,
+      partial.github.label,
+      partial.crates.state,
+      partial.crates.label,
+    ],
     ["partial", "PARTIAL INVENTORY", "snapshot", "DATED SNAPSHOT"],
   );
 
@@ -327,13 +456,20 @@ test("portfolio source states stay explicit under live, stale, partial, snapshot
     now,
   );
   assert.deepEqual(
-    [failed.github.state, failed.github.label, failed.crates.state, failed.crates.label],
+    [
+      failed.github.state,
+      failed.github.label,
+      failed.crates.state,
+      failed.crates.label,
+    ],
     ["unavailable", "UNAVAILABLE", "snapshot", "DATED SNAPSHOT"],
   );
 });
 
 test("core registry preserves the canonical dated snapshot when public APIs fail", async () => {
-  const snapshot = crateSnapshot.crates.find((item) => item.name === "semantic-memory");
+  const snapshot = crateSnapshot.crates.find(
+    (item) => item.name === "semantic-memory",
+  );
   assert.ok(snapshot);
   const seed = {
     name: "semantic-memory",
@@ -357,8 +493,14 @@ test("core registry preserves the canonical dated snapshot when public APIs fail
 
   const live = resolveRegistryItem(
     seed,
-    { status: "fulfilled", value: { stargazers_count: 17, pushed_at: "2026-07-27T12:00:00Z" } },
-    { status: "fulfilled", value: { crate: { max_version: "9.9.9", downloads: 999 } } },
+    {
+      status: "fulfilled",
+      value: { stargazers_count: 17, pushed_at: "2026-07-27T12:00:00Z" },
+    },
+    {
+      status: "fulfilled",
+      value: { crate: { max_version: "9.9.9", downloads: 999 } },
+    },
   );
   assert.equal(live.version, "9.9.9");
   assert.equal(live.downloads, 999);
@@ -367,7 +509,13 @@ test("core registry preserves the canonical dated snapshot when public APIs fail
   assert.equal(live.githubLive, true);
 
   const noSnapshot = resolveRegistryItem(
-    { ...seed, name: "unpublished", version: null, downloads: null, snapshotObservedAt: null },
+    {
+      ...seed,
+      name: "unpublished",
+      version: null,
+      downloads: null,
+      snapshotObservedAt: null,
+    },
     rejected,
     rejected,
   );
@@ -442,7 +590,9 @@ async function invokePortfolioApi(upstreamFetch) {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = upstreamFetch;
   try {
-    const response = await portfolioGet(new Request("http://localhost/api/portfolio"));
+    const response = await portfolioGet(
+      new Request("http://localhost/api/portfolio"),
+    );
     return { response, payload: await response.json() };
   } finally {
     globalThis.fetch = originalFetch;
@@ -452,7 +602,8 @@ async function invokePortfolioApi(upstreamFetch) {
 test("portfolio API keeps live, partial, and failed public sources isolated", async () => {
   const complete = await invokePortfolioApi(async (input) => {
     const url = new URL(typeof input === "string" ? input : input.url);
-    if (url.pathname === "/users/RecursiveIntell") return jsonResponse(githubProfile(2));
+    if (url.pathname === "/users/RecursiveIntell")
+      return jsonResponse(githubProfile(2));
     if (url.pathname.endsWith("/repos")) {
       return jsonResponse([githubRepo("alpha"), githubRepo("beta", 1)]);
     }
@@ -477,11 +628,14 @@ test("portfolio API keeps live, partial, and failed public sources isolated", as
 
   const partial = await invokePortfolioApi(async (input) => {
     const url = new URL(typeof input === "string" ? input : input.url);
-    if (url.pathname === "/users/RecursiveIntell") return jsonResponse(githubProfile(1_000));
+    if (url.pathname === "/users/RecursiveIntell")
+      return jsonResponse(githubProfile(1_000));
     if (url.pathname.endsWith("/repos")) {
       const page = Number(url.searchParams.get("page") ?? "1");
       return jsonResponse(
-        Array.from({ length: 100 }, (_, index) => githubRepo(`repo-${page}-${index}`, index)),
+        Array.from({ length: 100 }, (_, index) =>
+          githubRepo(`repo-${page}-${index}`, index),
+        ),
       );
     }
     if (url.hostname === "crates.io") {
@@ -499,19 +653,77 @@ test("portfolio API keeps live, partial, and failed public sources isolated", as
   assert.equal(partial.payload.github.repositories.length, 1_000);
   assert.equal(partial.payload.meta.sources.crates.state, "live");
 
-  const unavailable = await invokePortfolioApi(async () => (
-    jsonResponse({ error: "upstream unavailable" }, 503)
-  ));
+  const unavailable = await invokePortfolioApi(async () =>
+    jsonResponse({ error: "upstream unavailable" }, 503),
+  );
   assert.equal(unavailable.response.status, 200);
   assert.equal(unavailable.payload.meta.partial, true);
   assert.equal(unavailable.payload.meta.sources.github.state, "unavailable");
   assert.equal(unavailable.payload.github, undefined);
   assert.equal(unavailable.payload.meta.sources.crates.state, "snapshot");
-  assert.equal(unavailable.payload.meta.sources.crates.inventoryComplete, false);
+  assert.equal(
+    unavailable.payload.meta.sources.crates.inventoryComplete,
+    false,
+  );
   assert.equal(unavailable.payload.crates.snapshot, true);
-  assert.equal(unavailable.payload.crates.items.length, crateSnapshot.crates.length);
+  assert.equal(
+    unavailable.payload.crates.items.length,
+    crateSnapshot.crates.length,
+  );
   assert.equal(
     unavailable.payload.crates.totals.publishedCrates,
     crateSnapshot.summary.published_crates,
   );
+});
+
+test("every canonical route shares navigation, a single heading and a focusable skip target", async () => {
+  for (const entry of sitemap()) {
+    const path = new URL(entry.url).pathname;
+    const file = path === "/" ? "index" : path.slice(1);
+    const html = await readFile(
+      new URL(`../.next/server/app/${file}.html`, import.meta.url),
+      "utf8",
+    );
+    assert.equal((html.match(/<h1\b/g) || []).length, 1, `${path}: one h1`);
+    assert.match(html, /aria-label="Primary navigation"/, path);
+    assert.match(html, /id="studio-navigation"/, path);
+    assert.match(html, /href="#main-content"/, path);
+    assert.match(html, /id="main-content" tabindex="-1"/i, path);
+    assert.match(html, /href="\/contact"/, path);
+    assert.match(html, /href="tel:\+12564702816"/, path);
+  }
+});
+
+test("canonical pages share their own URL and title", async () => {
+  for (const entry of sitemap()) {
+    const path = new URL(entry.url).pathname;
+    const file = path === "/" ? "index" : path.slice(1);
+    const html = await readFile(
+      new URL(`../.next/server/app/${file}.html`, import.meta.url),
+      "utf8",
+    );
+    const sharingUrl = html.match(/<meta property="og:url" content="([^"]+)"/);
+    assert.ok(sharingUrl, `${path}: sharing URL exists`);
+    assert.equal(new URL(sharingUrl[1]).pathname, path, `${path}: sharing URL`);
+    const title = html.match(/<meta property="og:title" content="([^"]+)"/);
+    assert.ok(title, `${path}: sharing title exists`);
+    if (path !== "/")
+      assert.doesNotMatch(
+        title[1],
+        /^AI systems\. Built to be understood\./,
+        path,
+      );
+  }
+});
+
+test("contact paths name their intent without pretending to submit a form", async () => {
+  const html = await readFile(
+    new URL("../.next/server/app/contact.html", import.meta.url),
+    "utf8",
+  );
+  assert.match(html, /Engineering%20role%20for%20Josh%20Stevenson/);
+  assert.match(html, /RecursiveIntell%20project%20inquiry/);
+  assert.match(html, /Technical%20collaboration/);
+  assert.match(html, /Nothing is submitted through this website/);
+  assert.doesNotMatch(html, /<form\b/);
 });

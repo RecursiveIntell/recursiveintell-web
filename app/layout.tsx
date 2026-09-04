@@ -2,18 +2,22 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./business.css";
+import "./studio.css";
 import { SiteEffects } from "./components/SiteEffects";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: {
-    default: "RecursiveIntell — AI Systems Built Around Your Business",
+    default: "RecursiveIntell | Independent AI Systems Engineering",
     template: "%s · RecursiveIntell",
   },
   description:
-    "Custom AI systems, workflow automation, business knowledge, tool integrations, and evidence-led technical consulting by Josh Stevenson.",
+    "Independent AI systems engineering by Josh Stevenson: agent runtimes, local memory, Rust infrastructure, and focused consulting.",
   keywords: [
     "custom AI systems",
     "workflow automation",
@@ -26,15 +30,15 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://recursiveintell.com"),
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   openGraph: {
-    title: "AI systems built around your business.",
+    title: "AI systems. Built to be understood.",
     description:
-      "Custom agents, workflow automation, business knowledge, integrations, and technical consulting by Josh Stevenson.",
+      "Agent runtimes, local memory, and Rust infrastructure by Josh Stevenson.",
     url: "/",
     siteName: "RecursiveIntell",
     type: "website",
     images: [
       {
-        url: "/josh-social.png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "RecursiveIntell AI systems by Josh Stevenson",
@@ -43,15 +47,17 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI systems built around your business.",
+    title: "AI systems. Built to be understood.",
     description:
-      "Custom agents, workflow automation, business knowledge, integrations, and technical consulting.",
-    images: ["/josh-social.png"],
+      "Independent AI systems engineering: agents, memory, and infrastructure.",
+    images: ["/opengraph-image"],
   },
   other: { "codex-preview": "development" },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>

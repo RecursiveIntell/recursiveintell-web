@@ -1,55 +1,92 @@
+import { pageMetadata } from "../lib/page-metadata";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BusinessFooter, BusinessHeader, BusinessPageIntro } from "../components/business/BusinessChrome";
-import { credibilitySignal } from "../data/business";
-
-export const metadata: Metadata = {
-  title: "About Josh Stevenson + RecursiveIntell",
-  description: "Josh Stevenson is a systems engineer and founder/operator of RecursiveIntell, a founder-led applied R&D studio and public engineering portfolio.",
+import { StudioHeader, StudioFooter } from "../components/StudioChrome";
+import { StudioIntro, StudioCTA, SystemGraphic } from "../components/Studio";
+export const metadata: Metadata = pageMetadata("/about", {
+  title: "About the Studio",
+  description:
+    "RecursiveIntell is Josh Stevenson's independent applied R&D studio for agents, local memory, and systems infrastructure.",
   alternates: { canonical: "/about" },
-};
-
-const disciplines = [
-  ["Local-first AI", "Durable state, private deployment options, explicit provider boundaries, recovery, and operator ownership."],
-  ["Agent systems", "Graph orchestration, tools, memory, skills, effects, typed failure, human gates, and execution evidence."],
-  ["Rust infrastructure", "Small composable owners for identity, memory, evidence, compression, runtime policy, and system integration."],
-  ["Evidence-led delivery", "Current source first, claims bounded to proof, acceptance gates mapped before completion, and written remaining delta."],
-] as const;
-
-export default function AboutPage() {
+});
+export default function About() {
   return (
-    <main className="business-page">
-      <BusinessHeader />
-      <BusinessPageIntro index="03" eyebrow="THE ENGINEER + THE STUDIO" title="Built by one engineer." accent="Inspected in public." body="Josh Stevenson builds local-first AI and infrastructure systems through RecursiveIntell, combining implementation, architecture, hostile review, and evidence-led technical consulting." />
-      <section className="business-section about-story">
-        <div className="business-shell business-boundary-grid">
-          <div><p className="business-index">JOSH STEVENSON</p><h2>Systems engineer.<br />Founder.<br /><em>Operator.</em></h2></div>
+    <main className="studio-page">
+      <StudioHeader />
+      <StudioIntro
+        label="THE STUDIO / THE APPROACH"
+        title="Independent thinking."
+        accent="Inspectable systems."
+        body="RecursiveIntell is a founder-led applied R&D studio and public engineering portfolio. Josh Stevenson builds the underlying pieces of useful AI, from agent execution to local memory."
+      />
+      <section className="studio-about-grid studio-shell">
+        <SystemGraphic compact />
+        <div>
+          <p className="studio-eyebrow">ONE CONNECTED BODY OF WORK</p>
+          <h2>
+            The pieces matter.
+            <br />
+            <em>So do the seams.</em>
+          </h2>
+          <p>
+            An agent runtime needs to know what it can do. A memory system needs
+            to preserve where its knowledge came from. A tool needs to report
+            what happened when a call failed.
+          </p>
+          <p>
+            The projects here investigate those questions through source code,
+            focused tests, and public documentation. They range from active
+            software to experimental components; each work page names the scope
+            of its evidence.
+          </p>
+          <Link href="/josh" className="studio-text-link">
+            Meet Josh Stevenson ↗
+          </Link>
+        </div>
+      </section>
+      <section className="studio-section studio-shell">
+        <div className="studio-section-heading">
           <div>
-            <p>Josh works across the full path from research question to operating artifact: requirements, source ownership, Rust and Python implementation, local model and agent integration, tests, receipts, deployment boundaries, and handoff.</p>
-            <p>The differentiator is not a claim that every component is mature or universally correct. It is the ability to design and build dense systems quickly while keeping authority, failure, provenance, and proof boundaries visible.</p>
-            <div className="business-text-links"><a href="https://github.com/RecursiveIntell" target="_blank" rel="noreferrer">GitHub portfolio <span>↗</span></a><a href="https://crates.io/users/RecursiveIntell" target="_blank" rel="noreferrer">Published Rust crates <span>↗</span></a></div>
+            <p className="studio-eyebrow">ENGINEERING PRINCIPLES</p>
+            <h2>
+              Less mystery.
+              <br />
+              <em>More understanding.</em>
+            </h2>
           </div>
+          <p>
+            Useful systems make their state, ownership, and failure behavior
+            understandable to the person who has to operate them.
+          </p>
+        </div>
+        <div className="studio-principles">
+          {[
+            [
+              "01",
+              "Keep ownership clear.",
+              "Choose the source of truth. Treat indexes and summaries as views that can be rebuilt.",
+            ],
+            [
+              "02",
+              "Preserve the boundary.",
+              "A local system and an external provider have different responsibilities. Make that visible.",
+            ],
+            [
+              "03",
+              "Let evidence travel.",
+              "Attach the source, test result, and limitations to the work so another engineer can assess it.",
+            ],
+          ].map(([n, t, p]) => (
+            <article key={n}>
+              <span>{n}</span>
+              <h3>{t}</h3>
+              <p>{p}</p>
+            </article>
+          ))}
         </div>
       </section>
-      <section className="business-section about-disciplines">
-        <div className="business-shell">
-          <div className="business-section-heading"><div><p className="business-index">WORKING DISCIPLINES</p><h2>Depth across<br /><em>the system boundary.</em></h2></div><p>Architecture matters most where data, models, tools, people, and durable state meet.</p></div>
-          <div className="consulting-grid">{disciplines.map(([title, body], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div>
-        </div>
-      </section>
-      <section className="business-section about-studio">
-        <div className="business-shell business-boundary-grid">
-          <div><p className="business-index">RECURSIVEINTELL</p><h2>A public engineering<br /><em>workbench.</em></h2></div>
-          <div><p>RecursiveIntell is a founder-led applied R&amp;D studio and public engineering portfolio for local-first AI, agent memory, evidence infrastructure, orchestration, compression, and operator tooling.</p><p>It is not presented as a funded company, team, certified platform, enterprise deployment, or proof of customers and revenue. Public source establishes implementation scope and provides a surface for technical evaluation.</p><Link href="/work">Review selected work <span>→</span></Link></div>
-        </div>
-      </section>
-      <section className="business-section about-recognition">
-        <div className="business-shell business-recognition">
-          <div><small>{credibilitySignal.date} · PUBLIC RECOGNITION</small><h3>{credibilitySignal.title}</h3></div>
-          <div><p>{credibilitySignal.body}</p><p className="business-boundary-note">{credibilitySignal.boundary}</p><a href={credibilitySignal.href} target="_blank" rel="noreferrer">View the original post <span>↗</span></a></div>
-        </div>
-      </section>
-      <BusinessFooter />
+      <StudioCTA />
+      <StudioFooter />
     </main>
   );
 }

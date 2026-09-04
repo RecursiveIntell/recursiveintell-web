@@ -12,4 +12,4 @@ assert.ok(manifest["/page"]);
 assert.ok(manifest["/mnemes/page"]);
 assert.ok(manifest["/services/page"]);
 
-console.log("Validated canonical Next artifact: business root, Mnemes, and services routes are present.");
+console.log("Validated canonical Next artifact: studio root, Mnemes, and services routes are present.");

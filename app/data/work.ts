@@ -12,14 +12,14 @@ export const workCases = [
   },
   {
     number: "02",
-    title: "Hermes integration path",
-    maturity: "Public integration path",
-    problem: "A capable Python agent stack can become resource-heavy when persistent memory, services, and multiple agents run together.",
-    built: "A RecursiveIntell-enhanced Hermes path integrating Rust services, memory tooling, MCP installation, and multi-agent orchestration.",
-    evidence: "Public installer source and a public demonstration that Hermes creator Teknium highlighted on August 5, 2026.",
-    boundary: "The interaction is not a partnership or testimonial, and the public demonstration is not an independently reproduced benchmark.",
-    source: "https://x.com/Teknium/status/2084892532392276364",
-    sourceLabel: "View the public interaction",
+    title: "Hermes integration path: Ares approvals",
+    maturity: "Merged downstream change",
+    problem: "After an agent consumes permission to act, dispatch and receipt failures must remain distinguishable from a successful tool call.",
+    built: "Paired outcome recording through the exact adapter that consumed the permit, with explicit error and ambiguous states.",
+    evidence: "Ares PR #28, a pinned merge revision, and regression tests for successful dispatch, tool errors, dispatch exceptions, receipt failure, and denial.",
+    boundary: "Ares is an independent Hermes downstream. This change was merged in Ares; it is not an upstream Hermes merge or a production deployment claim.",
+    source: "/work/ares-approval-case",
+    sourceLabel: "Read the approval case study",
   },
   {
     number: "03",
@@ -55,3 +55,8 @@ export const workCases = [
     sourceLabel: "Inspect proveKV",
   },
 ] as const;
+
+// One hiring-oriented order shared by the identity and selected-work pages.
+export const careerWorkCases = ["02", "01", "03", "04", "05"].flatMap(
+  (number) => workCases.filter((item) => item.number === number),
+);
