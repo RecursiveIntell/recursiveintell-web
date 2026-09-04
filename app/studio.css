@@ -357,6 +357,8 @@ main {
 }
 .studio-section {
   padding-block: 95px;
+  background: var(--studio-paper);
+  color: var(--studio-ink);
 }
 .studio-section-heading {
   display: grid;

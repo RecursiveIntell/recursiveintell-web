@@ -560,7 +560,7 @@ ul, ol { margin: 0; padding: 0; }
 .content-section { background: #050910; }
 .content-section:nth-of-type(even) { background-color: #060b13; }
 
-.product-contract, .api-section, .receipt-section, .public-proof, .engine-section, .host-section, .install-journey, .origin-section, .studio-section { background: #07101a; }
+.product-contract, .api-section, .receipt-section, .public-proof, .engine-section, .host-section, .install-journey, .origin-section { background: #07101a; }
 .database-map { display: grid; grid-template-columns: 1fr 130px 1fr; align-items: center; }
 .database-map article { min-height: 470px; padding: 30px; border: 1px solid var(--line-strong); background: rgba(4,9,16,.7); }
 .database-map article header { display: flex; align-items: center; justify-content: space-between; }
