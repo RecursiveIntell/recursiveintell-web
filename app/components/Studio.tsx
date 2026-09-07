@@ -99,13 +99,14 @@ export function SystemGraphic({ compact = false }: { compact?: boolean }) {
 
 export function SelectedProjects({ all = false }: { all?: boolean }) {
   const cases = all ? careerWorkCases : careerWorkCases.slice(0, 3);
+  const totalLabel = String(cases.length).padStart(2, "0");
   return (
     <div className="studio-project-list">
       {cases.map((item, index) => (
         <article className="studio-project" key={item.number}>
           <div className="studio-project-number">
-            0{index + 1}
-            <span>/{all ? "05" : "03"}</span>
+            {String(index + 1).padStart(2, "0")}
+            <span>/{totalLabel}</span>
           </div>
           <div>
             <span className="studio-project-status">{item.maturity}</span>
