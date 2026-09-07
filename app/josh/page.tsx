@@ -7,7 +7,7 @@ import { contact } from "../config/site";
 export const metadata: Metadata = pageMetadata("/josh", {
   title: { absolute: "Josh Stevenson | RecursiveIntell" },
   description:
-    "Independent AI systems engineer working across Python, TypeScript, Rust, agent runtimes and local memory. Albertville, Alabama. Remote U.S.",
+    "Independent AI systems engineer working across Rust, Python, TypeScript, agent runtimes, local memory, and recovery-oriented infrastructure. Albertville, Alabama. Remote U.S.",
   alternates: { canonical: "/josh" },
   openGraph: {
     title: "Josh Stevenson | RecursiveIntell",
@@ -29,13 +29,15 @@ export default function Josh() {
             <em>Stevenson.</em>
           </h1>
           <p className="studio-lede">
-            I build agent runtimes, persistent memory, and the infrastructure
-            that connects them.
+            I build evidence-oriented agent runtimes, persistent memory, and the
+            infrastructure that connects execution to inspectable outcomes.
           </p>
           <p>
-            My work spans Python, TypeScript, and Rust. I’m interested in
-            engineering roles where I can work on agent reliability, developer
-            tools, and systems another engineer can inspect and maintain.
+            My current work spans Rust, Python, and TypeScript across Ares,
+            Recursive Agent, semantic-memory, proveKV, and recovery-oriented
+            workstation tooling. I’m interested in engineering roles where
+            agent reliability, developer infrastructure, local-first systems,
+            and explicit failure semantics matter.
           </p>
           <div className="studio-actions">
             <a className="studio-button primary" href={contact.careerHref}>
@@ -81,13 +83,14 @@ export default function Josh() {
             <h2>
               Start with
               <br />
-              <em>one change.</em>
+              <em>the runtime.</em>
             </h2>
           </div>
           <p>
-            The Ares approval case is a focused Python runtime example. The
-            memory and graph work show the wider systems questions I’m working
-            through.
+            The current Ares + Recursive Agent case is the best place to inspect
+            how I separate context materialization, policy, physical admission,
+            provider egress, receipts, and rollback without moving those owners
+            into one monolith.
           </p>
         </div>
         <SelectedProjects all />
