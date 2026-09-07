@@ -29,8 +29,8 @@ export default function Josh() {
             <em>Stevenson.</em>
           </h1>
           <p className="studio-lede">
-            I build evidence-oriented agent runtimes, persistent memory, and the
-            infrastructure that connects execution to inspectable outcomes.
+            I build agent runtimes, persistent memory, and the infrastructure
+            that connects execution to inspectable outcomes.
           </p>
           <p>
             My current work spans Rust, Python, and TypeScript across Ares,
@@ -94,6 +94,11 @@ export default function Josh() {
           </p>
         </div>
         <SelectedProjects all />
+        <div className="studio-section-tail">
+          <Link className="studio-text-link" href="/work/ares-approval-case">
+            Historical permit-to-outcome case ↗
+          </Link>
+        </div>
       </section>
       <section className="studio-note studio-shell">
         <span className="studio-eyebrow">A RUST WALKTHROUGH</span>
