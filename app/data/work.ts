@@ -12,14 +12,14 @@ export const workCases = [
   },
   {
     number: "02",
-    title: "Hermes integration path: Ares approvals",
-    maturity: "Merged downstream change",
-    problem: "After an agent consumes permission to act, dispatch and receipt failures must remain distinguishable from a successful tool call.",
-    built: "Paired outcome recording through the exact adapter that consumed the permit, with explicit error and ambiguous states.",
-    evidence: "Ares PR #28, a pinned merge revision, and regression tests for successful dispatch, tool errors, dispatch exceptions, receipt failure, and denial.",
-    boundary: "Ares is an independent Hermes downstream. This change was merged in Ares; it is not an upstream Hermes merge or a production deployment claim.",
-    source: "/work/ares-approval-case",
-    sourceLabel: "Read the approval case study",
+    title: "Ares + Recursive Agent unified runtime",
+    maturity: "Merged downstream runtime / source-validated",
+    problem: "Tool-using agents need context, authority, physical admission, provider egress, outcomes, and rollback to stay bound across the real execution path.",
+    built: "Ares now materializes governed context and staged releases while Recursive Agent owns managed physical admission, cumulative budgets, cancellation fencing, provider-egress binding, and receipt-bearing native execution.",
+    evidence: "Ares PRs #31 and #32 and recursive-agent PR #5 are merged. Reported checks include 126 focused Ares integration passes, 138 Ares runtime/distribution passes plus an isolated managed setup, and passing recursive-agent cargo check, test, fmt, and clippy gates.",
+    boundary: "This is the current RecursiveIntell Hermes integration path and merged source state. It does not establish live-provider behavior, production readiness, or completed post-merge activation across gateway, Desktop, and MCP surfaces.",
+    source: "/work/ares-runtime-case",
+    sourceLabel: "Read the unified runtime case",
   },
   {
     number: "03",
@@ -46,17 +46,28 @@ export const workCases = [
   {
     number: "05",
     title: "proveKV hybrid-state research",
-    maturity: "Experimental",
-    problem: "KV-cache and hybrid-state work needs explicit identity, inspectable formats, and evidence that does not outrun the measured workload.",
-    built: "A public content-addressed hybrid-state and KV-cache research path with source, receipt surfaces, and exact-state boundaries.",
-    evidence: "Public repository source and repository-recorded receipts that can be inspected against a pinned revision.",
-    boundary: "Numeric results were not independently reproduced for this page and are not presented as a general performance advantage.",
+    maturity: "Measured research / quality gate open",
+    problem: "KV-cache and hybrid-state work needs explicit identity, inspectable formats, and evidence that separates storage wins from model-quality costs.",
+    built: "A receipted two-tier content-addressed cache pool stores one shared cold prefix plus per-agent hot shells, with explicit codecs, manifests, and baseline contracts.",
+    evidence: "The current N=8 receipts report 40.50× versus an f32-raw baseline for the f32-radii profile and 76.54× for BlockLogU8-radii; the fp16-equivalent ratios are 20.25× and 38.27×.",
+    boundary: "The current cache-aligned continuation check also degrades from 7.203125 oracle PPL to 24.234375 (+236.44%). N=8 PPL neutrality, framework-cache reduction, decode speedup, and production fitness are explicitly not claimed.",
     source: "https://github.com/RecursiveIntell/proveKV",
-    sourceLabel: "Inspect proveKV",
+    sourceLabel: "Inspect proveKV and its receipts",
+  },
+  {
+    number: "06",
+    title: "Recursive Linux recovery workbench",
+    maturity: "Recovery / installer prototype",
+    problem: "A workstation supporting long-running AI work needs a recoverable operating environment without silently taking storage, credential, or device authority.",
+    built: "A Fedora 44 recovery-oriented workstation installer prototype packages bounded Wi-Fi recovery, targeted PCIe ASPM mitigation, TLP policy, disk reporting, health projection, and Hermes Workbench profiles while leaving destructive storage and identity choices interactive.",
+    evidence: "Public source includes a structurally checked hardware-target ISO candidate, a disposable BIOS/QEMU install-and-boot fixture, project tests, and a sanitized evidence receipt dated September 6, 2026.",
+    boundary: "The repository remains NO-GO for physical USB writing or laptop installation. UEFI installed-system behavior, physical-media validity, full workstation restoration, and hardware safety remain unverified.",
+    source: "https://github.com/RecursiveIntell/Recursive-Linux",
+    sourceLabel: "Inspect Recursive Linux",
   },
 ] as const;
 
 // One hiring-oriented order shared by the identity and selected-work pages.
-export const careerWorkCases = ["02", "01", "03", "04", "05"].flatMap(
+export const careerWorkCases = ["02", "01", "06", "03", "05", "04"].flatMap(
   (number) => workCases.filter((item) => item.number === number),
 );
