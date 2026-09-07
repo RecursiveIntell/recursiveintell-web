@@ -6,7 +6,7 @@ import { StudioIntro, SelectedProjects, StudioCTA } from "../components/Studio";
 export const metadata: Metadata = pageMetadata("/work", {
   title: "Selected Work",
   description:
-    "Agent runtime, local memory, and Rust infrastructure work by Josh Stevenson, with source and evidence attached.",
+    "Agent runtime, local memory, recovery-oriented infrastructure, and Rust systems work by Josh Stevenson, with source and evidence attached.",
   alternates: { canonical: "/work" },
 });
 export default function Work() {
@@ -17,11 +17,11 @@ export default function Work() {
         label="THE ENGINEERING PORTFOLIO"
         title="Follow the idea."
         accent="Inspect the work."
-        body="A selected path through agent runtimes, local memory, evidence infrastructure, and constrained-compute research. Each project explains what was built and where the evidence stops."
+        body="A selected path through the current Hermes integration path, agent runtimes, local memory, evidence infrastructure, recovery-oriented systems, and constrained-compute research. Each project explains what was built and where the evidence stops."
       />
       <section className="studio-shell studio-work-section">
         <div className="studio-work-index">
-          <span>SELECTED PROJECTS / 01–05</span>
+          <span>SELECTED PROJECTS / 01–06</span>
           <Link href="/portfolio">
             Looking for a specific repository? Explore the library ↗
           </Link>
