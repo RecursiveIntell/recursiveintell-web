@@ -17,7 +17,7 @@ export default function Work() {
         label="THE ENGINEERING PORTFOLIO"
         title="Follow the idea."
         accent="Inspect the work."
-        body="A selected path through agent runtimes, local memory, evidence infrastructure, recovery-oriented systems, and constrained-compute research. Each project explains what was built and where the evidence stops."
+        body="A selected path through the current Hermes integration path, agent runtimes, local memory, evidence infrastructure, recovery-oriented systems, and constrained-compute research. Each project explains what was built and where the evidence stops."
       />
       <section className="studio-shell studio-work-section">
         <div className="studio-work-index">
