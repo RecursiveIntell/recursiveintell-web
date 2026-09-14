@@ -67,7 +67,7 @@ export default function PrivacyPage() {
             <p>
               This notice should change whenever the deployed site adds
               analytics, forms, accounts, storage, or another data-processing
-              surface. Last source review: August 8, 2026.
+              surface. Last source review: September 14, 2026.
             </p>
           </article>
         </div>

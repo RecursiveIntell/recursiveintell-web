@@ -197,6 +197,13 @@ export function PortfolioExplorer() {
     metricsFailed,
     crateSnapshot.observed_at,
   );
+  const tabId = `portfolio-tab-${view}`;
+  const panelId = "portfolio-panel";
+  const repositoryUnavailable =
+    view === "repos" && githubStatus.state === "unavailable";
+  const repositoryLoading =
+    view === "repos" && githubStatus.state === "loading";
+  const showEmptyState = filtered.length === 0 && !repositoryLoading && !repositoryUnavailable;
 
   return (
     <section className="portfolio-explorer">
@@ -219,7 +226,7 @@ export function PortfolioExplorer() {
           <article data-state="snapshot">
             <span>LIBRARY ATLAS</span>
             <strong>REVIEWED PUBLIC PROJECTION</strong>
-            <small>Audit observed {sourceTimestamp(libraryCatalog.generated_at)} · private repository metadata excluded.</small>
+            <small>Audit observed {sourceTimestamp(libraryCatalog.generated_at)} · package metadata refreshed {sourceTimestamp(libraryCatalog.projection.refresh_observed_at)} · private repository metadata excluded.</small>
           </article>
         </div>
         <div className="portfolio-totals">
@@ -233,9 +240,9 @@ export function PortfolioExplorer() {
 
       <div className="portfolio-controls">
         <div className="portfolio-view-tabs" role="tablist" aria-label="Portfolio data view">
-          <button className={view === "repos" ? "active" : ""} onClick={() => { setView("repos"); setVisible(24); }} role="tab" aria-selected={view === "repos"}>Repositories <span>{repositories.length || "—"}</span></button>
-          <button className={view === "crates" ? "active" : ""} onClick={() => { setView("crates"); setVisible(24); }} role="tab" aria-selected={view === "crates"}>Crates <span>{crates.length}</span></button>
-          <button className={view === "atlas" ? "active" : ""} onClick={() => { setView("atlas"); setVisible(24); }} role="tab" aria-selected={view === "atlas"}>Library Atlas <span>{packages.length}</span></button>
+          <button id="portfolio-tab-repos" className={view === "repos" ? "active" : ""} onClick={() => { setView("repos"); setVisible(24); }} role="tab" aria-selected={view === "repos"} aria-controls={panelId}>Repositories <span>{repositories.length || "—"}</span></button>
+          <button id="portfolio-tab-crates" className={view === "crates" ? "active" : ""} onClick={() => { setView("crates"); setVisible(24); }} role="tab" aria-selected={view === "crates"} aria-controls={panelId}>Crates <span>{crates.length}</span></button>
+          <button id="portfolio-tab-atlas" className={view === "atlas" ? "active" : ""} onClick={() => { setView("atlas"); setVisible(24); }} role="tab" aria-selected={view === "atlas"} aria-controls={panelId}>Library Atlas <span>{packages.length}</span></button>
         </div>
         <div className="portfolio-filters">
           <label>
@@ -254,7 +261,7 @@ export function PortfolioExplorer() {
       </div>
 
       <div className="portfolio-result-head">
-        <span>{filtered.length} MATCHING RECORDS</span>
+        <span aria-live="polite">{filtered.length} MATCHING RECORDS</span>
         <p>
           {view === "atlas"
             ? "A reviewed, allowlisted public projection of the dated package audit; private repository metadata is excluded."
@@ -262,7 +269,14 @@ export function PortfolioExplorer() {
         </p>
       </div>
 
-      <div className={`portfolio-grid portfolio-${view}`} aria-live="polite">
+      <div
+        id={panelId}
+        className={`portfolio-grid portfolio-${view}`}
+        role="tabpanel"
+        aria-labelledby={tabId}
+        aria-busy={repositoryLoading}
+        tabIndex={0}
+      >
         {view === "repos" && githubStatus.state === "loading" && (
           <div className="portfolio-loading"><i /><span>Collecting public GitHub repositories…</span></div>
         )}
@@ -314,6 +328,13 @@ export function PortfolioExplorer() {
             <footer><span>{item.publication.state_label}</span>{item.publication.registry?.registry_url && <a href={item.publication.registry.registry_url} target="_blank" rel="noreferrer">crates.io ↗</a>}</footer>
           </article>
         ))}
+
+        {showEmptyState && (
+          <div className="portfolio-empty">
+            <strong>No matching records.</strong>
+            <span>Try a broader search or choose another data view.</span>
+          </div>
+        )}
       </div>
 
       {filtered.length > visible && (
@@ -324,7 +345,7 @@ export function PortfolioExplorer() {
 
       <div className="portfolio-source-law">
         <span>SOURCE LAW</span>
-        <p>GitHub stars, forks, issues, and update times describe public repository state. Crate downloads and versions describe registry state. The 97-package Library Atlas is a reviewed public projection of a dated audit; private repository identity, branches, commit hashes, internal paths, source links, and audit gaps are not shipped. None of these numbers prove quality, adoption, production readiness, or customer use.</p>
+        <p>GitHub stars, forks, issues, and update times describe public repository state. Crate downloads and versions describe registry state. The {libraryCatalog.counts.total_catalog_entries}-package Library Atlas is a reviewed public projection of a dated audit; package versions and descriptions were refreshed from the public source, while its taxonomy, maturity, and registry fields remain dated review fields. Private repository identity, branches, commit hashes, internal paths, source links, and audit gaps are not shipped. None of these numbers prove quality, adoption, production readiness, or customer use.</p>
       </div>
     </section>
   );
