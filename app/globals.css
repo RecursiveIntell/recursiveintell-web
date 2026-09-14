@@ -934,6 +934,7 @@ ul, ol { margin: 0; padding: 0; }
 .portfolio-view-tabs button:last-child { border-right: 0; }
 .portfolio-view-tabs button span { float: right; color: #4d5b6c; }
 .portfolio-view-tabs button.active { color: #071016; background: var(--cyan); }.portfolio-view-tabs button.active span { color: rgba(7,16,22,.55); }
+.portfolio-view-tabs button:focus-visible, .portfolio-filters input:focus-visible, .portfolio-filters select:focus-visible, .portfolio-more:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 .portfolio-filters { display: flex; gap: 12px; }
 .portfolio-filters label { display: grid; gap: 8px; color: #5e6a7a; font: 650 7px var(--mono); letter-spacing: .12em; }
 .portfolio-filters input, .portfolio-filters select { height: 42px; color: #b7c0cc; border: 1px solid var(--line-strong); outline: none; background: #040910; font: 500 10px var(--mono); }
@@ -959,6 +960,9 @@ ul, ol { margin: 0; padding: 0; }
 .atlas-card h3 { margin-top: 10px; }.atlas-card > footer > span { max-width: 75%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .portfolio-loading { grid-column: 1 / -1; min-height: 310px; display: grid; place-items: center; align-content: center; gap: 18px; color: #7e8998; font: 600 9px var(--mono); }
 .portfolio-loading i { width: 28px; height: 28px; border: 1px solid var(--line-strong); border-top-color: var(--cyan); border-radius: 50%; animation: orbitRotate 1s linear infinite; }
+.portfolio-empty { grid-column: 1 / -1; min-height: 250px; display: grid; place-items: center; align-content: center; gap: 9px; padding: 30px; color: #7e8998; text-align: center; }
+.portfolio-empty strong { color: var(--paper); font: 650 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.portfolio-empty span { color: #6f7b8b; font-size: 11px; }
 .portfolio-more { width: 100%; padding: 18px; color: var(--gold); border: 1px solid var(--line-strong); background: rgba(232,195,106,.025); cursor: pointer; font: 650 8px var(--mono); letter-spacing: .11em; text-transform: uppercase; }
 .portfolio-more:hover { border-color: var(--gold); background: rgba(232,195,106,.05); }
 .portfolio-more span { margin-left: 12px; }

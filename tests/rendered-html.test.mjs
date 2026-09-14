@@ -7,6 +7,7 @@ import {
   portfolioSourceStatus,
 } from "../app/lib/portfolio-state.ts";
 import { resolveRegistryItem } from "../app/lib/registry-state.ts";
+import { legacyRouteRedirects, securityHeaders } from "../app/config/routes.ts";
 import robots from "../app/robots.ts";
 import sitemap from "../app/sitemap.ts";
 import { projectLibraryAtlas } from "../scripts/project-library-atlas.mjs";
@@ -104,6 +105,9 @@ test("preserves the software-first deployment hierarchy across public routes", a
   assert.match(html["/portfolio"], /The whole laboratory/i);
   assert.match(html["/portfolio"], /PUBLIC ENGINEERING PULSE/i);
   assert.match(html["/portfolio"], /reviewed public projection/i);
+  assert.match(html["/portfolio"], /id="portfolio-tab-repos"/);
+  assert.match(html["/portfolio"], /aria-controls="portfolio-panel"/);
+  assert.match(html["/portfolio"], /role="tabpanel"/);
   assert.match(html["/node"], /founder-reported prototype/i);
   assert.doesNotMatch(html["/node"], /working personal prototype/i);
   assert.doesNotMatch(html["/product"], /Hardware runs today/i);
@@ -242,6 +246,64 @@ test("publishes the card route through the canonical crawl surfaces", () => {
   );
 });
 
+test("backs up legacy aliases and maps them to permanent canonical redirects", async () => {
+  const expected = new Map([
+    ["/architecture", ["/platform", "architecture/page.tsx"]],
+    ["/archive", ["/proof", "archive/page.tsx"]],
+    ["/capabilities", ["/platform", "capabilities/page.tsx"]],
+    ["/ecosystem", ["/platform", "ecosystem/page.tsx"]],
+    ["/network", ["/product", "network/page.tsx"]],
+    ["/origin", ["/doctrine", "origin/page.tsx"]],
+    ["/technology", ["/platform", "technology/page.tsx"]],
+  ]);
+  assert.equal(legacyRouteRedirects.length, expected.size);
+  assert.deepEqual(
+    legacyRouteRedirects.map(({ source, destination, permanent }) => [
+      source,
+      destination,
+      permanent,
+    ]),
+    [...expected].map(([source, [destination]]) => [source, destination, true]),
+  );
+  const nextConfigSource = await readFile(
+    new URL("../next.config.ts", import.meta.url),
+    "utf8",
+  );
+  assert.match(nextConfigSource, /async redirects\(\)/);
+  assert.match(nextConfigSource, /legacyRouteRedirects/);
+
+  const sitemapUrls = sitemap().map((entry) => entry.url);
+  for (const [source, [destination, backup]] of expected) {
+    assert.ok(
+      !sitemapUrls.includes(`https://recursiveintell.com${source}`),
+      `${source} must not remain in the sitemap`,
+    );
+    assert.ok(
+      sitemapUrls.includes(`https://recursiveintell.com${destination}`),
+      `${destination} must remain canonical`,
+    );
+    await access(new URL(`../docs/legacy-route-aliases/${backup}`, import.meta.url));
+  }
+});
+
+test("sets bounded response hardening headers for every route", async () => {
+  const nextConfigSource = await readFile(
+    new URL("../next.config.ts", import.meta.url),
+    "utf8",
+  );
+  assert.match(nextConfigSource, /async headers\(\)/);
+  assert.match(nextConfigSource, /securityHeaders/);
+  assert.deepEqual(securityHeaders, [
+    { key: "X-Content-Type-Options", value: "nosniff" },
+    { key: "X-Frame-Options", value: "DENY" },
+    { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+    {
+      key: "Permissions-Policy",
+      value: "camera=(), microphone=(), geolocation=()",
+    },
+  ]);
+});
+
 test("portfolio API rejects unsupported query widening", async () => {
   const portfolioGet = await getBuiltPortfolioApi();
   const response = await portfolioGet(
@@ -265,6 +327,12 @@ test("public Library Atlas is an allowlisted projection without private audit me
   assert.equal(atlas.schema_version, "recursiveintell-public-library-atlas/v1");
   assert.equal(atlas.projection.policy, "strict-field-allowlist");
   assert.equal(atlas.projection.generator, "scripts/project-library-atlas.mjs");
+  assert.equal(
+    atlas.projection.refresh_generator,
+    "scripts/refresh-library-atlas.mjs",
+  );
+  assert.equal(atlas.projection.refresh_observed_at, "2026-09-10T20:29:02-05:00");
+  assert.match(atlas.projection.refresh_note, /97-entry scope/);
   assert.equal(atlas.counts.total_catalog_entries, 97);
   assert.equal(atlas.catalog.length, 97);
   assert.equal(
@@ -301,6 +369,11 @@ test("public Library Atlas is an allowlisted projection without private audit me
   ]) {
     assert.doesNotMatch(atlasText, new RegExp(forbiddenKey, "i"));
   }
+  const semanticMemory = atlas.catalog.find(
+    (item) => item.package_name === "semantic-memory",
+  );
+  assert.equal(semanticMemory.version, "0.5.15");
+  assert.match(semanticMemory.description, /bitemporal truth/i);
 
   const retiredPublicAsset = new URL(
     "../public/data/library-catalog.json",
