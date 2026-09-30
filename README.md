@@ -2,7 +2,7 @@
 
 Public website for Josh Stevenson and RecursiveIntell. The site has two explicit product surfaces:
 
-- a cream, ink, purple, and pink RecursiveIntell business shell for custom AI systems and consulting;
+- a RecursiveIntell studio/portfolio shell for independent AI systems engineering and consulting;
 - the preserved dark Mnemes product shell for the local-first agent-memory system and its technical proof.
 
 ## Canonical routes
@@ -14,6 +14,7 @@ Public website for Josh Stevenson and RecursiveIntell. The site has two explicit
 - `/services` — bounded service offers and technical consulting
 - `/work` — artifact-grounded engineering cases
 - `/about` — Josh Stevenson and RecursiveIntell
+- `/contact` — hiring, consulting and collaboration contact options
 - `/privacy` — current website data boundary
 - `/pro` — transparent proposed-product status
 - `/portfolio` — public repository and crate projection
@@ -31,7 +32,9 @@ The Mnemes homepage has one canonical owner at `app/components/mnemes/MnemesHome
 - `app/data/business.ts` — service categories, process, deterministic workflow fixtures, public recognition wording
 - `app/data/services.ts` — consulting and implementation offers
 - `app/data/work.ts` — curated public case studies and their evidence boundaries
-- `app/components/business/*` — RecursiveIntell shell and workflow selector
+- `app/components/StudioChrome.tsx` and `app/components/Studio.tsx` — current studio shell, shared sections and selected-project rendering
+- `app/components/business/*` — retained business components; follow the active page imports before treating these as the current shell
+- `app/lib/page-metadata.ts` — shared route metadata
 - `app/components/mnemes/MnemesHome.tsx` — Mnemes homepage
 - `app/data/published-crates.json` — dated public crate snapshot
 - `app/data/library-catalog-public.json` — allowlisted public Library Atlas projection
