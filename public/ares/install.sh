@@ -32,6 +32,17 @@ if manifest.exists():
             shutil.copy2(backup/name, home/name)
         else:
             (home/name).unlink(missing_ok=True)
+    if 'plugin' in record:
+        plugin = home/'plugins'/'semantic-memory-mcp'
+        if plugin.is_symlink() or plugin.is_file():
+            plugin.unlink()
+        elif plugin.exists():
+            shutil.rmtree(plugin)
+        saved = backup/'semantic-memory-mcp'
+        if saved.is_symlink():
+            plugin.symlink_to(saved.readlink(), target_is_directory=True)
+        elif saved.exists():
+            shutil.copytree(saved, plugin, symlinks=True)
     print('[Ares] Restored configuration after the failed activation.')
 PY
 }
@@ -64,6 +75,7 @@ local provider/API-key/OAuth wizard; isolated Ares gateway on Linux/systemd.
   --no-desktop      CLI installation without Desktop/voice downloads
   --no-gateway      Do not install or start a background gateway
   --minimal         Skip RecursiveIntell enhancement builds and memory kit
+                    Requires a fresh/minimal home; cannot downgrade a full home
   --skip-setup      Leave provider sign-in for later (unattended install)
   --no-path         Do not update shell startup files
   --plan            Print the install plan without changing anything
@@ -196,7 +208,7 @@ fi
 uv python install 3.13
 PYTHON="$(uv python find 3.13)"
 export UV_PYTHON="$PYTHON"
-ARES_HOME="$("$PYTHON" -c 'import os,sys; print(os.path.abspath(os.path.expanduser(sys.argv[1])))' "$ARES_HOME")"
+ARES_HOME="$("$PYTHON" -c 'import os,sys; print(os.path.realpath(os.path.expanduser(sys.argv[1])))' "$ARES_HOME")"
 ARES_BIN_DIR="$("$PYTHON" -c 'import os,sys; print(os.path.abspath(os.path.expanduser(sys.argv[1])))' "$ARES_BIN_DIR")"
 export ARES_HOME ARES_BIN_DIR HERMES_HOME="$ARES_HOME"
 mkdir -p "$ARES_HOME" "$ARES_BIN_DIR"
@@ -215,8 +227,12 @@ checkout() {
     [[ "$origin" == "https://github.com/RecursiveIntell/$repo.git" ]] || die "Unexpected repository origin at $directory"
     [[ -z "$(git -C "$directory" status --porcelain)" ]] || die "Refusing to overwrite local changes at $directory"
     git -C "$directory" fetch origin "$branch"
-    git -C "$directory" checkout "$branch"
-    git -C "$directory" merge --ff-only FETCH_HEAD
+    if git -C "$directory" show-ref --verify --quiet "refs/heads/$branch"; then
+      git -C "$directory" checkout "$branch"
+      git -C "$directory" merge --ff-only FETCH_HEAD
+    else
+      git -C "$directory" checkout -b "$branch" FETCH_HEAD
+    fi
   else
     git clone --depth 1 --branch "$branch" "https://github.com/RecursiveIntell/$repo.git" "$directory"
   fi
@@ -225,8 +241,19 @@ checkout() {
 STEP=source
 ARES_SOURCE="$SOURCE_ROOT/Ares"
 checkout Ares "$ARES_SOURCE" "$BRANCH"
-if [[ -e "$ARES_BIN_DIR/ares" ]] && ! head -c 1024 "$ARES_BIN_DIR/ares" | grep -q 'ares_runtime.local_runtime'; then
-  die "Refusing to replace an unrelated launcher: $ARES_BIN_DIR/ares"
+if [[ -e "$ARES_BIN_DIR/ares" || -L "$ARES_BIN_DIR/ares" ]]; then
+  "$PYTHON" - <<'PY'
+import os, re, shlex
+from pathlib import Path
+launcher = Path(os.environ['ARES_BIN_DIR'])/'ares'
+text = launcher.read_text()
+match = re.search(r'^if \[\[ -z "\$\{ARES_HOME:-\}" \]\]; then export ARES_HOME=(.+); fi$', text, re.MULTILINE)
+owner = shlex.split(match[1]) if match else []
+if 'ares_runtime.local_runtime' not in text or len(owner) != 1:
+    raise SystemExit(f'Refusing to replace an unrelated or unrecognized launcher: {launcher}')
+if Path(owner[0]).resolve() != Path(os.environ['ARES_HOME']).resolve():
+    raise SystemExit(f'Launcher {launcher} belongs to another Ares home; preserved. Choose a separate --bin-dir for this --home.')
+PY
 fi
 STEP=python
 (cd "$ARES_SOURCE" && uv sync --locked --extra all --no-dev --python 3.13)
@@ -269,8 +296,21 @@ export ARES_INSTALL_WHEELS="$WHEELS" ARES_INSTALL_GATEWAY="$GATEWAY"
 export ARES_INSTALL_SETUP="$SETUP"
 export ARES_INSTALL_MODIFY_PATH="$MODIFY_PATH"
 export ARES_INSTALL_RECIPE_VERSION=3
-# A distinct unit prevents the inherited migration path from stopping Hermes.
-export ARES_GATEWAY_UNIT_PATH="$HOME/.config/systemd/user/ares-full-gateway.service"
+# Derive identity from the physical data home, not a shared per-user name.
+# Retain the old unit only for its proven owner, avoiding a duplicate gateway
+# on upgrades. Other homes always receive their own distinct unit.
+export ARES_GATEWAY_UNIT_PATH="$("$BOOTSTRAP_PYTHON" - <<'PY'
+import hashlib, os
+from pathlib import Path
+home = Path(os.environ['ARES_HOME']).resolve()
+units = Path.home()/'.config'/'systemd'/'user'
+legacy = units/'ares-full-gateway.service'
+owners = [line.removeprefix('Environment=HERMES_HOME=') for line in legacy.read_text().splitlines() if line.startswith('Environment=HERMES_HOME=')] if legacy.is_file() else []
+owned = len(owners) == 1 and Path(owners[0]).resolve() == home
+name = 'ares-full-gateway.service' if owned else f'ares-full-gateway-{hashlib.sha256(os.fsencode(home)).hexdigest()}.service'
+print(units/name)
+PY
+)"
 
 STEP=managed-runtime
 "$BOOTSTRAP_PYTHON" - <<'PY'
@@ -294,6 +334,13 @@ validate_server_result('tools/list', '2025-11-25', {'tools':[{'name':'schema_pro
 '''
 
 runtime = AresLocalRuntime()
+# A minimal release lacks the tools referenced by a full home's configuration.
+# Reject before materialization, configuration writes or activation; do not
+# guess which user-edited entries can safely be removed.
+if not extra:
+    active_record = home/'runtime'/'current'/'.venv'/'share'/'ares-full-install.json'
+    if active_record.exists() and json.loads(active_record.read_text()).get('inputs', {}).get('enhancements'):
+        raise SystemExit('Cannot switch a full Ares home to --minimal. Rerun with full defaults, or use --home and --bin-dir with new directories for a minimal installation.')
 source = Path(os.environ['ARES_INSTALL_SOURCE'])
 revision = runtime._git_output(source, 'rev-parse', 'HEAD')
 inputs = {'recipe_version':os.environ['ARES_INSTALL_RECIPE_VERSION'], 'ares_revision':revision, 'desktop':desktop, 'enhancements':extra, 'sdk_dependencies':sdk}
@@ -360,6 +407,24 @@ from hermes_cli.config import load_config, save_config, save_env_value
 home = Path(os.environ['ARES_HOME'])
 source = Path(os.environ['ARES_INSTALL_SOURCE'])
 if os.environ['ARES_INSTALL_EXTRAS'] == 'true':
+    plugin = home/'plugins'/'semantic-memory-mcp'
+    kits = home/'runtime'/'current'/'.venv'/'share'/'agent-memory-kits'
+    plugin_target = kits/'hermes'
+    def snapshot(root):
+        # Imported Python bytecode is generated, not a plugin customization.
+        result = {}
+        for path in sorted(root.rglob('*')):
+            relative = path.relative_to(root)
+            if '__pycache__' in relative.parts or path.suffix == '.pyc':
+                continue
+            result[str(relative)] = ('link', str(path.readlink())) if path.is_symlink() else ('dir',) if path.is_dir() else ('file', path.read_bytes())
+        return result
+    if plugin.is_symlink():
+        if plugin.readlink() != plugin_target:
+            raise SystemExit('Existing semantic-memory-mcp plugin link is customized; preserved. Reconcile it before rerunning.')
+    elif plugin.exists():
+        if not plugin.is_dir() or not plugin_target.is_dir() or snapshot(plugin) != snapshot(plugin_target):
+            raise SystemExit('Existing semantic-memory-mcp plugin is customized or untracked; preserved. Reconcile it before rerunning.')
     backup = Path(os.environ['ARES_INSTALL_BACKUP'])
     backup.mkdir(parents=True, exist_ok=True, mode=0o700)
     existing = []
@@ -369,12 +434,15 @@ if os.environ['ARES_INSTALL_EXTRAS'] == 'true':
             shutil.copy2(path, backup/name)
             (backup/name).chmod(0o600)
             existing.append(name)
-    (backup/'files.json').write_text(json.dumps({'home':str(home), 'existing':existing}))
+    if plugin.is_symlink():
+        (backup/'semantic-memory-mcp').symlink_to(plugin.readlink(), target_is_directory=True)
+    elif plugin.exists():
+        shutil.copytree(plugin, backup/'semantic-memory-mcp', symlinks=True)
+    (backup/'files.json').write_text(json.dumps({'home':str(home), 'existing':existing, 'plugin':True}))
     config = load_config()
     config.setdefault('context', {})['engine'] = 'ri-context-governor'
     bins = home/'runtime'/'current'/'.venv'/'bin'
     kits_source = home/'installer-sources'/'agent-memory-kits'
-    kits = home/'runtime'/'current'/'.venv'/'share'/'agent-memory-kits'
     servers = {
         'semantic_memory': {'command': str(bins/'semantic-memory-mcp'), 'args': ['--memory-dir', str(home/'memory'), '--tool-profile', 'agent']},
         'claim_ledger': {'command': str(bins/'claim-ledger-mcp'), 'args': ['--ledger-dir', str(home/'claim-ledger')]},
@@ -397,9 +465,12 @@ if os.environ['ARES_INSTALL_EXTRAS'] == 'true':
             dest = home/'skills'/prefix/skill.parent.relative_to(root)
             if not dest.exists():
                 shutil.copytree(skill.parent, dest)
-    plugin = home/'plugins'/'semantic-memory-mcp'
-    if not plugin.exists():
-        shutil.copytree(kits_source/'hermes', plugin)
+    if not plugin.is_symlink():
+        plugin.parent.mkdir(parents=True, exist_ok=True)
+        if plugin.exists():
+            shutil.rmtree(plugin)
+        # current remains the runtime owner's activation/rollback pointer.
+        plugin.symlink_to(plugin_target, target_is_directory=True)
     # Kit management helpers execute `hermes`. Scope their PATH to the
     # selected Ares runtime instead of selecting an ambient Hermes install.
     stack_plugin = home/'plugins'/'ares-full-stack'
