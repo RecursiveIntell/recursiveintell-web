@@ -32,7 +32,9 @@ export default function PrivacyPage() {
               contact database, custom tracking database, or analytics event
               collector. Standard hosting infrastructure may still process
               request metadata such as IP address, user agent, requested URL,
-              timing, and error information.
+              timing, and error information. The registry widgets also request
+              public data from GitHub and crates.io directly from your browser;
+              those services receive normal connection metadata.
             </p>
           </article>
           <article>
@@ -67,7 +69,7 @@ export default function PrivacyPage() {
             <p>
               This notice should change whenever the deployed site adds
               analytics, forms, accounts, storage, or another data-processing
-              surface. Last source review: September 14, 2026.
+              surface. Last source review: October 2, 2026.
             </p>
           </article>
         </div>

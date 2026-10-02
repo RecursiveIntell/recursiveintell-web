@@ -1,21 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState, type KeyboardEvent } from "react";
 
 const paths = [
   {
-    id: "hermes",
-    label: "Hermes Agent",
-    eyebrow: "FULL AGENT STACK",
-    title: "One command. Complete AI agent.",
-    body: "Install Hermes Agent with Rust acceleration, 70+ skills, agent hooks, and 5 MCP servers — all pre-configured. Starts with a single curl command.",
+    id: "ares",
+    label: "Ares · full install",
+    eyebrow: "YOUR AGENT · YOUR PROVIDER",
+    title: "One command. Then make it yours.",
+    body: "Install the latest Ares from RecursiveIntell, provision its dependencies, and build Desktop, voice, Rust bindings, Context Governor, local memory, ClaimLedger, Agent Graph, CEA, Pilot Bridge, and the current memory kit. Enhancements are included by default.",
     commands: [
-      "curl -fsSL https://recursiveintell.com/hermes/install.sh | bash -s -- --with-josh-setup",
-      "echo 'OPENAI_API_KEY=sk-...' >> ~/.hermes/agent-graph.env",
-      "systemctl --user start semantic-memory agent-graph-mcpd",
-      "hermes setup && hermes",
+      "curl -fsSL https://recursiveintell.com/ares/install.sh | bash",
+      "ares",
+      "ares desktop",
+      "ares status",
     ],
-    note: "Full Josh's setup: llm-pipeline, context-governor, poly-kv, semantic-memory, agent-graph, claim-ledger, cea-graph, pilot-bridge, 70+ skills, 12 hooks. Use --help to see all flags. Skips Rust wheels: --skip-rust. Minimal: omit --with-josh-setup.",
+    note: "Choose your provider and model in the local wizard, then enter an API key or use supported OAuth. OpenAI is optional. Builds may request sudo and take several minutes. See the setup notes below for platform options and Agent Graph’s separate daemon setup.",
   },
   {
     id: "server",
@@ -73,18 +73,40 @@ const paths = [
 ];
 
 export function InstallCockpit({ compact = false }: { compact?: boolean }) {
+  const id = useId();
   const [selected, setSelected] = useState(0);
   const [copied, setCopied] = useState<number | null>(null);
+  const [copyError, setCopyError] = useState("");
   const item = paths[selected];
 
   async function copy(command: string, index: number) {
     try {
       await navigator.clipboard.writeText(command);
+      setCopyError("");
       setCopied(index);
       window.setTimeout(() => setCopied(null), 1500);
     } catch {
       setCopied(null);
+      setCopyError("Copy was unavailable. Select the command text and copy it manually.");
     }
+  }
+
+  function select(index: number) {
+    setSelected(index);
+    setCopied(null);
+    setCopyError("");
+  }
+
+  function navigate(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    let next = index;
+    if (event.key === "ArrowRight") next = (index + 1) % paths.length;
+    else if (event.key === "ArrowLeft") next = (index + paths.length - 1) % paths.length;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = paths.length - 1;
+    else return;
+    event.preventDefault();
+    select(next);
+    event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>("[role=tab]")[next]?.focus();
   }
 
   return (
@@ -93,17 +115,22 @@ export function InstallCockpit({ compact = false }: { compact?: boolean }) {
         {paths.map((path, index) => (
           <button
             role="tab"
+            id={`${id}-${path.id}`}
+            type="button"
             aria-selected={selected === index}
+            aria-controls={`${id}-panel`}
+            tabIndex={selected === index ? 0 : -1}
             className={selected === index ? "active" : ""}
             key={path.id}
-            onClick={() => setSelected(index)}
+            onClick={() => select(index)}
+            onKeyDown={(event) => navigate(event, index)}
           >
             <span>0{index + 1}</span>
             {path.label}
           </button>
         ))}
       </div>
-      <div className="install-panel">
+      <div className="install-panel" id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-${item.id}`} tabIndex={0}>
         <div className="install-copy">
           <small>{item.eyebrow}</small>
           <h3>{item.title}</h3>
@@ -114,13 +141,14 @@ export function InstallCockpit({ compact = false }: { compact?: boolean }) {
           <header><i /><i /><i /><span>operator@local · {item.id}</span></header>
           <div>
             {item.commands.map((command, index) => (
-              <button key={command} onClick={() => copy(command, index)} aria-label={`Copy command ${index + 1}`}>
+              <button type="button" key={command} onClick={() => copy(command, index)} aria-label={`Copy command ${index + 1}`}>
                 <span>$</span>
                 <code>{command}</code>
                 <b>{copied === index ? "COPIED" : "COPY"}</b>
               </button>
             ))}
           </div>
+          <p className="install-copy-feedback" role="status" aria-live="polite">{copyError || (copied !== null ? "Command copied." : "")}</p>
         </div>
       </div>
     </section>

@@ -1261,6 +1261,20 @@ main {
   font-size: 12px;
   line-height: 1.8;
 }
+.ares-setup-notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 45px; margin-top: 42px; }
+.ares-install-page .page-intro { min-height: 0; padding-block: 80px; }
+.ares-setup-notes h2 { font-size: 22px; }
+.ares-setup-notes p { color: var(--muted); font-size: 14px; line-height: 1.8; margin-top: 12px; }
+.ares-setup-notes > p { grid-column: 1 / -1; }
+.ares-setup-notes a { color: var(--cyan); text-decoration: underline; text-underline-offset: 4px; }
+.ares-setup-notes code { overflow-wrap: anywhere; font-size: .9em; }
+.install-copy-feedback { min-height: 24px; margin: 12px 20px; font-size: 12px; color: var(--muted); }
+.terminal code { user-select: text; font-size: 12px; }
+.install-note { font-size: 12px; }
+@media (max-width: 640px) {
+  .ares-setup-notes { grid-template-columns: 1fr; }
+  .ares-install-page .install-panel .terminal { order: -1; }
+}
 /* Retained business routes: the same material, with the studio's layout tokens. */
 .business-page {
   --business-cream: var(--studio-paper);

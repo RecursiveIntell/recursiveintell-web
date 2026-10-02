@@ -494,7 +494,7 @@ ul, ol { margin: 0; padding: 0; }
 .receipt-law p { color: #a5abb4; font: 400 18px/1.7 var(--serif); }
 .install-section { background: radial-gradient(circle at 77% 30%, rgba(25,75,90,.18), transparent 38%), #040910; }
 .install-cockpit { border: 1px solid var(--line-strong); background: #050b13; box-shadow: 0 35px 110px rgba(0,0,0,.4); }
-.install-tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
+.install-tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
 .install-tabs button { display: flex; align-items: center; gap: 12px; padding: 18px; color: #758192; border: 0; border-right: 1px solid var(--line); background: transparent; cursor: pointer; text-align: left; font: 600 9px var(--mono); }
 .install-tabs button:last-child { border-right: 0; }
 .install-tabs button span { color: #49576a; }

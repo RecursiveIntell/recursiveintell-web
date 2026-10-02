@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState, type KeyboardEvent } from "react";
 
 type InstrumentState = "memory" | "hermes" | "local" | "power" | "offline";
 
@@ -88,6 +88,7 @@ function isActive(state: InstrumentState, x: number, y: number) {
 }
 
 export function NodeConsole({ compact = false }: { compact?: boolean }) {
+  const id = useId();
   const [selected, setSelected] = useState<InstrumentState>("memory");
   const current = states.find((state) => state.id === selected)!;
   const dots = useMemo(
@@ -99,8 +100,21 @@ export function NodeConsole({ compact = false }: { compact?: boolean }) {
     [],
   );
 
+  function navigate(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    let next = index;
+    if (event.key === "ArrowRight") next = (index + 1) % states.length;
+    else if (event.key === "ArrowLeft") next = (index + states.length - 1) % states.length;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = states.length - 1;
+    else return;
+    event.preventDefault();
+    setSelected(states[next].id);
+    event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>("[role=tab]")[next]?.focus();
+  }
+
   return (
     <section className={`node-console node-state-${selected} ${compact ? "node-console-compact" : ""}`}>
+      <p className="model-caveat">Interactive display concept. Status values are examples, not live device telemetry.</p>
       <div className="node-stage" aria-label="Interactive Mnemes Node R1 concept instrument">
         <div className="node-aura" />
         <div className="node-device">
@@ -125,7 +139,7 @@ export function NodeConsole({ compact = false }: { compact?: boolean }) {
             </div>
             <div className="node-controls">
               <i className={`node-led tone-${current.tone}`} />
-              <button aria-label="Node control button"><span /></button>
+              <button type="button" disabled aria-label="Illustrative node control"><span /></button>
             </div>
           </div>
           <div className="node-vents">{Array.from({ length: 9 }, (_, index) => <i key={index} />)}</div>
@@ -144,15 +158,20 @@ export function NodeConsole({ compact = false }: { compact?: boolean }) {
             <button
               key={state.id}
               role="tab"
+              type="button"
+              id={`${id}-${state.id}`}
               aria-selected={selected === state.id}
+              aria-controls={`${id}-panel`}
+              tabIndex={selected === state.id ? 0 : -1}
               className={selected === state.id ? "active" : ""}
               onClick={() => setSelected(state.id)}
+              onKeyDown={(event) => navigate(event, index)}
             >
               <span>0{index + 1}</span>{state.label}
             </button>
           ))}
         </div>
-        <article>
+        <article id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-${selected}`} tabIndex={0}>
           <small>{current.code}</small>
           <h3>{current.title}</h3>
           <p>{current.note}</p>

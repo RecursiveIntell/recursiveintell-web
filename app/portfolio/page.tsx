@@ -27,7 +27,7 @@ export default function PortfolioPage() {
         body="Search the public repositories, published crates, and reviewed package catalog. Source status distinguishes live results, partial inventories, and dated snapshots. Open any project to inspect the underlying work."
       >
         <div className="intro-badges">
-          <StatusBadge>live public telemetry</StatusBadge>
+          <StatusBadge>public source status</StatusBadge>
           <StatusBadge tone="observed">
             dated reviewed audit projection
           </StatusBadge>
