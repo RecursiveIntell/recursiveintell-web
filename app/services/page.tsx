@@ -27,7 +27,7 @@ export default function Services() {
         </div>
         <div className="studio-offer-grid">
           {serviceOffers.map((offer) => (
-            <article key={offer.number}>
+            <article id={`offer-${offer.number}`} key={offer.number}>
               <span className="studio-eyebrow">
                 {offer.number} / {offer.kind}
               </span>

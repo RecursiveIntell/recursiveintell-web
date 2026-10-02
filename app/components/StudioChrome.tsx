@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { contact, businessNavigation } from "../config/site";
+import { BrandMark } from "./BrandMark";
 
 const systemLinks = [
   ["/mnemes", "Overview"],
@@ -44,9 +45,7 @@ export function StudioHeader() {
             href="/"
             aria-label="RecursiveIntell home"
           >
-            <span className="studio-mark" aria-hidden="true">
-              r<span>i</span>
-            </span>
+            <BrandMark />
             <span>
               Recursive<span>Intell</span>
               <small>INDEPENDENT SYSTEMS ENGINEERING</small>
@@ -124,24 +123,10 @@ export function StudioFooter() {
   return (
     <footer className="studio-footer">
       <div className="studio-shell">
-        <div className="studio-footer-top">
-          <p>
-            Have a hard problem?
-            <br />
-            <strong>Let’s make it concrete.</strong>
-          </p>
-          <Link
-            href="/contact"
-            className="studio-round-link"
-            aria-label="Contact Josh"
-          >
-            ↗
-          </Link>
-        </div>
         <div className="studio-footer-grid">
           <div>
             <Link className="studio-footer-brand" href="/">
-              RecursiveIntell
+              <BrandMark /> RecursiveIntell
             </Link>
             <p>
               Independent AI systems engineering

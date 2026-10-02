@@ -143,6 +143,31 @@ test("studio home connects engineering work, systems, consulting and bounded rec
   );
 });
 
+test("accepted upstream contribution is consistent across the portfolio surfaces", async () => {
+  for (const route of ["/", "/josh", "/about", "/work"]) {
+    const html = await readBuiltPage(route);
+    assert.match(html, /NVIDIA PAIR|NVIDIA PAIR:/);
+    assert.match(
+      html,
+      /https:\/\/github\.com\/NVIDIA\/Personal-AI-Router\/pull\/62/,
+    );
+    assert.match(html, /September 23, 2026/);
+    assert.doesNotMatch(
+      html,
+      /NVIDIA employee|NVIDIA partner|first third-party contributor/i,
+    );
+  }
+  for (const route of ["/", "/josh", "/about"]) {
+    const html = await readBuiltPage(route);
+    assert.match(html, /Highlighted and reposted by Teknium/);
+    assert.match(html, /href="https:\/\/x\.com\/Teknium\/reposts"/);
+    assert.match(
+      html,
+      /not a customer testimonial, partnership, or product endorsement/,
+    );
+  }
+});
+
 test("publishes intentional consulting, work, privacy, pro, and Mnemes routes", async () => {
   const routes = await Promise.all(
     ["/services", "/work", "/about", "/privacy", "/pro", "/mnemes"].map(
@@ -282,7 +307,9 @@ test("backs up legacy aliases and maps them to permanent canonical redirects", a
       sitemapUrls.includes(`https://recursiveintell.com${destination}`),
       `${destination} must remain canonical`,
     );
-    await access(new URL(`../docs/legacy-route-aliases/${backup}`, import.meta.url));
+    await access(
+      new URL(`../docs/legacy-route-aliases/${backup}`, import.meta.url),
+    );
   }
 });
 
@@ -331,7 +358,10 @@ test("public Library Atlas is an allowlisted projection without private audit me
     atlas.projection.refresh_generator,
     "scripts/refresh-library-atlas.mjs",
   );
-  assert.equal(atlas.projection.refresh_observed_at, "2026-09-10T20:29:02-05:00");
+  assert.equal(
+    atlas.projection.refresh_observed_at,
+    "2026-09-10T20:29:02-05:00",
+  );
   assert.match(atlas.projection.refresh_note, /97-entry scope/);
   assert.equal(atlas.counts.total_catalog_entries, 97);
   assert.equal(atlas.catalog.length, 97);

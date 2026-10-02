@@ -4,6 +4,7 @@ import "./globals.css";
 import "./business.css";
 import "./studio.css";
 import { SiteEffects } from "./components/SiteEffects";
+import { site } from "./config/site";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -16,8 +17,7 @@ export const metadata: Metadata = {
     default: "RecursiveIntell | Independent AI Systems Engineering",
     template: "%s · RecursiveIntell",
   },
-  description:
-    "Independent AI systems engineering by Josh Stevenson: agent runtimes, local memory, Rust infrastructure, and focused consulting.",
+  description: site.description,
   keywords: [
     "custom AI systems",
     "workflow automation",
