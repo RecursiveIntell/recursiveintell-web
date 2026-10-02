@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useId, useState, type KeyboardEvent } from "react";
 import { coreLinks } from "../content";
 import { StatusBadge } from "./SiteChrome";
 
@@ -72,8 +72,21 @@ const paths = [
 ];
 
 export function DeploymentPaths({ compact = false }: { compact?: boolean }) {
+  const id = useId();
   const [selected, setSelected] = useState(compact ? 1 : 0);
   const path = paths[selected];
+
+  function navigate(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    let next = index;
+    if (event.key === "ArrowRight") next = (index + 1) % paths.length;
+    else if (event.key === "ArrowLeft") next = (index + paths.length - 1) % paths.length;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = paths.length - 1;
+    else return;
+    event.preventDefault();
+    setSelected(next);
+    event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>("[role=tab]")[next]?.focus();
+  }
 
   return (
     <section className={`deployment-paths ${compact ? "deployment-paths-compact" : ""}`}>
@@ -82,10 +95,14 @@ export function DeploymentPaths({ compact = false }: { compact?: boolean }) {
           <button
             key={item.id}
             role="tab"
+            id={`${id}-${item.id}`}
+            type="button"
             aria-selected={selected === index}
-            aria-controls={`deployment-path-${item.id}`}
+            aria-controls={`${id}-panel`}
+            tabIndex={selected === index ? 0 : -1}
             className={selected === index ? "active" : ""}
             onClick={() => setSelected(index)}
+            onKeyDown={(event) => navigate(event, index)}
           >
             <span>{item.number}</span>
             <small>{item.eyebrow}</small>
@@ -96,8 +113,10 @@ export function DeploymentPaths({ compact = false }: { compact?: boolean }) {
 
       <div
         className="deployment-path-panel"
-        id={`deployment-path-${path.id}`}
+        id={`${id}-panel`}
         role="tabpanel"
+        aria-labelledby={`${id}-${path.id}`}
+        tabIndex={0}
       >
         <div className="deployment-path-copy">
           <StatusBadge tone={path.tone}>{path.badge}</StatusBadge>
