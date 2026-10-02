@@ -66,7 +66,7 @@ export function MemoryProof({ extended = false }: { extended?: boolean }) {
   return (
     <section className={`memory-proof proof-phase-${phase} ${running ? "proof-running" : ""}`}>
       <header className="proof-toolbar">
-        <span><i /> WITNESSED RETRIEVAL / CAPABILITY MODEL</span>
+        <span><i /> RETRIEVAL ILLUSTRATION / EXAMPLE DATA</span>
         <b>{Math.round(64000 * density / 100).toLocaleString()} RECORDS · 18 NAMESPACES · 31,842 EDGES</b>
       </header>
       <div className="proof-layout">
@@ -99,7 +99,7 @@ export function MemoryProof({ extended = false }: { extended?: boolean }) {
             />
           </label>
           <button className="proof-run" onClick={start}>
-            {running ? "RECALL IN MOTION" : "RUN THE RECALL"}
+            {running ? "EXAMPLE IN MOTION" : "PLAY RECALL EXAMPLE"}
             <span>▶</span>
           </button>
           <ol>
@@ -156,7 +156,7 @@ export function MemoryProof({ extended = false }: { extended?: boolean }) {
             </footer>
           </article>
           <p className="model-caveat">
-            Interactive capability model—not a benchmark. Counts illustrate a dense archive and do not report measured performance.
+            Interactive illustration. Answers, receipt IDs, scores, and counts are example data. This page does not query a live memory system or report measured performance.
           </p>
         </div>
       </div>
@@ -171,4 +171,3 @@ export function MemoryProof({ extended = false }: { extended?: boolean }) {
     </section>
   );
 }
-
