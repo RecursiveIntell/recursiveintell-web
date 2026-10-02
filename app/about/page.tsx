@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { StudioHeader, StudioFooter } from "../components/StudioChrome";
 import { StudioIntro, StudioCTA, SystemGraphic } from "../components/Studio";
+import { Achievements } from "../components/Achievements";
 export const metadata: Metadata = pageMetadata("/about", {
   title: "About the Studio",
   description:
@@ -85,6 +86,7 @@ export default function About() {
           ))}
         </div>
       </section>
+      <Achievements />
       <StudioCTA />
       <StudioFooter />
     </main>

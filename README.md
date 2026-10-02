@@ -29,7 +29,10 @@ The Mnemes homepage has one canonical owner at `app/components/mnemes/MnemesHome
 ## Source owners
 
 - `app/config/site.ts` — site identity, public contact, business navigation
-- `app/data/business.ts` — service categories, process, deterministic workflow fixtures, public recognition wording
+- `app/data/business.ts` — service categories, process, deterministic workflow fixtures
+- `app/data/achievements.ts` — source-linked upstream contribution and community recognition, shared across public pages
+- `app/config/brand.json` — canonical Recursive Cube vector geometry and asset colors
+- `app/components/BrandMark.tsx` — inline brand mark; `scripts/sync-brand.mjs` produces its downloadable SVGs and favicon
 - `app/data/services.ts` — consulting and implementation offers
 - `app/data/work.ts` — curated public case studies and their evidence boundaries
 - `app/components/StudioChrome.tsx` and `app/components/Studio.tsx` — current studio shell, shared sections and selected-project rendering
@@ -43,7 +46,15 @@ The Mnemes homepage has one canonical owner at `app/components/mnemes/MnemesHome
 
 Public repositories, packages, tests, and demonstrations show implementation scope. They do not establish customers, revenue, funding, compliance, certification, production readiness, security, universal correctness, or fitness for a particular business.
 
-The Teknium note links the original August 5, 2026 public interaction. The site explicitly describes it as recognition of Josh's engineering work, not a testimonial, endorsement, partnership, or customer result.
+The NVIDIA PAIR contribution links merged upstream PR #62 and its September 23, 2026 merge record. It does not imply NVIDIA employment, sponsorship, or partnership. The Teknium note links the original public highlight, Josh's later Ares update, and the repost feed. Social recognition is an observed interaction, with no invented exact repost date or customer/endorsement claim.
+
+The October 2026 refresh evidence, changed claims, and validation receipt are in [docs/site-refresh-20261001](docs/site-refresh-20261001/VALIDATION_RECEIPT.md). The recursive sculpture is conceptual brand artwork, not a product photograph or architecture diagram.
+
+To regenerate the brand SVGs after changing their canonical geometry:
+
+```bash
+node scripts/sync-brand.mjs
+```
 
 ## Build contract
 

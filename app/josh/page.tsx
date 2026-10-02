@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { StudioHeader, StudioFooter } from "../components/StudioChrome";
 import { SelectedProjects } from "../components/Studio";
+import { Achievements } from "../components/Achievements";
 import { contact } from "../config/site";
 export const metadata: Metadata = pageMetadata("/josh", {
   title: { absolute: "Josh Stevenson | RecursiveIntell" },
   description:
-    "Independent AI systems engineer working across Rust, Python, TypeScript, agent runtimes, local memory, and recovery-oriented infrastructure. Albertville, Alabama. Remote U.S.",
+    "Josh Stevenson, independent AI systems engineer and NVIDIA PAIR open-source contributor. Agent runtimes, persistent memory, and Rust infrastructure. Remote U.S.",
   alternates: { canonical: "/josh" },
   openGraph: {
     title: "Josh Stevenson | RecursiveIntell",
@@ -35,9 +36,9 @@ export default function Josh() {
           <p>
             My current work spans Rust, Python, and TypeScript across Ares,
             Recursive Agent, semantic-memory, proveKV, and recovery-oriented
-            workstation tooling. I’m interested in engineering roles where
-            agent reliability, developer infrastructure, local-first systems,
-            and explicit failure semantics matter.
+            workstation tooling. I’m interested in engineering roles where agent
+            reliability, developer infrastructure, local-first systems, and
+            explicit failure semantics matter.
           </p>
           <div className="studio-actions">
             <a className="studio-button primary" href={contact.careerHref}>
@@ -76,25 +77,28 @@ export default function Josh() {
           <a href={contact.textHref}>Send a text ↗</a>
         </aside>
       </section>
+      <Achievements />
       <section className="studio-section studio-shell" id="proof">
         <div className="studio-section-heading">
           <div>
             <p className="studio-eyebrow">A SHORT INSPECTION PATH</p>
             <h2>
-              Start with
+              Source, decisions,
               <br />
-              <em>the runtime.</em>
+              <em>and outcomes.</em>
             </h2>
           </div>
           <p>
-            The current Ares + Recursive Agent case is the best place to inspect
-            how I separate context materialization, policy, physical admission,
-            provider egress, receipts, and rollback without moving those owners
-            into one monolith.
+            Start with the accepted NVIDIA PAIR fix, then explore Ares, memory,
+            and the supporting systems. Each project makes its evidence and
+            development status visible.
           </p>
         </div>
         <SelectedProjects all />
         <div className="studio-section-tail">
+          <Link className="studio-text-link" href="/work/ares-runtime-case">
+            September runtime integration case ↗
+          </Link>
           <Link className="studio-text-link" href="/work/ares-approval-case">
             Historical permit-to-outcome case ↗
           </Link>

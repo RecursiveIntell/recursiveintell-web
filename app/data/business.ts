@@ -82,13 +82,3 @@ export const workflows: WorkflowExample[] = [
   },
 ];
 
-export const credibilitySignal = {
-  date: "August 5, 2026",
-  title: "Recognized in the Hermes community",
-  body:
-    "Teknium, creator of Hermes Agent, publicly highlighted Josh’s demonstration of a RecursiveIntell-enhanced Hermes setup.",
-  boundary:
-    "This is a public interaction around Josh’s engineering work, not a customer testimonial, partnership, or product endorsement.",
-  href: "https://x.com/Teknium/status/2084892532392276364",
-} as const;
-

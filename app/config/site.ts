@@ -2,7 +2,7 @@ export const site = {
   name: "RecursiveIntell",
   url: "https://recursiveintell.com",
   description:
-    "Independent AI systems engineering by Josh Stevenson: agent runtimes, local memory, Rust infrastructure, and focused technical consulting.",
+    "Independent AI systems engineering by Josh Stevenson, an open-source contributor to NVIDIA PAIR. Agent runtimes, durable memory, Rust infrastructure, and focused technical consulting.",
 } as const;
 
 export const contact = {

@@ -5,10 +5,12 @@ import { StudioHeader, StudioFooter } from "./components/StudioChrome";
 import {
   SelectedProjects,
   StudioCTA,
-  SystemGraphic,
+  ApertureArtwork,
 } from "./components/Studio";
 import { contact, site } from "./config/site";
-import { credibilitySignal } from "./data/business";
+import { Achievements } from "./components/Achievements";
+import { nvidiaContribution } from "./data/achievements";
+import { serviceOffers } from "./data/services";
 
 export const metadata: Metadata = pageMetadata("/", {
   title: { absolute: "RecursiveIntell | Independent AI Systems Engineering" },
@@ -69,74 +71,74 @@ const identity = {
 
 export default function Home() {
   return (
-    <main className="studio-page">
+    <main className="studio-page studio-home">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(identity) }}
       />
       <StudioHeader />
-      <section className="studio-hero studio-shell">
-        <div className="studio-hero-copy">
-          <p className="studio-eyebrow">
-            <span className="studio-dot" /> JOSH STEVENSON / INDEPENDENT
-            ENGINEER
-          </p>
-          <h1>
-            AI systems.
-            <br />
-            Built to be
-            <br />
-            <em>understood.</em>
-          </h1>
-          <p className="studio-lede">
-            Agents that act. Memory that persists. Infrastructure you can
-            inspect. I build the systems underneath useful AI.
-          </p>
-          <div className="studio-actions">
-            <Link className="studio-button primary" href="/work">
-              Explore the work <span>↗</span>
-            </Link>
-            <Link className="studio-text-link" href="/josh">
-              Meet the engineer <span>→</span>
-            </Link>
+      <div className="studio-hero-stage">
+        <section className="studio-hero studio-shell">
+          <div className="studio-hero-copy">
+            <p className="studio-eyebrow">
+              <span className="studio-dot" /> JOSH STEVENSON / AI SYSTEMS
+              ENGINEER
+            </p>
+            <h1>
+              AI systems.
+              <br />
+              Built to be
+              <br />
+              <em>understood.</em>
+            </h1>
+            <p className="studio-lede">
+              I build agent runtimes, durable memory, and local AI
+              infrastructure. Open source. Clear boundaries. Evidence you can
+              inspect.
+            </p>
+            <div className="studio-actions">
+              <Link className="studio-button primary" href="/work">
+                Explore the work <span>↗</span>
+              </Link>
+              <Link className="studio-text-link" href="/contact">
+                Work with me <span>→</span>
+              </Link>
+            </div>
+            <a
+              className="studio-contributor"
+              href={nvidiaContribution.pullRequest}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span aria-hidden="true">↗</span> NVIDIA PAIR contributor{" "}
+              <span className="contributor-detail">
+                Merged upstream · September 2026
+              </span>
+            </a>
           </div>
-        </div>
-        <SystemGraphic />
-        <div className="studio-hero-bottom">
-          <span>RUST / PYTHON / TYPESCRIPT</span>
-          <span>ALBERTVILLE, AL · REMOTE U.S.</span>
-          <a href="#selected-work">SCROLL TO EXPLORE ↓</a>
-        </div>
-      </section>
-      <section className="studio-intent">
-        <div className="studio-shell">
-          <p>
-            I work where{" "}
-            <strong>
-              agent behavior, persistent memory, and real software
-            </strong>{" "}
-            meet.
-          </p>
-          <span>
-            Independent applied R&D.
-            <br />
-            Public source. Explicit scope.
-          </span>
-        </div>
-      </section>
+          <ApertureArtwork />
+          <div className="studio-hero-bottom">
+            <span>RUST / PYTHON / TYPESCRIPT</span>
+            <span>ALBERTVILLE, AL · REMOTE U.S.</span>
+            <a href="#selected-work">SCROLL TO EXPLORE ↓</a>
+          </div>
+        </section>
+      </div>
+      <Achievements />
       <section className="studio-section studio-shell" id="selected-work">
         <div className="studio-section-heading">
           <div>
             <p className="studio-eyebrow">01 / SELECTED ENGINEERING</p>
             <h2>
-              Ideas, carried
+              The systems
               <br />
-              <em>into code.</em>
+              <em>behind the work.</em>
             </h2>
           </div>
           <p>
-            A focused path through the work. Start with a concrete runtime
-            change, then explore the memory and infrastructure behind it.
+            Three connected areas of work: agent execution, persistent memory,
+            and evidence. Every project links to source and names its current
+            scope.
           </p>
         </div>
         <SelectedProjects />
@@ -196,60 +198,32 @@ export default function Home() {
       <section className="studio-section studio-shell">
         <div className="studio-section-heading">
           <div>
-            <p className="studio-eyebrow">03 / HOW I WORK</p>
+            <p className="studio-eyebrow">03 / WORK WITH ME</p>
             <h2>
-              Make the difficult
+              A practical start.
               <br />
-              <em>parts visible.</em>
+              <em>A clear result.</em>
             </h2>
           </div>
           <p>
-            The work is more useful when another engineer can understand the
-            decision, reproduce the result, and see what still needs testing.
+            Bring a repeated workflow, a knowledge problem, or an agent system
+            that needs a more reliable foundation. We’ll define a focused
+            engagement.
           </p>
         </div>
-        <div className="studio-principles">
-          {[
-            [
-              "01",
-              "Start with the failure.",
-              "Trace the actual behavior before adding another layer. Name the owner of state, decisions, and effects.",
-            ],
-            [
-              "02",
-              "Build a focused change.",
-              "Keep the useful boundary small enough to explain, test, review, and hand off.",
-            ],
-            [
-              "03",
-              "Show what happened.",
-              "Link the source and the result. Keep test evidence, deployment evidence, and open questions distinct.",
-            ],
-          ].map(([n, t, p]) => (
-            <article key={n}>
-              <span>{n}</span>
-              <h3>{t}</h3>
-              <p>{p}</p>
-            </article>
+        <div className="studio-services-preview">
+          {serviceOffers.map((offer) => (
+            <Link key={offer.number} href={`/services#offer-${offer.number}`}>
+              <span className="studio-eyebrow">
+                {offer.number} / {offer.kind}
+              </span>
+              <h3>
+                {offer.name}
+                <span aria-hidden="true">↗</span>
+              </h3>
+              <p>{offer.bestFit}</p>
+            </Link>
           ))}
-        </div>
-      </section>
-      <section className="studio-recognition studio-shell">
-        <span className="studio-eyebrow">IN THE OPEN</span>
-        <div>
-          <p>
-            Teknium, creator of Hermes Agent, highlighted my
-            RecursiveIntell-enhanced Hermes demonstration.
-          </p>
-          <a
-            className="studio-text-link"
-            href={credibilitySignal.href}
-            target="_blank"
-            rel="noreferrer"
-          >
-            View the original interaction ↗
-          </a>
-          <small>{credibilitySignal.boundary}</small>
         </div>
       </section>
       <StudioCTA />
