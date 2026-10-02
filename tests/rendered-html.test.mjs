@@ -113,6 +113,16 @@ test("preserves the software-first deployment hierarchy across public routes", a
   assert.doesNotMatch(html["/product"], /Hardware runs today/i);
 });
 
+test("the public install path selects Ares and keeps credentials in the local provider wizard", async () => {
+  const html = await readBuiltPage("/install");
+  assert.match(html, /https:\/\/recursiveintell\.com\/ares\/install\.sh/);
+  assert.match(html, /Ares · full install/);
+  assert.match(html, /OpenAI is optional/);
+  assert.match(html, /supported OAuth/);
+  assert.match(html, /daemon needs a compatible provider configuration before remote graph execution/);
+  assert.doesNotMatch(html, /OPENAI_API_KEY=sk-|recursiveintell\.com\/hermes\/install\.sh/);
+});
+
 test("studio home connects engineering work, systems, consulting and bounded recognition", async () => {
   const html = await readBuiltPage("/");
   assert.match(html, /AI systems\./);
