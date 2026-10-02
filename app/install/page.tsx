@@ -9,25 +9,48 @@ export const metadata: Metadata = pageMetadata("/install", {
   alternates: { canonical: "/install" },
   title: "Install",
   description:
-    "Install Hermes Agent (full AI agent), Mnemes memory server, or an Agent Memory Kit with copyable local-first commands.",
+    "Install the latest Ares with enhancements by default, then choose your AI provider with local API-key or supported OAuth setup. Mnemes and memory kits are also available.",
 });
 
 export default function InstallPage() {
   return (
-    <main>
+    <main className="ares-install-page">
       <Header />
       <PageIntro
         index="04"
         eyebrow="INSTALL COCKPIT"
-        title="Use the hardware"
-        accent="that already fits."
-        body="Start with the full Hermes Agent (one command), install the memory engine at any boundary, or run a dedicated Mnemes server."
+        title="Install Ares."
+        accent="Make it your own."
+        body="One command handles the dependencies and enhancements. Then choose your AI provider, model, and sign-in method in Ares’s local wizard. Your keys never go through this website."
       />
+
+      <section className="content-section shell">
+        <InstallCockpit />
+        <div className="ares-setup-notes">
+          <article>
+            <h2>What happens automatically</h2>
+            <p>The installer fetches the latest Ares source, provisions managed Python and build tools, builds a managed runtime and Desktop, installs the Rust enhancements and memory kit, configures local memory and compaction, and opens the provider wizard. Required build failures stop the installation.</p>
+          </article>
+          <article>
+            <h2>Choose how your AI connects</h2>
+            <p>Use an API-key provider, a supported OAuth sign-in, or your own compatible local endpoint. Ares’s wizard owns credential storage. An OpenAI API key is needed only if you choose a feature that uses OpenAI’s API.</p>
+          </article>
+          <article>
+            <h2>Your existing setup stays yours</h2>
+            <p>Ares uses <code>~/.ares</code>. The installer preserves existing credentials, backs up configuration before changing it, and refuses to overwrite conflicting MCP mappings or unrelated launchers. On Linux with a user systemd session, its gateway starts after provider setup.</p>
+          </article>
+          <article>
+            <h2>Full defaults, with explicit limits</h2>
+            <p>Agent Graph’s daemon needs a compatible provider configuration before remote graph execution. CEA and Pilot Bridge tools are installed; their jobs still need your workspace and data. Rerun this installer to update the full distribution. Use <code>--no-desktop</code>, <code>--no-gateway</code>, <code>--minimal</code>, or <code>--skip-setup</code> when needed.</p>
+          </article>
+          <p><a href="/ares/install.sh">Read the installer</a> · <a href="/ares/README.md">Full setup and update guide</a> · <a href="https://github.com/RecursiveIntell/Ares" target="_blank" rel="noreferrer">Ares source and provider documentation ↗</a></p>
+        </div>
+      </section>
 
       <section className="content-section shell">
         <div className="section-heading" data-reveal>
           <div>
-            <p className="section-mark">01 / CHOOSE THE BOUNDARY</p>
+            <p className="section-mark">01 / MEMORY FOR OTHER AGENTS</p>
             <h2>
               Memory quality stays.
               <br />
@@ -42,12 +65,6 @@ export default function InstallPage() {
         </div>
         <div data-reveal>
           <DeploymentPaths />
-        </div>
-      </section>
-
-      <section className="content-section shell">
-        <div data-reveal>
-          <InstallCockpit />
         </div>
       </section>
 
