@@ -140,6 +140,20 @@ export function PortfolioExplorer() {
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(24);
 
+  function navigateTabs(event: React.KeyboardEvent<HTMLDivElement>) {
+    const tabs = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>("[role=tab]"));
+    const index = tabs.indexOf(document.activeElement as HTMLButtonElement);
+    let next = index;
+    if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
+    else if (event.key === "ArrowLeft") next = (index + tabs.length - 1) % tabs.length;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = tabs.length - 1;
+    else return;
+    event.preventDefault();
+    tabs[next]?.click();
+    tabs[next]?.focus();
+  }
+
   useEffect(() => {
     let active = true;
     fetch("/api/portfolio", { headers: { Accept: "application/json" } })
@@ -239,10 +253,10 @@ export function PortfolioExplorer() {
       </div>
 
       <div className="portfolio-controls">
-        <div className="portfolio-view-tabs" role="tablist" aria-label="Portfolio data view">
-          <button id="portfolio-tab-repos" className={view === "repos" ? "active" : ""} onClick={() => { setView("repos"); setVisible(24); }} role="tab" aria-selected={view === "repos"} aria-controls={panelId}>Repositories <span>{repositories.length || "—"}</span></button>
-          <button id="portfolio-tab-crates" className={view === "crates" ? "active" : ""} onClick={() => { setView("crates"); setVisible(24); }} role="tab" aria-selected={view === "crates"} aria-controls={panelId}>Crates <span>{crates.length}</span></button>
-          <button id="portfolio-tab-atlas" className={view === "atlas" ? "active" : ""} onClick={() => { setView("atlas"); setVisible(24); }} role="tab" aria-selected={view === "atlas"} aria-controls={panelId}>Library Atlas <span>{packages.length}</span></button>
+        <div className="portfolio-view-tabs" role="tablist" aria-label="Portfolio data view" onKeyDown={navigateTabs}>
+          <button id="portfolio-tab-repos" className={view === "repos" ? "active" : ""} onClick={() => { setView("repos"); setVisible(24); }} role="tab" aria-selected={view === "repos"} tabIndex={view === "repos" ? 0 : -1} aria-controls={panelId}>Repositories <span>{repositories.length || "—"}</span></button>
+          <button id="portfolio-tab-crates" className={view === "crates" ? "active" : ""} onClick={() => { setView("crates"); setVisible(24); }} role="tab" aria-selected={view === "crates"} tabIndex={view === "crates" ? 0 : -1} aria-controls={panelId}>Crates <span>{crates.length}</span></button>
+          <button id="portfolio-tab-atlas" className={view === "atlas" ? "active" : ""} onClick={() => { setView("atlas"); setVisible(24); }} role="tab" aria-selected={view === "atlas"} tabIndex={view === "atlas" ? 0 : -1} aria-controls={panelId}>Library Atlas <span>{packages.length}</span></button>
         </div>
         <div className="portfolio-filters">
           <label>
