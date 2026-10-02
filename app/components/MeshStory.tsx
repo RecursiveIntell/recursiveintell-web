@@ -37,7 +37,7 @@ export function MeshStory({ extended = false }: { extended?: boolean }) {
       <div className="mesh-toolbar">
         <div>
           <span className="signal" />
-          <b>PRIVATE MEMORY TOPOLOGY</b>
+          <b>ILLUSTRATIVE MEMORY TOPOLOGY</b>
           <small>{mode === "current" ? "CURRENT CANDIDATE" : "TARGET ARCHITECTURE"}</small>
         </div>
         <div className="segmented" aria-label="Architecture status">
@@ -83,7 +83,7 @@ export function MeshStory({ extended = false }: { extended?: boolean }) {
           <p>“What did we decide about the memory authority—and what evidence survived?”</p>
         </div>
         <button onClick={search}>
-          {running ? "ROUTING AUTHORIZED SHARDS" : "RUN WITNESSED SEARCH"}
+          {running ? "SHOWING EXAMPLE ROUTING" : "PLAY SEARCH EXAMPLE"}
           <span>↗</span>
         </button>
       </div>
@@ -99,6 +99,7 @@ export function MeshStory({ extended = false }: { extended?: boolean }) {
         ))}
       </div>
 
+      <p className="model-caveat">Interactive illustration. Results, scores, and device states are examples; this page does not run a live memory search.</p>
       <div className="truth-strip">
         <b>{mode === "current" ? "SOURCE-ESTABLISHED" : "IN DEVELOPMENT"}</b>
         <p>
@@ -118,4 +119,3 @@ export function MeshStory({ extended = false }: { extended?: boolean }) {
     </section>
   );
 }
-
