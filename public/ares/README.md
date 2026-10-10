@@ -8,6 +8,8 @@ curl -fsSL https://recursiveintell.com/ares/install.sh | bash
 
 The installer fetches the latest `RecursiveIntell/Ares` main branch, provisions the build tools and managed Python/Rust, builds the managed Ares runtime, Desktop, voice dependencies, and RecursiveIntell enhancements. It then opens Ares's local provider/model wizard. Enter the selected provider's API key or use a supported OAuth flow there. Your credentials never pass through this website. An OpenAI API key is optional.
 
+The script is a byte-identical mirror of the canonical installer in the [`RecursiveIntell/Ares`](https://github.com/RecursiveIntell/Ares) repository (`install.sh`); update both together.
+
 Open a new terminal after installation:
 
 ```bash
@@ -30,7 +32,8 @@ Use Linux or macOS. Windows users can use WSL2 with `--no-desktop --no-gateway`.
 | Native enhancements | `llm-pipeline`, `agent-graph`, and `poly-kv` Python bindings, verified before activation |
 | Agent Graph | Proxy and daemon binaries installed; remote execution awaits its provider/daemon setup below |
 | CEA and Pilot Bridge | Installed CLIs; their jobs require your own workspace/database inputs |
-| Memory kit and optional skills | Current kit helpers and skills installed; existing customized skills/plugins are preserved |
+| Memory kit and optional skills | Current kit helpers and skills installed; unmodified installer-owned skills refresh on update while customized copies are preserved |
+| Recursive Agent plugin | Plugin payload installed by default and a checkout auto-provisioned under `~/.ares/recursive-agent-src`; the Recursive Agent daemon remains operator-managed and is never installed or started |
 | Linux gateway | Separate `ares-full-gateway.service` starts after the wizard on a host with a working user systemd session |
 
 The configured Context Governor engine uses the current Rust CLI. Ares documents a separate legacy PyO3 compressor; its current source does not build against the current Governor API, so this installer does not select or ship that legacy lane.
@@ -56,8 +59,10 @@ bash /tmp/ares-install.sh --plan
 | `--no-desktop` | Skip Desktop/voice builds |
 | `--no-gateway` | Skip background gateway installation/start |
 | `--minimal` | Skip the RecursiveIntell native enhancements and memory kit |
-| `--skip-setup` | Defer provider sign-in; also defer gateway startup |
+| `--skip-setup` | Defer provider sign-in; the gateway is still installed and started when a Linux user systemd session is available |
 | `--no-path` | Leave shell startup files unchanged |
+| `--no-recursive-agent` | Skip the Recursive Agent plugin payload |
+| `--with-recursive-agent-source PATH` | Install the plugin payload from an existing `RecursiveIntell/recursive-agent` checkout instead of the auto-provisioned one |
 | `--branch NAME` | Select a specific Ares branch; default `main` |
 
 If sign-in was deferred, run the provider wizard locally:
@@ -100,7 +105,7 @@ The daemon also documents a Codex App Server route using a separately installed/
 
 Rerun the website installer to update the full distribution. `ares update` alone uses Ares's base build recipe and does not reproduce this site's extra native/tool bundle.
 
-The installer refuses unrelated launchers, dirty/unexpected source checkouts, conflicting MCP entries, and retrofit changes to an immutable release. Each release retains its original bundle inputs and wheel hashes. If the same Ares revision exists with different enhancement sources, recipe, or Desktop settings, use a new `--home` and `--bin-dir`, or wait for/install a newer Ares source revision. Adding Desktop to an already active CLI-only revision also requires a new home or revision.
+The installer refuses unrelated launchers, dirty/unexpected source checkouts, genuinely customized MCP entries (shapes written by the superseded installer migrate automatically), and retrofit changes to an immutable release. Each release retains its original bundle inputs and wheel hashes. If the same Ares revision exists with different enhancement sources, recipe, or Desktop settings, use a new `--home` and `--bin-dir`, or wait for/install a newer Ares source revision. Adding Desktop to an already active CLI-only revision also requires a new home or revision.
 
 Configuration and environment backups are private under `~/.ares/installer-backups`. Configuration changes occur after the new release is built and are restored if activation fails. The installer never imports another agent's home or credentials. It stops on required build, import, compaction, MCP, or started-gateway health failures.
 
@@ -113,6 +118,6 @@ ares status
 ares rollback
 ```
 
-Rollback selects the previous Ares release and its bundled native tools. It does not undo credentials you changed, user data, customized skills/plugins, or external services you configured separately.
+Rollback selects the previous Ares release and its bundled native tools. Rolling back across a release boundary that predates a full installation (for example a base release upgraded by this installer) leaves the enhanced configuration without its bundled tooling; the installation record flags this (`rollback_previous_has_bundled_tools`), and rolling forward again or rerunning the installer recovers. Rollback does not undo credentials you changed, user data, customized skills/plugins, or external services you configured separately.
 
 For current provider support and platform boundaries, read [Ares's documentation](https://github.com/RecursiveIntell/Ares).

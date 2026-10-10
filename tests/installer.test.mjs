@@ -158,12 +158,10 @@ with tempfile.TemporaryDirectory() as temp:
             for name, content in original.items(): (home/name).write_bytes(content)
         backup = home/'backup'
         os.environ.update(ARES_HOME=str(home), ARES_INSTALL_SOURCE=temp, ARES_INSTALL_EXTRAS='true', ARES_INSTALL_BACKUP=str(backup))
-        def save_config(config): (home/'config.yaml').write_text('changed-config')
-        def save_env_value(name, value):
-            (home/'.env').write_text('partial-update')
+        def save_config(config):
+            (home/'config.yaml').write_text('changed-config')
             raise RuntimeError('fixture: write failure before activation')
         module.save_config = save_config
-        module.save_env_value = save_env_value
         try: exec(configure, {})
         except RuntimeError: pass
         else: raise AssertionError('Fixture did not reach the failure boundary')
@@ -433,7 +431,6 @@ with tempfile.TemporaryDirectory() as temp:
         env.write_text('original-env')
         module.load_config = lambda: {}
         module.save_config = lambda data: config.write_text(json.dumps(data))
-        module.save_env_value = lambda name, value: env.write_text(name+'='+value)
         backup = home/'backup'
         os.environ.update(ARES_HOME=str(home), ARES_INSTALL_SOURCE=str(root/'source'), ARES_INSTALL_EXTRAS='true', ARES_INSTALL_BACKUP=str(backup))
         if mode in ['customized', 'untracked', 'custom-link']:
@@ -533,5 +530,114 @@ with tempfile.TemporaryDirectory() as temp:
     try: exec(program, {})
     except SystemExit as error: assert 'unrecognized launcher' in str(error), error
     else: raise AssertionError('Unknown Ares launcher ownership was accepted')
+`);
+});
+
+test("superseded installer configuration migrates exactly while custom entries are still rejected", () => {
+  pythonFixture(configProgram, `
+import contextlib, io, json, os, sys, tempfile, types
+from pathlib import Path
+configure = sys.stdin.read()
+for name in ['hermes_cli', 'hermes_cli.config']: sys.modules[name] = types.ModuleType(name)
+module = sys.modules['hermes_cli.config']
+with tempfile.TemporaryDirectory() as temp:
+    home = Path(temp)
+    base = {'mcp_servers': {'operator_server': {'url': 'https://example.invalid/mcp'}}, 'agent': {'disabled_toolsets': ['memory', 'voice']}}
+    legacy = {
+        'semantic_memory': {'command': '/opt/old/bin/semantic-memory-mcp', 'enabled': True, 'args': ['--memory-dir', str(home/'semantic-memory.db')]},
+        'claim_ledger': {'command': '/opt/old/bin/claim-ledger-mcp', 'enabled': True, 'args': ['--ledger-dir', str(home/'claim-ledger')]},
+        'agent_graph': {'command': '/opt/old/bin/agent-graph-mcp', 'enabled': True, 'args': ['--socket', str(home/'agent-graph/run/mcp.sock')]},
+    }
+    saved = {}
+    module.load_config = lambda: json.loads(json.dumps(base))
+    module.save_config = lambda config: saved.update(config)
+    os.environ.update(ARES_HOME=str(home), ARES_INSTALL_SOURCE=str(home/'src'), ARES_INSTALL_EXTRAS='true', ARES_INSTALL_BACKUP=str(home/'backup'))
+    populated = json.loads(json.dumps(base))
+    populated['mcp_servers'].update(legacy)
+    module.load_config = lambda: json.loads(json.dumps(populated))
+    output = io.StringIO()
+    with contextlib.redirect_stdout(output):
+        exec(configure, {})
+        migrated = saved['mcp_servers']
+        assert migrated['semantic_memory'] == {'command': str(home/'runtime/current/.venv/bin/semantic-memory-mcp'), 'args': ['--memory-dir', str(home/'memory'), '--tool-profile', 'agent']}, migrated
+        assert migrated['agent_graph'] == {'command': str(home/'runtime/current/.venv/bin/agent-graph-mcp'), 'args': ['--socket', str(home/'agent-graph/run/mcp.sock')], 'enabled': False}, migrated
+        assert migrated['operator_server'] == {'url': 'https://example.invalid/mcp'}, migrated
+        assert saved['agent']['disabled_toolsets'] == ['memory', 'voice'], saved
+        text = output.getvalue()
+        for name in legacy:
+            assert f'Migrated configuration from the superseded installer: {name}' in text, text
+        for label, broken in [
+            ('extra-key', dict(legacy['semantic_memory'], timeout=5)),
+            ('different-args', dict(legacy['semantic_memory'], args=['--memory-dir', '/other'])),
+            ('disabled', dict(legacy['semantic_memory'], enabled=False)),
+        ]:
+            saved.clear()
+            poisoned = json.loads(json.dumps(base))
+            poisoned['mcp_servers']['semantic_memory'] = broken
+            module.load_config = lambda: json.loads(json.dumps(poisoned))
+            os.environ['ARES_INSTALL_BACKUP'] = str(home/f'backup-{label}')
+            try: exec(configure, {})
+            except SystemExit as error: assert 'differs' in str(error), (label, error)
+            else: raise AssertionError('Customized or non-exact entry was accepted: ' + label)
+            assert saved == {}, label
+`);
+});
+
+test("fresh full configuration retires built-in memory and persists Unicode paths verbatim", () => {
+  pythonFixture(configProgram, `
+import json, os, sys, tempfile, types
+from pathlib import Path
+configure = sys.stdin.read()
+for name in ['hermes_cli', 'hermes_cli.config']: sys.modules[name] = types.ModuleType(name)
+module = sys.modules['hermes_cli.config']
+with tempfile.TemporaryDirectory() as temp:
+    home = Path(temp)/'arès-home-数据'
+    home.mkdir()
+    saved = {}
+    module.load_config = lambda: {}
+    module.save_config = lambda config: saved.update(config)
+    os.environ.update(ARES_HOME=str(home), ARES_INSTALL_SOURCE=str(home/'src'), ARES_INSTALL_EXTRAS='true', ARES_INSTALL_BACKUP=str(home/'backup'))
+    exec(configure, {})
+    assert saved['agent']['disabled_toolsets'] == ['memory'], saved
+    env = (home/'.env').read_text(encoding='utf-8')
+    assert 'CONTEXT_GOVERNOR_BIN=' + str(home/'runtime/current/.venv/bin/context-governor') in env, env
+    assert 'HERMES_RI_AGENT_GRAPH_DB=' + str(home/'agent-graph/agent-graph.db') in env, env
+    assert 'SEMANTIC_MEMORY_KIT_ROOT=' + str(home/'runtime/current/.venv/share/agent-memory-kits') in env, env
+    assert oct((home/'.env').stat().st_mode & 0o777) == '0o600', oct((home/'.env').stat().st_mode & 0o777)
+`);
+});
+
+test("installer-owned skills refresh on updates while operator-modified copies are preserved", () => {
+  pythonFixture(configProgram, `
+import contextlib, hashlib, io, json, os, sys, tempfile, types
+from pathlib import Path
+configure = sys.stdin.read()
+for name in ['hermes_cli', 'hermes_cli.config']: sys.modules[name] = types.ModuleType(name)
+module = sys.modules['hermes_cli.config']
+with tempfile.TemporaryDirectory() as temp:
+    home = Path(temp)/'home'; home.mkdir()
+    source = Path(temp)/'src'
+    for skill in [source/'optional-skills'/'demo-one', source/'optional-skills'/'demo-two']:
+        (skill/'refs').mkdir(parents=True)
+        (skill/'SKILL.md').write_text('skill v1')
+        (skill/'refs'/'note.md').write_text('note v1')
+    saved = {}
+    module.load_config = lambda: {}
+    module.save_config = lambda config: saved.update(config)
+    os.environ.update(ARES_HOME=str(home), ARES_INSTALL_SOURCE=str(source), ARES_INSTALL_EXTRAS='true', ARES_INSTALL_BACKUP=str(home/'backup'))
+    exec(configure, {})
+    dest_one, dest_two = home/'skills'/'ares'/'demo-one', home/'skills'/'ares'/'demo-two'
+    assert (dest_one/'SKILL.md').read_text() == 'skill v1'
+    manifest = json.loads((home/'skills'/'.ares-install-manifest.json').read_text())
+    assert manifest['ares/demo-one']['SKILL.md'] == ['file', hashlib.sha256(b'skill v1').hexdigest()], manifest
+    (dest_two/'SKILL.md').write_text('operator version')
+    (source/'optional-skills'/'demo-one'/'SKILL.md').write_text('skill v2')
+    output = io.StringIO()
+    with contextlib.redirect_stdout(output): exec(configure, {})
+    assert (dest_one/'SKILL.md').read_text() == 'skill v2', 'unmodified installer-owned skill was not refreshed'
+    assert (dest_two/'SKILL.md').read_text() == 'operator version'
+    text = output.getvalue()
+    assert 'Refreshed installer-owned skills: ares/demo-one' in text, text
+    assert 'Preserved locally-modified skills: ares/demo-two' in text, text
 `);
 });
