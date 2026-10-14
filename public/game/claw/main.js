@@ -2,6 +2,7 @@ import {Game,SAVE_KEY} from './game.js';
 import {GameUI} from './ui.js';
 import {WorldRenderer} from './renderer.js';
 import {Soundscape} from './audio.js';
+import {startCampaign} from './start-campaign.js';
 
 const sound=new Soundscape();let renderer,ui,storage;
 try{storage=window.localStorage;}catch{storage=undefined;}
@@ -10,7 +11,7 @@ function closePanel(){game.state.panel=null;game.state.paused=false;ui.closePane
 function panel(name){sound.event('ui');if(game.state.phase==='title'&&name!=='settings')return;if(game.state.panel===name){closePanel();return;}game.state.panel=name;game.state.paused=true;game.keys={};if(game.state.phase==='playing')game.save();ui.showPanel(name,game.state);}
 function refreshPanel(){if(game.state.panel)ui.showPanel(game.state.panel,game.state);ui.update(game.state);}
 const actions={
- start:(classId,difficulty)=>{sound.start();game.start(classId,difficulty);sound.configure(game.state.settings);ui.update(game.state);},
+ start:(classId,difficulty)=>startCampaign({game,sound,ui,confirmOverwrite:message=>window.confirm(message)},classId,difficulty),
  continue:()=>{sound.start();if(game.continue()){sound.configure(game.state.settings);ui.update(game.state);}},
  action:key=>{sound.start();game.action(key);},panel,
  equip:id=>{game.equip(id);refreshPanel();},salvage:id=>{game.salvage(id);refreshPanel();},buyPotion:()=>{game.buyPotion();refreshPanel();},upgrade:slot=>{game.upgrade(slot);refreshPanel();},talent:key=>{game.talent(key);sound.event('ui');refreshPanel();},respec:()=>{game.respec();sound.event('ui');refreshPanel();},
@@ -42,4 +43,4 @@ window.addEventListener('resize',()=>renderer?.resize());
 window.addEventListener('beforeunload',()=>{if(game.state.phase!=='title')game.save();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){game.keys={};if(game.state.phase==='playing')game.save();}});
 // A read-only snapshot is available to aid issue reports without exposing mutation controls.
-window.recursiveIntell={getSnapshot:()=>JSON.parse(game.serialize()),getRenderStats:()=>renderer?{calls:renderer.renderer.info.render.calls,triangles:renderer.renderer.info.render.triangles,geometries:renderer.renderer.info.memory.geometries}:null,getAudioStats:()=>sound.getDiagnostics?.(),version:'0.2.0'};
+window.recursiveIntell={getSnapshot:()=>JSON.parse(game.serialize()),getRenderStats:()=>renderer?{calls:renderer.renderer.info.render.calls,triangles:renderer.renderer.info.render.triangles,geometries:renderer.renderer.info.memory.geometries}:null,getAudioStats:()=>sound.getDiagnostics?.(),version:'0.2.1'};

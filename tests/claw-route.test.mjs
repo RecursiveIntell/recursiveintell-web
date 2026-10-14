@@ -74,7 +74,7 @@ test("the no-trailing-slash document resolves the complete local module, image, 
     for (const reference of refs) queue.push(new URL(reference, url));
   }
   for (const name of [
-    "main.js", "game.js", "content.js", "talents.js", "ui.js", "audio.js", "renderer.js", "vendor/three.module.min.js",
+    "main.js", "start-campaign.js", "game.js", "content.js", "talents.js", "ui.js", "audio.js", "renderer.js", "vendor/three.module.min.js",
     "style.css", "assets/fonts.css", "assets/icon.svg", "assets/title-art.png", "assets/skill-icons.png",
     "assets/stone-floor.png", "assets/aged-bronze.png",
     ...Array.from({ length: 7 }, (_, index) => `assets/font-${index}.ttf`),

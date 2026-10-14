@@ -2,7 +2,7 @@
 
 The standalone isometric action RPG is served directly by this website at
 `https://www.recursiveintell.com/game/claw`. Its source snapshot is game version
-**0.2.0**, imported from the approved game's `dist/` directory. The game includes
+**0.2.1**, based on the game's `dist/` release with website save-import and campaign-start hardening. The game includes
 its own interface and fills the browser viewport; it does not render the website
 navigation or depend on an iframe, the prior Sites host, a CDN, or an API key.
 
@@ -11,7 +11,7 @@ navigation or depend on an iframe, the prior Sites host, a CDN, or an API key.
 `next.config.ts` rewrites the exact `/game/claw` path internally to
 `/game/claw/index.html`. The browser keeps the requested URL. Next serves the
 game's JavaScript, CSS, textures, icon atlas, fonts, and Three.js from
-`public/game/claw/`. The HTML sets `<base href="/game/claw/">` before its asset
+`public/game/claw/`. The game uses the requested `www.recursiveintell.com` origin as its canonical URL, keeping play and browser saves on the same origin. The HTML sets `<base href="/game/claw/">` before its asset
 links, so relative document URLs also work without a trailing slash. Module
 imports and renderer texture URLs resolve relative to their own module URLs.
 The site's existing security headers apply without changes.
@@ -36,8 +36,10 @@ Clearing site data clears local progress; an exported save is a portable backup.
 
 ## Updating and verifying
 
-1. Replace `public/game/claw/` with a verified game release's complete `dist/`
-   contents, including `assets/`, `vendor/`, and their licenses.
+1. Update `public/game/claw/` from a verified game release's complete `dist/`
+   contents, including `assets/`, `vendor/`, and their licenses. Preserve the
+   website's save validation, item escaping, campaign-start guard, and their
+   regression tests if the upstream release does not yet contain those fixes.
 2. Restore the deployment-specific base and canonical links in `index.html`:
    `<base href="/game/claw/">` and
    `<link rel="canonical" href="https://www.recursiveintell.com/game/claw">`.
@@ -53,8 +55,10 @@ Clearing site data clears local progress; an exported save is a portable backup.
    and check for failed network requests or browser errors. Confirm the same
    URL after publishing through the website's normal deployment workflow.
 
+Imported saves are checked for bounded world geometry, collection sizes, and correctly typed item metadata before state is changed or rendering begins. Item metadata is also escaped when displayed. Starting a new campaign asks before replacing an existing save and preserves the title-screen settings.
+
 The game package is excluded from the website's lint pass because it is a
-standalone source snapshot with its own style. Its 51 regression tests exercise
+standalone source snapshot with its own style. Its regression tests exercise
 combat, navigation, progression, save compatibility, and class specializations.
 The separate route regression follows module imports, CSS resources, renderer
 texture references, and font files from the document base. No new runtime or
