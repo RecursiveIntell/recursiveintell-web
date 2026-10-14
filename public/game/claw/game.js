@@ -9,6 +9,93 @@ const clone=v=>JSON.parse(JSON.stringify(v));
 const classFor=id=>CLASSES.find(c=>c.id===id)||CLASSES[0];
 const safeStore={getItem:()=>null,setItem:()=>{},removeItem:()=>{}};
 
+// Imports cross a trust boundary, including saves read from localStorage. Keep
+// validation ahead of state assignment and renderer callbacks. These limits
+// exceed the authored 40-unit maps, 88-kill missions and 120-item pack.
+function validateSaveState(s) {
+ const fail=()=>{throw Error('Save contains invalid or unsafe game data.');};
+ const check=(ok)=>{if(!ok)fail();};
+ const object=v=>check(v!==null&&typeof v==='object'&&!Array.isArray(v));
+ const number=(v,min=0,max=1e12,integer=false)=>check(typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max&&(!integer||Number.isInteger(v)));
+ const text=(v,max=4096)=>check(typeof v==='string'&&v.length<=max&&!/[<>\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(v));
+ const id=v=>{text(v,100);check(/^[a-zA-Z0-9_-]+$/.test(v));};
+ const oneOf=(v,list)=>check(list.includes(v));
+ const bool=v=>check(typeof v==='boolean');
+ const array=(v,max)=>check(Array.isArray(v)&&v.length<=max);
+ const optional=(o,key,validate,fallback)=>{if(o[key]===undefined){if(fallback!==undefined)o[key]=fallback;}else validate(o[key]);};
+ let nodes=0;
+ const audit=(value,depth=0)=>{
+  check(++nodes<=20000&&depth<=12);
+  if(typeof value==='string')text(value);
+  else if(typeof value==='number')number(value,-1e12,1e12);
+  else if(value!==null&&typeof value==='object'){
+   if(Array.isArray(value)){array(value,256);for(const child of value)audit(child,depth+1);}
+   else{check(Object.keys(value).length<=80);for(const [key,child] of Object.entries(value)){check(!['__proto__','constructor','prototype'].includes(key));text(key,100);audit(child,depth+1);}}
+  }
+ };
+ audit(s);object(s);oneOf(s.version,[1]);oneOf(s.phase,['title','playing','dead','victory']);oneOf(s.difficulty,['story','normal','veteran']);
+ number(s.chapter,0,CHAPTERS.length-1,true);number(s.mission,0,CHAPTERS[s.chapter].missions.length-1,true);
+ object(s.map);number(s.map.size,24,64,true);number(s.map.seed,0,Number.MAX_SAFE_INTEGER,true);array(s.map.obstacles,128);
+ const position=o=>{object(o);number(o.x,-s.map.size/2-2,s.map.size/2+2);number(o.z,-s.map.size/2-2,s.map.size/2+2);};
+ const unit=o=>{position(o);id(o.id);optional(o,'angle',v=>number(v,-1e6,1e6),0);optional(o,'moving',bool,false);};
+ for(const o of s.map.obstacles){position(o);number(o.w,.05,16);number(o.d,.05,16);oneOf(o.type,['pillar','tree','server','wall']);}
+ const p=s.player;unit(p);
+ for(const key of ['maxHp','maxEnergy'])number(p[key],1,1e7);
+ number(p.hp,0,p.maxHp);number(p.energy,0,p.maxEnergy);number(p.level,1,60,true);
+ for(const key of ['xp','gold','shards'])number(p[key]);
+ number(p.xpNext,1,1e9);number(p.potions,0,20,true);number(p.damage,0,1e7);number(p.armor,0,1e7);number(p.speed,0,30);
+ optional(p,'crit',v=>number(v,0,1));optional(p,'attackTime',v=>number(v,0,60),0);optional(p,'invulnerable',v=>number(v,0,3600),0);
+ const pet=s.companion;unit(pet);number(pet.maxHp,1,1e7);number(pet.hp,0,pet.maxHp);optional(pet,'cooldown',v=>number(v,0,3600),0);
+ const item=i=>{
+  object(i);id(i.id);text(i.name,160);text(i.description,1200);text(i.icon,32);
+  oneOf(i.slot,['weapon','armor','relic']);oneOf(i.rarity,['common','uncommon','rare','epic','legendary']);
+  check(typeof i.color==='string'&&/^#[0-9a-f]{6}$/i.test(i.color));number(i.level,1,100,true);optional(i,'upgrades',v=>number(v,0,10,true));
+  for(const key of ['power','armor','hp','sellValue'])number(i[key],0,100000);
+  number(i.crit,0,100);
+ };
+ array(s.inventory,120);s.inventory.forEach(item);object(s.equipment);check(Object.keys(s.equipment).length===3);
+ for(const slot of ['weapon','armor','relic']){item(s.equipment[slot]);check(s.equipment[slot].slot===slot);}
+ array(s.drops,128);for(const d of s.drops){position(d);id(d.id);item(d.item);}
+ array(s.objects,64);for(const o of s.objects){position(o);id(o.id);oneOf(o.type,['portal','chest','shrine','lore','terminal']);bool(o.active);text(o.label,160);}
+ check(s.objects.filter(o=>o.type==='portal').length===1);
+ array(s.enemies,64);check(s.enemies.filter(e=>e?.type==='boss').length<=1);
+ for(const e of s.enemies){
+  unit(e);oneOf(e.type,['boss','claw','drone','warden','caster']);text(e.name,160);number(e.maxHp,1,1e7);number(e.hp,-1e10,e.maxHp);number(e.damage,0,1e6);number(e.speed,0,30);
+  optional(e,'level',v=>number(v,1,100,true),s.chapter*4+1);optional(e,'elite',bool,false);optional(e,'aggro',bool,false);optional(e,'phase',v=>number(v,1,3,true),1);
+  optional(e,'attackTime',v=>number(v,0,60),0);
+  // A non-boss windup may finish a fraction below zero during its final frame.
+  optional(e,'telegraph',v=>number(v,-.1,60),0);
+  number(e.cooldown,-1e8,3600);optional(e,'attackCount',v=>number(v,0,1e9,true));optional(e,'attackPattern',v=>text(v,40));
+  if(e.targetX!==undefined||e.targetZ!==undefined||e.type!=='boss'&&e.telegraph>0)position({x:e.targetX,z:e.targetZ});
+  if(e.pendingImpacts!==undefined){
+   array(e.pendingImpacts,16);check(e.type==='boss'||!e.pendingImpacts.length);
+   // A lethal impact saves synchronously inside hurt(), before the frame removes
+   // expired zones. Accept that bounded frame overshoot in existing v1 saves,
+   // then discard expired zones so importing cannot replay their damage.
+   for(const impact of e.pendingImpacts){position(impact);id(impact.id);number(impact.radius,.05,16);number(impact.remaining,-.1,60);number(impact.damage,0,1e6);check(typeof impact.color==='string'&&/^#[0-9a-f]{6}$/i.test(impact.color));}
+   e.pendingImpacts=e.pendingImpacts.filter(impact=>impact.remaining>1e-8);
+   e.telegraph=e.pendingImpacts.length?Math.max(...e.pendingImpacts.map(impact=>impact.remaining)):0;
+  }
+ }
+ for(const collection of [s.enemies,s.objects,s.drops])check(new Set(collection.map(o=>o.id)).size===collection.length);
+ object(s.objective);text(s.objective.title,160);text(s.objective.description);number(s.objective.killTarget,1,128,true);number(s.objective.kills,0,128,true);number(s.objective.terminalTarget,0,16,true);number(s.objective.terminals,0,16,true);bool(s.objective.complete);optional(s.objective,'bossDefeated',bool,false);
+ object(s.cooldowns);const cooldownKeys=['attack','q','e','r','dash','potion'];check(Object.keys(s.cooldowns).every(key=>cooldownKeys.includes(key)));for(const key of cooldownKeys)number(s.cooldowns[key],0,3600);
+ object(s.settings);const settingsKeys=['sound','music','particles','shake'];check(Object.keys(s.settings).every(key=>settingsKeys.includes(key)));for(const key of settingsKeys)optional(s.settings,key,bool,true);
+ object(s.skills);for(const rank of Object.values(s.skills))check(rank===null||typeof rank==='number'||typeof rank==='string'&&rank.length<=64);
+ number(s.skillPoints,0,100000,true);optional(s,'talentVersion',v=>oneOf(v,[1,2]));
+ const missions=CHAPTERS.flatMap(chapter=>chapter.missions.map(m=>m.id));array(s.completedMissions,missions.length);for(const value of s.completedMissions)oneOf(value,missions);
+ array(s.discoveredLore,LORE.length);for(const value of s.discoveredLore)check(LORE.some(lore=>lore.id===value));
+ for(const values of [s.completedMissions,s.discoveredLore])check(new Set(values).size===values.length);
+ array(s.log,40);for(const line of s.log)text(line);
+ for(const key of ['elapsed','missionTime'])number(s[key],0,1e10);
+ for(const key of ['totalKills','killStreak','run'])number(s[key],0,1e10,true);
+ number(s.wave,1,128,true);number(s.waveTotal,1,128,true);number(s.spawned,0,128,true);
+ optional(s,'selectedEnemy',value=>{if(value!==null)id(value);},null);optional(s,'interaction',v=>text(v,200),'');
+ // Transient and derived values never come from imported data.
+ s.effects=[];s.floats=[];s.panel=null;s.paused=false;delete p.build;
+ return s;
+}
+
 export class Game {
  constructor({storage=safeStore,onEvent=()=>{},onLoad=()=>{}}={}) {
   this.storage=storage;this.onEvent=onEvent;this.onLoad=onLoad;this.serial=1;this.keys={};this.target=null;this.enemyTarget=null;this.saveTimer=0;
@@ -25,7 +112,7 @@ export class Game {
  id(prefix='id'){return `${prefix}-${this.serial++}`;}
  hasSave(){try{return !!this.storage.getItem(SAVE_KEY);}catch{return false;}}
  event(type,text,detail={}){this.onEvent({type,text,...detail});if(text){this.state.log.unshift(text);this.state.log=this.state.log.slice(0,40);}}
- start(classId='warden',difficulty='normal') {this.state=this.fresh(classId,difficulty);this.recalculate(true);this.loadMission(0,0);this.save();}
+ start(classId='warden',difficulty='normal') {const settings={...this.state.settings};this.state=this.fresh(classId,difficulty);this.state.settings={...this.state.settings,...settings};this.recalculate(true);this.loadMission(0,0);this.save();}
  recalculate(fill=false) {
   const s=this.state,p=s.player,c=classFor(s.classId),items=Object.values(s.equipment).filter(Boolean),oldMax=p.maxHp;
   migrateTalents(s);const b=p.build=deriveBuild(s.classId,s.skills);
@@ -335,7 +422,7 @@ export class Game {
  }
  serialize(){const s=clone(this.state);s.effects=[];s.floats=[];s.panel=null;s.paused=false;return JSON.stringify({format:'recursiveintell-rpg',version:1,savedAt:new Date().toISOString(),state:s});}
  save(){try{this.storage.setItem(SAVE_KEY,this.serialize());this.state.saveExists=true;return true;}catch{this.event('notice','Browser storage is unavailable. Export your save from Settings.');return false;}}
- static parseSave(text){const data=JSON.parse(text),s=data.state;if(data.format!=='recursiveintell-rpg'||data.version!==1||!s||!CLASSES.some(c=>c.id===s.classId)||!CHAPTERS[s.chapter]?.missions[s.mission])throw Error('This is not a compatible RecursiveIntell save.');const numeric=['x','z','hp','maxHp','energy','maxEnergy','level','xp','xpNext','gold','potions','shards','damage','armor','speed'];if(!s.player||numeric.some(k=>!Number.isFinite(s.player[k])||Math.abs(s.player[k])>1e10)||s.player.level<1||s.player.maxHp<=0)throw Error('Save contains invalid character data.');for(const k of ['enemies','objects','inventory','completedMissions','discoveredLore','drops'])if(!Array.isArray(s[k])||s[k].length>20000)throw Error('Save contains invalid world data.');if(!s.map||!Array.isArray(s.map.obstacles)||!s.equipment||!s.skills||!s.cooldowns||!s.settings||!s.objective)throw Error('Save is missing world data.');return s;}
+ static parseSave(text){if(typeof text!=='string'||text.length>5000000)throw Error('Save files must be smaller than 5 MB.');const data=JSON.parse(text),s=data?.state;if(data?.format!=='recursiveintell-rpg'||data.version!==1||!s||!CLASSES.some(c=>c.id===s.classId))throw Error('This is not a compatible RecursiveIntell save.');return validateSaveState(s);}
  importSave(text){const incoming=migrateTalents(Game.parseSave(text));this.state=incoming;this.state.phase=incoming.phase==='victory'?'victory':incoming.phase==='dead'||incoming.player.hp<=0?'dead':'playing';if(this.state.phase==='dead')this.state.player.hp=0;this.state.paused=this.state.phase!=='playing';this.state.panel=null;this.state.effects=[];this.state.floats=[];this.state.saveExists=true;this.serial=Date.now()%1e9;this.random=rng(this.state.map.seed+this.state.spawned);this.target=null;this.enemyTarget=null;this.keys={};this.recalculate();this.onLoad(this.state);this.save();this.event('notice','Expedition restored');}
  continue(){try{const text=this.storage.getItem(SAVE_KEY);if(!text)throw Error('No saved expedition found.');this.importSave(text);return true;}catch(error){this.event('notice',error.message);return false;}}
 }
