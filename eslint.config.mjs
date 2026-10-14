@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored standalone game; its behavior is covered by test:claw.
+    "public/game/claw/**",
   ]),
 ]);
 
