@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 import { legacyRouteRedirects, securityHeaders } from "./app/config/routes";
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [{ source: "/game/claw", destination: "/game/claw/index.html" }];
+  },
   async redirects() {
     return legacyRouteRedirects.map((redirect) => ({ ...redirect }));
   },

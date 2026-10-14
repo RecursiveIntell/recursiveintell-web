@@ -18,6 +18,7 @@ Public website for Josh Stevenson and RecursiveIntell. The site has two explicit
 - `/privacy` — current website data boundary
 - `/pro` — transparent proposed-product status
 - `/portfolio` — public repository and crate projection
+- `/game/claw` — standalone RecursiveIntell action RPG; see [game maintenance](docs/claw-game.md)
 
 ### Mnemes
 
@@ -74,7 +75,7 @@ node --test tests/rendered-html.test.mjs
 npm run validate:artifact
 ```
 
-`npm test` runs the canonical production build and then the rendered HTML and public-data boundary suite.
+`npm test` runs the installer and game regressions, the canonical production build, the rendered HTML and public-data boundary suite, and the game route/asset checks.
 
 For local development:
 
