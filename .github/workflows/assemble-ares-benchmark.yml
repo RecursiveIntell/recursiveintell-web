@@ -1,0 +1,55 @@
+name: Assemble completed Ares benchmark ZIP
+on:
+  push:
+    branches:
+      - publish-ares-completed-benchmark-20261014
+
+permissions:
+  contents: write
+
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify the archive, publish it, and remove staging
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import base64
+          import hashlib
+          import io
+          from pathlib import Path
+          from zipfile import ZipFile
+
+          directory = Path(".benchmark-upload")
+          expected_names = [f"ares-completed.part{i:02}.b64" for i in range(1, 6)]
+          parts = sorted(directory.glob("*.b64"))
+          if [p.name for p in parts] != expected_names:
+              raise SystemExit(f"Unexpected staging files: {[p.name for p in parts]}")
+          encoded = "".join(p.read_text(encoding="ascii").replace("\n", "") for p in parts)
+          raw = base64.b64decode(encoded, validate=True)
+          expected_size = 3743865
+          expected_sha256 = "183751698eb186b9649b65aa3436bf1a48e1aba83d4c4bdae174f6f7f754ad32"
+          if len(raw) != expected_size or hashlib.sha256(raw).hexdigest() != expected_sha256:
+              raise SystemExit("Archive verification failed; no website changes have been committed.")
+          with ZipFile(io.BytesIO(raw)) as archive:
+              if archive.testzip() is not None:
+                  raise SystemExit("Archive CRC verification failed")
+          dest = Path("public/downloads/ares-completed-local-benchmark.zip")
+          if dest.exists() and dest.read_bytes() != raw:
+              raise SystemExit("Destination exists with different bytes")
+          dest.write_bytes(raw)
+          for part in parts:
+              part.unlink()
+          directory.rmdir()
+          Path(".github/workflows/assemble-ares-benchmark.yml").unlink()
+          print(f"Published {dest} ({len(raw)} bytes, SHA256={expected_sha256})")
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m "Add completed Ares benchmark ZIP download"
+          git push origin HEAD:refs/heads/publish-ares-completed-benchmark-20261014
