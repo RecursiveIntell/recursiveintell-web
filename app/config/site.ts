@@ -23,6 +23,7 @@ export const businessNavigation = [
   { href: "/work", label: "Work" },
   { href: "/mnemes", label: "Systems" },
   { href: "/portfolio", label: "Library" },
+  { href: "/workshop", label: "Workshop" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
 ] as const;

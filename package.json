@@ -10,15 +10,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "npm run test:installer && npm run test:claw && npm run build && node --test tests/rendered-html.test.mjs && npm run test:claw:route",
+    "test": "npm run test:installer && npm run test:workshop && npm run test:claw && npm run build && node --test tests/rendered-html.test.mjs && npm run test:claw:route",
     "test:installer": "node --test tests/installer.test.mjs",
     "validate:artifact": "node scripts/validate-next-artifact.mjs",
     "lint": "eslint . --ignore-pattern .next",
     "test:claw": "node --test --test-isolation=none tests/claw/*.test.mjs",
-    "test:claw:route": "node --test --test-isolation=none tests/claw-route.test.mjs"
+    "test:claw:route": "node --test --test-isolation=none tests/claw-route.test.mjs",
+    "test:workshop": "node --test tests/workshop.test.mjs tests/workshop-interaction.test.mjs"
   },
   "dependencies": {
+    "lucide-react": "1.31.0",
     "next": "16.3.5",
+    "radix-ui": "1.6.7",
     "react": "19.2.6",
     "react-dom": "19.2.6"
   },

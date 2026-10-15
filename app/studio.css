@@ -2227,3 +2227,4 @@ select {
     transition: none !important;
   }
 }
+.studio-workshop-entry{background:#eaf0e0;border-bottom:1px solid #dbe2cf;color:#31442b}.studio-workshop-entry>a{display:flex;align-items:center;justify-content:center;gap:18px;padding:14px 24px;font-size:12px;line-height:1.5}.studio-workshop-entry span{font-family:var(--font-geist-mono),monospace;font-size:9px;letter-spacing:1px}.studio-workshop-entry strong{font-weight:600;font-size:11px}.studio-workshop-entry>a:hover{background:#e0e9d3}.studio-workshop-entry>a:focus-visible{outline:2px solid #546c40;outline-offset:-4px}@media(max-width:650px){.studio-workshop-entry>a{flex-wrap:wrap;gap:5px 15px;font-size:11px;padding:13px 17px}.studio-workshop-entry span{width:100%;text-align:center}.studio-workshop-entry strong{font-size:10px}}

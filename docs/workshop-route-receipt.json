@@ -1,0 +1,126 @@
+{
+  "schema_version": "recursiveintell-route-receipt/v1",
+  "route_id": "high-risk-implement",
+  "status": "degraded",
+  "intent": "implement",
+  "domain": "github",
+  "affected_domains": [
+    "github"
+  ],
+  "risk": "high",
+  "evidence_impact": "security",
+  "authority": "external-write",
+  "authorities": [
+    "local-write",
+    "evidence-write",
+    "external-write"
+  ],
+  "authorized_targets": [
+    "/workspace/sites/recursiveintell-web",
+    "/workspace/sites/recursiveintell-esp32-lab",
+    "github:RecursiveIntell/recursiveintell-web",
+    "sites:appgprj_6ad00dfd63588191b0cb59ce4a27ffc4"
+  ],
+  "selected_skills": [
+    "route-recursiveintell-work",
+    "audit-repo-hostile",
+    "design-proofed-codex-pass",
+    "run-proofed-code-change"
+  ],
+  "skipped_skills": [],
+  "stages": [
+    {
+      "status": "passed",
+      "evidence": [
+        "Current source, live catalog224, pending two-record hold, public209 projection, owner-private Bridge and Vercel403 inspected"
+      ],
+      "receipt": "docs/workshop-delivery-20261015.md",
+      "id": "audit@pre"
+    },
+    {
+      "status": "passed",
+      "evidence": [
+        "Preserve canonical catalog and private workspace; finalize holds, project allowlist, validate and publish"
+      ],
+      "receipt": "docs/workshop-and-bridge.md",
+      "id": "plan@bounded"
+    },
+    {
+      "status": "passed",
+      "evidence": [
+        "User requested takeover and completion of the already authorized website publication; exact targets retained"
+      ],
+      "receipt": "current conversation",
+      "id": "authority@local"
+    },
+    {
+      "status": "passed",
+      "evidence": [
+        "222-record projection, 166 additions, homepage/navigation, build handoff; scoped W1 follow-up repaired and independently rechecked"
+      ],
+      "receipt": "docs/workshop-delivery-20261015.md",
+      "id": "implement@bounded"
+    },
+    {
+      "status": "passed",
+      "evidence": [
+        "Independent follow-up: four Workshop tests; 222 images and allowlist; all56 original payloads; W1 resolved"
+      ],
+      "receipt": "independent publication_review bounded recheck",
+      "id": "audit@post"
+    }
+  ],
+  "mutations": [
+    {
+      "stage": "implement@bounded",
+      "authority": "local-write",
+      "action": "Finalize inherited Workshop routes, explicit public projection and image assets; add filter-race regression and publication contract",
+      "target": "/workspace/sites/recursiveintell-web"
+    },
+    {
+      "stage": "implement@bounded",
+      "authority": "local-write",
+      "action": "Finalize preserving hold migration, migration checks and public export maintenance contract",
+      "target": "/workspace/sites/recursiveintell-esp32-lab"
+    }
+  ],
+  "validation": [
+    "npm ci exit0",
+    "npm run lint exit0 (repeated after test harness rename)",
+    "npx tsc --noEmit exit0",
+    "npm test exit0:113 tests and Next production build",
+    "npm run validate:artifact exit0",
+    "git diff --check exit0",
+    "222 hosted image exports and filename hashes; all decode",
+    "Circuit capacity/hold tests and build/typecheck exit0",
+    "Bridge state/planner tests10/10",
+    "Independent final review passed"
+  ],
+  "blocked_gates": [
+    "Standalone username/password configuration: exact-team Vercel project/settings reads return HTTP403; CLI unavailable",
+    "Browser responsive/keyboard/render QA: managed control-browser unavailable"
+  ],
+  "remaining_delta": [
+    "Provide Vercel access to the owning project/team to configure standalone password authentication and durable private backend",
+    "Perform supported browser QA before claiming responsive/keyboard certification"
+  ],
+  "next_gate": "Vercel owning-team access and supported browser verification",
+  "external_publication": {
+    "circuit_source": "b519e3a3e62bf0ccc76b472fcae6fcee00558b3e",
+    "circuit_deployment": "appgdep_6ad05dedb3b48191adb5e6a5736bb80a",
+    "circuit_state": "succeeded; two holds read back",
+    "website": "source validated; check exact commit and live API separately after publishing"
+  },
+  "supporting_skills": [
+    "recover-project-context",
+    "repository-truth-preflight",
+    "build-proofed-web-surface",
+    "sites"
+  ],
+  "bounded_followup": {
+    "initial_audit_status": "failed",
+    "finding": "W1 MEDIUM filter/pagination race",
+    "repair": "Immediate pending state, error gating, ignored aborted responses",
+    "independent_recheck": "passed; four Workshop tests and final222 projection"
+  }
+}
