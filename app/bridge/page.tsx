@@ -1,0 +1,10 @@
+import type {Metadata} from 'next';
+import {StudioHeader,StudioFooter} from '../components/StudioChrome';
+import styles from './bridge.module.css';
+export const metadata:Metadata={title:'The Bridge — Private workspace | RecursiveIntell',description:'Open your private workspace.',robots:{index:false,follow:false}};
+export default async function BridgeEntry({searchParams}:{searchParams:Promise<{build?:string}>}){
+ const params=await searchParams;
+ const build=typeof params.build==='string'&&/^[a-z0-9][a-z0-9-]{2,90}$/.test(params.build)?params.build:null;
+ const destination='https://recursiveintell-bridge.sik-mindz.chatgpt.site'+(build?'/?build='+encodeURIComponent(build):'/');
+ return <div className="studio-page"><StudioHeader/><main id="main-content" tabIndex={-1} className={styles.entry}><p className={styles.eyebrow}>RECURSIVEINTELL / PRIVATE WORKSPACE</p><div className={styles.mark} aria-hidden="true"><span/><span/><span/></div><h1>Your work.<br/><em>A way forward.</em></h1><p className={styles.intro}>The Bridge brings your next actions, focused work, project evidence, and workshop plans into one private place.</p><a className={styles.primary} href={destination}>Sign in to The Bridge <span aria-hidden="true">↗</span></a><p className={styles.access}>Use the ChatGPT account that owns your workspace. Only that account can open it.</p>{build&&<div className={styles.build}>Your Workshop build will open as an action to review and save after sign-in.</div>}<div className={styles.features}><div><span>01 / PLAN</span><h2>A plan that fits.</h2><p>Choose the time and energy you have. Turn saved actions into a realistic next hour.</p></div><div><span>02 / DO</span><h2>One thing in focus.</h2><p>Start a session, pause when you need to, and keep a useful record of what changed.</p></div><div><span>03 / RETURN</span><h2>Leave a thread.</h2><p>Capture the next step while it is clear. Pick it up without rebuilding the context.</p></div></div><a href="/workshop" className={styles.back}>Explore the public Circuit Workshop →</a></main><StudioFooter/></div>;
+}

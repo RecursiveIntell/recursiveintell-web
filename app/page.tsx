@@ -77,6 +77,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(identity) }}
       />
       <StudioHeader />
+      <div className="studio-workshop-entry"><Link href="/workshop"><span>CIRCUIT WORKSHOP</span> ESP32 projects. Printable parts. Something worth making. <strong>Explore the builds ↗</strong></Link></div>
       <div className="studio-hero-stage">
         <section className="studio-hero studio-shell">
           <div className="studio-hero-copy">
