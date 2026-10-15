@@ -138,6 +138,8 @@ test("studio home connects engineering work, systems, consulting and bounded rec
   ]) {
     assert.ok(html.includes(`href="${route}"`), `home must link ${route}`);
   }
+  assert.match(html, /href="https:\/\/www\.recursiveintell\.com\/game\/claw"/);
+  assert.match(html, /Play the OpenAI RPG/);
   assert.match(html, /independent/i);
   assert.match(html, /Teknium, creator of Hermes Agent/i);
   assert.match(
@@ -840,3 +842,4 @@ test("contact paths name their intent without pretending to submit a form", asyn
   assert.match(html, /Nothing is submitted through this website/);
   assert.doesNotMatch(html, /<form\b/);
 });
+
