@@ -25,7 +25,16 @@ Standalone username/password hosting at this domain is not configured. Vercel ca
 
 Managed browser tooling is unavailable; desktop/mobile layout, keyboard behavior and browser interaction have not been certified in this completion pass. Component logic, static rendered HTML, build, API and asset evidence are separate gates.
 
-This receipt describes the validated source. Exact-commit Vercel status and live URL/API/image verification must be recorded separately at publication; a source commit alone is not proof of deployment.
+## Production publication
+
+[PR #16](https://github.com/RecursiveIntell/recursiveintell-web/pull/16) merged at `4b6da001cb00f2896678287c94e8327d625592e9`, with source tree `e97fa95d129454aeda1b12aae8e325a5a052e939`. The exact merge commit received a successful Vercel deployment status. Live HTTP readback completed at 2026-10-15 05:19 UTC; see `docs/workshop-publication-20261015.json`.
+
+- Homepage, Workshop, Bridge entry (including selected-build handoff), and sitemap returned HTTP 200. Workshop is linked on the homepage and sitemap; the Bridge entry is noindex and excluded from the sitemap.
+- All 222 live API records exactly matched the allowlisted source projection. Paging defaults to 24 and caps at 60. All 222 public image responses exactly matched their local bytes and SHA-256 filename digests (23,605,932 bytes total).
+- The authenticated private Bridge successfully read the live `canary-nightlight` build. Invalid and missing build IDs returned 400 and 404. Three private downloads matched their source bytes. Unauthenticated root, APIs, and private downloads all returned 403; private saved state remained unchanged throughout these read-only checks.
+- The existing daily maintenance schedule was read back as enabled with the website-publication instructions present. No future run is claimed executed.
+
+These observations certify source and HTTP delivery, not the blocked browser or standalone password gates above.
 
 ## Rollback
 

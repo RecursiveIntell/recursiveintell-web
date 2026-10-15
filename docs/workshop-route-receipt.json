@@ -94,7 +94,9 @@
     "222 hosted image exports and filename hashes; all decode",
     "Circuit capacity/hold tests and build/typecheck exit0",
     "Bridge state/planner tests10/10",
-    "Independent final review passed"
+    "Independent final review passed",
+    "Production HTTP readback:222 exact records and222 exact image bytes",
+    "Private Bridge live catalog handoff200; unauthenticated protected endpoints403; saved state unchanged"
   ],
   "blocked_gates": [
     "Standalone username/password configuration: exact-team Vercel project/settings reads return HTTP403; CLI unavailable",
@@ -109,7 +111,13 @@
     "circuit_source": "b519e3a3e62bf0ccc76b472fcae6fcee00558b3e",
     "circuit_deployment": "appgdep_6ad05dedb3b48191adb5e6a5736bb80a",
     "circuit_state": "succeeded; two holds read back",
-    "website": "source validated; check exact commit and live API separately after publishing"
+    "website": {
+      "state": "merged; exact-commit Vercel status success; live readback passed",
+      "commit": "4b6da001cb00f2896678287c94e8327d625592e9",
+      "pull_request": "https://github.com/RecursiveIntell/recursiveintell-web/pull/16",
+      "receipt": "docs/workshop-publication-20261015.json"
+    },
+    "authority_record": "Authorized publication actions and live observations are recorded separately in docs/workshop-publication-20261015.json; the selected implementation route records local implementation stages."
   },
   "supporting_skills": [
     "recover-project-context",

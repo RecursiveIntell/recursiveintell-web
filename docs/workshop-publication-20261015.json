@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "publication": {
+    "pullRequest": "https://github.com/RecursiveIntell/recursiveintell-web/pull/16",
+    "sourceCommit": "4b6da001cb00f2896678287c94e8327d625592e9",
+    "sourceTree": "e97fa95d129454aeda1b12aae8e325a5a052e939",
+    "vercelStatus": "success",
+    "vercelStatusUrl": "https://vercel.com/recursiveintells-projects/recursiveintell-web/5kXSkvaC5nnCo1fTiNKFdgo8yPhJ"
+  },
+  "publicWebsite": {
+    "checkedAt": "2026-10-15T05:19:07.239090+00:00",
+    "origin": "https://recursiveintell.com",
+    "sourceCommit": "4b6da001cb00f2896678287c94e8327d625592e9",
+    "projectCount": 222,
+    "imageCount": 222,
+    "imageBytes": 23605932,
+    "imageBytesMatchSource": true,
+    "pages": {
+      "/": {
+        "status": 200,
+        "finalUrl": "https://recursiveintell.com/"
+      },
+      "/workshop": {
+        "status": 200,
+        "finalUrl": "https://recursiveintell.com/workshop"
+      },
+      "/bridge": {
+        "status": 200,
+        "finalUrl": "https://recursiveintell.com/bridge"
+      },
+      "/bridge?build=canary-nightlight": {
+        "status": 200,
+        "finalUrl": "https://recursiveintell.com/bridge?build=canary-nightlight"
+      },
+      "/sitemap.xml": {
+        "status": 200,
+        "finalUrl": "https://recursiveintell.com/sitemap.xml"
+      }
+    },
+    "catalogSha256": "c1ae1742849d0f705ddbb5144e98e8db3e60e9378908eb6f4c0c0655da1e6116",
+    "limitations": [
+      "HTTP and source verification only; no browser layout/interaction certification",
+      "No physical build verification",
+      "Bridge standalone username/password remains unconfigured"
+    ]
+  },
+  "privateBoundary": {
+    "checkedAt": "2026-10-15T05:18:20.713853+00:00",
+    "origin": "https://recursiveintell-bridge.sik-mindz.chatgpt.site",
+    "authenticatedWorkspace": 200,
+    "liveCatalogHandoff": 200,
+    "canaryId": "canary-nightlight",
+    "invalidId": 400,
+    "missingBuild": 404,
+    "privateAssetsExactBytes": 3,
+    "unauthenticated": {
+      "/": 403,
+      "/api/workspace": 403,
+      "/api/catalog-build?id=canary-nightlight": 403,
+      "/downloads/bridge-signal.zip": 403,
+      "/downloads/bridge-review-packet.md": 403,
+      "/downloads/90-second-case-study.md": 403
+    },
+    "stateUnchanged": true,
+    "standaloneUsernamePassword": "unconfigured",
+    "browserInteraction": "not verified"
+  },
+  "scheduledMaintenance": {
+    "enabled": true,
+    "timezone": "America/Chicago",
+    "hours": [
+      8,
+      14,
+      20
+    ],
+    "targetQualifiedAdditionsPerRun": 50,
+    "activeCapacity": 1000,
+    "absoluteMaximum": 10000,
+    "futureRunsVerified": false,
+    "committedPublicProjectionInstructions": true
+  },
+  "completion": "Public Workshop and private authenticated handoff live; standalone username/password configuration and browser QA remain blocked as recorded.",
+  "authorization": {
+    "source": "Original session explicitly authorized public website publication; takeover request authorized completion.",
+    "mutations": [
+      {
+        "authority": "external-write",
+        "action": "Merge validated public Workshop and private Bridge entry; verify live deployment",
+        "target": "github:RecursiveIntell/recursiveintell-web"
+      },
+      {
+        "authority": "external-write",
+        "action": "Deploy preserved hold migration and public projection maintenance contract",
+        "target": "sites:appgprj_6ad00dfd63588191b0cb59ce4a27ffc4"
+      }
+    ]
+  }
+}
