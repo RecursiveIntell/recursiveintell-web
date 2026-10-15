@@ -104,6 +104,12 @@ export default function Home() {
               <Link className="studio-text-link" href="/contact">
                 Work with me <span>→</span>
               </Link>
+              <a
+                className="studio-text-link"
+                href="https://www.recursiveintell.com/game/claw"
+              >
+                Play the OpenAI RPG <span>↗</span>
+              </a>
             </div>
             <a
               className="studio-contributor"
@@ -232,3 +238,4 @@ export default function Home() {
     </main>
   );
 }
+
