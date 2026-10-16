@@ -27111,13 +27111,1665 @@
       "estimatedBuildTime": "Not established for the Atom variant; allow CAD preparation, two printed sets, USB setup and a calibration/test session.",
       "addedAt": "2026-10-16T13:47:10.021Z",
       "imagePath": "/workshop-images/sailing-tactics-boat-controller-d9fcca90a88002f1383e.jpg"
+    },
+    {
+      "id": "bit-pirate-dock-protocol-workbench",
+      "title": "Bit Pirate Dock wired-protocol workbench",
+      "creator": "Andrei Vladescu, with ESP32 Bit Pirate firmware by geo-tp",
+      "category": "Tools & controls",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Espressif ESP32-S3-DevKitC-1 N8R2 reference board, seated in the custom V3 dock; photograph uses a supported N16R8 devkit clone"
+      ],
+      "difficulty": "Advanced",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "Build a USB-connected bench interface for your own low-voltage I2C, UART and SPI hardware. A custom dock adds selectable logic translation around an S3 devkit, and the creator supplies a two-piece case model. This entry is scoped to authorized wired development and diagnostics.",
+      "whyPrint": "The case surrounds the wide carrier PCB while leaving its devkit USB ports, voltage selector and probe connections accessible. Editable STEP bodies let the builder check the fit of the exact devkit before printing.",
+      "parts": [
+        "Espressif ESP32-S3-DevKitC-1 N8R2 and the creator's V3 four-layer dock PCB",
+        "Two TXS0108EPW translators, two TMUX1574PW multiplexers, TS5A3157DBVR switch and TLV75518PDBV 1.8 V regulator",
+        "BOM-specified 2N7002 SOT-23 transistor; reconcile the schematic's conflicting 2SK2009 value before assembly",
+        "TA-3532S-A2 selector, HX25418-10WA ten-pin connector, three 1×22 sockets, two 1×22 headers and 2×3 power header",
+        "Boot switch, three LEDs, and all resistors/capacitors in the released BOM",
+        "USB data cable, insulated low-voltage test leads, multimeter and printed top/bottom case bodies"
+      ],
+      "steps": [
+        {
+          "title": "Match the board and fabrication revision",
+          "body": "Use the original DevKitC-1 reference footprint and confirm header spacing before ordering. The repository identifies the dock as V3 and its PCB silkscreen agrees, although older title-block revision strings remain. Keep the current Gerbers, BOM, KiCad files and case together; do not substitute a smaller S3 board."
+        },
+        {
+          "title": "Resolve the transistor entry",
+          "body": "The BOM lists Q1 as 2N7002, but the schematic value reads 2SK2009. Follow the BOM's 2N7002 and reconcile that choice with the assembler. The released PCB has gate on pad 1, grounded source on pad 2 and inverse-select drain on pad 3, matching the cited onsemi SOT-23 pinout. This is an explicit source discrepancy, not an unqualified substitution recommendation."
+        },
+        {
+          "title": "Assemble and inspect the carrier",
+          "body": "Fabricate from the released four-layer outputs or use the creator-linked PCB assembly service after reviewing its files. Inspect fine-pitch translator and multiplexer joints, capacitor polarity and socket orientation. Check for shorts before seating the separately purchased devkit."
+        },
+        {
+          "title": "Check voltage selection unloaded",
+          "body": "With no target connected, power the seated devkit over USB. Exercise the 1.8 V, 3.3 V and 5 V selector and measure the selected target rail. Verify the ten-pin translated connector against the schematic. The other devkit expansion pins remain raw 3.3 V GPIO; the switch does not make every header 5 V tolerant."
+        },
+        {
+          "title": "Prepare the printable case",
+          "body": "Open the logo or plain STEP assembly and export its bottom and top solids for your slicer. The creator recommends a 0.4 mm FDM nozzle and also labels the case work-in-progress. Dry-fit the carrier, USB plugs and selector before final assembly; the supplied photograph does not prove printed enclosure fit."
+        },
+        {
+          "title": "Flash the matching firmware profile",
+          "body": "Open the official web flasher in a Web Serial-capable desktop browser and choose ESP32-S3 DevKit, 8 MB Flash, for the N8R2 reference board. Connect the appropriate USB port, enter BOOT/download mode if required and install the offered image. A separately listed N16R8 image is for that memory variant, not the N8R2."
+        },
+        {
+          "title": "Establish a local serial session",
+          "body": "Open the firmware's USB serial interface at 115200 baud, eight data bits, no parity and one stop bit. Send a key if the banner is asleep, then inspect help and the mode menu. Begin in the default high-impedance state with all external leads disconnected."
+        },
+        {
+          "title": "Connect one known development target",
+          "body": "Remove power, choose the target's documented logic voltage and wire common ground plus only the needed translated signals. Use the connector's labeled GPIO mapping when configuring the selected protocol. Avoid joining the dock's power output to an already powered target rail; establish one deliberate power source."
+        },
+        {
+          "title": "Verify a harmless transaction",
+          "body": "Start with a known sensor register or UART loopback on hardware you own. For I2C, configure SDA/SCL and a conservative bus speed, then check the expected address and read-only register. Disconnect before changing voltage or wiring. Save the tested pin map and settings with your bench project; do not infer protocol-rate or electrical robustness guarantees."
+        }
+      ],
+      "printNotes": "Downloaded the creator's two case STEP options. The plain file contains two actual solid bodies named Bottom Case and Top Case; it is not merely a PCB render. No ready-made STL is supplied in this folder. The creator specifies a 0.4 mm nozzle but no filament; PLA/PETG is an explicit indoor-bench inference. README calls the case WIP. No slicing, printing or fit test performed.",
+      "firmware": "Official firmware README, USB serial guide, I2C guide and web-flasher selection inspected. The 8 MB DevKit manifest offers version 1.8 as a merged ESP32-S3 binary at offset zero. This is a published installer route, not a locally compiled or exercised build. The firmware has broader capabilities, but this project entry covers only authorized low-voltage wired interfaces.",
+      "sourceUrl": "https://github.com/AndreiVladescu/ESP32-Bit-Pirate-Hardware",
+      "instructionsUrl": "https://github.com/AndreiVladescu/ESP32-Bit-Pirate-Hardware/blob/main/README.md",
+      "supportingUrls": [
+        "https://github.com/AndreiVladescu/ESP32-Bit-Pirate-Hardware/blob/main/dock/BOM.csv",
+        "https://github.com/AndreiVladescu/ESP32-Bit-Pirate-Hardware/tree/main/dock/kicad",
+        "https://github.com/geo-tp/ESP32-Bit-Pirate",
+        "https://geo-tp.github.io/ESP32-Bit-Pirate/webflasher/",
+        "https://github.com/geo-tp/ESP32-Bit-Pirate/wiki/99-Serial",
+        "https://github.com/geo-tp/ESP32-Bit-Pirate/wiki/05-I2C",
+        "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF",
+        "https://www.pcbway.com/project/shareproject/ESP32_Bit_Pirate_Dock_ca02ded7.html"
+      ],
+      "modelUrl": "https://github.com/AndreiVladescu/ESP32-Bit-Pirate-Hardware/tree/main/dock/3d_models",
+      "modelSourceUrl": "https://github.com/AndreiVladescu/ESP32-Bit-Pirate-Hardware/blob/main/dock/3d_models/dock_case_no_logo.step",
+      "modelStatus": "Actual logo/plain STEP case assemblies downloaded publicly without login or payment; export to a slicer-supported format is required. Hardware repository declares CERN-OHL-W-2.0, documentation/images CC BY 4.0. The separate PCBWay listing displays a different hardware-license label; use the repository license for these downloaded files. Geometry presence established, physical case fit not established.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/AndreiVladescu/ESP32-Bit-Pirate-Hardware/main/images/closeup.jpeg",
+          "credit": "Andrei Vladescu, physical ESP32 Bit Pirate Dock, CC BY 4.0",
+          "sourceUrl": "https://github.com/AndreiVladescu/ESP32-Bit-Pirate-Hardware"
+        }
+      ],
+      "imageNote": "Downloaded and visually reviewed an actual powered bare dock with an N16R8 S3 devkit clone, illuminated indicators and probe connector. No printed case is shown. The case is separately evidenced by the creator's solid STEP geometry; this image must not be described as proof of a completed printed enclosure or the exact N8R2 reference board.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Complete hardware archive, two schematic PDF pages, current PCB pad mappings, BOM, real photo and two-solid case examined. Published firmware installer and protocol instructions provide the software route. V3 silkscreen versus older title blocks and Q1 BOM/value discrepancy are disclosed. PCBWay offers an assembly ordering path; stock, turnaround and assembled-board validation were not checked.",
+      "safety": "Use only low-voltage hardware you own or are authorized to test. Confirm target voltage with a meter and use translated pins, not raw devkit GPIO, for 1.8 V or 5 V interfaces. No mains, automotive power transients or unknown ground potentials: the dock is not isolated or CAT-rated. Avoid back-powering and change connections only with power removed. Keep the initial workflow USB-local; radio interference, credential extraction and access-control bypass are outside this build's scope.",
+      "estimatedBuildTime": "PCB fabrication lead time plus assembly, case fitting and protocol setup; not a measured duration.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/bit-pirate-dock-protocol-workbench-ba9fd2ede8d69e6c9562.jpg"
+    },
+    {
+      "id": "bitclock-s3-air-monitor",
+      "title": "Bitclock S3 desk clock and air monitor",
+      "creator": "Goat Hill / Bitclock",
+      "category": "Home & sensing",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Bitclock custom PCB rev3a with ESP32-S3-WROOM-1-N8; not the repository's older ESP32-C3 rev1 target."
+      ],
+      "difficulty": "Advanced",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "A USB-powered desk instrument pairs a 2.71-inch e-paper clock with CO2, temperature, humidity and gas-index sensing. This entry follows the S3 production PCB and its matching two-piece enclosure, not a generic development-board adaptation.",
+      "whyPrint": "The front and rear shells make the thin display and custom sensor board into a compact freestanding object while retaining the designed ventilation and USB access.",
+      "parts": [
+        "Bitclock rev3a assembled PCB, or its published KiCad/Gerber/BOM assembly package",
+        "ESP32-S3-WROOM-1-N8, SCD40-D-R2, SHT40-AD1B-R2 and SGP41-D-R4 as specified on that PCB",
+        "Pervasive Displays E2271KS0C1 2.71-inch e-paper display matching the PCB footprint",
+        "v6.2 front.stl and back.stl prints",
+        "USB-C cable and regulated 5 V USB supply; the creator recommends at least 250 mA",
+        "Computer with Bluetooth and supported desktop Chrome for the web configurator; ESP-IDF tooling if rebuilding firmware"
+      ],
+      "steps": [
+        {
+          "title": "Lock the hardware revision",
+          "body": "Use the published rev3a production files and verify the ESP32-S3 module marking before ordering or assembling. Keep the experimental particulate-sensor option out of this reference build."
+        },
+        {
+          "title": "Print a matched shell pair",
+          "body": "Download the v6.2 front and back from the enclosure directory. Place their flat external sides on the bed, then inspect the display opening, USB access and sensor vents before fitting electronics."
+        },
+        {
+          "title": "Inspect the assembled board",
+          "body": "With USB disconnected, check the display connection and inspect soldering against the rev3a schematic/BOM. A bare PCB requires fine-pitch assembly skills; it is not a breadboard project."
+        },
+        {
+          "title": "Prepare the S3 firmware target",
+          "body": "Clone the repository with its submodules, install the documented ESP-IDF v5.3.4 toolchain for esp32s3, and enter bitclock-fw/target-rev2-esp32s3. Despite its directory name, this is the documented S3 target; do not select target-rev1-esp32c3."
+        },
+        {
+          "title": "Commission on USB first",
+          "body": "Build and flash with idf.py, then use the serial monitor to check startup and sensor discovery. Before closing the case, verify that the e-paper screen refreshes and values change plausibly; these are recommended checks, not tests performed for this catalog."
+        },
+        {
+          "title": "Fit without stressing the display",
+          "body": "Seat the PCB and display in the matching front, checking that no plastic bears on the active display area. Close the back only after the USB connector and ventilation paths align without force."
+        },
+        {
+          "title": "Configure and establish a baseline",
+          "body": "Use the creator's Bluetooth web configurator to set network and display preferences. Compare steady-state readings in the intended room, and revisit temperature/humidity offsets if you alter the enclosure or operating mode."
+        }
+      ],
+      "printNotes": "The enclosure author reports PLA and PETG on a Prusa Mini+, with flat sides down and 0.2 mm Structural settings. Both v6.2 binary STL files were downloaded and passed byte/facet-count consistency checks; no print or fit test was performed here. The first layer becomes a visible exterior surface.",
+      "firmware": "Source is in bitclock-fw. The documented environment is ESP-IDF v5.3.4 and target-rev2-esp32s3, with recursive submodules required for dependencies. The BLE configurator is at bitclock.io/connect. Firmware was inspected, not compiled or flashed in this research. No Home Assistant or other smart-home integration is promised by this entry.",
+      "sourceUrl": "https://github.com/goat-hill/bitclock",
+      "instructionsUrl": "https://github.com/goat-hill/bitclock/tree/master/bitclock-fw",
+      "supportingUrls": [
+        "https://github.com/goat-hill/bitclock/tree/master/bitclock-pcb/rev3a",
+        "https://github.com/goat-hill/bitclock/blob/master/bitclock-pcb/rev3a/order/bom.csv",
+        "https://github.com/goat-hill/bitclock/blob/master/bitclock-fw/main/tasks/eink_display.c",
+        "https://bitclock.io/faq",
+        "https://bitclock.io/connect"
+      ],
+      "modelUrl": "https://github.com/goat-hill/bitclock/tree/master/bitclock-enclosure/v6.2",
+      "modelSourceUrl": "https://github.com/goat-hill/bitclock/tree/master/bitclock-enclosure",
+      "modelStatus": "Public GitHub STL files downloaded: front.stl (255,984 bytes) and back.stl (118,784 bytes). The enclosure README additionally links editable Onshape v6.2 CAD. Hardware/CAD source and actual device photographs are present; manufacturing availability was not checked.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/goat-hill/bitclock/master/bitclock-web/src/app/img/bitclock.jpg",
+          "credit": "Goat Hill / Bitclock — creator project photograph",
+          "sourceUrl": "https://github.com/goat-hill/bitclock"
+        }
+      ],
+      "imageNote": "Downloaded and visually inspected: two physical black and white printed Bitclocks on a desk, with real e-paper screens and cables. This is not a CAD rendering. The PCB is hidden; revision identity comes from the source BOM, not from this photograph. Embedded EXIF metadata was removed for hosting; decoded image pixels are unchanged.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Repository PCB revision history, rev3a BOM and display implementation establish the exact S3 hardware. The firmware README establishes the toolchain and target; enclosure files and creator FAQ establish printing and configuration limits. SGP41 values are gas indices, not a direct concentration of a named gas. No particulate measurement, battery runtime or hands-on accuracy claim is made.",
+      "safety": "Use regulated USB power only for this build. Do not connect a lithium cell to an invented charging path. Keep vents unobstructed and the enclosure dry. This is an informational indoor-air monitor, not a smoke, carbon-monoxide, medical or life-safety detector. CO2 automatic calibration depends on suitable periodic fresh-air exposure; follow the sensor/project guidance.",
+      "estimatedBuildTime": "Not timed; sourcing or assembling the custom PCB can dominate the work. Printing, firmware setup and commissioning are separate tasks.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/bitclock-s3-air-monitor-af0da2249eefb6263bab.jpg"
+    },
+    {
+      "id": "capsule-radar-round-flight-display",
+      "title": "Capsule Radar pocket-watch flight display",
+      "creator": "Quique / socquique",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Waveshare ESP32-S3-Touch-AMOLED-1.75 standard bare board: ESP32-S3R8, 16 MB flash, 8 MB PSRAM, 466×466 CO5300 AMOLED and CST9217 touch.",
+        "Not the different 1.75C aluminum-cased product; the 1.43 firmware target has different hardware and is outside this enclosure entry."
+      ],
+      "difficulty": "Beginner",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "A round touch display shows nearby aircraft using online ADS-B feeds, with a pocket-watch-style printed shell. Tap a plane for details, swipe through traffic views, and set the viewing area through its local web page.",
+      "whyPrint": "The four-part shell adds a tactile ring, crown and cable opening around the bare round board, creating a complete desk object without extra soldered electronics.",
+      "parts": [
+        "Waveshare ESP32-S3-Touch-AMOLED-1.75 standard bare board",
+        "USB-C data/power cable",
+        "Four printed enclosure parts from MakerWorld 2907695",
+        "Three M2×5 screws and six 6×2 mm disc magnets, per the indexed creator listing",
+        "2.4 GHz Wi-Fi; optional board-compatible 8 Ω speaker, omitted for the basic silent build"
+      ],
+      "steps": [
+        {
+          "title": "Verify the board family",
+          "body": "Select the standard 1.75-inch bare board. Do not substitute the similarly named 1.75C; use the 1.75 firmware target."
+        },
+        {
+          "title": "Flash before assembly",
+          "body": "Connect USB-C data and choose 1.75 in the creator's Chrome/Edge web installer. If needed, enter download mode using BOOT and RESET as documented."
+        },
+        {
+          "title": "Set network and location",
+          "body": "Join CapsuleRadar-Setup, provide Wi-Fi, then open capsuleradar.local on the same LAN and set the map center, range and time zone."
+        },
+        {
+          "title": "Verify real traffic",
+          "body": "Check feed status and inspect an aircraft card. Empty airspace and upstream outages are possible; confirm that a changed center/range produces sensible results."
+        },
+        {
+          "title": "Print the matching shell",
+          "body": "Obtain the exact creator-linked model, inspect its four parts and select the standard-board variant. Test the USB opening and magnet pockets before full assembly."
+        },
+        {
+          "title": "Install retention hardware",
+          "body": "With USB disconnected, trial-fit the board and ring, orient the six magnets in attracting pairs, and use the listed M2×5 screws without pressing on the AMOLED."
+        },
+        {
+          "title": "Tune daily operation",
+          "body": "Reconnect USB, set dimming and mute for the silent build, and test touch gestures and face-down screen-off. Leave the optional battery connector unused."
+        }
+      ],
+      "printNotes": "The exact current indexed creator listing specifies four printed parts, three M2×5 screws and six 6×2 mm magnets. Older repository drafts say five parts and leave fasteners as placeholders; use the downloaded model revision as the final assembly authority. Geometry was not downloaded. PLA/PETG are indoor suggestions; check orientations, supports and tolerances locally. Keep loose magnets away from children.",
+      "firmware": "MIT source at socquique/capsule-radar; build pio run -e esp32-s3-amoled-175 -t upload. Inspected configuration uses pioarduino 53.03.13, Arduino_GFX 1.6.4 and LVGL 8.4.0; some other dependencies are not fully pinned. Online feeds include adsb.fi/adsb.lol fallback because airplanes.live access is contributor-dependent. The standard board needs manually set location, not GPS.",
+      "sourceUrl": "https://github.com/socquique/capsule-radar",
+      "instructionsUrl": "https://github.com/socquique/capsule-radar/blob/main/README.md",
+      "supportingUrls": [
+        "https://socquique.github.io/capsule-radar/",
+        "https://github.com/socquique/capsule-radar/blob/main/platformio.ini",
+        "https://github.com/socquique/capsule-radar/blob/main/src/battery.cpp",
+        "https://3dgo.app/models/makerworld/2907695",
+        "https://www.waveshare.com/wiki/ESP32-S3-Touch-AMOLED-1.75"
+      ],
+      "modelUrl": "https://makerworld.com/en/models/2907695-capsule-radar-live-flight-radar-desk-gadget",
+      "modelStatus": "Exact model linked by the firmware creator; matching public indexed listing and assembly BOM inspected. Original MakerWorld fetch returned HTTP 402. Listing-only verification: no geometry download or checkout test; platform/account access may be required. MakerWorld Exclusive License applies to the enclosure, separately from MIT firmware.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/socquique/capsule-radar/main/docs/img/device.JPG",
+          "credit": "Quique / socquique, Capsule Radar physical-device photograph",
+          "sourceUrl": "https://github.com/socquique/capsule-radar"
+        }
+      ],
+      "imageNote": "Actual powered white printed pocket-watch shell with black ring and USB cable. Screen includes an attributed aircraft image. Downloaded and visually inspected; simulator screenshots were not used. Embedded EXIF metadata was removed for hosting; decoded image pixels are unchanged.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Reopened AM tools-lane hold, not a new discovery. New exact indexed model/BOM inspection and physical-photo review close the identity gap while retaining explicit download limits. Board-specific source, USB/no-battery behavior and setup path inspected; no firmware or hardware test performed.",
+      "safety": "Hobby visualization only: not radar hardware, air-traffic control, collision avoidance or aviation navigation. Data can be delayed or absent. Use USB only for this scope and keep local configuration/OTA on a trusted LAN. Optional LiPo installation requires separate polarity, protection and fit checks.",
+      "estimatedBuildTime": "One setup session plus printing; estimate only.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/capsule-radar-round-flight-display-a0cdcc15560f57d5a85c.jpg"
+    },
+    {
+      "id": "co2-gadget-t5-scd41",
+      "title": "CO2-Gadget T5 e-paper room monitor",
+      "creator": "eMariete / Mariete; CO2-Gadget firmware by melkati and contributors",
+      "category": "Home & sensing",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "Classic-ESP32 LILYGO TTGO T5 2.13-inch board with DEPG0213BN e-paper panel, paired with the pictured four-pin blue SCD41 breakout."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "This compact room CO2 monitor combines a LILYGO T5 e-paper board with an SCD41 sensor and CO2-Gadget firmware. The printed case separates the sensing area from the main electronics. The reference here is USB-powered; no battery-life promise is carried over from the article.",
+      "whyPrint": "The case fits the integrated display board and creates a separate sensor compartment, reducing direct exposure to electronics heat while keeping the readings visible.",
+      "parts": [
+        "LILYGO TTGO T5 2.13-inch classic ESP32 board with DEPG0213BN panel; confirm the actual panel label",
+        "Sensirion SCD41 four-pin blue breakout matching the creator's GND/VDD/SCL/SDA photograph",
+        "Four short insulated wires and soldering tools",
+        "Front and appropriate back from Mariete's exact T5/SCD41 case design",
+        "USB data cable and regulated USB supply; no lithium cell is needed for this scoped build",
+        "Computer with PlatformIO; PowerShell 7 may be required by the current web-asset build process"
+      ],
+      "steps": [
+        {
+          "title": "Verify both physical modules",
+          "body": "Check the T5's display label against DEPG0213BN and compare the SCD41 breakout dimensions and pin order with the creator's photo. A different T5 panel needs a different firmware target and may not fit identically."
+        },
+        {
+          "title": "Obtain the exact enclosure",
+          "body": "Open Mariete's named Tinkercad design and obtain the front plus one compatible back through its normal export flow. The creator offers two back depths; dry-fit your board and cable before committing to final assembly."
+        },
+        {
+          "title": "Wire the low-voltage sensor bus",
+          "body": "With USB disconnected, follow the published diagram: SCD41 VDD to T5 3V3, GND to GND, SDA to GPIO21 and SCL to GPIO22. Check for bridges and reversed power before connecting USB."
+        },
+        {
+          "title": "Select the matching firmware flavor",
+          "body": "For a source build, open CO2-Gadget in PlatformIO and choose ttgo-t5-EINKBOARDDEPG0213BN. Set your actual serial port in the documented local configuration file; do not leave the developer's example COM port unchanged."
+        },
+        {
+          "title": "Flash and test outside the case",
+          "body": "Follow the repository's upload procedure and monitor startup for SCD41 discovery and display refresh. Current source is a development/beta branch; record the revision you use. Do not treat a retained e-paper image as proof the firmware is still running."
+        },
+        {
+          "title": "Fit the sensor compartment",
+          "body": "Seat the boards in their respective spaces, preserve the designed air openings, and route wires away from the display edge and USB connector. Close the case without pressing on the sensor cap or display glass."
+        },
+        {
+          "title": "Commission in the intended room",
+          "body": "Confirm repeated measurement updates on USB before enabling optional BLE or MQTT. Review the firmware's sensor calibration and temperature-offset guidance; compare steady conditions before using readings to inform ordinary ventilation decisions."
+        }
+      ],
+      "printNotes": "The exact creator Tinkercad page was retrieved and names the T5 2.13-inch/SCD41 design. No STL export, account flow or physical fit was tested. The guide describes two back depths and a separate sensor chamber. PLA/PETG are editorial indoor-case options; no creator slicer settings or guaranteed thermal correction are asserted.",
+      "firmware": "CO2-Gadget provides a specific ttgo-t5-EINKBOARDDEPG0213BN PlatformIO environment and documents I2C SDA21/SCL22 for the T5 family. The inspected development source identifies 0.16.029-beta and pins espressif32 6.11.0 for this environment. Its current web-asset pipeline may require PowerShell; Arduino IDE is not officially supported. Build/upload instructions and sensor code were inspected, not executed on hardware. Use the creator's installation guide for any prebuilt-flasher route rather than assuming every display flavor is available there.",
+      "sourceUrl": "https://emariete.com/en/co2-meter-co2-gadget-low-power-with-lilygo-ttgo-t5-epaper-and-sensor-sensirion-scd41/",
+      "instructionsUrl": "https://github.com/melkati/CO2-Gadget",
+      "supportingUrls": [
+        "https://github.com/melkati/CO2-Gadget/blob/development/platformio.ini",
+        "https://github.com/melkati/CO2-Gadget/blob/development/CO2_Gadget_Sensors.h",
+        "https://emariete.com/co2-gadget-instalacion/",
+        "https://emariete.com/co2-gadget-guia-calibracion/"
+      ],
+      "modelUrl": "https://www.tinkercad.com/things/bTNL0jCvHew-co2-gadget-lilygo-ttgo-t5-213-sensirion-scd41",
+      "modelSourceUrl": "https://emariete.com/en/co2-meter-co2-gadget-low-power-with-lilygo-ttgo-t5-epaper-and-sensor-sensirion-scd41/",
+      "modelStatus": "Exact Tinkercad listing identity and creator Mariete verified from the public page, linked directly by the build guide. Geometry export/download and any account requirement were not exercised. Do not infer open-source model licensing from the separate GPL firmware license.",
+      "images": [
+        {
+          "url": "https://emariete.com/wp-content/uploads/2024/03/242365-Boxed-CO2-Gadget_Lilygo_TTGO-T5_SCD41-1024x576.png",
+          "credit": "eMariete / Mariete — creator photograph, watermark preserved",
+          "sourceUrl": "https://emariete.com/en/co2-meter-co2-gadget-low-power-with-lilygo-ttgo-t5-epaper-and-sensor-sensirion-scd41/"
+        }
+      ],
+      "imageNote": "Downloaded and visually inspected: a real red-and-light-colored printed enclosure displaying 431 ppm, photographed with the creator's eMariete watermark. The photo does not establish measurement accuracy or battery duration.",
+      "checkedAt": "2026-10-16",
+      "evidence": "The primary guide's board/sensor photos and wiring diagram were reviewed alongside the named Tinkercad page and current firmware environment/pin table. The four-wire drawing explicitly uses 3V3, GPIO21 and GPIO22. The catalog has not printed, compiled, calibrated or measured this device. Other CO2-Gadget display/case variants are not separate admissions in this batch.",
+      "safety": "Keep the reference build on regulated USB power and 3.3 V sensor wiring. Do not add an unverified lithium cell or assume connector polarity. Keep the enclosure dry and ventilated. E-paper can show stale readings after power loss. This informational CO2 monitor is not a smoke, carbon-monoxide, medical or life-safety detector; calibration and sensor placement affect interpretation.",
+      "estimatedBuildTime": "Not timed; plan for case export/printing, four-wire assembly, firmware setup and a separate period of sensor commissioning.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/co2-gadget-t5-scd41-e9d28b8577de48db92f2.png"
+    },
+    {
+      "id": "coppermilk-wiener-linien-monitor",
+      "title": "Wiener Linien miniature departure sign",
+      "creator": "coppermilk",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Headerless LILYGO T-Display-S3: ESP32-S3R8, 16 MB flash, 8 MB PSRAM and integrated 1.9-inch 170×320 ST7789 TFT. Not the older T-Display or AMOLED version."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "A miniature Vienna transit-stop sign shows the next departures for a selected Wiener Linien stop. The project uses the operator's live open-data feed, so its ready-made application is specific to Vienna, Austria.",
+      "whyPrint": "The tall post and horizontal screen housing make the electronics look like a small street departure board, with its USB lead routed through the structure.",
+      "parts": [
+        "LILYGO T-Display-S3 1.9-inch board without soldered pin headers",
+        "USB data cable for programming and a compact magnetic USB power connector that fits the model",
+        "Printed post, screen housing and matching closure pieces from Thingiverse 6166463",
+        "Two M2.5 nuts and two M2.5×18 mm bolts according to the current repository BOM",
+        "Plastic-compatible glue for the documented enclosure joints",
+        "2.4 GHz Wi-Fi and the RBL stop identifier for the desired Vienna departure platform"
+      ],
+      "steps": [
+        {
+          "title": "Confirm the integrated board",
+          "body": "Use the headerless 1.9-inch T-Display-S3. Inspect the connector clearances in the model before ordering a magnetic USB lead; do not assume other LilyGO displays fit."
+        },
+        {
+          "title": "Prepare the display toolchain",
+          "body": "Select LilyGo T-Display S3 in Arduino IDE. Apply the manufacturer's TFT_eSPI Setup206_LilyGo_T_Display_S3.h configuration and keep the creator's documented library versions together."
+        },
+        {
+          "title": "Upload and check the bare board",
+          "body": "Open the repository sketch, connect a USB data cable and upload. Confirm readable text and stable boot before gluing or closing any printed parts."
+        },
+        {
+          "title": "Choose a departure platform",
+          "body": "Look up the Vienna RBL identifier linked by the creator. Join the device's setup Wi-Fi, then enter your network, RBL, line count and optional filters in its configuration portal."
+        },
+        {
+          "title": "Check real departures",
+          "body": "Compare destinations and countdowns with the operator's information for that platform. Test a power cycle and allow the display's periodic refresh to update."
+        },
+        {
+          "title": "Print and dry-fit the sign",
+          "body": "Open the exact model set and verify the tallest part fits your printer. Trial-fit the screen, post, bolts and USB connector with power disconnected before applying glue."
+        },
+        {
+          "title": "Close and test recovery",
+          "body": "Secure the printed assembly without loading the glass or USB socket. Keep the configuration button accessible: the creator documents a 5–10 second hold for Wi-Fi reset and over 30 seconds for full settings removal."
+        }
+      ],
+      "printNotes": "Exact indexed file metadata lists white_lines.stl, body.stl, cap.stl, display_case.stl and base.stl. These geometry payloads were not retrieved. The older listing specifies one bolt/nut pair while the current repository specifies two; inspect the downloaded revision and use the current BOM as the planning basis. PLA/PETG are indoor suggestions, not a verified profile. Do not trim a USB cable's insulation to make it fit.",
+      "firmware": "Arduino sketch is public. Its dependency comments specify ArduinoJson 6.21.3, TFT_eSPI 2.5.0 and WiFiManager 2.0.16. The LilyGO manufacturer's documentation recommends Arduino ESP32 2.0.14 for its older TFT examples and identifies the exact Setup206 display configuration. This source stack was inspected, not compiled. The repository CI targets tinypico and is not proof of this display hardware. Scope is USB-powered; battery operation is not asserted.",
+      "sourceUrl": "https://github.com/coppermilk/wiener_linien_esp32_monitor",
+      "instructionsUrl": "https://github.com/coppermilk/wiener_linien_esp32_monitor/blob/main/README.md",
+      "supportingUrls": [
+        "https://github.com/Xinyuan-LilyGO/T-Display-S3",
+        "https://till.mabe.at/rbl/",
+        "https://www.wienerlinien.at/ogd_realtime/monitor?rbl=49",
+        "https://3dgo.app/models/thingiverse/6166463"
+      ],
+      "modelUrl": "https://www.thingiverse.com/thing:6166463",
+      "modelStatus": "Exact model is linked by the firmware author and indexed under the same creator, board and build name. The original Thingiverse fetch returned HTTP 403; no geometry was downloaded or access restriction bypassed. Listing-only verification, Creative Commons Attribution; inspect the actual files and download requirements before building.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/coppermilk/wiener_linien_esp32_monitor/main/img/monitor.jpeg",
+          "credit": "coppermilk, creator photograph of the working departure sign",
+          "sourceUrl": "https://github.com/coppermilk/wiener_linien_esp32_monitor"
+        }
+      ],
+      "imageNote": "Downloaded and visually inspected: a real hand-held red-and-white printed miniature sign showing two tram departures. This is not a display simulation.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Complete creator README, sketch dependency/reset logic, manufacturer display setup and exact indexed model were inspected. A read-only request to the official Wiener Linien endpoint returned a successful current departure response on October 16, 2026. That checks the data service, not firmware behavior; no compile, flash or mechanical fit test was performed.",
+      "safety": "USB-powered indoor informational display. Preserve cable insulation and connector strain relief, and keep magnetic contacts away from conductive debris. Departure data may be delayed or stale; do not rely on a countdown as a travel guarantee.",
+      "estimatedBuildTime": "An afternoon plus printing; estimate assumes access to a Vienna stop identifier.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/coppermilk-wiener-linien-monitor-28e9fb83ebc7c67ce1e1.jpg"
+    },
+    {
+      "id": "flightscnr-encoder-radar-display",
+      "title": "FlightScnr rotary-dial aircraft monitor",
+      "creator": "Yash Mulgaonkar",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "LILYGO T-Encoder Pro: ESP32-S3R8, 16 MB flash, 8 MB octal PSRAM, 390×390 round AMOLED with rotary/push control.",
+        "Firmware detects supported DXQ120/SH8601 and TFD12/CO5300 panels. Select tencoder-pro, not the separate Waveshare knob target."
+      ],
+      "difficulty": "Beginner",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "Turn a programmable display knob into a tactile aircraft viewer: rotate to change range, press or tap for flight details, and use the clock when the local sky is quiet. The creator supplies separate printed desk and monitor mounts.",
+      "whyPrint": "The purpose-built mounts give the finished circular control a stable viewing position on a desk or monitor without enclosing the moving dial.",
+      "parts": [
+        "LILYGO T-Encoder Pro with supported AMOLED panel",
+        "USB data/power cable and USB source",
+        "Creator's printed desktop stand or monitor mount from MakerWorld 2902669",
+        "2.4 GHz Wi-Fi and a Chrome/Edge computer for the web flasher"
+      ],
+      "steps": [
+        {
+          "title": "Check the integrated knob",
+          "body": "Confirm T-Encoder Pro branding and its ESP32-S3 hardware. The separate Waveshare knob target is not a mechanically interchangeable substitute."
+        },
+        {
+          "title": "Install the correct image",
+          "body": "Open the project's WebFlasher, connect USB and explicitly confirm T-Encoder Pro before installing. USB identifiers alone cannot reliably distinguish supported boards."
+        },
+        {
+          "title": "Join the setup portal",
+          "body": "Use the displayed QR/SSID for FlightScnr-AP-XXXX. If the portal does not open, browse to 4.3.2.1 while connected and save your Wi-Fi network."
+        },
+        {
+          "title": "Set a local viewing area",
+          "body": "Read and accept the on-device hobby-use disclaimer. Open the displayed flightscnr-xxxx.local address and set center coordinates, units and range."
+        },
+        {
+          "title": "Prove the controls",
+          "body": "Rotate to change radar range, select a target and check flight details. Leave paid optional APIs off initially; public ADS-B and default keyless services support the basic build."
+        },
+        {
+          "title": "Print and fit a mount",
+          "body": "Choose the creator's desktop or monitor model, inspect its retention geometry, and trial-fit the unpowered device. Ensure the full dial can turn and press freely."
+        },
+        {
+          "title": "Check placement and recovery",
+          "body": "Route USB without pulling on the mount, set brightness/idle clock, and verify normal power-up. Holding the knob for five seconds clears saved Wi-Fi, so avoid accidental long presses."
+        }
+      ],
+      "printNotes": "Exact MakerWorld listing identifies both desktop and monitor mounts for T-Encoder Pro, corroborated by the creator's physical-photo collage. Download and inspect the chosen variant before printing; no geometry or fit test was performed. PLA/PETG are indoor suggestions, not a claimed creator profile.",
+      "firmware": "FlightScnr source uses PlatformIO espressif32 6.5.0, a supplied 16 MB S3 board definition, qio_opi PSRAM and vendored display libraries. Explicit command: pio run -e tencoder-pro -t upload. Build scripts fetch aircraft/airport lookup data. WebFlasher is the simpler route. Application license is CC BY-NC-SA 4.0; dependencies retain their own terms.",
+      "sourceUrl": "https://github.com/yashmulgaonkar/FlightScnr",
+      "instructionsUrl": "https://github.com/yashmulgaonkar/FlightScnr/blob/master/README.md",
+      "supportingUrls": [
+        "https://yashmulgaonkar.github.io/FlightScnr",
+        "https://github.com/yashmulgaonkar/FlightScnr/blob/master/platformio.ini",
+        "https://github.com/Xinyuan-LilyGO/T-Encoder-Pro",
+        "https://3dgo.app/models/makerworld/2902669"
+      ],
+      "modelUrl": "https://makerworld.com/en/models/2902669-flightscnr-live-ads-b-traffic-sweeping-radar",
+      "modelStatus": "Exact creator-linked model identity and free listing metadata verified through its public index. Original MakerWorld fetch returned HTTP 402; no geometry/download flow was tested. Platform account/access may be required. Enclosure is under its separate Standard Digital File License.",
+      "images": [
+        {
+          "url": "https://github.com/user-attachments/assets/5275eb54-d5cf-4815-b19a-85e70ee04339",
+          "credit": "Yash Mulgaonkar / FlightScnr, creator photograph collage",
+          "sourceUrl": "https://github.com/yashmulgaonkar/FlightScnr"
+        }
+      ],
+      "imageNote": "Three actual views of the operating T-Encoder Pro in the printed desk and monitor mounts. Downloaded, decoded and visually inspected.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Read full creator README and PlatformIO configuration; manufacturer confirms ESP32-S3R8 and both panel revisions. Exact model and photographed mounts match. This is a separate creator/mechanical/control build, not a second Capsule Radar board variant. No compile, flash, API-account or mechanical testing was performed.",
+      "safety": "Informational hobby display only, never aviation/navigation equipment. Online aircraft data can be delayed or unavailable. Keep optional API keys and the HTTP settings interface private. Mount away from monitor vents and use strain relief; do not force the dial or screen.",
+      "estimatedBuildTime": "One setup session plus mount printing; estimate only.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/flightscnr-encoder-radar-display-3c37b26dd536303103aa.png"
+    },
+    {
+      "id": "franzenhof-universal-weather-node",
+      "title": "Franzenhof Heltec S3 weather node",
+      "creator": "Gerhard Massenbichler / Franzenhof",
+      "category": "Home & sensing",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Heltec WiFi LoRa 32 V3 with ESP32-S3 and SX1262, fitted to the creator's weather-node PCB rev1.3."
+      ],
+      "difficulty": "Advanced",
+      "materials": [
+        "PETG"
+      ],
+      "summary": "A serviceable weather-station interface puts a Heltec S3, protected sensor connections and a status display in a printed case. The reference sensors cover wind, tipping-bucket rain and ambient conditions; this entry starts with the documented Wi-Fi-only operating mode.",
+      "whyPrint": "The dedicated shell aligns the OLED, control button and several sensor connectors around the long custom interface PCB. It is a mechanical enclosure, not evidence of an outdoor waterproof rating.",
+      "parts": [
+        "Heltec WiFi LoRa 32 V3 and its appropriate antenna",
+        "Universal Weather Node PCB rev1.3, assembled to the matching published schematic and BOM",
+        "Davis 6410 wind sensor and Davis 6466M/AeroCone metric 0.2 mm tipping-bucket rain sensor",
+        "BME280 I2C module configured for address 0x76",
+        "Sensor cables/connectors wired to this project's current schematic, not Ethernet pin conventions",
+        "Published v2 case body, top and button prints",
+        "USB cable and regulated USB power for initial commissioning; optional DS18B20 probes are not required"
+      ],
+      "steps": [
+        {
+          "title": "Choose the current rev1.3 fabrication archive",
+          "body": "Use lorawan-weather-node-pcb-gerberfile rev13.zip, dated July 27, 2026, with the current BOM/schematic and SN74LVC2G14 input inverter. Do not use the older July 7 archive named lorawan-weather-node-pcb rev13.zip: despite the same revision label, it lacks that component and does not match this firmware's pulse polarity."
+        },
+        {
+          "title": "Check the printed enclosure fit",
+          "body": "Print the published v2 body, lid and button. Dry-fit the actual PCB and Heltec before final assembly, checking connector clearances, OLED opening and free button movement without loading the board."
+        },
+        {
+          "title": "Assemble the protected interface",
+          "body": "Build the custom PCB from its current BOM and inspect polarity, solder bridges and socket alignment with power disconnected. Use its specified protection and signal-conditioning parts rather than wiring long sensor leads directly to ESP32 pins."
+        },
+        {
+          "title": "Map each sensor connector",
+          "body": "Follow the current schematic for wind, rain and BME280 connections. The RJ45-shaped sockets carry proprietary sensor signals, not Ethernet. Check continuity and 3.3 V sensor supply routing before plugging in each sensor."
+        },
+        {
+          "title": "Build the Heltec V3 firmware",
+          "body": "Use PlatformIO environment heltec_wifi_lora_32_V3 and retain pcbVersion 13 for this assembly. Upload over USB and confirm display/startup output before adding the external sensors one at a time."
+        },
+        {
+          "title": "Configure a local-network deployment",
+          "body": "Open the WeatherNode setup portal on the creator-documented initial access point, set trusted Wi-Fi details, and disable LoRa when choosing the supported Wi-Fi-only mode. Set an administrator password and avoid exposing its HTTP interface to the internet."
+        },
+        {
+          "title": "Prove the measurements on the bench",
+          "body": "Check one manual rain tip, wind pulses and vane direction against known physical positions; confirm BME280 values are plausible. Apply the project's calibration procedure before closing the case and placing the electronics in a dry, sheltered location."
+        }
+      ],
+      "printNotes": "The repository provides v2 body, lid and button STL files plus editable Fusion CAD. All three STLs were downloaded and passed binary byte/facet-count checks. The differently named pcb v1.2 body is byte-identical to the v2 body; do not interpret filenames as evidence of a new enclosure revision. No material/slicer recipe or environmental certification was found. PETG is an editorial choice for a sheltered enclosure, not a creator-tested weatherproofing claim.",
+      "firmware": "The inspected PlatformIO environment selects heltec_wifi_lora_32_V3 and espressif32 6.4.0. Current config.h defaults pcbVersion to 13. The code supports LoRaWAN, Wi-Fi, MQTT and a local API; this guide scopes initial setup to Wi-Fi-only operation. No compile, radio-range or physical-sensor test was performed. For MQTT TLS, configure certificate verification rather than assuming a TLS-looking port provides verification.",
+      "sourceUrl": "https://github.com/franzenhof/universal-weather-node",
+      "instructionsUrl": "https://github.com/franzenhof/universal-weather-node/blob/main/README.md",
+      "supportingUrls": [
+        "https://github.com/franzenhof/universal-weather-node/blob/main/pcblayout/lorawan-weather-node-pcb-gerberfile%20rev13.zip",
+        "https://github.com/franzenhof/universal-weather-node/tree/main/pcblayout",
+        "https://github.com/franzenhof/universal-weather-node/blob/main/platformio.ini",
+        "https://github.com/franzenhof/universal-weather-node/blob/main/src/config.h",
+        "https://github.com/franzenhof/universal-weather-node/blob/main/src/sensors.cpp"
+      ],
+      "modelUrl": "https://github.com/franzenhof/universal-weather-node/tree/main/3dprint",
+      "modelSourceUrl": "https://github.com/franzenhof/universal-weather-node",
+      "modelStatus": "Public repository contains downloadable STL and F3D files. The v2 body (55,084 bytes), top (24,484 bytes) and button (105,284 bytes) were downloaded. Source hardware/CAD is offered under CERN-OHL-P v2; software is MIT. No physical fit test was performed.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/franzenhof/universal-weather-node/main/pictures/3dprint-case-open.jpeg",
+          "credit": "Gerhard Massenbichler / Franzenhof — creator assembly photograph",
+          "sourceUrl": "https://github.com/franzenhof/universal-weather-node"
+        }
+      ],
+      "imageNote": "Downloaded and visually inspected: actual open printed enclosure containing the populated connector PCB and Heltec OLED module.",
+      "checkedAt": "2026-10-16",
+      "evidence": "README, schematic, BOM, firmware and enclosure meshes were inspected. The selected July 27 -gerberfile rev13 ZIP includes SN74LVC2G14DBVR in its placement data; the older July 7 same-revision ZIP must not be substituted. Current rev1.3 uses wind/rain GPIO6/7, vane GPIO2 and BME280 SDA41/SCL42. A stale design note conflicts with the current BME280 RJ45 map; use the current schematic/README. Protection circuitry is not a verified lightning-protection rating.",
+      "safety": "Stay on USB and 3.3 V sensor circuits for commissioning; no mains wiring is included. Never connect the sensor RJ45 sockets to Ethernet or PoE. Install outdoor cables with appropriate electrical/lightning precautions and keep electronics dry. The print has no proven IP rating. This is not a severe-weather warning or safety system; radio use, if enabled later, must follow local requirements.",
+      "estimatedBuildTime": "Not timed; custom-PCB sourcing, assembly and outdoor-sensor installation are substantial separate stages.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/franzenhof-universal-weather-node-590d1b94b15cf28c30c0.jpg"
+    },
+    {
+      "id": "galaxis-deduction-game",
+      "title": "Galaxis fold-out deduction game",
+      "creator": "jrmrtns",
+      "category": "Lights & art",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Seeed Studio XIAO ESP32-S3, standard 21 × 17.8 mm board with 8 MB flash/8 MB PSRAM; not the larger Sense camera stack or Plus model.",
+        "Creator explicitly supports XIAO S3 and C3 with separate build environments and installer binaries. This entry covers only the documented S3 route; photographs do not establish the hidden controller variant."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "Search for four hidden spacecraft by asking a round-screen computer how many ships are visible along each row, column and diagonal. Physical numbered pegs preserve your deductions on a folding grid. One deck works alone; up to four independently powered decks can share a game over Bluetooth LE.",
+      "whyPrint": "The folding box is the game board, storage tray and controller mount at once. Its grid, numbered pegs and compartments make the deductions tangible, while the fitted display plate and encoder seat keep the electronics usable without a separate breadboard.",
+      "parts": [
+        "1 Seeed Studio XIAO ESP32-S3 standard board and its supplied external antenna",
+        "1 Waveshare 1.28inch LCD Module, 240 × 240 GC9A01 SPI, non-touch version, with matching cable",
+        "1 Adafruit ANO directional/rotary wheel, product 5001, and passive breakout PCB 5221; not the I2C adapter",
+        "Insulated fine wire, solder and optional crimp/Dupont connectors for the creator's display and encoder harnesses",
+        "Creator's five structural STL files plus BlackPin and numbered Pin-0 through Pin-4; PLA is an editorial material choice",
+        "USB-C data cable and an intact regulated 5 V USB source; the documented assembly is USB powered, with no added lithium battery",
+        "Computer with PlatformIO or a Web Serial-capable Chromium browser for the creator's installer",
+        "Optional source-listed sound transducer is not required for gameplay and is omitted from this quiet build; leave its D6/D7 connections unused"
+      ],
+      "steps": [
+        {
+          "title": "Select the creator's S3 build",
+          "body": "Download the complete Galaxis repository and select the standard XIAO ESP32-S3 listed in its BOM. The source folder is Galaxis, not the repository root. Use environment seeed_xiao_esp32s3; the README's example command uses C3 and must not be copied unchanged for an S3. Keep the supplied antenna attached for multiplayer."
+        },
+        {
+          "title": "Prepare one complete deck",
+          "body": "Import Boden, Deckel, Inlay, Display and Platte at original scale. The two outer pieces occupy roughly 200 × 160 mm, so check the usable bed area. Print fifty black pegs and numbered sets of 5 zeroes, 10 ones, 10 twos, 10 threes and 5 fours; use four white copies of BlackPin as the creator's temporary spacecraft markers. Inspect orientation and supports in the slicer rather than treating the STL coordinates as a print profile."
+        },
+        {
+          "title": "Make and check the control harness",
+          "body": "Solder the ANO wheel to its passive breakout and follow the creator's four-wire harness for encoder A/B, common and center press. Source settings assign encoder inputs to D1/D0, common to D2 and the center button to D3. On XIAO S3 these are GPIO2, GPIO1, GPIO3 and GPIO4. D2 is deliberately driven LOW by the firmware; it is a switch return, not a power-ground connection for other loads."
+        },
+        {
+          "title": "Connect the round display",
+          "body": "With USB disconnected, reproduce the six-wire display connection in wiring.png and the assembly photographs. The published configuration uses DIN/MOSI D10, clock D8, chip-select D5 and data/command D4, corresponding to S3 GPIO9, GPIO7, GPIO6 and GPIO5. Use the drawing's 3.3 V display supply and common ground; verify labels on the actual module rather than relying on wire colors. Do not substitute a touch-screen board with a different connector."
+        },
+        {
+          "title": "Load firmware and test on the bench",
+          "body": "From the Galaxis source directory run pio run -e seeed_xiao_esp32s3 --target upload, or use the creator's browser installer with its S3 image. The checked configuration pins espressif32 6.6.0 and supplies the display setup and LVGL code. Verify that turning the wheel changes the selection and its center press confirms it before securing the display. The quiet build leaves the explicitly optional sound hardware disconnected."
+        },
+        {
+          "title": "Assemble without trapping the wires",
+          "body": "Route the wheel harness through the inlay's underside gap, then seat the inlay in the lower shell as shown in the guide. Snap the controller into its support only after checking USB access and solder clearance. Connect the LCD, fit it into Display.stl and seat that plate. Fit the grid and lid, checking the hinge and closure against the supplied geometry; never force a snap fit or pinch a cable to make it close."
+        },
+        {
+          "title": "Verify deductions and multiplayer",
+          "body": "Start a single-player round, choose coordinates and place the corresponding numbered or spacecraft pegs. Confirm the display and physical grid agree before a longer game. For multiplayer, power each additional complete deck separately, create a game on one and join from the others. Check turn indications, a new-game restart, cable retention and enclosure temperature. Keep the small loose pegs away from children who may swallow them."
+        }
+      ],
+      "printNotes": "All eleven creator STLs were downloaded in the main archive and checked as valid binary STL structures. Calculated envelopes: bottom 200 × 159.50 × 24.20 mm, lid 200 × 159.63 × 19.50 mm, inlay 194.5 × 100 × 17 mm, display plate 194.5 × 44.61 × 14.46 mm and playing grid 190 × 120 × 2.5 mm. Pegs are approximately 8.5 mm across. Several meshes have assembly-position offsets, so arrange them deliberately in the slicer. PLA is an editorial choice; the creator does not provide a validated layer/infill/support profile. No slicing, printed-fit or hinge endurance test was performed here.",
+      "firmware": "Creator's PlatformIO Arduino application: environment seeed_xiao_esp32s3, espressif32@6.6.0, RotaryEncoder ^1.5.3, ArduinoBLE ^1.3.6, TFT_eSPI ^2.5.43 and bundled LVGL/UI files. The deployed English S3 application binary downloaded successfully; it was inspected as a binary, not flashed. The browser manifest separately identifies ESP32-S3 and ESP32-C3. No local compilation or gameplay test is claimed.",
+      "sourceUrl": "https://github.com/jrmrtns/galaxis",
+      "instructionsUrl": "https://github.com/jrmrtns/galaxis/blob/main/README.md",
+      "supportingUrls": [
+        "https://github.com/jrmrtns/galaxis/blob/main/Galaxis/platformio.ini",
+        "https://github.com/jrmrtns/galaxis/blob/main/Galaxis/include/settings.h",
+        "https://github.com/jrmrtns/galaxis/blob/main/Galaxis/src/main.cpp",
+        "https://github.com/jrmrtns/galaxis/blob/main/assets/wiring.png",
+        "https://jrmrtns.github.io/galaxis/",
+        "https://jrmrtns.github.io/galaxis/manifest/firmware-esp32s3/firmware-en.bin",
+        "https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/",
+        "https://www.waveshare.com/1.28inch-lcd-module.htm",
+        "https://www.adafruit.com/product/5001",
+        "https://www.adafruit.com/product/5221"
+      ],
+      "modelUrl": "https://github.com/jrmrtns/galaxis/tree/main/3d",
+      "modelSourceUrl": "https://github.com/jrmrtns/galaxis/blob/main/README.md",
+      "modelStatus": "Eleven free creator STL files downloaded through the public repository archive; no model-site login or purchase required for this route. Structural size/count checks completed, but not physical fit validation. The creator's separate spaceship-shaped peg files remain forthcoming; the guide explicitly substitutes white BlackPin copies.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/jrmrtns/galaxis/main/assets/game.jpg",
+          "credit": "jrmrtns / Galaxis project repository",
+          "sourceUrl": "https://github.com/jrmrtns/galaxis"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/jrmrtns/galaxis/main/assets/assembly-08.jpg",
+          "credit": "jrmrtns / Galaxis assembly guide",
+          "sourceUrl": "https://github.com/jrmrtns/galaxis/blob/main/README.md"
+        }
+      ],
+      "imageNote": "The creator's background-isolated hero photograph shows the complete fold-out game and pegs. Real, unaltered black-case assembly photos independently show its printed layers, wired controller and illuminated Galaxis title screen; the powered assembly photo is also included. The hidden controller variant is not established by the hero photo. S3 support comes from the creator's BOM, source configuration and S3 firmware release, not chip legibility in that photograph.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Primary archive revision 3b07c5689495b426a425ea21db8cf4b38da3e20c supplies the assembly guide, real photographs, printable parts and S3-specific build route. Seeed documents the standard S3's 21 × 17.8 mm form factor, 5 V USB input, 3.3 V output and D-pin/GPIO mapping. Adafruit confirms that the selected ANO breakout is passive and supports a firmware-driven common return. Waveshare's public indexed manufacturer specification supports the named 3.3 V GC9A01 module; direct product/wiki opens returned 403 and were not bypassed. This is documentation-based qualification, not measured power, firmware-build or fit certification.",
+      "safety": "Power only through USB-C for this documented route, keep the LCD and controls in the 3.3 V logic domain, and disconnect power before soldering or moving connectors. The GPIO-driven ANO common is only for its passive contacts; never use it as a load return. No low-impedance speaker should be attached directly to GPIO, and this quiet build omits the source's optional transducer. Insulate solder joints, strain-relieve the USB cable, stop if a board resets or heats abnormally, and treat the small pegs as a choking hazard.",
+      "estimatedBuildTime": "Not established by the creator; expect several printing batches plus soldering, fitting and a separate functional test session.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/galaxis-deduction-game-ed689f37166f6372f4dd.jpg"
+    },
+    {
+      "id": "hcomet-cydweewx-weather-display",
+      "title": "cydWeeWX personal weather-station console",
+      "creator": "hcomet",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "Classic ESP32 CYD 2.8-inch 320×240 board. Select CYD2USB/ST7789 for the USB-C enclosure path; original single-USB ILI9341 has a separate firmware image."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "Give an existing WeeWX weather station a dedicated desk console. The display combines your station's measurements with an Open-Meteo condition icon, including trends, wind, rainfall and astronomical times.",
+      "whyPrint": "A wide two-piece enclosure supports the screen and routes the cable behind the device through a right-angle USB-C adapter.",
+      "parts": [
+        "CYD2USB classic ESP32 board with 2.8-inch ST7789 display",
+        "USB power/data cable and the pictured 90-degree USB-C adapter",
+        "Four M3×12 mm button-head screws",
+        "Printed case front and back",
+        "Existing supported weather station, WeeWX server and weewx-json extension",
+        "2.4 GHz Wi-Fi and access to Open-Meteo"
+      ],
+      "steps": [
+        {
+          "title": "Match the CYD revision",
+          "body": "Use the creator's hardware identification link to distinguish single-USB ILI9341 from dual-USB ST7789. Confirm the USB-C adapter fits the case before printing."
+        },
+        {
+          "title": "Enable the station report",
+          "body": "Install weewx-json on your WeeWX server and add the supplied cyd_weewx.json.tmpl to its JSON skin. Use the correctly spelled filename from the supplied skin.conf."
+        },
+        {
+          "title": "Test JSON delivery",
+          "body": "Enable JSONReport, run weectl report run, and open the generated cyd_weewx.json in a browser. Check timestamps, station units and the server's report interval."
+        },
+        {
+          "title": "Install board-specific firmware",
+          "body": "Use the linked web flasher and select CYD2USB for this hardware. Back up settings before an erase; the original CYD binary is not the same target."
+        },
+        {
+          "title": "Configure the console",
+          "body": "Join the access point with the password shown on screen. Set Wi-Fi and the WeeWX base URL with its trailing slash; follow the displayed portal address."
+        },
+        {
+          "title": "Save and compare readings",
+          "body": "After changing setup values, press Save and then Exit so they persist. Compare the console to the generated JSON and test the chosen dimming mode."
+        },
+        {
+          "title": "Close the printed case",
+          "body": "Trial-fit the front and back with power disconnected, seat the 90-degree adapter without loading the USB socket, and secure the rear with four M3×12 screws."
+        }
+      ],
+      "printNotes": "Creator supplies front/back STL plus an editable STEP assembly directly in the repository. Geometry was retrieved for inspection; slicer fit, support placement and material profile still need local validation. PLA/PETG are indoor-use suggestions.",
+      "firmware": "Web installer and Arduino source are available. Documented source baseline: ESP32 Arduino 3.3.8, LVGL 9.5.0, TFT_eSPI 2.5.43, ArduinoJson 7.4.3, TaskScheduler 4.0.5 and WiFiManager 2.0.17, with Minimal SPIFFS 1.9 MB app/OTA partition. Use matching TFT_eSPI User_Setup.h and the supplied lv_conf.h; automatic dimming requires application ownership of GPIO21 rather than TFT_BL.",
+      "sourceUrl": "https://github.com/hcomet/cydWeeWX",
+      "instructionsUrl": "https://github.com/hcomet/cydWeeWX/blob/main/cydWeeWX/README.md",
+      "supportingUrls": [
+        "https://github.com/hcomet/cydWeeWX/blob/main/WeeWX/README.md",
+        "https://github.com/hcomet/cydWeeWX/blob/main/WeeWX/skin.conf",
+        "https://hcomet.github.io/cydWeeWX/cydWeeWXFlash.html",
+        "https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display",
+        "https://github.com/teeks99/weewx-json"
+      ],
+      "modelUrl": "https://github.com/hcomet/cydWeeWX/tree/main/cydWeeWX%20Case",
+      "modelStatus": "Public repository download: two STL parts and a STEP assembly retrieved without login. Repository carries an MIT license; retain creator attribution.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/hcomet/cydWeeWX/main/images/cydWeeWXCase.jpg",
+          "credit": "hcomet / cydWeeWX, creator enclosure photograph",
+          "sourceUrl": "https://github.com/hcomet/cydWeeWX"
+        }
+      ],
+      "imageNote": "Actual photographed black printed console, with a creator-added USB-adapter inset. Other display images in this repository are explicitly simulations and were not chosen. Embedded EXIF metadata was removed for hosting; decoded image pixels are unchanged.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Read the firmware and server setup documents, target selection, supplied skin.conf, model files and physical case photo. The README contains a comma typo in the template filename; the supplied configuration uses cyd_weewx.json.tmpl. No touchscreen interaction is implemented. No hardware or server deployment was tested.",
+      "safety": "USB-powered indoor console. Keep configuration and OTA access on a trusted network. Treat stale weather data as informational, not a safety alert or forecast guarantee; retain USB strain relief and access to BOOT/reset.",
+      "estimatedBuildTime": "An afternoon if WeeWX already works, plus print time; server installation can take longer.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/hcomet-cydweewx-weather-display-73aa9d98e069fe698ae5.jpg"
+    },
+    {
+      "id": "joshuacant-blueknob-ble-media-controller",
+      "title": "BlueKnob touch-and-turn BLE media controller",
+      "creator": "joshuacant",
+      "category": "Tools & controls",
+      "boards": [
+        "ESP32",
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Waveshare ESP32-S3-Knob-Touch-LCD-1.8: ESP32-S3R8 with 16MB flash/8MB PSRAM plus ESP32-U4WDH; both processors require the creator's separate firmware projects."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "TPU"
+      ],
+      "summary": "A tactile Bluetooth controller for a desk or media setup: the rotary control changes volume while the touch display supplies transport, keyboard and pointer controls. A fitted flexible ring improves grip without replacing the integrated Waveshare enclosure.",
+      "whyPrint": "The purpose-made TPU sleeve adds traction around the existing encoder. It is a functional hand-contact part, not a second enclosure variant counted as another project.",
+      "parts": [
+        "Waveshare ESP32-S3-Knob-Touch-LCD-1.8 complete knob/display unit, matching the original dual-processor model; select the factory-assembled battery option if portable operation is wanted",
+        "USB-C data cable and an ESP-IDF development computer",
+        "BLE-capable host such as a Windows computer or Android device",
+        "Soft TPU for extras/knob-grip-tpu.stl; the creator used foaming Siraya Tech TPU Air"
+      ],
+      "steps": [
+        {
+          "title": "Identify the complete knob",
+          "body": "Check the full Waveshare model name before buying or flashing. This source is for the dual-chip 1.8-inch unit, not a generic encoder attached to an ESP32. Retain its assembled display, power circuit and enclosure."
+        },
+        {
+          "title": "Prepare both firmware projects",
+          "body": "Download the complete repository. The S3 dependency lock and both saved sdkconfig files identify ESP-IDF 5.5.1. Keep BlueKnob-ESP32 and BlueKnob-ESP32S3 as separate projects, with their respective esp32 and esp32s3 targets; do not combine their sources."
+        },
+        {
+          "title": "Flash the unused processor",
+          "body": "Follow Waveshare's connector-orientation instructions to reach the classic ESP32. Build and flash BlueKnob-ESP32, whose app immediately enters deep sleep. Confirm the detected chip before writing, because the same physical USB-C socket serves two processors."
+        },
+        {
+          "title": "Flash the interactive controller",
+          "body": "Reverse the connector as documented for the S3 and flash BlueKnob-ESP32S3. The generated UI is already committed. SquareLine Studio is only needed to edit the UI; if used, correct its export paths before regenerating files."
+        },
+        {
+          "title": "Print and fit the grip",
+          "body": "Slice extras/knob-grip-tpu.stl as a flexible part. Inspect the preview and let the print cool fully before fitting it around the knob. It should grip without rubbing the fixed base, covering the touch surface or obstructing the USB opening."
+        },
+        {
+          "title": "Pair and test deliberately",
+          "body": "Pair from the host's Bluetooth settings. The current settings.h advertises Blue Knob, including a space; the README's shorter spelling differs. At low listening volume, check clockwise/counterclockwise volume and the three transport buttons before trying keyboard or pointer mode."
+        },
+        {
+          "title": "Set sleep behavior",
+          "body": "Adjust brightness and sleep preferences on the settings page, then check reconnection after sleep. The author documents a later hibernation state that requires the physical power switch; do not mistake that for a failed encoder. Battery indication is approximate, not a measured runtime guarantee."
+        }
+      ],
+      "printNotes": "The downloaded binary STL has 8,370 triangles and coordinate extents approximately 74.30 × 74.30 × 13.00; STL does not encode units, so confirm the intended millimetre scale in the slicer. The author's particular foaming TPU used 270°C, 0.5 flow, three walls and zero infill. Those are material-specific settings, not a safe generic TPU profile; use the filament and printer manufacturer's limits.",
+      "firmware": "Public ESP-IDF sources, vendored components and generated UI are supplied for both chips. The S3 dependency lock and both saved sdkconfig files identify IDF 5.5.1. Main source passes DEVICE_NAME from settings.h to BLE advertising; classic ESP32 firmware is the sleep stub. Source was inspected, not compiled or flashed here. Pointer dragging remains a documented TODO.",
+      "sourceUrl": "https://github.com/joshuacant/BlueKnob",
+      "instructionsUrl": "https://github.com/joshuacant/BlueKnob/blob/main/readme.md",
+      "supportingUrls": [
+        "https://www.waveshare.com/esp32-s3-knob-touch-lcd-1.8.htm",
+        "https://www.waveshare.com/wiki/ESP32-S3-Knob-Touch-LCD-1.8",
+        "https://github.com/joshuacant/BlueKnob/blob/main/BlueKnob-ESP32S3/dependencies.lock",
+        "https://github.com/joshuacant/BlueKnob/blob/main/BlueKnob-ESP32S3/main/settings.h",
+        "https://github.com/joshuacant/BlueKnob/blob/main/BlueKnob-ESP32S3/main/main.cpp",
+        "https://github.com/joshuacant/BlueKnob/blob/main/BlueKnob-ESP32/main/main.c"
+      ],
+      "modelUrl": "https://github.com/joshuacant/BlueKnob/blob/main/extras/knob-grip-tpu.stl",
+      "modelStatus": "Public raw STL actually downloaded and structurally inspected without login. This is the flexible grip only; the electronics enclosure is supplied with the Waveshare unit.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/joshuacant/BlueKnob/main/extras/mediacontrols.jpg",
+          "credit": "joshuacant — BlueKnob project photograph",
+          "sourceUrl": "https://github.com/joshuacant/BlueKnob"
+        }
+      ],
+      "imageNote": "Downloaded and visually inspected: physical blue Waveshare knob, fitted textured black grip and cassette-themed transport display. This is the creator's actual project photograph.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Creator README, both firmware targets and saved sdkconfigs, S3 dependency lock, settings/main source, actual grip STL and 480 × 465 JPEG inspected. Manufacturer primary product/wiki search records corroborate dual processors and the factory battery option; direct manufacturer page rendering returned 403 and was not bypassed. No physical build, electrical measurements, compilation or host compatibility test was performed.",
+      "safety": "Verify the selected chip before every flash. Keep the factory battery and charging circuit intact; no loose-cell substitution is qualified. Never place a hot TPU print over the electronics. Pair only with a host you control because keyboard/pointer modes send real inputs. Begin audio tests at low volume.",
+      "estimatedBuildTime": "Not timed by this research pass; allow separate sessions for the TPU fit check, two firmware builds and host testing.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/joshuacant-blueknob-ble-media-controller-ae750c2ddae21f9f45cb.jpg"
+    },
+    {
+      "id": "lbaronceli-mini-elrs-arm",
+      "title": "Mini five-servo arm with ExpressLRS control",
+      "creator": "LBaronceli; mechanical design by Prof. Ing. Luca Delbarba / energiazero.org",
+      "category": "Robots & motion",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "Classic ESP32 development board, configured as ESP32 Dev Module; requires available GPIO16/17 for UART2 and GPIO21/22 for I²C. No ESP32-S3 or C3 conversion is claimed.",
+        "PCA9685 at address 0x40; external HappyModel EP2 2.4GHz ExpressLRS receiver. The receiver's ESP8285 is not the arm controller."
+      ],
+      "difficulty": "Advanced",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "A compact bench arm turns an RC transmitter into a hands-on joint controller. Five positional micro servos provide base rotation, shoulder, elbow, wrist and gripping; the ESP32 translates CRSF receiver channels into bounded, gradually changing PWM targets. This is a supervised teaching prototype, not an autonomous or safety-rated manipulator.",
+      "whyPrint": "The printed cylinder, servo seats, links and opposing fingers are the mechanism itself. Their geometry places inexpensive servos at each joint without a machined frame.",
+      "parts": [
+        "Classic ESP32 development board and its USB data/power cable",
+        "PCA9685 16-channel PWM board with separate VCC and V+ rails",
+        "Five positional MG90S-size micro servos with compatible horns and mounting screws; check actual dimensions and5 V rating before buying",
+        "HappyModel EP2 2.4GHz receiver and RadioMaster Boxer ELRS transmitter, as used in the documented build",
+        "Regulated external5 V / 5 A servo supply; this is the creator's headroom recommendation, not a measured stall-current guarantee",
+        "1000–2200 µF electrolytic capacitor rated at least 10 V, correctly polarized across servo V+/GND",
+        "Central-base mini-arm CAD, printed plastic components and suitable small fasteners; inspect the supplied assembly before ordering screw lengths",
+        "Insulated wiring and a readily accessible physical servo-power disconnect"
+      ],
+      "steps": [
+        {
+          "title": "Identify the mechanical version",
+          "body": "Get the creator's central-base MG90S/RCXAZ v2 ZIP from the model link. Open its STEP assembly and compare the cylinder, slotted links and gripper to the build photographs. Export only plastic bodies for slicing, not the included servo and screw reference solids."
+        },
+        {
+          "title": "Check the servo fit before a full print",
+          "body": "Inspect one servo seat and horn interface in your slicer, then make a fit sample. The CAD archive includes a horn-comparison photograph: the intended raised-hub horn is not interchangeable with every flat cross horn. Determine supports and bed fit locally; no verified universal slicer profile is supplied."
+        },
+        {
+          "title": "Prepare the mechanism without forcing joints",
+          "body": "Arrange the base, shoulder link, elbow link, wrist and fingers to match the assembly views. Secure servo cases but leave horn alignment adjustable. Route leads with slack through the full intended movement, and fix the base so the arm cannot tip during calibration."
+        },
+        {
+          "title": "Separate logic and motor power",
+          "body": "With power disconnected, connect ESP32 GPIO21/22 to PCA9685 SDA/SCL, 3V3 to VCC, and GND to GND. Feed external 5 V only to the servo V+ rail, join its return to controller ground, and add the polarized capacitor. Never route servo current through the ESP32 power pin."
+        },
+        {
+          "title": "Connect the receiver and servo channels",
+          "body": "Connect EP2 TX to ESP32 GPIO16 and EP2 RX to GPIO17; use the receiver's marked 5 V/GND pads. PCA9685 channels 0–4 are base, shoulder, elbow, wrist and gripper respectively. Verify each plug's actual polarity rather than relying on wire color."
+        },
+        {
+          "title": "Load the documented controller sketch",
+          "body": "Install Arduino ESP32 support, Adafruit PWM Servo Driver Library and AlfredoCRSF. Open sketches/elrs-robot-arm/elrs-robot-arm.ino, select ESP32 Dev Module and the correct port, then inspect startup messages at 115200 baud. Keep joints unloaded during initial commands."
+        },
+        {
+          "title": "Commission one joint at a time",
+          "body": "Measure 3.3 V logic and 5 V servo rails before connecting all servos. Check I²C address 0x40, channel order and motion direction. Treat the supplied pulse limits and R/P poses as this maker's calibration, not guaranteed limits for your horn positions; establish clearance before tightening horns."
+        },
+        {
+          "title": "Bind, map and prove safe stopping",
+          "body": "Follow the official EP receiver guide with compatible transmitter/receiver firmware and the correct regional radio setting. Map CH6/1/2/4/3 to base/shoulder/elbow/wrist/gripper. Test gently, unloaded. The sketch's X command is not a latching emergency stop: valid radio data can re-enable outputs, so verify physical power removal before any loaded use."
+        }
+      ],
+      "printNotes": "The downloaded creator ZIP contains one STEP assembly and five reference images, not ready-to-print STLs. Export the plastic components individually and inspect every support/contact surface. PLA is a catalog suggestion for an indoor educational prototype, not a verified creator print profile. Layer height, infill, bed fit and payload are not established; do not infer them from the photographs. Respect the creator's noncommercial terms.",
+      "firmware": "LBaronceli/rc-robot-arm, checked commit 5434a0e6446fdb5e7da156d69e342676068b075f, sketches/elrs-robot-arm/elrs-robot-arm.ino. Uses Wire, Adafruit_PWMServoDriver and AlfredoCRSF; UART2 receives CRSF, PCA9685 runs at 50 Hz. R/P select stored poses; X disables PWM until control input enables it again. Source review found no explicit radio-link-loss shutdown in this sketch. No compilation, upload or hardware test was performed.",
+      "sourceUrl": "https://github.com/LBaronceli/rc-robot-arm",
+      "instructionsUrl": "https://github.com/LBaronceli/rc-robot-arm/blob/main/docs/wiring.md",
+      "supportingUrls": [
+        "https://github.com/LBaronceli/rc-robot-arm/blob/main/sketches/elrs-robot-arm/elrs-robot-arm.ino",
+        "https://energiazero.org/galleria.php",
+        "https://makerworld.com/en/models/2692230-mini-anthropomorphic-robot-servo-mg90s-rcxaz-9g",
+        "https://www.happymodel.cn/index.php/2021/04/10/happymodel-2-4g-expresslrs-elrs-nano-series-receiver-module-pp-rx-ep1-rx-ep2-rx/",
+        "https://www.expresslrs.org/quick-start/receivers/hmep2400/"
+      ],
+      "modelUrl": "https://energiazero.org/cartelle/modello3D/mini-anthropomorphic-robot-digital-servo-rcxaz-9g-or-mg90s-v2-1.snapshot.2.zip",
+      "modelSourceUrl": "https://energiazero.org/galleria.php",
+      "modelStatus": "Independent creator gallery and public ZIP verified: downloaded assieme_robot_mini_RCXAZ_9g_centrale.stp plus assembly/horn images. CAD export is required; no STL-download claim. The ESP32 builder also links MakerWorld 2692230, whose page returned 402 during this review; its current download/login/price status was not checked or bypassed.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/LBaronceli/rc-robot-arm/main/images/IMG_5848.jpg",
+          "credit": "LBaronceli — photograph of the assembled mini arm; mechanical design by energiazero.org",
+          "sourceUrl": "https://github.com/LBaronceli/rc-robot-arm"
+        }
+      ],
+      "imageNote": "Original downloaded photograph visually inspected: gray printed central-base arm with slotted links, five MG90S-size servos and opposed fingers. This is a real prototype photograph, not the CAD render used to cross-check geometry.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Read builder README, full wiring guide and full sketch; downloaded and visually inspected actual assembly/electronics photographs. Independently obtained matching creator CAD and compared its assembly views. Confirmed EP2's5 V input from its manufacturer. Source-qualified documentation, not measured electrical, printing or motion validation; no payload or unattended-operation claim.",
+      "safety": "Keep fingers clear of gripper and joints; work unloaded and supervised with the base fixed. Insulate exposed supply terminals and use adequately rated wiring.5 A is not proof that every combination of stalled servos is safe. Do not use X or radio loss as an emergency stop: the current sketch can re-enable after X and lacks explicit link-loss shutdown. Disconnect servo power physically before adjusting horns or clearing a jam; the arm can fall when torque is removed.",
+      "estimatedBuildTime": "No source-backed build duration; allow separate CAD-export, assembly and calibration sessions.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/lbaronceli-mini-elrs-arm-fa42be197ad787d3bd5b.jpg"
+    },
+    {
+      "id": "plastic-tensile-comparison-tester",
+      "title": "Plastic Tester filament tensile-comparison rig",
+      "creator": "buho29",
+      "category": "Tools & controls",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "Classic 30-pin ESP32 DOIT DEVKIT V1; PlatformIO esp32doit-devkit-v1 target"
+      ],
+      "difficulty": "Advanced",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "Compare printed test coupons with a slow leadscrew puller and web-based force/displacement plots. Printed frame members, carriage, gearing and covers combine with an aluminum rail, stepper motor and load cell. Results are comparative maker measurements, not certified tensile-strength data.",
+      "whyPrint": "The prints form the test mechanism, sensor fixtures and electronics protection, while supplied coupon geometry supports repeatable comparisons of filament and print orientation.",
+      "parts": [
+        "ESP32 DOIT DEVKIT V1, green HX711 breakout and specified three-wire 50 kg half-bridge load sensor",
+        "NEMA17 48 mm 2 A stepper, DRV8825 driver and matching expansion carrier",
+        "12 V motor supply matched to the configured driver current; separate USB supply for ESP32",
+        "T8 300 mm P2L2 leadscrew and nut, 25×25×2 mm aluminum rail cut to 250 mm, 340×160×20 mm plywood base",
+        "Two F8-22M thrust bearings, eight 606ZZ and two 608ZZ bearings, three T8 collars and mechanical endstop",
+        "Two 1 kΩ bridge-completion resistors, 5×7 cm protoboard, connectors and wire",
+        "M3 heat-set inserts, specified M3/M4/M6 fasteners, M6 rod, M3 eye screws and shackles; PLA printed mechanism/covers and test coupons"
+      ],
+      "steps": [
+        {
+          "title": "Inspect the mechanical pack",
+          "body": "Open the creator's 3MF and STEP assembly beside the BOM. Check your printer envelope and inspect every load-bearing part. Keep the supplied coupon geometry and record its actual printed dimensions rather than assuming nominal CAD dimensions are exact."
+        },
+        {
+          "title": "Print and build the frame",
+          "body": "Use the supplied PLA profile as a starting point, preserving object-specific settings and orientations. Fit inserts and bearings, attach the uprights to the plywood base, then install the aluminum guide and T8 screw. Check alignment by hand before coupling the motor."
+        },
+        {
+          "title": "Fit the carriage and sensor",
+          "body": "Follow the frame, slide and final-assembly animations. Adjust the carriage bearings and T8 nut holder so travel is smooth without binding. Prepare the specified load-sensor attachment and inspect its mechanical connection; the nominal sensor rating does not establish the strength of the complete printed rig."
+        },
+        {
+          "title": "Wire the low-voltage controller",
+          "body": "Use the creator's normal-versus-flipped protoboard views carefully. The HX711 and logic supply are 3.3 V; DATA goes to GPIO26 and CLOCK to GPIO25. STEP, DIR and endstop use GPIO32, GPIO33 and GPIO27. Keep 12 V on the driver motor-input terminals, with the documented common ground, not on ESP32 GPIO or 3V3."
+        },
+        {
+          "title": "Commission the driver without a specimen",
+          "body": "Verify driver orientation, motor coil pairs and supply polarity before power-up. Set current limiting for the exact DRV8825 carrier and motor rather than assuming the motor's 2 A label is a safe default. Never connect or disconnect motor wiring while powered. Keep an accessible physical power disconnect."
+        },
+        {
+          "title": "Install firmware and web assets",
+          "body": "Open the repository in PlatformIO using the project environment. Set your own network information in the data configuration, build and upload the LittleFS image, then build and upload firmware. The README publishes default admin/admin access: operate only on an isolated, trusted LAN, with no port forwarding. The existing compressed web assets are supplied; the optional Python update script is only needed after changing the web source."
+        },
+        {
+          "title": "Calibrate and prove travel limits",
+          "body": "Use the local web interface with no specimen attached. Replace the creator's load-cell factor with a value established from known loads, check tare, and confirm the measured direction. Exercise endstop, homing, travel limit and stop controls at low speed before setting a conservative force limit."
+        },
+        {
+          "title": "Run controlled comparisons",
+          "body": "Secure a small coupon, keep people clear of the tension path and provide suitable fragment protection. Start a low-load supervised trial and watch both the mechanism and plotted force. The firmware can return home after completion; do not reach in until motion has stopped and power is disconnected. Save results with material, orientation, dimensions and test settings."
+        }
+      ],
+      "printNotes": "Fourteen STL files, the six-plate 3MF and STEP/Fusion assembly downloaded. All STL facet lengths are consistent. The 3MF assigns its objects to filament 1, PLA, with a 0.20 mm global layer height, four global walls and object overrides; an unused PC preset also exists and is not a required part material. No slicer, fit or strength validation performed.",
+      "firmware": "PlatformIO project uses the classic DOIT board and LittleFS; HX711 0.7.5 and ArduinoJson 7.3.0 are fixed, while ESPAsyncWebServer, AsyncTCP and FastAccelStepper use version ranges and espressif32 is unpinned. Firmware, UI assets, motor limits and force-stop paths inspected, not executed. Source speed units and configured steps/mm must be checked against the actual microstep switches and P2L2 screw; no quoted speed or accuracy guarantee.",
+      "sourceUrl": "https://github.com/buho29/plastic-tester",
+      "instructionsUrl": "https://github.com/buho29/plastic-tester/blob/main/readme.md",
+      "supportingUrls": [
+        "https://github.com/buho29/plastic-tester/blob/main/platformio.ini",
+        "https://github.com/buho29/plastic-tester/blob/main/src/main.cpp",
+        "https://github.com/buho29/plastic-tester/blob/main/lib/src/MotorController.h",
+        "https://github.com/buho29/plastic-tester/blob/main/docs/img/circuit.jpg",
+        "https://github.com/buho29/plastic-tester/blob/main/docs/img/pcb2.jpg"
+      ],
+      "modelUrl": "https://github.com/buho29/plastic-tester/tree/main/docs/3d",
+      "modelSourceUrl": "https://github.com/buho29/plastic-tester/blob/main/docs/3d/Tester%20v35.step",
+      "modelStatus": "Public STL, 3MF, STEP and Fusion files downloaded, including coupon models. No login or payment needed. No explicit standalone model license was established; public download is not a blanket redistribution license.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/buho29/plastic-tester/main/docs/img/tester.jpg",
+          "credit": "buho29, physical Plastic Tester assembly",
+          "sourceUrl": "https://github.com/buho29/plastic-tester"
+        }
+      ],
+      "imageNote": "Downloaded and visually reviewed the real red/black printed test rig on a plywood base. The similarly named tester1.jpg is a CAD render and was deliberately not used.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Complete creator archive inspected: BOM, assembly animations, physical photograph, protoboard/wiring images, firmware, web interface and mechanical pack. The photographed build is source evidence, not independent validation. Creator performance and maximum-force claims are not adopted as certified ratings.",
+      "safety": "Moving screws/gears and breaking specimens present pinch and projectile hazards. Supervise all tests, secure the base and provide fragment protection. The browser stop is not a safety-rated emergency stop; retain a physical power disconnect and keep clear during automatic return. Separate motor and logic voltage domains, adjust driver current, and verify limits before loading. Default admin/admin access requires a trusted, isolated LAN and no Internet exposure; a password-change interface was not verified. Do not use the rig to certify structural or safety-critical parts.",
+      "estimatedBuildTime": "Multiple fabrication, wiring and calibration sessions plus printing; not a measured build duration.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/plastic-tensile-comparison-tester-c06eaf09c6fb9f5ef8bd.jpg"
+    },
+    {
+      "id": "qualia-mechanical-astrolabe",
+      "title": "Qualia electromechanical astrolabe",
+      "creator": "chubertbuilds",
+      "category": "Tools & controls",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Adafruit Qualia ESP32-S3 RGB666, product 5800; 16 MB flash and OPI PSRAM; 4-inch 720×720 RGB display, product 5793"
+      ],
+      "difficulty": "Advanced",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "Explore a computed sky through a physical rotating star-map overlay. A Qualia S3 drives the square color panel behind the printed rete while a separate character display, two illuminated buttons and an encoder provide settings. This is an educational astronomical instrument, not a validated navigation device.",
+      "whyPrint": "Printing creates the large bearing, geared overlay and fitted dual-display housing, rather than merely adding a case around a development board.",
+      "parts": [
+        "Adafruit Qualia ESP32-S3 RGB666 5800 and 4-inch 720×720 display 5793",
+        "Adafruit 20×4 LCD 198 with current STEMMA QT LCD backpack 292",
+        "Adafruit encoder breakout with encoder 5880 and PCF8574 breakout 5545",
+        "Two Adafruit 3350 RGB momentary buttons with built-in LED resistors",
+        "1 kΩ ten-turn potentiometer, 110 Ω series resistor, three 200 mm STEMMA QT cables, 40-pin FPC extension 2098 and specified JST pigtails",
+        "Twelve 5/16-inch Delrin balls, sixteen 0.06-inch diameter × 1/8-inch magnets, four 4-40 × 1/4-inch set screws and #4 × 1/4-inch thread-forming screws",
+        "Twelve distinct printed parts, with two copies of the bearing cage; USB-C power/data cable"
+      ],
+      "steps": [
+        {
+          "title": "Keep the electronics set exact",
+          "body": "Use the named Qualia and RGB panel, not an arbitrary S3 display board. Check the 40-pin connector orientation before inserting the extension; reversed contacts can damage the screen. Initially leave the printed enclosure open."
+        },
+        {
+          "title": "Resolve the shared I2C addresses",
+          "body": "The supplied code uses PCF8574 at 0x20, LCD at 0x21 and seesaw encoder at 0x36. Close only the LCD backpack's A0 address jumper, following Adafruit's pinout guide, to match the source. The creator's assembly prose omits this detail. Use the current 3.3 V-compatible STEMMA QT backpack, not an unidentified 5 V LCD adapter."
+        },
+        {
+          "title": "Prepare the controls",
+          "body": "Follow the repository's labeled wiring for the potentiometer, button cathodes and interrupt connections. Retain the 110 Ω series resistor on the potentiometer supply. MOSI and MISO are repurposed as interrupt inputs here; do not attach another SPI device to them."
+        },
+        {
+          "title": "Print and dry-fit the mechanism",
+          "body": "Print the STL set in PLA, including two bearing-cage halves. Test bearing and housing fits before installing electronics. The creator provides STEP files for tolerance changes; do not force a tight print over a display or shaft."
+        },
+        {
+          "title": "Build the captured bearing",
+          "body": "Match opposite magnet polarity between the two cage halves, bond the magnets and allow full adhesive cure. Assemble the twelve balls between the inner and outer races, then seat both cage halves. Check smooth rotation without loose balls or magnets."
+        },
+        {
+          "title": "Install the panels and drive",
+          "body": "Mount the potentiometer and Qualia in the base, then secure the RGB panel in its two-part holder. Route and fold the FPC as shown so the rotating bearing cannot catch it. Tap the printed axle's four set-screw holes carefully; printed threads are not strong metal threads."
+        },
+        {
+          "title": "Load the published Arduino application",
+          "body": "Keep the main sketch with its src folder. Install the listed Adafruit and CircularBuffer libraries, select Adafruit Qualia ESP32-S3 RGB666, 16 MB flash, QIO 80 MHz and OPI PSRAM using the creator's settings table. Set your default location and UTC offset in the sketch; build and upload over USB."
+        },
+        {
+          "title": "Align and check the overlay",
+          "body": "After the star map appears, align the printed rete with the displayed stars before pressing the small gear onto its hexagonal boss. Exercise encoder and buttons, then check rotation across the intended range. The supplied ADC calibration is creator-specific; verify alignment on your own potentiometer and do not claim precision from the display alone."
+        }
+      ],
+      "printNotes": "Creator printed matte-black and silk-gold PLA on a Bambu P1S. All twelve STL files downloaded and their binary lengths matched their facet counts; matching STEP files are present. Some parts require supports, and clearance fits may need adjustment. No slicing, dimensional-fit test or print performed.",
+      "firmware": "Complete Arduino sketch and source inspected, including panel configuration, peripheral addresses, startup and calibration table. Creator lists Adafruit XCA9554, LiquidCrystal, PCF8574, seesaw and CircularBuffer, with Qualia board settings; dependency/core versions are not pinned. No local build or device operation claimed. The nonvolatile persistence and astronomical accuracy of the application were not independently validated.",
+      "sourceUrl": "https://github.com/chubertbuilds/astrolabe_esp32",
+      "instructionsUrl": "https://github.com/chubertbuilds/astrolabe_esp32/blob/main/README.md",
+      "supportingUrls": [
+        "https://github.com/chubertbuilds/astrolabe_esp32/blob/main/FullAstrolabe_SingleBuffer.ino",
+        "https://github.com/chubertbuilds/astrolabe_esp32/blob/main/src/AstrolabeInterface.h",
+        "https://learn.adafruit.com/i2c-spi-lcd-backpack/pinouts",
+        "https://learn.adafruit.com/adafruit-qualia-esp32-s3-for-rgb666-displays/arduino-ide-setup",
+        "https://www.adafruit.com/product/3350",
+        "https://www.adafruit.com/product/5545"
+      ],
+      "modelUrl": "https://github.com/chubertbuilds/astrolabe_esp32/tree/main/hardware/stl",
+      "modelSourceUrl": "https://github.com/chubertbuilds/astrolabe_esp32/tree/main/hardware/step",
+      "modelStatus": "Twelve actual STL files and editable STEP set downloaded from the creator's public repository. Hardware is CERN-OHL-S-2.0; software is separately MIT. No account or payment needed for repository downloads. Geometry presence and STL structure checked, not printable fit.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/chubertbuilds/astrolabe_esp32/main/docs/DSCF1821.JPG",
+          "credit": "chubertbuilds, completed physical Qualia astrolabe",
+          "sourceUrl": "https://github.com/chubertbuilds/astrolabe_esp32"
+        }
+      ],
+      "imageNote": "Actual downloaded creator photograph visually reviewed: black/gold FDM assembly, printed geared rete over the illuminated color star panel at left, and a separate illuminated character LCD at right. The hidden Qualia board is established by the accompanying build documentation, not its visibility in this photo.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Current primary repository, complete CAD/source archive and physical photo inspected. Manufacturer sources confirm LED resistors, PCF8574 sinking outputs and the current LCD backpack's 3.3 V-compatible interface. Firmware address 0x21 is reconciled with the manufacturer's A0 jumper procedure, explicitly identified as an assembly omission.",
+      "safety": "USB-powered low-voltage build. Disconnect power before FPC or wiring changes; protect exposed solder joints. Keep small magnets and balls away from children and implanted-device users. Avoid trapping fingers in gears. Use suitable solder extraction and adhesive handling. Not certified for navigation or safety-critical astronomy.",
+      "estimatedBuildTime": "Several careful assembly and setup sessions plus printing; no measured completion time.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/qualia-mechanical-astrolabe-fa2d04f779291bc08494.jpg"
+    },
+    {
+      "id": "realdeco-sendspinzero-coax-receiver",
+      "title": "SendspinZero compact coaxial network-audio receiver",
+      "creator": "RealDeco",
+      "category": "Cameras & audio",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "ESP32-S3 Zero with 4MB flash and 2MB quad PSRAM, the ESP32-S3FH4R2-size board used by the creator; no C3 substitution or N8R8 firmware assumption."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PETG"
+      ],
+      "summary": "A small network-audio endpoint that adds Sendspin/Home Assistant playback to an amplifier's coaxial digital input. This card covers the creator's no-display S/PDIF version: one small S3 board, a resistor and an RCA socket in a fitted printed box.",
+      "whyPrint": "The two printed shells hold the USB-powered board and panel socket while isolating soldered connections. The no-display front avoids unused openings; other versions in the same source are not separate catalog additions.",
+      "parts": [
+        "ESP32-S3 Zero with 4MB flash/2MB quad PSRAM, without installed headers",
+        "Panel-mount female RCA connector matching the creator-linked part and printed rear opening",
+        "One 332–470Ω resistor from the creator's specified range",
+        "Two short insulated wires, solder and insulation for exposed resistor leads",
+        "USB 5V supply and USB-C cable; use a data cable for initial flashing",
+        "Coaxial S/PDIF cable and an amplifier/receiver with a coaxial digital input",
+        "A compatible Sendspin source, such as Music Assistant, and Home Assistant/ESPHome where desired",
+        "PETG for the Coax back and no-display front"
+      ],
+      "steps": [
+        {
+          "title": "Match the digital build",
+          "body": "Select the no-display digital configuration. Confirm the S3 Zero's memory variant and compare the connector body with the printable case before ordering. This version does not use the analog DAC, LCD or illuminated button listed elsewhere in the family README."
+        },
+        {
+          "title": "Inspect the two case parts",
+          "body": "Download SendspinZero-Coax-back.stl and SendspinZero-Coax-front-nodisplay.stl, or select the matching parts from the Coax 3MF. Check USB and socket openings in the slicer. The source reports PETG; do a dry fit before soldering."
+        },
+        {
+          "title": "Make the two signal connections",
+          "body": "With USB unplugged, follow the creator's photographed coax assembly: GPIO4 reaches the RCA centre contact through the series resistor; GND reaches the outer contact. Insulate the resistor leads and check that centre and shield are not shorted. Do not connect the RCA centre directly to a 5V rail."
+        },
+        {
+          "title": "Install the matching firmware",
+          "body": "Connect only the board to a computer and open the linked Sendspin_Zero-NO_Display-Digital installer. Use a supported browser and verify that the detected chip is ESP32-S3. Preserve any existing device configuration before replacing firmware."
+        },
+        {
+          "title": "Join the trusted network",
+          "body": "Use the installer's provisioning flow or the firmware's fallback access point to supply Wi-Fi settings. Confirm discovery from the chosen Sendspin/Home Assistant setup before enclosing it. The source YAML exposes ESPHome API and OTA defaults without added authentication; do not forward these services to the internet."
+        },
+        {
+          "title": "Test a digital receiver",
+          "body": "Connect the RCA output to a coaxial S/PDIF input, select that input and start at low amplifier volume. Check playback and stop/start behavior with a short known audio item. This connector is not an analog line output and cannot drive a passive speaker or headphones."
+        },
+        {
+          "title": "Close without stressing the wiring",
+          "body": "Unplug USB, seat the board and panel connector in their intended positions, and close the PETG shells without pinching the two wires. Reconnect power and repeat the audio test after assembly; retain access to USB for recovery."
+        }
+      ],
+      "printNotes": "The author reports PETG and explicitly says PLA is untested. Public STL downloads were inspected: the back is approximately 40 × 52 × 13 coordinate units and the no-display front 40 × 52 × 10; confirm millimetre scale and the socket fit in your slicer. An older-Bambu-Studio Coax 3MF is also supplied. No universal layer height, infill or print duration is asserted.",
+      "firmware": "Public ESPHome source Sendspin_Zero-NO_Display-Digital.yaml specifies ESP-IDF, quad PSRAM at 80MHz, 44.1kHz stereo S/PDIF on GPIO4 and minimum ESPHome 2026.8.0. The live installer manifest and its ESP32-S3 factory binary 2026.10.05.49 were downloaded; its factory offset is 0. The source and installer are different dated artifacts, not claimed byte-equivalent. No compile, flash or network playback test was performed.",
+      "sourceUrl": "https://github.com/RealDeco/SendspinZero",
+      "instructionsUrl": "https://github.com/RealDeco/SendspinZero#coax-digital-audio-version",
+      "supportingUrls": [
+        "https://github.com/RealDeco/SendspinZero/blob/main/Sendspin_Zero-NO_Display-Digital.yaml",
+        "https://realdeco.github.io/SendspinZero/Sendspin_Zero-NO_Display-Digital/",
+        "https://realdeco.github.io/SendspinZero/Sendspin_Zero-NO_Display-Digital/manifest.json",
+        "https://docs.waveshare.com/ESP32-S3-Zero",
+        "https://github.com/RealDeco/SendspinZero/blob/main/3D_Files/README.md"
+      ],
+      "modelUrl": "https://github.com/RealDeco/SendspinZero/tree/main/3D_Files",
+      "modelStatus": "Public model directory and actual downloaded binary STLs inspected without login. Select SendspinZero-Coax-back.stl plus SendspinZero-Coax-front-nodisplay.stl; SendspinZero-Coax.3mf is the alternate multi-variant project. No model purchase required.",
+      "images": [
+        {
+          "url": "https://github.com/user-attachments/assets/0daa8227-f093-4db7-932d-d1da08eeb516",
+          "credit": "RealDeco — coax wiring and finished SendspinZero photographs",
+          "sourceUrl": "https://github.com/RealDeco/SendspinZero#coax-digital-audio-version"
+        }
+      ],
+      "imageNote": "Downloaded and visually inspected 1000 × 459 JPEG: the left photograph shows the S3 Zero, series resistor and RCA wiring; the right shows the completed plain-front coax enclosure held in a hand.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Primary repository README, variant YAML, model README, actual geometry, live installer HTML/manifest/factory binary and matching creator photo inspected. Waveshare's current primary documentation corroborates the original Zero memory configuration. Research qualification only: receiver compatibility, signal waveform, synchronization and printed fit were not measured.",
+      "safety": "USB low-voltage build only; leave amplifier mains circuitry closed. Solder unpowered, insulate joints and use the specified series resistor. Use a coaxial digital input, not a loudspeaker terminal. Keep provisioning, ESPHome API and OTA on a trusted LAN and configure appropriate security before wider deployment.",
+      "estimatedBuildTime": "No verified creator duration; plan separately for case printing, soldering and software/network setup.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/realdeco-sendspinzero-coax-receiver-1a82b6c0d1345d3ae7f5.jpg"
+    },
+    {
+      "id": "rockbase-four-color-epaper-dashboard",
+      "title": "RockBase four-color e-paper dashboard",
+      "creator": "RockBase IoT",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "NM-EPD-420-4C custom integrated board: ESP32-S3, 16 MB flash, 8 MB octal PSRAM, AHT20 and 4.2-inch GDEY0420F51 four-color 400×300 panel.",
+        "The PlatformIO lilygo-t-display-s3 board identifier is a build configuration; the required physical product is NM-EPD-420-4C, not a LilyGO TFT board."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PETG"
+      ],
+      "summary": "A quiet e-paper desk panel combines internet weather with its onboard indoor temperature and humidity readings. The application also offers configurable pages for calendars and other data, but the initial build can stay with keyless weather.",
+      "whyPrint": "The manufacturer's front, rear, stand and button-cover models turn its exposed custom board into a compact framed dashboard while keeping controls accessible.",
+      "parts": [
+        "NM-EPD-420-4C board with the GDEY0420F51 panel, not the tri-color or monochrome SKU",
+        "USB data/power cable and USB supply",
+        "Manufacturer's matching front/back/button/stand 3MF parts",
+        "2.4 GHz Wi-Fi and a PlatformIO-capable computer",
+        "Optional calendar ICS URL only after basic weather works; no battery or LoRa module required for this USB-powered scope"
+      ],
+      "steps": [
+        {
+          "title": "Check the exact panel",
+          "body": "Read the board SKU and panel marking. The four-color GDEY0420F51 needs the nm-epd-420-4c application target, not a factory-test image or tri-color driver."
+        },
+        {
+          "title": "Inspect the enclosure set",
+          "body": "Download docs/case from the hardware repository. Open the 3MF front, rear, stand and button pieces; compare their connector cutouts with your board revision before slicing."
+        },
+        {
+          "title": "Flash the full application",
+          "body": "Open RockBase-iot/ESP32-Dashboard in PlatformIO and run pio run -e nm-epd-420-4c -t upload_all. This uploads firmware and the required LittleFS web assets."
+        },
+        {
+          "title": "Configure local weather",
+          "body": "Join the setup hotspot using the temporary key displayed on the panel. Open 192.168.4.1 and save Wi-Fi, location, time offset, units and refresh schedule."
+        },
+        {
+          "title": "Check refresh and controls",
+          "body": "Allow a complete slow four-color refresh. Compare indoor readings and weather timestamp; test BOOT wake and page navigation while the application is awake."
+        },
+        {
+          "title": "Fit the printed frame",
+          "body": "Disconnect USB, seat the board and panel without bending its flex cable, and install the matching printed button covers and rear. Check retention and stand stability before powering again."
+        },
+        {
+          "title": "Add pages cautiously",
+          "body": "During the configured awake portal window, enable only needed pages. Treat calendar links as secrets and verify stale-data indicators before trusting displayed information."
+        }
+      ],
+      "printNotes": "Eight actual 3MF files were retrieved from docs/case; the README calls them STL, but that is not their current format. They contain Bambu P2S printer settings with PETG/ABS material profiles, so select the correct local printer and material instead of sending the embedded profile unchanged. Front-cover previews match the photographed frame. Two front/button variants exist; compare geometry to the board. Fastener dimensions are not specified in the inspected assembly documentation, and no universal hardware fit is claimed.",
+      "firmware": "Use ESP32-Dashboard, not NM-EPD-420's factory-test firmware. Exact four-color environment pins pioarduino 54.03.21, 16 MB OTA layout and qio_opi PSRAM; upload_all includes the web filesystem. Board source disables unused audio/LoRa rails and uses GPIO0 for deep-sleep wake. USER GPIO45 is not a deep-sleep wake substitute. Battery readings feed UI; this entry does not require a LiPo.",
+      "sourceUrl": "https://github.com/RockBase-iot/ESP32-Dashboard",
+      "instructionsUrl": "https://github.com/RockBase-iot/ESP32-Dashboard/blob/main/README.md",
+      "supportingUrls": [
+        "https://github.com/RockBase-iot/NM-EPD-420",
+        "https://github.com/RockBase-iot/ESP32-Dashboard/blob/main/platformio.ini",
+        "https://github.com/RockBase-iot/ESP32-Dashboard/blob/main/docs/user-guide.md",
+        "https://github.com/RockBase-iot/ESP32-Dashboard/blob/main/docs/privacy-security.md",
+        "https://github.com/RockBase-iot/ESP32-Dashboard/blob/main/src/bsp/nm_epd_420_4c/Board.cpp"
+      ],
+      "modelUrl": "https://github.com/RockBase-iot/NM-EPD-420/tree/main/docs/case",
+      "modelStatus": "Public manufacturer repository; eight 3MF files downloaded and inspected as ZIP containers with actual model meshes. No account needed for this retrieval. Review repository terms before redistribution; geometry fit was not physically tested.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/RockBase-iot/ESP32-Dashboard/main/image/EPD-420-4C.jpg",
+          "credit": "RockBase IoT / ESP32-Dashboard, physical four-color device photograph",
+          "sourceUrl": "https://github.com/RockBase-iot/ESP32-Dashboard"
+        }
+      ],
+      "imageNote": "Actual white framed device on a wooden desk, showing red/yellow/black weather content. Downloaded and visually compared with the manufacturer case previews.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Reopened October 16 AM hold: exact four-color hardware, application target, USB-only scope, model meshes and matching application photo now inspected. The generic LilyGO build identifier and hardware repository's factory firmware were explicitly separated from the real product/application. Source research only, no build or flash test.",
+      "safety": "USB-powered indoor use. Avoid flex-cable strain and pressure on fragile e-paper glass. The HTTP configuration interface has no independent LAN access barrier: keep it on a trusted private network and never forward its port to the internet. No battery runtime or forecast accuracy is guaranteed.",
+      "estimatedBuildTime": "An afternoon plus printing and initial toolchain downloads; estimate only.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/rockbase-four-color-epaper-dashboard-1d951d4d711017653efb.jpg"
+    },
+    {
+      "id": "siguls-laboratory-waveform-generator",
+      "title": "SIGULS laboratory waveform generator",
+      "creator": "Abelardo Pérez Paz, Oliver Maximilian Zobel and Daniel J. Rixen",
+      "category": "Tools & controls",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Custom four-layer SIGULS PCB using ESP32-S3FN8 with 8 MB embedded flash; the PlatformIO DevKitC profile does not mean a plug-in development board"
+      ],
+      "difficulty": "Advanced",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "Turn a sequence designed on a computer into a repeatable analog excitation waveform. An S3 controls an 18-bit DAC, while a compact printed case carries the USB and BNC connections. Intended for low-voltage laboratory signal work, not as a power amplifier or certified instrument.",
+      "whyPrint": "The two-piece housing locates the custom PCB and provides openings for the USB-C port and two BNC connectors without requiring a machined enclosure.",
+      "parts": [
+        "Released SIGULS four-layer PCB and complete manufacturing BOM, with ESP32-S3FN8",
+        "AD5781BRUZ DAC, ADR445BRZ reference and three AD8676ARZ dual amplifiers",
+        "TLV76733DRVR regulator, MC34063AD converter and paper-specified ICL7662CBA+T at U7; reconcile the conflicting archived U7 entry before ordering",
+        "Two 712-CONBNC002 BNC connectors, USB-C connector, JK-nSMD050-30 resettable fuse and remaining specified passives/protection parts",
+        "USB-C data cable, host computer, two printed case halves and M3 mounting screws",
+        "Multimeter and suitable oscilloscope for commissioning; separate compatible amplifier only if a later experiment requires one"
+      ],
+      "steps": [
+        {
+          "title": "Freeze the release pack",
+          "body": "Save the Zenodo hardware, manufacturing, firmware and GUI archives together. The December 2025 record supplies STEP case files; the October record supplies STL files. Electrical archive checksums match, but case archive contents differ, so inspect the chosen geometry against the PCB before printing."
+        },
+        {
+          "title": "Resolve the U7 BOM discrepancy",
+          "body": "The paper specifies ICL7662CBA+T, while the archived BOM and KiCad value say TC7662B. Use the paper's exact eight-pin SOIC part and explicitly correct the assembly order. Its manufacturer pinout and package match the released PCB: pins 1, 6 and 7 remain open, pin 8 takes +15 V and pin 5 supplies the negative rail. Do not treat unrelated 7660-family devices as automatic substitutes."
+        },
+        {
+          "title": "Order and inspect the board",
+          "body": "Use the supplied fabrication data and complete component list, including the passives omitted from the paper's abbreviated table. Have the small surface-mount parts assembled appropriately. Leave the expensive DAC and through-hole BNC connectors for the documented final assembly stage."
+        },
+        {
+          "title": "Check the supply rails first",
+          "body": "Before fitting the DAC, inspect for shorts and apply USB power with no external equipment attached. Measure the labeled test points against ground: TP1 5 V, TP2 3.3 V, TP3 +15 V and TP4 −15 V. Stop and troubleshoot any incorrect polarity or rail; these values are commissioning targets, not measurements made here."
+        },
+        {
+          "title": "Complete analog assembly",
+          "body": "Disconnect USB before soldering. Orient the AD5781 using its pin-one mark and the paper's footprint figure, then solder both BNC connectors. Inspect the fine-pitch joints under magnification and remove flux residue before another unloaded power check."
+        },
+        {
+          "title": "Print and mount the enclosure",
+          "body": "Open the selected case geometry and confirm connector clearances. Print both hollow sides upward, as the authors recommend. PLA or PETG is an indoor-enclosure material choice here, not a published material recipe. Secure the PCB with M3 screws without overtightening the printed holes, then check the lid fit."
+        },
+        {
+          "title": "Build and flash the published application",
+          "body": "Open the firmware directory containing platformio.ini in PlatformIO. Preserve its custom partition table, LittleFS setup and native-USB flags. Build and upload to the custom S3 board; first flashing may require holding BOOT while connecting USB. The paper's Arduino core baseline is 2.0.17; the archive does not pin the platform."
+        },
+        {
+          "title": "Set up the host interface",
+          "body": "Install siguls-gui in a dedicated Python environment and start it with the same command. The authors report Python 3.12.3 on Ubuntu 24.04.3 and Windows 10/11. Preserve the documented dependency versions if reproducing that environment; current package installation was not tested here."
+        },
+        {
+          "title": "Prove a conservative waveform",
+          "body": "Create and preview a small, low-frequency signal. Upload it with the output connected only to a suitable oscilloscope, then exercise start and stop. Check amplitude, offset and trigger behavior before connecting a sensitive circuit or power amplifier. The firmware stores a finite sample sequence; do not assume continuous streaming."
+        },
+        {
+          "title": "Connect an experiment deliberately",
+          "body": "Confirm common-ground compatibility and the receiving equipment's allowed signal levels. Keep any actuator amplifier disabled while wiring, then introduce output gradually. Record the waveform, sampling rate and measured output with the experiment; the paper's validation does not certify a newly assembled unit."
+        }
+      ],
+      "printNotes": "Two October-release STL files downloaded; both binary facet tables match file lengths. December release contains two real STEP models instead. Authors recommend hollow sides up and M3 screws into printed plastic; they do not name a filament. PLA/PETG is an explicit indoor-use inference. The authors describe the enclosure as decorative, not impact protection. No print or fit test performed.",
+      "firmware": "Complete PlatformIO Arduino application, DAC driver, custom partition file and Python GUI source inspected. USB serial controls and LittleFS waveform loading are implemented; no wireless control claimed. The paper identifies Arduino-ESP32 2.0.17, while platformio.ini leaves espressif32 unpinned and ranges NeoPixel from 1.12.3. The Python package metadata is also not a fully locked environment. No build, installation or hardware execution performed.",
+      "sourceUrl": "https://gitlab.com/siguls",
+      "instructionsUrl": "https://www.researchgate.net/publication/400890736_SIGULS_Signal_generator_for_user-specified_laboratory_signals",
+      "supportingUrls": [
+        "https://doi.org/10.1016/j.ohx.2026.e00750",
+        "https://www.mec.ed.tum.de/en/am/news/article/release-of-open-source-signal-generator-siguls/",
+        "https://zenodo.org/records/17979167",
+        "https://gitlab.com/siguls/siguls-firmware",
+        "https://gitlab.com/siguls/siguls-gui",
+        "https://www.analog.com/media/en/technical-documentation/data-sheets/ICL7662-Si7661.pdf",
+        "https://mds.analog.com/api/public/content/soicn_21-0041.pdf"
+      ],
+      "modelUrl": "https://zenodo.org/records/17400148/files/siguls_case.zip?download=1",
+      "modelSourceUrl": "https://zenodo.org/records/17979167",
+      "modelStatus": "Actual STL archive downloaded from the October 2025 version and STEP archive from December 2025. Both records call the project v1.0, but case files differ; geometric equivalence was not established. Public Zenodo downloads required no account or payment. Hardware/paper CC BY 4.0 and software MIT. Direct publisher access was restricted; author-posted paper and repository artifacts were accessible.",
+      "images": [
+        {
+          "url": "https://www.researchgate.net/publication/400890736/figure/fig3/AS:11431281950272330@1771509655972/The-SIGULS-device.png",
+          "credit": "Pérez Paz, Zobel and Rixen, SIGULS paper, CC BY 4.0",
+          "sourceUrl": "https://www.researchgate.net/figure/The-SIGULS-device_fig3_400890736"
+        }
+      ],
+      "imageNote": "Downloaded and visually inspected the authors' physical SIGULS photograph: layered dark printed case, embossed cow logo and two metal BNC connectors. This establishes a physical enclosure, not dimensional equivalence between the two archived CAD formats or independent electrical validation.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Author paper, TUM release, actual Zenodo archives, PCB pad nets, firmware and GUI inspected. U7 conflict explicitly reconciled to the published ICL7662CBA+T using the manufacturer's 8-pin map, 3.9×4.9 mm SOIC outline, 1.27 mm pitch and 15 V operating compatibility. No precision, bandwidth or long-term reliability guarantee is adopted.",
+      "safety": "USB input generates internal positive and negative 15 V rails. Disconnect power before soldering or opening the case. Outputs are low-voltage signals, not actuator power, and are not isolated or CAT-rated. Avoid mains-connected targets and incompatible ground potentials. Commission on a scope before adding an amplifier; actuated experiments need their own guarding and physical stop. The printed case is not an electrical safety certification.",
+      "estimatedBuildTime": "Custom PCB fabrication lead time plus several assembly, software and commissioning sessions; not a measured duration.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/siguls-laboratory-waveform-generator-880d4cacd6ed82ef9d44.png"
+    },
+    {
+      "id": "surrey-homeware-aura-weather",
+      "title": "Aura snap-fit weather forecast display",
+      "creator": "Surrey Homeware",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "ESP32-2432S028R CYD with classic ESP32-WROOM, 2.8-inch 240×320 ILI9341 TFT and XPT2046 resistive touch. The published driver is not a generic ST7789/C3/S3 image."
+      ],
+      "difficulty": "Beginner",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "A portrait-format weather widget gives a quick view of current conditions and upcoming hourly or daily forecasts. Setup and preferences are touch-driven; no weather API account, separate computer service or external sensor is needed after flashing.",
+      "whyPrint": "A snap-fit front and rear protect the CYD and hold it upright. A right-angle USB adapter keeps the lead behind the screen, with no screw fastening or soldering in the documented assembly.",
+      "parts": [
+        "ESP32-2432S028R 2.8-inch ILI9341 CYD board",
+        "USB data cable for programming and suitable USB power supply",
+        "90-degree USB-C or Micro-USB adapter matched to the actual board, facing away from the screen",
+        "Aura printed front and back from MakerWorld model 1382304",
+        "2.4 GHz Wi-Fi with internet access to Open-Meteo"
+      ],
+      "steps": [
+        {
+          "title": "Identify the panel before buying",
+          "body": "Match ESP32-2432S028R, 2.8-inch and ILI9341 in the board specification. A similar-looking CYD with another panel controller is not established as compatible."
+        },
+        {
+          "title": "Flash the creator's image",
+          "body": "Connect a data-capable USB cable and open the Aura installer in a supported desktop browser. Install the supplied normal image first; an alternate inverted-color image is provided for the documented color issue."
+        },
+        {
+          "title": "Join the setup network",
+          "body": "Follow the screen prompt and join the Aura hotspot. Enter the intended Wi-Fi network, then confirm that the device loads a forecast before enclosure assembly."
+        },
+        {
+          "title": "Set the correct location",
+          "body": "Tap the upper screen to open settings. Select your city, temperature units and brightness; the firmware's initial London coordinates are not automatic proof of your location."
+        },
+        {
+          "title": "Print and inspect the shell",
+          "body": "Use the original textured or plain Aura case, not the separate laser-cut edition. Inspect the slicer profile, front opening, snap tabs and USB-adapter space for your printer and board."
+        },
+        {
+          "title": "Assemble without wiring",
+          "body": "Disconnect power, fit the right-angle adapter away from the screen and lower the board into the front shell. Press the rear on evenly until seated, avoiding pressure on the glass."
+        },
+        {
+          "title": "Verify everyday operation",
+          "body": "Reconnect USB, switch between hourly and daily forecast views and check location persistence after a restart. Confirm the cable does not lift or tip the printed stand."
+        }
+      ],
+      "printNotes": "The exact indexed model includes a textured-front 3MF profile specifying PLA, 0.2 mm layers, two walls and 15% infill. Treat those as the creator profile, not a guarantee for your printer. PETG is an optional indoor durability choice requiring snap-fit tuning. The separate laser edition and cosmetic case styles are not counted as additional builds.",
+      "firmware": "Creator browser installer supplies Aura 1.4 images. Source build uses ESP32 Dev Module with Huge App (3 MB No OTA/1 MB SPIFFS), plus ArduinoJson 7.4.1, HttpClient 2.2.0, TFT_eSPI 2.5.43, WiFiManager 2.0.17, XPT2046 1.4 and LVGL 9.2.2. Copy the supplied TFT_eSPI User_Setup.h and lv_conf.h into the matching libraries and retain the font/icon source files. weather.ino is GPL-3.0; weather icons have separate terms.",
+      "sourceUrl": "https://github.com/Surrey-Homeware/Aura",
+      "instructionsUrl": "https://makerworld.com/en/models/1382304-aura-smart-weather-forecast-display",
+      "supportingUrls": [
+        "https://surrey-homeware.github.io/aura-installer/",
+        "https://github.com/Surrey-Homeware/aura-installer",
+        "https://github.com/Surrey-Homeware/Aura/blob/main/TFT_eSPI/User_Setup.h",
+        "https://3dgo.app/models/makerworld/1382304"
+      ],
+      "modelUrl": "https://makerworld.com/en/models/1382304-aura-smart-weather-forecast-display",
+      "modelStatus": "Exact creator model and assembly/BOM identified; public indexed metadata includes its 3MF print profile. The original MakerWorld fetch returned HTTP 402, so actual geometry and the download/account flow were not verified. Listing-only inspection, Standard Digital File License.",
+      "images": [
+        {
+          "url": "https://makerworld.bblmw.com/makerworld/model/USc591398835faff/design/2025-05-03_724f808245b49.png",
+          "credit": "Surrey Homeware, original Aura creator photograph with promotional typography",
+          "sourceUrl": "https://makerworld.com/en/models/1382304-aura-smart-weather-forecast-display"
+        }
+      ],
+      "imageNote": "Actual yellow printed portrait case on a table, displaying the forecast; layer texture, screen and rear USB lead are visible. The image contains creator-added promotional text, not a generated concept.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Read complete source README, installer, actual display configuration and forecast/setup code, plus the exact creator model's indexed assembly and profile metadata. This Surrey Homeware weather widget is unrelated to the catalog's Project Aura air-quality build. No compile, flash, fit or weather-accuracy testing was performed.",
+      "safety": "Indoor USB power only. Do not force snap tabs or flex the touch panel. The setup access point is open and forecast requests use HTTP in the inspected source, so configure on a trusted network. Displayed temperature is online weather, not a measurement of the room.",
+      "estimatedBuildTime": "One setup session plus printing; estimate, not the creator's advertised assembly-time claim.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/surrey-homeware-aura-weather-32e52189e29546bf11f0.png"
+    },
+    {
+      "id": "tiltbridge-d32-pro-tft",
+      "title": "TiltBridge D32 Pro fermentation receiver",
+      "creator": "Thorrak; printed D32 Pro case designed by gromitdj",
+      "category": "Home & sensing",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "LOLIN D32 Pro with 16 MB flash, matching LOLIN ILI9341 TFT and ribbon cable. The enclosure version must match TFT PCB v1.0.0 or v1.1.0."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "A dedicated Bluetooth-to-Wi-Fi receiver displays readings from a separate Tilt hydrometer and forwards fermentation data without leaving a phone beside the fermenter. Its screw-closed printed case fits the D32 Pro and matching touchscreen.",
+      "whyPrint": "The enclosure locates both boards, supports the display on printed alignment pins and exposes USB power while containing the short ribbon cable.",
+      "parts": [
+        "LOLIN D32 Pro, 16 MB flash version",
+        "Matching LOLIN ILI9341 TFT screen and dedicated TFT cable",
+        "Two M2 × 5 mm countersunk screws and three M2 × 5 mm pan-head screws",
+        "Matching top and bottom case pair: v100 for TFT v1.0.0 or v110 for TFT v1.1.0",
+        "Micro-USB data cable and regulated USB supply",
+        "A compatible Tilt hydrometer, purchased separately, and a trusted Wi-Fi network"
+      ],
+      "steps": [
+        {
+          "title": "Match the screen and case versions",
+          "body": "Read the TFT board's revision marking before printing. Select both v100 files for screen v1.0.0, or both v110 files for screen v1.1.0; do not mix the pairs."
+        },
+        {
+          "title": "Inspect the case print",
+          "body": "Check USB clearance, display locating pins and screw holes with the electronics unpowered. Remove stray plastic carefully so the TFT can seat without bending; no creator-specific slicer profile was verified."
+        },
+        {
+          "title": "Connect the matching display cable",
+          "body": "Join the D32 Pro and LOLIN TFT using their dedicated ribbon cable, following connector orientation. Do not substitute arbitrary jumper wiring or assume another ILI9341 module shares this enclosure or connector."
+        },
+        {
+          "title": "Flash the TFT firmware",
+          "body": "Use the creator's BrewFlasher route or the published release files, choosing TiltBridge's D32 Pro/TFT build. Confirm the board has 16 MB flash; the OLED binary is a different hardware target."
+        },
+        {
+          "title": "Secure the electronics",
+          "body": "Place the D32 Pro with USB facing its opening and attach it with the three pan-head screws. Locate the TFT on the printed pins, check ribbon clearance, then secure the lid with the two countersunk screws without overtightening."
+        },
+        {
+          "title": "Join the local network",
+          "body": "Power the receiver and connect to TiltBridgeAP using the documented initial password tiltbridge. In the setup portal, configure trusted Wi-Fi and a unique device name, then reconnect your computer or phone to the normal network."
+        },
+        {
+          "title": "Validate a hydrometer reading",
+          "body": "Bring a known Tilt into range and confirm its identity, temperature and gravity appear before configuring a logging destination. For the v1.1.0 TFT, use the web configuration's screen-rotation setting if the first display orientation is inverted."
+        }
+      ],
+      "printNotes": "The exact creator Printables listing exposes four files covering two TFT revisions, assembly instructions and matching physical photographs. Geometry downloads were not exercised; obtain the pair through the listing's Files tab. PLA/PETG are reasonable indoor-case choices, not a verified creator print profile. No print time or dimensional fit has been tested here.",
+      "firmware": "Official hardware and setup docs recommend LOLIN D32 Pro 16 MB plus the compatible ILI9341 display. BrewFlasher is the author's documented flashing path. GitHub release v1.2.4 includes d32_pro_tft_firmware.bin and its associated bootloader/partition/filesystem assets; use the complete tool-managed firmware set rather than guessing flash offsets. Source and release availability were inspected; no compilation, flashing or BLE range test was performed.",
+      "sourceUrl": "https://github.com/thorrak/tiltbridge",
+      "instructionsUrl": "https://docs.tiltbridge.com/en/master/hardware.html",
+      "supportingUrls": [
+        "https://docs.tiltbridge.com/en/master/User%20Guide/initial_setup.html",
+        "https://github.com/thorrak/tiltbridge/releases/tag/v1.2.4",
+        "https://www.brewflasher.com/",
+        "https://tiltbridge.com/"
+      ],
+      "modelUrl": "https://www.printables.com/model/141680-tiltbridge-case-d32-pro-w-tft",
+      "modelSourceUrl": "https://www.printables.com/model/141680-tiltbridge-case-d32-pro-w-tft",
+      "modelStatus": "Exact public creator listing verified as TiltBridge Case - D32 Pro /w TFT, published by Thorrak and crediting gromitdj. It lists four files, version-specific fitting guidance, screws and assembly steps. No account-required file flow or raw mesh download was tested. Listing identifies Creative Commons Attribution for the original case.",
+      "images": [
+        {
+          "url": "https://media.printables.com/media/prints/141680/images/1341592_58a31cad-fad7-4525-9f2e-49c99da340fc/thumbs/cover/800x800/jpg/large_display_img_1009_141680.jpg",
+          "credit": "Thorrak / gromitdj — TiltBridge case photograph on creator's Printables listing",
+          "sourceUrl": "https://www.printables.com/model/141680-tiltbridge-case-d32-pro-w-tft"
+        }
+      ],
+      "imageNote": "Downloaded and visually inspected: a real blue FDM enclosure with the TFT seated in its front opening, photographed on a countertop. The display is off in this image.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Exact board, 16 MB requirement, display type and TFT firmware selection come from official hardware/setup documentation. The model listing supplies the two mechanical revisions, fasteners and real assembly image. The receiver requires a separate hydrometer; the case alone does not measure fermentation.",
+      "safety": "USB-powered receiver only: keep it outside the fermenter and away from liquid, condensation and cleaning chemicals. Do not immerse the printed case or treat it as food-contact equipment. It is not a pressure monitor, heater controller or fermentation safety system. Keep its configuration interface on a trusted network and protect any logging credentials.",
+      "estimatedBuildTime": "Not timed; allow separate time for printing, firmware setup and confirming stable reception from the intended fermenter location.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/tiltbridge-d32-pro-tft-31149900d9e5cd959dc8.jpg"
+    },
+    {
+      "id": "tobymarks-ai-usage-monitor",
+      "title": "AI Monitor USB usage-limit desk display",
+      "creator": "Toby Marks; landscape enclosure by Marco",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "ESP32-2432S028R CYD, ESP32-WROOM-32 with 2.8-inch ILI9341 TFT and XPT2046 touch; select the matching ILI9341 firmware, not the separate S3 image."
+      ],
+      "difficulty": "Beginner",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "Put AI-provider usage limits beside your keyboard. A Windows or Mac companion reads the local CodexBar CLI and sends a compact dashboard over USB to an enclosed CYD; this is a status display, not an on-device language model. The Windows installer is currently unsigned.",
+      "whyPrint": "The creator's photographed landscape housing protects the exposed board and gives the screen a stable viewing angle under a monitor.",
+      "parts": [
+        "ESP32-2432S028R CYD with ILI9341 panel",
+        "USB data cable; Windows 10 1809+/11 x64 with WebView2, or macOS 14+",
+        "Win-CodexBar on Windows or CodexBar on Mac, configured for a supported account; matching AI Monitor companion",
+        "CH340 USB-serial driver on Windows if the board does not enumerate",
+        "Marco's CYD landscape enclosure and stand",
+        "Four M3 enclosure screws; determine length from the downloaded model, which does not specify it in the inspected listing"
+      ],
+      "steps": [
+        {
+          "title": "Identify the display",
+          "body": "Confirm the CYD's actual panel revision before selecting firmware. The R/ILI9341 target is used here; ST7789 hybrids require the separate image."
+        },
+        {
+          "title": "Prepare the data source",
+          "body": "On Windows install Finesssee.Win-CodexBar through winget, or use its official releases; Mac uses CodexBar. Enable only intended accounts and verify the local CLI returns usage."
+        },
+        {
+          "title": "Flash over USB",
+          "body": "Connect a data-capable cable and use the AI Monitor companion's board-specific flasher. Source builders can run pio run -e esp32dev -t upload."
+        },
+        {
+          "title": "Prove the dashboard first",
+          "body": "Select the provider in the companion and compare the displayed limit and reset countdown with CodexBar before putting the board in its case."
+        },
+        {
+          "title": "Print the landscape housing",
+          "body": "Open the exact creator-linked MakerWorld model. Inspect the parts and USB opening in your slicer; trial-fit the unpowered board without pressing on the glass."
+        },
+        {
+          "title": "Assemble and orient",
+          "body": "Secure the enclosure with the four M3 fasteners, fit the stand, and select the matching landscape orientation and a comfortable brightness."
+        },
+        {
+          "title": "Check reconnection",
+          "body": "Restart the companion and verify automatic serial reconnection. Wi-Fi is optional for the standby clock, not required for USB usage data."
+        }
+      ],
+      "printNotes": "The selected case is MakerWorld 2583102, the landscape model linked and used by Toby. Its original weather firmware is not required. PLA/PETG are indoor material suggestions, not a verified creator print profile; inspect scale, supports and screw clearance locally.",
+      "firmware": "MIT-licensed source and releases in tobymarks/esp32-ai-monitor. The esp32dev environment pins Espressif32 6.13.0, TFT_eSPI 2.5.43, LVGL 9.5.0 and ArduinoJson 7.4.3. Windows uses the win-v release line and codexbar-cli.exe; the creator's September 25 notes report basic operation on a real Windows machine, superseding an earlier beta limitation. Windows binaries remain unsigned; inspect release provenance/checksums and stop if local policy blocks installation. No Linux companion support is asserted.",
+      "sourceUrl": "https://github.com/tobymarks/esp32-ai-monitor",
+      "instructionsUrl": "https://www.hackster.io/toby-marks/esp32-desk-display-for-claude-and-chatgpt-usage-limits-71d7e3",
+      "supportingUrls": [
+        "https://github.com/tobymarks/esp32-ai-monitor/blob/main/platformio.ini",
+        "https://github.com/tobymarks/esp32-ai-monitor/releases",
+        "https://github.com/tobymarks/esp32-ai-monitor/blob/main/companion-windows/README.md",
+        "https://github.com/tobymarks/esp32-ai-monitor/blob/main/docs/windows-app-plan.md",
+        "https://github.com/nesszer/Win-CodexBar",
+        "https://codexbar.app/",
+        "https://3dgo.app/models/makerworld/2583102"
+      ],
+      "modelUrl": "https://makerworld.com/en/models/2583102",
+      "modelStatus": "Exact landscape model linked by the firmware creator; public indexed listing confirms CYD hardware and 3MF availability. MakerWorld returned HTTP 402 to this research fetch, so the actual geometry/download flow was not verified. Account or platform access may be required; Standard Digital File License.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/tobymarks/esp32-ai-monitor/main/installer/assets/display-chatgpt-front.jpg",
+          "credit": "Toby Marks / esp32-ai-monitor, creator photograph",
+          "sourceUrl": "https://github.com/tobymarks/esp32-ai-monitor"
+        }
+      ],
+      "imageNote": "Downloaded and visually checked: working ChatGPT display in the blue four-screw landscape printed case, on a black stand. Not one of the repository's rendered concepts.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Inspected creator README, build guide, exact PlatformIO targets, case link and physical photo. Provider data remains dependent on CodexBar and the service account. No firmware compilation, flashing, dimensional fit test or account-access test was performed.",
+      "safety": "Power through USB; no mains or extra GPIO wiring. Account authentication stays on the computer. Review companion/data-source permissions and do not expose private usage information on a shared desk.",
+      "estimatedBuildTime": "One setup session plus printing; planning estimate, not a measured build time.",
+      "addedAt": "2026-10-16T19:36:33.022Z",
+      "imagePath": "/workshop-images/tobymarks-ai-usage-monitor-baf74057b32452e4ca21.jpg"
     }
   ],
   "meta": {
-    "total": 338,
+    "total": 357,
     "limit": 1000,
     "absoluteLimit": 10000,
-    "lastUpdated": "2026-10-16T13:47:10.021Z",
-    "lastChecked": "2026-10-16T13:47:10.021Z"
+    "lastUpdated": "2026-10-16T19:36:33.022Z",
+    "lastChecked": "2026-10-16T19:36:33.022Z"
   }
 }
