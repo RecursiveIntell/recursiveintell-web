@@ -18,6 +18,9 @@ Public website for Josh Stevenson and RecursiveIntell. The site has two explicit
 - `/privacy` — current website data boundary
 - `/pro` — transparent proposed-product status
 - `/portfolio` — public repository and crate projection
+- `/workshop` — public Circuit Workshop catalog and build guides; see [Workshop and Bridge maintenance](docs/workshop-and-bridge.md)
+- `/api/workshop` — read-only queries over the public maker-data projection
+- `/bridge` — noindex entrance to the existing owner-private Bridge, using its ChatGPT owner sign-in
 - `/game/claw` — standalone RecursiveIntell action RPG; see [game maintenance](docs/claw-game.md)
 
 ### Mnemes
@@ -42,6 +45,9 @@ The Mnemes homepage has one canonical owner at `app/components/mnemes/MnemesHome
 - `app/components/mnemes/MnemesHome.tsx` — Mnemes homepage
 - `app/data/published-crates.json` — dated public crate snapshot
 - `app/data/library-catalog-public.json` — allowlisted public Library Atlas projection
+- `app/data/workshop-public.json` and `public/workshop-images/` — allowlisted public maker catalog and project photos
+- `app/lib/workshop-query.ts` and `app/api/workshop/route.ts` — catalog filtering, exact-build lookup, and bounded pagination over the public projection
+- `app/bridge/page.tsx` — checks the format of an optional build ID for the private Bridge handoff; private workspace records are not part of the public catalog
 
 ## Claim boundary
 
@@ -75,7 +81,7 @@ node --test tests/rendered-html.test.mjs
 npm run validate:artifact
 ```
 
-`npm test` runs the installer and game regressions, the canonical production build, the rendered HTML and public-data boundary suite, and the game route/asset checks.
+`npm test` runs the installer regressions, Workshop catalog and component-logic checks (`npm run test:workshop`), game regressions, the canonical production build, the rendered HTML and public-data boundary suite, and the game route/asset checks. The Workshop interaction tests do not establish browser layout or behavior.
 
 For local development:
 
