@@ -24184,13 +24184,1288 @@
       "estimatedBuildTime": "Not measured; printing and firmware setup depend on your equipment.",
       "addedAt": "2026-10-15T19:46:23.109Z",
       "imagePath": "/workshop-images/yiangg-oled-weather-clock-be190aa4ea875ee6a844.webp"
+    },
+    {
+      "id": "as5600-passive-leader-arm",
+      "title": "Six-joint magnetic-encoder leader arm",
+      "creator": "Matheshwaran Pitchai",
+      "category": "Robots & motion",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "Classic ESP32-WROOM-32 development board; creator wiring drawing shows the 30-pin USB DevKit layout with D18/D19. No ESP32-C3 conversion is implied."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "A hand-moved robot-arm controller for learning teleoperation and collecting simulated manipulation demonstrations. Six magnetic encoders replace powered joints; the matching PC tools can drive a MuJoCo SO-ARM model. A physical follower is optional and requires its own safety validation.",
+      "whyPrint": "The printed links, bearing pockets and magnet rotors establish the six joint axes and sensor alignment; this is a functional linkage, not an electronics case.",
+      "parts": [
+        "Classic 30-pin ESP32-WROOM-32 USB development board and data cable",
+        "6 white 23 × 23 mm AS5600 modules with the pictured C1/C2/R1 layout and zero-ohm R1 installed for 3.3 V mode; six 5 mm diameter × 2 mm diametrically magnetized magnets",
+        "CJMCU/HW-617 TCA9548A eight-channel I2C multiplexer",
+        "6 × 608 bearings, 8 × 22 × 7 mm",
+        "60 M3 × 10 mm screws; 7 × 9 cm perfboard; flexible 28 AWG wire; rubber band",
+        "PLA printed parts from the repository's STL directory or complete 3MF plate",
+        "Computer for serial inspection and optional Python/MuJoCo software"
+      ],
+      "steps": [
+        {
+          "title": "Check the selected hardware",
+          "body": "Match the creator's board drawing, encoder footprint and magnets before printing. Use the white R1-present encoder layout: its zero-ohm R1 retains 3.3 V mode. With power absent, confirm continuity between AS5600 supply pins 1 and 2; reject R1-removed or differently routed modules."
+        },
+        {
+          "title": "Prepare the bearings during printing",
+          "body": "Use the supplied part-count list and 3MF as references. Pause each bearing housing at the documented 10 mm height, seat its 608 bearing flat, then resume without a nozzle collision."
+        },
+        {
+          "title": "Prove the sensor chain first",
+          "body": "With USB power disconnected, wire the mux to GPIO18/19 and 3V3/GND, hold reset high and address inputs low. Put one encoder on each channel 0–5; ground DIR. Check continuity before power."
+        },
+        {
+          "title": "Assemble the passive joints",
+          "body": "Fit magnets in the six rotors, then follow the illustrated base-to-handle sequence. Install the base and final encoder first; leave the four intermediate encoders until the linkage is assembled."
+        },
+        {
+          "title": "Inspect live angle readings",
+          "body": "Upload firmware/firmware.ino using the classic ESP32 Arduino target. At 115200 baud, check six responsive channels while moving one joint at a time. Stop on missing devices, unstable readings or repeated -1 values."
+        },
+        {
+          "title": "Finish and test in simulation",
+          "body": "Fit remaining encoder caps, strain relief, wire holders and the rubber-band support. Start the supplied MuJoCo script with the correct serial port, align its reference pose, then check joint direction and travel one axis at a time."
+        }
+      ],
+      "printNotes": "Creator recipe: PLA, 0.2 mm layers, 15% infill, no supports; nineteen unique meshes make forty-nine printed pieces. Bearing-housing pause is at 10 mm, not an arbitrary layer if layer height changes. The 3MF uses a Bambu A1 profile; verify bed fit and all settings for your printer. Actual STL, STEP and 3MF files were downloaded; no slicing or print test was performed.",
+      "firmware": "Inspected Arduino sketch uses Wire only, SDA18/SCL19 at 400 kHz, mux address 0x70 and six AS5600 devices at 0x36. It streams six 12-bit readings at a nominal 100 Hz over 115200-baud serial. Repository includes standalone MuJoCo scripts and LeRobot plugins; software dependencies are not fully pinned and were not installed or executed here.",
+      "sourceUrl": "https://github.com/Matheshwaranpitchai/open-source-leader-arm",
+      "instructionsUrl": "https://github.com/Matheshwaranpitchai/open-source-leader-arm#assembly-guide",
+      "supportingUrls": [
+        "https://github.com/Matheshwaranpitchai/open-source-leader-arm/blob/main/firmware/firmware.ino",
+        "https://github.com/Matheshwaranpitchai/open-source-leader-arm/blob/main/docs/wiring.png",
+        "https://github.com/Matheshwaranpitchai/open-source-leader-arm/blob/main/teleop.py",
+        "https://www.ti.com/product/TCA9548A",
+        "https://www.tinytronics.nl/en/sensors/magnetic-field/as5600-magnetic-angle-sensor-encoder-module",
+        "https://www.tinytronics.nl/product_files/004634_AS5600.pdf"
+      ],
+      "modelUrl": "https://github.com/Matheshwaranpitchai/open-source-leader-arm/tree/main/cad_files/stl",
+      "modelSourceUrl": "https://github.com/Matheshwaranpitchai/open-source-leader-arm/tree/main/cad_files",
+      "modelStatus": "Free public repository: nineteen STL meshes plus individual STEP files, an assembly STEP and a printable 3MF were retrieved. Apache-2.0 repository license. No account was needed for git retrieval.",
+      "images": [
+        {
+          "url": "https://github.com/user-attachments/assets/977a0b56-c7d2-4a90-b86a-445dd3963871",
+          "credit": "Matheshwaran Pitchai; frame at 00:03 from the creator's leader-arm demonstration",
+          "sourceUrl": "https://github.com/Matheshwaranpitchai/open-source-leader-arm"
+        }
+      ],
+      "imageNote": "Decoded physical demonstration frame, unretouched: the real white printed leader is on the table, while the screen shows a simulated follower. The screen is not evidence of a physically tested follower.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Read creator assembly instructions, inspected the actual wiring drawing, nineteen downloaded STL files, firmware and PC plugin. Downloaded and visually reviewed the real demo video. The pictured white encoder has zero-ohm R1 installed; matching-layout TinyTronics module documentation explicitly specifies 3.3 V supply/signals with R1 present. The creator's actual board vendors remain unnamed. No firmware compilation, physical construction or performance measurement was done.",
+      "safety": "USB-powered passive mechanism only; no motors, high-current rail or battery is required. Keep all sensor power and pull-ups at 3.3 V. The verified white breakout uses installed zero-ohm R1 for 3.3 V mode; do not remove it or use a 5 V-configured substitute. Confirm AS5600 pins 1/2 are tied before power as required by its datasheet, and check the powered sensor rail. Retain small magnets securely. Start with simulation; a physical follower needs independent stops, safe limits and supervised validation.",
+      "estimatedBuildTime": "Multi-session mechanical and software project; no verified duration.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/as5600-passive-leader-arm-83fbbd0253458b35d309.jpg"
+    },
+    {
+      "id": "elyoshri-ble-simulator-stick-shift",
+      "title": "Potentiometer-based BLE simulator shifter",
+      "creator": "Ely Oshri",
+      "category": "Tools & controls",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "Classic ESP-WROOM-32 development board; creator explicitly lists this board as tested.",
+        "Use Firmware_ESP32, not the separate Arduino Nano USB sketch. Enclosure fit depends on the pictured WROOM dev-board footprint."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "A compact H-pattern simulator shifter that translates lever position into Bluetooth gamepad buttons. Two potentiometers sense its orthogonal movement; calibration thresholds assign eight gear positions and a ninth neutral state. It is a USB-powered BLE input device, not a USB HID shifter.",
+      "whyPrint": "The print creates the working mechanism: nested hinges, lever, H-gate, frame and controller holder. This is a functional mechanical input project rather than a generic electronics box.",
+      "parts": [
+        "Classic ESP-WROOM-32 development board with USB cable",
+        "Two WL B10K 10 kΩ potentiometers matching the printed shaft/body seats",
+        "PLA structural parts from the creator's Hardware directory; select the ESP32 frame and cover variants",
+        "Metal joining wire no thicker than 1 mm, insulated hookup wire and solder or suitable small connectors",
+        "Bluetooth-capable host with a simulator that accepts independently mapped gamepad buttons"
+      ],
+      "steps": [
+        {
+          "title": "Select the correct variant",
+          "body": "Download the creator repository and use the ESP32 firmware folder. Compare your board dimensions and USB position with Left Frame + ESP32 Case and ESP32 Case Cover. Do not print the Arduino Nano-specific side or use its firmware for this build."
+        },
+        {
+          "title": "Print and fit the mechanism",
+          "body": "Print the base pieces, upper and lower hinges, main lever, H-frame, ordinary right frame and ESP32 left frame. Inspect overhangs in the slicer and add support where needed. Dry-assemble the pivots and gate before fitting either potentiometer; motion should not depend on forcing printed surfaces past each other."
+        },
+        {
+          "title": "Fit the sensors and joints",
+          "body": "Seat the two matching potentiometers in the printed mounts and couple each to its corresponding axis, following the creator's assembly reference. Secure the frame joints with the specified thin metal wire. Check every gate position without twisting either potentiometer beyond its mechanical travel."
+        },
+        {
+          "title": "Wire only in the 3.3 V domain",
+          "body": "Connect each potentiometer's outer terminals to 3.3 V and ground. Connect the X wiper to GPIO33 and Y wiper to GPIO35, matching the ESP32 sketch. The README explicitly corrects the illustrated 5 V rail: use 3.3 V for ESP32. Identify wipers with a meter, insulate joints and inspect for shorts before USB power."
+        },
+        {
+          "title": "Flash and observe raw values",
+          "body": "Set up the Arduino ESP32 board package and creator-linked ESP32-BLE-Gamepad library with its required dependencies. Open Firmware_ESP32.ino, choose the matching classic ESP32 target, and upload over USB. At 115200 baud, check that X and Y readings change smoothly as the lever moves."
+        },
+        {
+          "title": "Calibrate the gate thresholds",
+          "body": "Record the stable X/Y readings in each gear and neutral. Set the top/bottom and four column thresholds in the sketch to match your hardware; use FLIP_X or FLIP_Y only if the orientation is reversed. Leave clear gaps between gate regions, upload again, and verify all positions rather than copying the creator's sample thresholds unchanged."
+        },
+        {
+          "title": "Pair and test in the host",
+          "body": "Pair the device named Sim Stick Shift and inspect buttons in a gamepad tester. The sketch holds one of buttons 1–8 for a gear and uses button 9 for neutral after several samples. Map those inputs in the simulator, then test power-cycle/reconnection and repeated neutral transitions before closing the cover."
+        }
+      ],
+      "printNotes": "PLA is explicitly listed by the creator. All 15 STLs downloaded from Hardware were valid-length binary meshes; several are alternative board/frame parts, not a requirement to print all 15. Parsed source-coordinate extents include a 40×40×111 main lever and a 113×101.5×6 optional mounting base; confirm millimetres, orientation and bed fit in the slicer. Creator does not specify layer height or infill, and notes that some parts require supports. Physical fit was not tested.",
+      "firmware": "The complete ESP32 Arduino sketch was inspected. It samples ADC1 GPIO33/GPIO35, classifies threshold regions, and sends BLE gamepad button changes at a 100 ms loop interval. Neutral uses a multi-sample delay, so this is not a low-latency racing-performance claim. Its external board/library versions are not pinned; compile and bench-test the selected dependency versions before final assembly. No firmware build, flashing or host compatibility test was performed here.",
+      "sourceUrl": "https://github.com/ElyOshri/DIY-Simulator-Stick-Shift",
+      "instructionsUrl": "https://github.com/ElyOshri/DIY-Simulator-Stick-Shift#tutorial",
+      "supportingUrls": [
+        "https://github.com/ElyOshri/DIY-Simulator-Stick-Shift/tree/main/Firmware/Firmware_ESP32",
+        "https://user-images.githubusercontent.com/79017393/132395408-584d270a-1471-4dd1-976c-bccc9487b785.png",
+        "https://github.com/lemmingDev/ESP32-BLE-Gamepad",
+        "https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf"
+      ],
+      "modelUrl": "https://github.com/ElyOshri/DIY-Simulator-Stick-Shift/tree/main/Hardware",
+      "modelStatus": "Free public creator repository. The full main-branch archive was downloaded and all 15 STL files passed binary size/facet checks. This verifies actual geometry availability, not watertightness, slicer behavior or assembled fit. Choose the ESP32-specific alternative parts.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/ElyOshri/DIY-Simulator-Stick-Shift/main/Resources/Banner.jpg",
+          "credit": "Ely Oshri — creator repository photograph",
+          "sourceUrl": "https://github.com/ElyOshri/DIY-Simulator-Stick-Shift"
+        }
+      ],
+      "imageNote": "Original creator photo downloaded and visually inspected; it shows the complete white printed lever, H-gate, frame and side electronics enclosure. Small source image retained without reconstruction.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Primary README, both board variants in the file tree, full ESP32 sketch, wiring illustration, actual STLs and creator photograph inspected. The creator expressly documents the classic ESP-WROOM-32 and instructs 3.3 V instead of the illustration's 5 V rail. Current gamepad-library documentation inspected; no independently measured function, latency or mechanical strength is claimed.",
+      "safety": "Never connect the pictured 5 V potentiometer rail to ESP32 ADC inputs; follow the explicit README correction to 3.3 V. GPIO35 is input-only and is appropriate for this wiper, not an output. Use USB as the sole supply, keep joining wire away from electronics, and guard fingers around hinges. This hobby input device is for simulation, not real vehicle or machine control.",
+      "estimatedBuildTime": "Printing plus assembly and calibration across one or more sessions; no measured duration.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/elyoshri-ble-simulator-stick-shift-80b92e67b6f8f3395b90.jpg"
+    },
+    {
+      "id": "identidem-mrf2-lidar-film-camera",
+      "title": "IDENTIDEM MRF2 LiDAR-coupled film camera",
+      "creator": "Albert Cornelissen / IDENTIDEM.design; derived from Oscar Oweson's Panomicron Thulium",
+      "category": "Cameras & audio",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Adafruit Feather ESP32-S3, product 5477: 4 MB flash, 2 MB PSRAM and MAX17048 fuel gauge.",
+        "This entry selects the matched v2.0 / MRF-Pro-v8 main PCB and LiDAR breakout, not mixed v1/v2 boards."
+      ],
+      "difficulty": "Advanced",
+      "materials": [
+        "PETG"
+      ],
+      "summary": "Build a medium-format film camera around Mamiya Press lenses, printed mechanics and an electronic rangefinder. The ESP32-S3 compares LiDAR distance with a lens-position sensor, drives two OLEDs and supplies metering and frame-count information. Focusing and shutter operation remain manual.",
+      "whyPrint": "The body, film masks, lens cone, advance mechanism and viewfinder supports are functional camera parts. Shared assembly CAD and individual 3MFs make this a substantial optical-mechanical build, not a generic electronics enclosure.",
+      "parts": [
+        "Adafruit Feather ESP32-S3 5477",
+        "MRF-Pro-v8 main PCB and v2 breakout, with their complete revision-specific BOM/CPL; TLV75533 LiDAR regulator and specified decoupling",
+        "B-type 8-pin 0.5 mm FPC; JST-SH 8-pin switch and 6-pin LiDAR harnesses; 6–8 STEMMA QT cables",
+        "DTS6012M LiDAR and 404R10KL1.0 linear-position sensor",
+        "Adafruit BH1750 4681, MPU6050 3886, ADS1015 1083 and rotary encoder 5880",
+        "Adafruit SH1107 128×128 OLED 5297; I2C SSD1306 128×32 OLED",
+        "Protected EEMB LP653042 3.7 V 820 mAh pack, approximately 44×30.5×6.8 mm, with verified Feather-compatible connector polarity",
+        "Two 8 mm momentary buttons and 6 mm DPDT slide switch",
+        "M2×4/M3×4 inserts; M2×4, M2×6, M3×6 and M3×8 countersunk screws; M3×6 thumbscrew",
+        "Approximately 82 mm hinge rod; two-turn return spring; CSK8PP bearing keyed on both races; cold shoe",
+        "20×5×2 mm bar magnets and two 5×2 mm round magnets",
+        "20 mm diameter +70 mm focal-length PCX; 25 mm diameter −25 mm focal-length PCV; 30×30×1.1 mm 50R/50T beamsplitter",
+        "Compatible Mamiya Press/Universal Press lens with working shutter, 120 film, printed body and chosen film mask"
+      ],
+      "steps": [
+        {
+          "title": "Choose one complete hardware revision",
+          "body": "Order the v2.0 main board and breakout from the matching Gerbers, BOM and placement files. Check the v2 J4 connector is the right-angle ZX-SH1.0-8PWT, not the older top-entry part. Keep a copy of the exact firmware and fabrication revision used so later repairs do not mix incompatible power routing."
+        },
+        {
+          "title": "Print and inspect the camera mechanics",
+          "body": "Start with the supplied 3MFs and inspect the complete CAD assembly to understand the hinge, lens cone, masks and advance mechanism. The included Orca project uses PETG-CF at 0.2 mm layers with a 0.4 mm nozzle. Adapt that profile only after checking your printer and abrasive-filament capability; do not treat it as a universal preset."
+        },
+        {
+          "title": "Fit the transport and optical parts",
+          "body": "Install inserts and hardware without electronics or a battery in the body. Check the film path, clutch direction, return spring, mask seating and rear-door closure. Seat the viewfinder lenses and beamsplitter without stressing their edges. Verify that the selected lens and its position-sensor linkage move freely through the intended focus travel."
+        },
+        {
+          "title": "Build and verify the v2 harnesses",
+          "body": "Use the v2 wiring diagrams, checking connector pin numbers with a meter rather than relying on wire colors. FPC pin 1 carries VBAT to the LiDAR LDO; pin 6 carries switched 3.3 V. The DPDT switch has separate rail-gating and MCU-enable functions. Do not substitute the v1 switch or FPC wiring."
+        },
+        {
+          "title": "Inspect the battery and charging path",
+          "body": "Confirm the named protected 820 mAh pack, connector polarity and clearance before connection. The inspected Feather charger uses MCP73831 with a 5.1 kΩ program resistor, approximately 196 mA by its datasheet equation; the EEMB cell specification allows up to 820 mA charging. These checks do not authorize a smaller, unprotected or reversed-polarity substitute."
+        },
+        {
+          "title": "Load the exact Feather firmware",
+          "body": "Use the creator's PlatformIO flash guide and adafruit_feather_esp32s3 environment. The inspected source is version 10.7.1 with espressif32@6.5.0 and pinned libraries. On first boot, inspect System Health for both displays, ADC, motion/light sensors, battery gauge and encoder before enclosing the wiring."
+        },
+        {
+          "title": "Calibrate lens coupling and framing",
+          "body": "Follow the on-device lens-calibration workflow for the actual mounted lens, recording its marked focus distances in order. Then check LiDAR distance offset against a measured target, align the viewfinder reticle and select the installed film format. Retain the saved calibration before performing updates or any factory reset."
+        },
+        {
+          "title": "Prove the camera before valuable film",
+          "body": "Check frame transport and light sealing with a low-stakes test roll, then compare focus and exposure against known references. Bright sunlight can still defeat the LiDAR beyond roughly three metres; do not mistake stale or uncertain range readings for confirmed focus. Electronic assistance does not actuate or repair the lens shutter."
+        }
+      ],
+      "printNotes": "Actual individual 3MF files, full STEP/F3D assembly and OrcaSlicer project were downloaded. The inspected slicer project specifies PETG-CF, 0.2 mm layers, 0.4 mm nozzle, two walls and 15% infill; component-specific settings still require inspection. PETG in the material filter includes this reinforced variant, not a claim that ordinary PETG is dimensionally identical. Fit, opacity, film-plane alignment and light sealing require physical verification. GNU GPLv3 design/source license.",
+      "firmware": "Creator firmware 10.7.1, PlatformIO environment adafruit_feather_esp32s3, espressif32@6.5.0. Flash documentation, platformio.ini, wiring and relevant source were inspected. The source explicitly handles the MAX17048/Seesaw shared 0x36 address behavior; verify battery and encoder health together rather than assuming an I2C scan proves both work. The same firmware supports the two documented PCB revisions, but this entry selects v2 hardware. No compile, flash or physical calibration was performed.",
+      "sourceUrl": "https://github.com/acornelissen/IDENTIDEM.design-MRF2",
+      "instructionsUrl": "https://github.com/acornelissen/IDENTIDEM.design-MRF2/blob/main/README.md",
+      "supportingUrls": [
+        "https://github.com/acornelissen/IDENTIDEM.design-MRF2/blob/main/Documentation/wiring/README.md",
+        "https://github.com/acornelissen/IDENTIDEM.design-MRF2/blob/main/Documentation/flash-firmware/README.md",
+        "https://github.com/acornelissen/IDENTIDEM.design-MRF2/blob/main/Documentation/user-manual/USER_MANUAL.md",
+        "https://github.com/acornelissen/IDENTIDEM.design-MRF2/blob/main/Firmware/platformio.ini",
+        "https://github.com/acornelissen/IDENTIDEM.design-MRF2/tree/main/PCBs/v2.0",
+        "https://github.com/acornelissen/IDENTIDEM.design-MRF2/tree/main/OrcaSlicer",
+        "https://www.adafruit.com/product/5477",
+        "https://learn.adafruit.com/adafruit-esp32-s3-feather/power-management",
+        "https://github.com/adafruit/Adafruit-Feather-ESP32-S3-PCB",
+        "https://www.eemb.com/product-216",
+        "https://eemb.oss-accelerate.aliyuncs.com/uploads/20230315/28f8e7468414d2b421c8660279f01e45.pdf",
+        "https://ww1.microchip.com/downloads/aemDocuments/documents/APID/ProductDocuments/DataSheets/MCP73831-Family-Data-Sheet-DS20001984H.pdf",
+        "https://www.amazon.co.uk/dp/B082152887"
+      ],
+      "modelUrl": "https://github.com/acornelissen/IDENTIDEM.design-MRF2/tree/main/3MF",
+      "modelSourceUrl": "https://github.com/acornelissen/IDENTIDEM.design-MRF2",
+      "modelStatus": "Downloaded actual 3MF geometry and the complete CAD/slicer archive. Main parts, fine parts, bayonet lens cone, masks and accessories are publicly available; no paid model package is required. No independent print/fit test.",
+      "images": [
+        {
+          "url": "https://petapixel.com/assets/uploads/2025/12/mrf2-3-800x531.jpg",
+          "credit": "Albert Cornelissen / IDENTIDEM.design, photograph credited by PetaPixel",
+          "sourceUrl": "https://petapixel.com/2025/12/06/this-photographer-built-an-awesome-medium-format-rangefinder-and-so-can-you/"
+        }
+      ],
+      "imageNote": "Downloaded and visually reviewed photograph of the creator's finished printed MRF2 body. The photograph does not identify the internal PCB revision; the creator documents common body geometry across v1 and v2.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Creator repository, revisioned wiring, firmware/configuration, user manual and actual model archive inspected. Charging cross-check uses Adafruit's schematic and Microchip equation against the EEMB LP653042 datasheet; protected-pack identity follows the creator's exact linked listing. Creator-credited physical photo downloaded and reviewed. Reproducibility evidence is not independent electrical, optical or battery certification.",
+      "safety": "Use only the documented single-cell protected pack with checked polarity; inspect for swelling or damage, insulate it from screws and solder joints, and charge under supervision within its 0–45 °C charging range. Keep v2 VBAT and 3.3 V nets distinct and verify DPDT continuity before power. Never apply 5 V to sensor/GPIO lines. Do not aim the LiDAR at eyes or view its emitter through optics. Heat-set inserts, magnets and glass need appropriate handling. Test light sealing and film transport before relying on the camera for important photographs.",
+      "estimatedBuildTime": "Several weekends, excluding PCB fabrication, lens sourcing and test-film processing; planning estimate.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/identidem-mrf2-lidar-film-camera-cba33b6bd441ea9540d3.jpg"
+    },
+    {
+      "id": "itayke-espressopost",
+      "title": "Espresso Post climate-aware coffee journal",
+      "creator": "Itay Keren / itayke",
+      "category": "Home & sensing",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Waveshare ESP32-S3-Touch-AMOLED-1.75 with its round case: ESP32-S3R8, 16 MB flash, 8 MB OPI PSRAM, CO5300 display and CST9217 touch",
+        "External BME280 uses the separate H2 bus: GPIO17 SDA and GPIO18 SCL; do not substitute another round display revision."
+      ],
+      "difficulty": "Advanced",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "A cup-shaped espresso journal that records shot time and feedback alongside room temperature, humidity and pressure. The touchscreen provides recipe presets and experimental grind suggestions learned from local shot history, with optional one-way Google Sheets sync.",
+      "whyPrint": "The cup and handle turn the round display into a recognizable countertop instrument and provide space for the external climate sensor. The supplied STEP files can be adjusted to actual component tolerances before slicing.",
+      "parts": [
+        "Waveshare ESP32-S3-Touch-AMOLED-1.75 with matching original round case",
+        "3.3 V BME280 breakout matching the creator's 15 × 12 mm six-pin measurement reference, with I2C pull-ups to 3.3 V",
+        "Short insulated sensor wires and soldering supplies for the rear H2 header",
+        "USB-C data cable and regulated USB power supply; this entry uses USB power",
+        "Printed Cup 0.3.10 and Handle 0.3.10",
+        "Computer with ESP-IDF 5.5.x, CMake, Ninja and Git LFS",
+        "Optional personal Google Sheet and bound Apps Script deployment for synchronization"
+      ],
+      "steps": [
+        {
+          "title": "Match the physical reference",
+          "body": "Check the exact Waveshare board/case and the BME280 measurement image in visuals before printing. Import both 0.3.10 STEP files at original scale and inspect component clearances. This is a display housing, not a cup for liquid."
+        },
+        {
+          "title": "Prepare and test-fit the prints",
+          "body": "Slice the cup and handle separately, preserving USB, button and sensor access. The creator supplies CAD but no validated layer/support recipe. Dry-fit the original round case and sensor before any permanent fastening or wiring."
+        },
+        {
+          "title": "Connect the external climate bus",
+          "body": "With USB disconnected, use the labeled H2 3V3 and GND supply points, GPIO17 for BME280 SDA and GPIO18 for SCL, as specified in board_pins.hpp. Match the breakout's labels and keep all pull-ups at 3.3 V; do not connect it to VBUS."
+        },
+        {
+          "title": "Fetch complete sources and CAD",
+          "body": "Clone the creator repository with Git LFS installed, or fetch LFS objects afterward. Confirm the model files contain STEP geometry rather than small pointer text. Keep the project components, partition table and sdkconfig.defaults together."
+        },
+        {
+          "title": "Build for the documented S3 board",
+          "body": "Activate ESP-IDF 5.5.x, select esp32s3, then run reconfigure and build before flashing through USB. Managed dependencies supply LVGL 9, CO5300/CST9217 drivers and LittleFS. Do not use another board's flash or PSRAM settings."
+        },
+        {
+          "title": "Validate before closing the housing",
+          "body": "Watch the USB serial log for BME280 detection at 0x76 or 0x77; the driver also checks chip ID 0x60. Confirm live climate values, touch response, preset saving and a trial shot record before fitting the electronics into the cup."
+        },
+        {
+          "title": "Set up the journal and optional sync",
+          "body": "Enter recipe targets and log several consistent trials. If using Sheets, follow tools/cloud_apps_script.md, create your own shared token, and pair it on the device. Keep the temporary open setup network brief and local; offline timestamps initially use approximate build time."
+        }
+      ],
+      "printNotes": "Actual Cup 0.3.10 and Handle 0.3.10 STEP payloads downloaded through Git LFS (766,311 and 428,484 bytes). The source does not prescribe filament, supports, infill or assembly fasteners. PLA/PETG are conservative indoor housing options, not creator-tested profiles; evaluate fit and keep the device away from hot machine surfaces and steam.",
+      "firmware": "Creator ESP-IDF application inspected, including board pins, climate driver, sdkconfig defaults, dependency manifest and cloud setup. Manifest requires IDF >=5.5 and <6.0; 16 MB QIO flash and 8 MB OPI PSRAM are configured. Climate is sampled on a separate I2C bus. Local storage and model operate without cloud; the grind model is experimental rather than proven to improve coffee. Not compiled or flashed here.",
+      "sourceUrl": "https://github.com/itayke/espressopost",
+      "instructionsUrl": "https://github.com/itayke/espressopost/blob/main/README.md",
+      "supportingUrls": [
+        "https://github.com/itayke/espressopost/blob/main/main/board_pins.hpp",
+        "https://github.com/itayke/espressopost/blob/main/main/idf_component.yml",
+        "https://github.com/itayke/espressopost/blob/main/components/climate/climate.cpp",
+        "https://github.com/itayke/espressopost/blob/main/tools/cloud_apps_script.md",
+        "https://github.com/itayke/espressopost/tree/main/visuals",
+        "https://www.reddit.com/r/esp32/comments/1ufkm1o/made_a_coffee_journal_gadget_espresso_post_that/",
+        "https://docs.waveshare.com/ESP32-S3-Touch-AMOLED-1.75/Resources-And-Documents",
+        "https://files.waveshare.com/wiki/ESP32-S3-Touch-AMOLED-1.75/ESP32-S3-Touch-AMOLED-1.75.pdf"
+      ],
+      "modelUrl": "https://github.com/itayke/espressopost/tree/main/models",
+      "modelSourceUrl": "https://github.com/itayke/espressopost/blob/main/README.md",
+      "modelStatus": "Free cup/handle STEP files; actual Git LFS payloads downloaded and STEP headers verified. GitHub ZIP alone contains pointer files. Physical fit and slice settings remain builder checks.",
+      "images": [
+        {
+          "url": "https://i.redd.it/cez9ys78hh9h1.jpg",
+          "credit": "Itay Keren / u/sugarmoat — creator's completed Espresso Post photograph",
+          "sourceUrl": "https://www.reddit.com/r/esp32/comments/1ufkm1o/made_a_coffee_journal_gadget_espresso_post_that/"
+        }
+      ],
+      "imageNote": "Real USB-powered unit in its printed cup and handle, shared by the creator in a post linking the same firmware and STEP files. Photograph downloaded unchanged and visually inspected.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Creator repository, actual LFS geometry, BME280 dimensional image, explicit board pin map and climate code were inspected. Creator Reddit post links the repository and shows the functioning printed assembly. Waveshare schematic cross-checks the board and exposed power/GPIO interface. No independent print, firmware build, calibration or performance validation claimed.",
+      "safety": "USB-powered indoor electronics only; battery modifications are outside this entry. Use 3.3 V sensor supply and logic, and insulate soldered joints. Keep away from liquid, steam and hot metal. Use a unique cloud token rather than the published default; setup traffic on the temporary open access point is not confidential.",
+      "estimatedBuildTime": "A weekend including CAD fit checks, printing, wiring and ESP-IDF setup; planning estimate.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/itayke-espressopost-4ec73d8489b9aff6b3aa.jpg"
+    },
+    {
+      "id": "karpova-v4-s3-syringe-pump",
+      "title": "Karpova v4 laboratory syringe mechanism",
+      "creator": "Karpova Lab / HHMI Janelia Research Campus",
+      "category": "Robots & motion",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Adafruit ESP32-S3 Reverse TFT Feather, product 5691; exact carrier PCB v5.9, pump base PCB v0.9 and USB connector module v0.4."
+      ],
+      "difficulty": "Advanced",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "An open laboratory linear actuator combining a precision leadscrew, aluminum structure and printed syringe fixtures. This entry covers one 50 mL mechanism with local USB control, strictly at 12 V using the specified high-resistance motor. It is for supervised bench experiments, not delivery to people or animals.",
+      "whyPrint": "The clamps capture the barrel and plunger, while printed feet, screw support and an embedded-nut knob complete the mechanism. Metal plates and guide rods carry the structural loads; printing does not replace the machining and PCB work.",
+      "parts": [
+        "Adafruit 5691 Reverse TFT Feather; controller PCB v5.9 populated from its exact BOM, including two TMC5041 drivers and 0.270 Ω sense resistors",
+        "USB module v0.4 with CP2102N, USB cable and documented 12 V DC motor supply; USB supplies the separate 5 V logic path",
+        "Exact STEPPERONLINE 17E13S0404AF4-200RS: 0.4 A/phase, 30 Ω ±10% at 25 °C, 200 mm screw with 2 mm lead; no substitute motor",
+        "Pump base PCB v0.9, two ESE-22MV21T travel switches, PHR-6 motor connector and four ASPHSPH24K51 leads",
+        "Specified 3.175 mm bent aluminum frame and 6.35 mm tapped carriage; two 150 × 8 mm rods and two LMF8UU flanged bearings",
+        "50 mL printed set and controller case; five 97259A101 square nuts, four 9657K267 springs, four 9600K54 grommets; M3 fasteners and DIN adapters from the BOM",
+        "50 mL syringe with measured bore, inert test liquid, collection vessel and tools for PCB assembly and electrical inspection"
+      ],
+      "steps": [
+        {
+          "title": "Lock the hardware revision",
+          "body": "Use the v4 geometry, exact motor and listed PCB revisions together. Obtain the fabricated metal parts and populate the three boards against their BOMs. This is an advanced fine-pitch electronics build, not a breadboard substitution exercise."
+        },
+        {
+          "title": "Print with the embedded nuts",
+          "body": "Start from the 50 mL 3MF and retain 0.08 mm layers. Insert the square nuts at the specified start-of-layer pauses: foot 35, plunger clamp 75 and knob 204. Check every nut is seated below the nozzle path before resuming."
+        },
+        {
+          "title": "Build the carriage and guides",
+          "body": "Fit bearings and lead nut to the carriage, then add the spring-loaded plunger clamp. Assemble frame, base PCB, barrel clamp, motor, rods and screw-end support in the photographed sequence. Confirm unpowered travel is smooth and both switches are physically reached."
+        },
+        {
+          "title": "Inspect separate power domains",
+          "body": "Follow the USB-module schematic: 12 V goes to the motor rail, USB 5 V to the controller logic input, with common ground. Never put 12 V onto Feather power or GPIO. Check polarity, shorts, supply capacity and 3.3 V signal rails before connecting the motor; disconnect power before changing motor wiring."
+        },
+        {
+          "title": "Install the inspected firmware",
+          "body": "Use the Reverse TFT Feather CircuitPython installation guide and creator's basic-firmware.zip, whose code identifies version 2025-08-05. Keep the inspected fixed-voltage StealthChop settings. Confirm the displayed pump identity and syringe bore before permitting motion."
+        },
+        {
+          "title": "Commission at restricted speed",
+          "body": "Use the exact 30 Ω motor and 12 V supply only. Keep calculated VMAX at or below 180000; the source merely prints a warning above this value and does not enforce a limit. Begin with unloaded, small manual moves; test stop and both travel switches before fitting a filled syringe."
+        },
+        {
+          "title": "Calibrate a supervised bench trial",
+          "body": "Collect and measure inert liquid to calibrate volume and speed for the actual syringe. Use trusted local 115200-baud serial only. Check that release, stop, limit handling and idle behavior match expectations; retain immediate access to motor-power removal."
+        }
+      ],
+      "printNotes": "Creator-documented PLA recipe uses a 0.4 mm nozzle and 0.08 mm layers on a Bambu X1E with OrcaSlicer 2.2.0. The 50 mL 3MF, individual STLs, case 3MF and metal STEP/DXF files were retrieved. Recheck plate settings on other printers. No slicing or physical fit test was performed here.",
+      "firmware": "Inspected basic-firmware.zip identifies 2025-08-05 and uses CircuitPython with the TFT, rotary control and UART. TMC5041 configuration is fixed-voltage StealthChop: PWM_AMPL=255, PWM_AUTOSCALE=0, VCOOLTHRS=VHIGH=999999; retain VMAX≤180000. Pre-session disables idle drivers; running state keeps them enabled. A held knob retracts toward a limit, and limit handling backs off about 1 mL. The serial parser uses eval, so untrusted input is not acceptable. Installation and motion were not executed.",
+      "sourceUrl": "https://github.com/Karpova-Lab/syringe-pump",
+      "instructionsUrl": "https://karpova-lab.github.io/syringe-pump/latest/pump/",
+      "supportingUrls": [
+        "https://karpova-lab.github.io/syringe-pump/latest/controller/",
+        "https://karpova-lab.github.io/syringe-pump/latest/software/",
+        "https://github.com/Karpova-Lab/syringe-pump/tree/1d1524f37073acc63c2935072d4aadc3a8e1c76f",
+        "https://karpova-lab.github.io/syringe-pump/latest/software/basic-firmware.zip",
+        "https://learn.adafruit.com/esp32-s3-reverse-tft-feather/install-circuitpython",
+        "https://www.omc-stepperonline.com/nema-17-external-34mm-stack-0-4a-lead-2mm-0-07874-length-200mm-17e13s0404af4-200rs",
+        "https://files.omc-stepperonline.com/17E13S0404AF4-200RS_Full_Datasheet.pdf",
+        "https://www.analog.com/media/en/technical-documentation/data-sheets/TMC5041_datasheet_rev1.16.pdf"
+      ],
+      "modelUrl": "https://karpova-lab.github.io/syringe-pump/latest/pump/cad/printed_parts_50mL.3mf",
+      "modelSourceUrl": "https://github.com/Karpova-Lab/syringe-pump/tree/v4/mcad",
+      "modelStatus": "Public v4 repository clone and actual geometry retrieved without an account. Includes printable files, native mechanical source, metal fabrication drawings and PCB production files; inspect the repository's Janelia open-hardware and software license terms for your intended use.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/Karpova-Lab/syringe-pump/v4/mkdocs/src/pump/assembly/remaining_assembled.jpg",
+          "credit": "Karpova Lab / HHMI Janelia; completed v4 mechanism photograph",
+          "sourceUrl": "https://karpova-lab.github.io/syringe-pump/latest/pump/"
+        },
+        {
+          "url": "https://karpova-lab.github.io/syringe-pump/latest/software/usb_and_power.jpg",
+          "credit": "Karpova Lab / HHMI Janelia; physical S3 controller and USB/power connection",
+          "sourceUrl": "https://karpova-lab.github.io/syringe-pump/latest/software/"
+        }
+      ],
+      "imageNote": "The selected original photograph shows the assembled physical v4 mechanism. A second inspected creator photo shows the matching S3 controller, syringe and separate USB/DC connections. No CAD render is presented as a physical build.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Read primary v4 instructions, downloaded models and firmware, and visually inspected physical photographs and schematics at commit 1d1524f37073acc63c2935072d4aadc3a8e1c76f. Manufacturer fixed-scaling equation gives maximum PWM RMS voltage 12×255/374≈8.18 V; dividing by the motor's 27 Ω minimum at 25 °C gives ≈0.303 A RMS. This source/manufacturer inference supports only the restricted combination; it is not measured current, thermal testing or safety certification.",
+      "safety": "12 V only: exclude the creator's optional 24 V suggestion, replacement/lower-resistance motors and altered driver settings. The high chopper-current ceiling is not a safe current limit for this motor; the restricted fixed-voltage mode and VMAX≤180000 are essential. Verify the actual supply and first-run coil current/temperature under supervision. Keep hands away from the carriage and springs; travel switches are not an emergency stop. Keep liquids off electronics and avoid blocked tubing/pressure buildup. Bench experiments only: no medical, human or animal fluid delivery, food dosing or unattended critical dispensing.",
+      "estimatedBuildTime": "Multi-session fabrication, PCB assembly and calibration; ordering lead time dominates.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/karpova-v4-s3-syringe-pump-99fa42f702c12b0848e4.jpg"
+    },
+    {
+      "id": "lumon-feather-v2-bluetooth-speaker",
+      "title": "Lumon-inspired Feather V2 Bluetooth speaker",
+      "creator": "Ruiz Brothers and Liz Clark / Adafruit",
+      "category": "Cameras & audio",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "Adafruit ESP32 Feather V2, product 5400: classic ESP32 with Bluetooth Classic, 8 MB flash and 2 MB PSRAM. Use the V2 pin map; ESP32-S3 is not an A2DP substitute."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "Build a small USB-powered Bluetooth speaker styled after Severance's tabletop audio prop. A single enclosed driver and I2S amplifier fit on a printed internal carrier behind the removable grille.",
+      "whyPrint": "The shaped frame, snap-in perforated grille and common mounting tray locate the speaker, amplifier and Feather as a serviceable assembly, with the USB connector accessible at the rear.",
+      "parts": [
+        "Adafruit ESP32 Feather V2, product 5400",
+        "Adafruit MAX98357A mono I2S amplifier, product 3006",
+        "3 W 4 Ω enclosed mono speaker with wires, product 4445",
+        "5 V 1 A USB power supply and USB-C data cable",
+        "Four M2.5×6 mm screws, two M3×10 mm screws with nuts, four M3×6 mm screws",
+        "Hookup wire, PLA printed frame/grille/carrier and rubber feet",
+        "Optional black felt and fabric tape for the grille"
+      ],
+      "steps": [
+        {
+          "title": "Match the V2 hardware",
+          "body": "Use the classic ESP32 Feather V2 and exact speaker form factor in the parts list. The firmware needs Bluetooth Classic A2DP; changing to an S3 board changes that capability as well as the pin mapping."
+        },
+        {
+          "title": "Prepare the mechanical set",
+          "body": "Download the frame, grille and PCB-mount 3MFs or the combined file. Orient each for the creator's support-free PLA approach, then dry-fit the speaker tabs, USB opening and grille snaps before wiring anything."
+        },
+        {
+          "title": "Wire the amplifier on the bench",
+          "body": "With USB unplugged, connect amp LRC to Feather RX/GPIO7, BCLK to TX/GPIO8 and DIN to GPIO14. Connect common ground, amp VIN to the Feather USB rail and GAIN to ground exactly as the guide shows; do not power the amplifier from 3V."
+        },
+        {
+          "title": "Connect the isolated speaker output",
+          "body": "Secure the red and black speaker leads to the amplifier's + and − terminals and tug-check them. These are bridge-driven outputs: neither belongs on circuit ground, and they are not a headphone or line-level connection."
+        },
+        {
+          "title": "Install the speaker firmware",
+          "body": "Select Adafruit Feather ESP32 V2 in Arduino, install the guide's ESP32-A2DP and arduino-audio-tools dependencies, then upload Bluetooth_Lumon_Speaker.ino. Use its current ESP_I2S API setup and matching BSP guidance; older tutorial API examples may differ."
+        },
+        {
+          "title": "Assemble and test at low volume",
+          "body": "Bolt the Feather and amp to the carrier with M2.5 screws, attach the speaker with M3 screws/nuts, then secure the carrier inside the frame. Power from the specified 5 V/1 A supply, pair to Lumon Industries Speaker and test playback at low source volume."
+        },
+        {
+          "title": "Finish the grille and placement",
+          "body": "If desired, tape felt behind the grille before snapping it into the frame. Confirm no loose strands, rattles or pinched wiring remain, add the rubber feet and keep the rear USB port and cable accessible."
+        }
+      ],
+      "printNotes": "Direct creator ZIP downloaded: Frame.3mf, Speaker Grill.3mf, PCB mount.3mf and All-Parts.3mf. Guide specifies PLA and support-free printing after orienting the parts; minimum build volume is 88×174×90 mm. Actual tolerances and fit have not been physically tested here.",
+      "firmware": "Actual 46-line Bluetooth_Lumon_Speaker.ino downloaded and inspected. Uses ESP_I2S, BluetoothA2DPSink, GPIO8/7/14 and 44.1 kHz 16-bit stereo I2S feeding one mono amplifier; the source comments reference ESP BSP 3.3.10 dependency changes. Exact V2 manufacturer pinout confirms RX=7 and TX=8. No compile, upload or audio performance claim.",
+      "sourceUrl": "https://learn.adafruit.com/bluetooth-speaker",
+      "instructionsUrl": "https://learn.adafruit.com/bluetooth-speaker/wiring-and-assembly",
+      "supportingUrls": [
+        "https://learn.adafruit.com/bluetooth-speaker/circuit-diagram",
+        "https://learn.adafruit.com/bluetooth-speaker/cad-files",
+        "https://learn.adafruit.com/bluetooth-speaker/code-the-speaker",
+        "https://github.com/adafruit/Adafruit_Learning_System_Guides/blob/main/Bluetooth_Lumon_Speaker/Bluetooth_Lumon_Speaker.ino",
+        "https://learn.adafruit.com/adafruit-esp32-feather-v2/pinouts",
+        "https://learn.adafruit.com/adafruit-max98357-i2s-class-d-mono-amp/pinouts"
+      ],
+      "modelUrl": "https://cdn-learn.adafruit.com/assets/assets/000/135/964/original/3MF.zip?1742823151",
+      "modelSourceUrl": "https://learn.adafruit.com/bluetooth-speaker/cad-files",
+      "modelStatus": "Complete creator 3MF ZIP downloaded and inspected, including individual parts and combined project. Native CAD source is separately linked by the guide. No account or paid model access was needed; no slicing or print-fit test claimed.",
+      "images": [
+        {
+          "url": "https://cdn-learn.adafruit.com/assets/assets/000/135/812/medium800/3d_printing_hero-pineapple.jpg?1742310488",
+          "credit": "Ruiz Brothers / Adafruit",
+          "sourceUrl": "https://learn.adafruit.com/bluetooth-speaker/overview"
+        }
+      ],
+      "imageNote": "Creator's 800×600 photograph downloaded and visually inspected: assembled white printed speaker with blue grille on a tabletop. Original JPEG retained; matching construction photos also inspected in the assembly guide.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Creator circuit, exact BOM, complete 3MF archive, assembly, firmware and real finished photograph inspected. Manufacturer docs confirm V2 GPIO7/8 mapping, 3.3 V I2S compatibility at 5 V amp power, and bridge-tied speaker output. USB-only source build; no battery redesign or broad host-compatibility claim.",
+      "safety": "Use the specified regulated 5 V USB supply and at least a 4 Ω speaker. Never ground either amplifier output or connect headphones. Inspect solder joints with power disconnected and start playback quietly to protect hearing and avoid clipping; keep the enclosure dry and ventilated.",
+      "estimatedBuildTime": "Planning estimate: a weekend including printing, soldering and software setup.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/lumon-feather-v2-bluetooth-speaker-fc626e6be6fe1cc27749.jpg"
+    },
+    {
+      "id": "matrixportal-s3-blurry-analog-clock",
+      "title": "MatrixPortal S3 Blurry Analog Clock",
+      "creator": "Pedro Ruiz and the Ruiz Brothers / Adafruit",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Adafruit MatrixPortal S3, not MatrixPortal M4, driving a 32 × 32 4 mm-pitch HUB75 matrix."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "A soft-focus analog clock drawn over animated color fields on a 32 × 32 LED matrix. The printed diffuser and tilted support turn a bare HUB75 panel into a calm desktop timepiece with local button controls.",
+      "whyPrint": "The model combines a diffuser, panel frame and rear support with enough clearance for the MatrixPortal, USB cable and adjustment buttons.",
+      "parts": [
+        "Adafruit MatrixPortal S3",
+        "32 × 32 RGB HUB75 panel with 4 mm pitch (Adafruit #607)",
+        "HUB75 IDC cable and the panel's 5 V/GND power lead",
+        "Regulated 5 V / 2 A USB supply and USB-C cable",
+        "M3 × 6 mm, M2.5 × 6 mm and M2.5 × 10 mm fasteners as shown in the assembly",
+        "Translucent gray PLA for the diffuser and PLA for the frame/support"
+      ],
+      "steps": [
+        {
+          "title": "Check the panel and controller",
+          "body": "Use the 32 × 32 four-address-line panel and MatrixPortal S3 named by the source. A different HUB75 scan pattern or the M4 board needs different firmware and is outside this documented combination."
+        },
+        {
+          "title": "Print the diffuser assembly",
+          "body": "Open the downloadable design.3mf and inspect its component positions in your slicer. Print the translucent diffuser separately from opaque structural pieces, then check panel fit and screw lengths before mounting electronics."
+        },
+        {
+          "title": "Connect the panel unpowered",
+          "body": "Attach the IDC ribbon to the panel's JIN input, not its output. Connect the supplied panel power wires to the MatrixPortal's matching 5 V and ground terminals, checking polarity and tightening the terminals securely."
+        },
+        {
+          "title": "Copy the matching clock bundle",
+          "body": "Install CircuitPython for MatrixPortal S3 and copy the matching major-version project code and adafruit_ntp library. Keep the source's matrix dimensions and board pin definitions intact for the initial test."
+        },
+        {
+          "title": "Choose the timezone policy",
+          "body": "Set Wi-Fi, TZ_STD_OFFSET and display rotation in settings.toml. Automatic DST follows United States rules; set DST_AUTO to false and use a suitable fixed offset elsewhere, changing it when local rules require."
+        },
+        {
+          "title": "Verify online and manual operation",
+          "body": "Check time synchronization and UP/DOWN controls before fastening the stand. The code also provides a manual setup path when Wi-Fi is unavailable; test it deliberately so a network failure is not mistaken for a dead panel."
+        }
+      ],
+      "printNotes": "The public 3MF was downloaded and inspected as a ZIP/XML model: five geometry objects total 10,896 triangles. The creator uses 0.2 mm layers, 10% gyroid and supports where needed; diffuser transparency affects legibility.",
+      "firmware": "MatrixPortal_S3_Analog_Clock code.py and the CircuitPython 9/10/11 bundle inspected. It uses rgbmatrix/framebufferio, built-in board pins and adafruit_ntp, with hourly synchronization and an offline manual time-setting path. DST logic is US-specific. Source reviewed, not run on hardware.",
+      "sourceUrl": "https://learn.adafruit.com/blurry-analog-clock",
+      "instructionsUrl": "https://learn.adafruit.com/blurry-analog-clock?view=all",
+      "supportingUrls": [
+        "https://github.com/adafruit/Adafruit_Learning_System_Guides/blob/main/MatrixPortal_S3_Analog_Clock/code.py",
+        "https://learn.adafruit.com/elements/3216545/download?type=zip"
+      ],
+      "modelUrl": "https://cdn-learn.adafruit.com/assets/assets/000/143/022/original/matrix-clock-design.3mf?1773687985",
+      "modelSourceUrl": "https://learn.adafruit.com/blurry-analog-clock/3d-printing",
+      "modelStatus": "Public direct 3MF retrieved and actual component triangle meshes inspected. It is not an STL archive; use a slicer that imports 3MF assemblies.",
+      "images": [
+        {
+          "url": "https://cdn-learn.adafruit.com/assets/assets/000/143/004/large1024/led_matrices_hero-black.jpg?1773677847",
+          "credit": "Adafruit / Ruiz Brothers — original powered physical-build photograph",
+          "sourceUrl": "https://learn.adafruit.com/blurry-analog-clock"
+        }
+      ],
+      "imageNote": "Original JPEG visually reviewed: illuminated diffused analog clock in the printed square frame with USB cable visible.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Primary creator guide, source board/panel definitions, versioned bundle, real downloadable 3MF geometry and matching physical clock photograph inspected. No independent brightness, power-draw or precision measurements claimed.",
+      "safety": "Use the guide's regulated 5 V / 2 A USB source and correct HUB75 power polarity. The MatrixPortal provides the intended panel interface; do not substitute direct 3.3 V GPIO wiring. Unplug before moving terminal wiring, and do not increase panel size or power demand without a fresh electrical review.",
+      "estimatedBuildTime": "An afternoon of assembly after printing; estimate.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/matrixportal-s3-blurry-analog-clock-a8c39b5a67bcb0381943.jpg"
+    },
+    {
+      "id": "mealie-under-cabinet-barcode-scanner",
+      "title": "Under-cabinet Mealie barcode scanner",
+      "creator": "thisisastoryof / Marc",
+      "category": "Tools & controls",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "30-pin classic ESP-WROOM-32 development board with the creator's Dx header layout; current ESP-IDF configuration requires ESP32 silicon revision 3.0 or newer.",
+        "Not an ESP32-C3/S3 port; match the board footprint and USB position before printing."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "A fixed, downward-facing barcode terminal that sends grocery scans to a self-hosted Mealie shopping-list service. An OLED reports lookup outcomes, and the front button recalls the last result or network status. Automatic induction performs scanning; this button is not wired as a scanner trigger.",
+      "whyPrint": "The three-part enclosure locates the scanner, display and socketed controller in a compact removable chassis. Integrated mounting ears put the scanning window beneath a cupboard while leaving the USB connector accessible.",
+      "parts": [
+        "30-pin ESP-WROOM-32 devkit with revision-3.0-or-newer classic ESP32 silicon and headers",
+        "GM67 scan engine with its specified 5 V, four-wire UART breakout and cable; not the bare 3.3 V scan head",
+        "0.96-inch SSD1306 128×64 I2C OLED, address 0x3C, powered at 3.3 V",
+        "Normally-open momentary switch; 40×60 mm perfboard, 27.5×17 mm button perfboard, female headers and short insulated wires",
+        "100 nF ceramic and 470 µF, 10 V electrolytic for the scanner supply; optional 10 kΩ EN pull-up and second 100 nF capacitor if the chosen devkit lacks suitable EN conditioning",
+        "Eight M1.7×5 mm electronics screws; four mounting screws suited to the cupboard material and thickness",
+        "Short USB cable and regulated 5 V USB supply rated at least 1 A; creator recommends a 2 A-capable adapter",
+        "Self-hosted Mealie and the creator's middleware service; ESPHome CLI or Home Assistant ESPHome environment"
+      ],
+      "steps": [
+        {
+          "title": "Check the exact hardware",
+          "body": "Confirm the 30-pin footprint and USB alignment against the model. Read the ESP32 silicon revision before building the supplied firmware: its current ESP-IDF options require revision 3.0. Identify the GM67 breakout connector labels rather than assuming wire colors."
+        },
+        {
+          "title": "Prepare the local services",
+          "body": "Deploy the repository's middleware using its setup guide, connect it to your Mealie instance, and create a scanner API token. Decide whether to enable external product-database lookups; the server can retain mappings locally, but those optional lookups use external services."
+        },
+        {
+          "title": "Assemble and inspect the circuit",
+          "body": "Wire GM67 TX to GPIO16 and RX to GPIO17. OLED SDA/SCL use GPIO21/22, and the button closes GPIO25 to ground. Supply the scanner breakout from USB 5 V and the OLED from 3.3 V, with shared ground. Fit the specified scanner decoupling, observe electrolytic polarity, and check for shorts before power."
+        },
+        {
+          "title": "Provision and flash",
+          "body": "Copy esphome/barcode-scanner.yaml and create your own secrets for Wi-Fi, encrypted ESPHome API, OTA access and middleware authentication. Set the local scan endpoint. Flash over USB first, then verify OLED address, UART at 9600 baud, network connection and a known barcode before relying on OTA."
+        },
+        {
+          "title": "Print and dry-fit",
+          "body": "Print the shell, inset and button cap from the linked creator model. Check the actual board and OLED against the openings before final solder routing. Remove support residue from the display and USB cutouts and confirm that the button moves without binding."
+        },
+        {
+          "title": "Install the electronics in order",
+          "body": "Fit the scanner to the inset, then the socketed ESP32 perfboard and its cable, followed by the OLED. Lower this assembly into the shell before fitting the button cap and its friction-fit switch board. Keep wires clear of the scan aperture and avoid overtightening screws in plastic."
+        },
+        {
+          "title": "Test failures before mounting",
+          "body": "Use a suitable USB supply and check for voltage sag or resets during repeated scans. Test recognized and unknown products, temporary middleware loss and recovery. The middleware queues Mealie delivery failures; do not assume the ESP32 stores scans when it cannot reach the server. Confirm short-press recall and long-press status."
+        },
+        {
+          "title": "Mount and use",
+          "body": "Choose a dry location away from cooker heat and splashes. Use pilot holes and screws that cannot penetrate the cupboard interior. Keep the USB cable strain-free and accessible, then rescan a known item and inspect the resulting Mealie entry rather than trusting a timed display message alone."
+        }
+      ],
+      "printNotes": "Creator specifies PLA or PETG, 0.2 mm layers and 15–20% infill. PETG is preferred near ordinary kitchen warmth, but this is not a heatproof or waterproof enclosure. Shell prints upside-down with supports at display/USB openings; inset and button cap are support-free in the supplied orientation. Body is approximately 100×36×52 mm, expanding to 100×56 mm across its mounting ears. Verify bed fit and component tolerances in your slicer.",
+      "firmware": "Inspected the ESPHome YAML and the separate hardware, firmware and middleware guides. It targets classic esp32dev with ESP-IDF, explicit minimum silicon revision 3.0, 3.3 V I2C and UART2. Default automatic-induction scans are posted to the middleware after a short settling delay; the display button only recalls results/status. Home Assistant provides optional event integration and convenient runtime scanner settings. The supplied HTTP configuration disables TLS certificate verification, so keep it on a trusted local network and do not expose it directly to the Internet. Build, flash and end-to-end behavior were not tested here.",
+      "sourceUrl": "https://github.com/thisisastoryof/mealie-barcode-middleware",
+      "instructionsUrl": "https://github.com/thisisastoryof/mealie-barcode-middleware/blob/main/docs/hardware-build.md",
+      "supportingUrls": [
+        "https://github.com/thisisastoryof/mealie-barcode-middleware/blob/main/docs/esphome-firmware.md",
+        "https://github.com/thisisastoryof/mealie-barcode-middleware/blob/main/docs/middleware-setup.md",
+        "https://github.com/thisisastoryof/mealie-barcode-middleware/blob/main/docs/scanner-configuration.md",
+        "https://github.com/thisisastoryof/mealie-barcode-middleware/blob/main/esphome/barcode-scanner.yaml",
+        "https://en.hzgrow.com/product/161.html",
+        "https://hubtronics.in/docs/GM67-Barcode-module.pdf"
+      ],
+      "modelUrl": "https://www.printables.com/model/1754381-esp32-barcode-scanner-case-under-cabinet-mount",
+      "modelSourceUrl": "https://makerworld.com/models/2933189-esp32-barcode-scanner-case-under-cabinet-mount",
+      "modelStatus": "Exact creator-linked Printables page retrieved successfully and inspected: matching under-cabinet design, three printed parts, assembly and print instructions, and a four-file listing. Page-level availability is verified; geometry download, account requirements and slicer opening were not exercised. The alternate MakerWorld destination is creator-linked but was not independently accessible in this pass.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/thisisastoryof/mealie-barcode-middleware/main/docs/images/case-mounted-scanned.jpg",
+          "credit": "thisisastoryof / Marc — creator repository photograph",
+          "sourceUrl": "https://github.com/thisisastoryof/mealie-barcode-middleware/blob/main/docs/hardware-build.md"
+        }
+      ],
+      "imageNote": "Original creator photograph downloaded and visually inspected: the assembled printed unit is mounted beneath a cupboard with its OLED showing a scan result. No generated imagery or physical validation is implied.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Primary repository archive, hardware assembly, server/firmware documentation and current YAML were inspected. The exact Printables page and a real matching creator photo were verified. GROW's GM67 documentation distinguishes the 5 V breakout from the 3.3 V bare head; its product description identifies LED illumination and aiming. No firmware compilation, geometry download, print fit, electrical measurement or independent performance test was performed.",
+      "safety": "ESP32 GPIO is 3.3 V-only. Use the documented GM67 breakout with 3.3 V UART logic, not an unidentified 5 V serial module; measure an unfamiliar variant before connection. The scanner's peak load must not pass through the ESP32 3.3 V regulator. Use one regulated USB source, correct capacitor polarity and insulated solder joints. Do not treat kitchen mounting as splash protection. Avoid staring into the scan illumination and use unique local credentials.",
+      "estimatedBuildTime": "Several work sessions for printing, soldering and service setup; no measured build or print duration.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/mealie-under-cabinet-barcode-scanner-8947974281cdb253e025.jpg"
+    },
+    {
+      "id": "mydeskrobo-s3-ble-companion",
+      "title": "MyDeskRobo BLE Desktop Companion",
+      "creator": "Angelo Montesano; Deskimon body by CreativeChance",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Waveshare ESP32-S3-LCD-1.85, 360 × 360 round ST77916 display, non-touch version; use the source's exact board drivers."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "A USB-powered character display with animated eyes, motion reactions and Windows-controlled expressions. It combines open firmware with a separately licensed printable Deskimon astronaut body, scaled by its builder to fit the non-touch 1.85-inch board.",
+      "whyPrint": "The character body provides a stable desktop stand and circular screen opening. The creator's 104% body scaling is a functional fit change for a different display, not a claim that the original model fits every round S3 board.",
+      "parts": [
+        "Waveshare ESP32-S3-LCD-1.85 non-touch all-in-one board",
+        "USB data/power cable and normal regulated USB supply",
+        "Deskimon Orbit model package from CreativeChance, requiring member access",
+        "Windows computer with Bluetooth for optional companion control",
+        "PLA for an indoor enclosure; verify settings against the model package"
+      ],
+      "steps": [
+        {
+          "title": "Resolve model access first",
+          "body": "Open the linked CreativeChance Deskimon listing before buying electronics. It requires membership to download; the firmware repository does not include those models. Read its supplied assembly instructions and license after obtaining legitimate access."
+        },
+        {
+          "title": "Check the scaled body fit",
+          "body": "Use the Orbit-style body shown in the creator's demonstration. Follow the MyDeskRobo builder's documented 104% body scaling for the non-touch 1.85-inch board, then dry-fit screen clearance, retention and USB access before final assembly."
+        },
+        {
+          "title": "Prepare the firmware project",
+          "body": "Download the complete MyDeskRobo repository, including its vendored libraries. Select the esp32-s3-mydeskrobo-full PlatformIO environment and replace the example COM5 with the board's actual serial port."
+        },
+        {
+          "title": "Flash and check standalone behavior",
+          "body": "Upload the exact environment over USB and verify the boot face, idle expressions and motion response before enclosing the board. The current configuration enables the QMI8658 motion driver; no Wi-Fi account is needed for this path."
+        },
+        {
+          "title": "Try one-shot Bluetooth control",
+          "body": "Install the pc_agent requirements in a separate Python environment on Windows. Start with the documented --emotion-name HAPPY command: source inspection confirms this direct-control path returns without starting Outlook, calendar, Teams or microphone monitors."
+        },
+        {
+          "title": "Choose monitoring deliberately",
+          "body": "Only enable the GUI or background event modes after reviewing the source and desired access. The GUI starts all monitors by default, while basic mode still reads Outlook/calendar; confirm acceptable behavior before placing the completed companion on a shared desk."
+        }
+      ],
+      "printNotes": "The creator explicitly reports scaling the Deskimon body to 104% for Waveshare ESP32-S3-LCD-1.85. The Thangs destination and membership requirement were inspected, but gated geometry was not downloaded or independently fitted. PLA is an indoor material suggestion, not a verified creator slicer profile.",
+      "firmware": "MyDeskRobo's full PlatformIO environment, main.cpp, exact ST77916 driver definitions, BLE service, audio initialization and Windows Python agent were inspected. LVGL is vendored; the pioarduino platform URL tracks stable rather than a fixed release, so record the resolved version when building. The source supports local BLE expressions and optional Windows event monitoring; it is not a cloud AI assistant. No compilation or hardware test performed.",
+      "sourceUrl": "https://github.com/AngeloMontesano/MyDeskRobo",
+      "instructionsUrl": "https://github.com/AngeloMontesano/MyDeskRobo/blob/main/MYDESKROBO_QUICKSTART.md",
+      "supportingUrls": [
+        "https://github.com/AngeloMontesano/MyDeskRobo/blob/main/platformio.ini",
+        "https://github.com/AngeloMontesano/MyDeskRobo/blob/main/pc_agent/README.md",
+        "https://github.com/AngeloMontesano/MyDeskRobo/blob/main/pc_agent/pc_agent.py",
+        "https://github.com/AngeloMontesano/MyDeskRobo/blob/main/src/DeskRoboBLE.cpp",
+        "https://thangs.com/designer/CreativeChance/post/Deskimon%20-%20Cute%20Robots%20For%20Your%20Desk-252349"
+      ],
+      "modelUrl": "https://thangs.com/designer/CreativeChance/3d-model/Deskimon%20-%20Cute%20Robots%20For%20Your%20Desk-1502153",
+      "modelSourceUrl": "https://github.com/AngeloMontesano/MyDeskRobo/blob/main/README.md",
+      "modelStatus": "Exact creator-linked Deskimon listing inspected: member-gated download, not a free repository STL. Geometry and paid package contents were not downloaded. MyDeskRobo's own README establishes the 104% body adaptation and its GIF demonstrates the resulting physical build.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/AngeloMontesano/MyDeskRobo/main/MyDeskRobo.gif",
+          "credit": "Angelo Montesano — frame 0 of the original MyDeskRobo physical-build GIF; PNG extraction only",
+          "sourceUrl": "https://github.com/AngeloMontesano/MyDeskRobo"
+        }
+      ],
+      "imageNote": "The first decoded frame of the creator's GIF was saved as PNG without cropping, resizing, retouching or generation. Visually reviewed: physical black/white astronaut body with blue eyes, USB lead and visible tabletop.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Actual repository archive, full quickstart, source drivers, vendored LVGL, direct-control branch and event-monitor defaults inspected. Primary model listing verifies the access gate. Original 63,246,770-byte GIF inspected via its unmodified first frame; no unrelated model photograph substituted.",
+      "safety": "Catalog scope is USB-only: no optional lithium battery, charger or additional speaker wiring is prescribed. The firmware exposes writable BLE characteristics without explicit authentication configuration; use only in a trusted nearby environment. The PC agent can inspect Outlook/calendar, Teams logs and microphone state. Its direct-control path uses BLE, not a public web endpoint; the current firmware does not start the retained Wi-Fi/web module. Review monitoring code and keep sensitive activity off shared displays.",
+      "estimatedBuildTime": "One or two setup sessions after obtaining and printing the model; estimate.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/mydeskrobo-s3-ble-companion-3219b6e865a73a247acb.png"
+    },
+    {
+      "id": "nano-s3-digital-rain-clock",
+      "title": "Nano ESP32 Digital Rain Touch Clock",
+      "creator": "Bob Hammell (rhammell)",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Arduino Nano ESP32, using its default Arduino pin-numbering mode; this Nano contains an ESP32-S3."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "A capacitive-touch desk clock whose digits dissolve into falling green characters. Two printed pieces turn a Nano ESP32, breadboard and 2.8-inch screen into a self-contained display without a custom PCB.",
+      "whyPrint": "The screen bracket fixes the viewing angle and hides the breadboard, while the separate base permits access to the wiring and USB connector.",
+      "parts": [
+        "Arduino Nano ESP32 (not the AVR Nano)",
+        "Adafruit #2090 2.8-inch ILI9341 capacitive-touch EYESPI display",
+        "Adafruit #5613 EYESPI breakout and 18-pin FPC cable",
+        "400-point breadboard and jumper wires",
+        "Four M3 × 4 mm screws",
+        "USB-C data cable and regulated USB power source"
+      ],
+      "steps": [
+        {
+          "title": "Match the exact display",
+          "body": "Use the capacitive FT6206 version of the 2.8-inch ILI9341 screen. Confirm the Nano ESP32 is selected before wiring; another Nano or a resistive-touch display is not the documented build."
+        },
+        {
+          "title": "Print and dry-fit",
+          "body": "Download base.stl and display.stl from the hardware folder. Check the screen holes, breadboard space and USB access before installing the electronics; keep screws clear of the display glass."
+        },
+        {
+          "title": "Prepare the SPI interface",
+          "body": "With power disconnected, set the display's IM1, IM2 and IM3 jumpers as shown in the creator guide, and seat the EYESPI cable with the documented contact orientation."
+        },
+        {
+          "title": "Wire using Nano labels",
+          "body": "Follow the supplied schematic: D2/DC, D3/reset, D4/CS, D5/backlight, D11/MOSI, D13/SCK, A4/SDA and A5/SCL. Use the documented 3.3 V supply and common ground; these labels are not raw S3 GPIO numbers."
+        },
+        {
+          "title": "Load the clock",
+          "body": "Install the sketch's Adafruit graphics, ILI9341 and FT6206 dependencies plus ESP32Time. Open DigitalRainClock.ino with the Nano ESP32 board and default Arduino pin-numbering mode, then upload over USB."
+        },
+        {
+          "title": "Check touch and reset behavior",
+          "body": "Confirm that the touch controls change the time and palette before closing the case. This source sets its RTC to noon at startup; enter the time again after power loss rather than expecting Wi-Fi synchronization."
+        }
+      ],
+      "printNotes": "The public repository includes two binary STLs and an editable FreeCAD design. Both STL payloads were downloaded and structurally checked. PLA is suitable for an indoor, low-temperature desk enclosure; slicer fit and finish remain builder checks.",
+      "firmware": "Arduino DigitalRainClock.ino uses Adafruit_GFX, Adafruit_ILI9341, Adafruit_FT6206 and ESP32Time. Source reviewed, not compiled or hardware-tested. It has no NTP connection or battery-backed time retention; setup resets the internal RTC to a fixed date/time.",
+      "sourceUrl": "https://github.com/rhammell/digital-rain-clock",
+      "instructionsUrl": "https://www.hackster.io/rhammell/digital-rain-clock-inspired-by-the-matrix-49dede",
+      "supportingUrls": [
+        "https://docs.arduino.cc/hardware/nano-esp32/",
+        "https://github.com/rhammell/digital-rain-clock/blob/main/firmware/DigitalRainClock/DigitalRainClock.ino",
+        "https://www.adafruit.com/product/2090",
+        "https://www.adafruit.com/product/5613"
+      ],
+      "modelUrl": "https://github.com/rhammell/digital-rain-clock/tree/main/hardware/stl",
+      "modelSourceUrl": "https://github.com/rhammell/digital-rain-clock/tree/main/hardware",
+      "modelStatus": "Public base.stl and display.stl downloaded and checked (48 and 4,110 triangles); editable ClockDesign.FCStd also supplied. No model-store login required.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/rhammell/digital-rain-clock/main/images/digital_rain_clock.png",
+          "credit": "Bob Hammell / rhammell — creator project photograph",
+          "sourceUrl": "https://github.com/rhammell/digital-rain-clock"
+        }
+      ],
+      "imageNote": "Original PNG downloaded and visually reviewed: powered black printed clock on a wooden surface, matching the documented screen and bracket.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Creator repository, full build guide, actual sketch, schematic, printable payloads and real finished-build photograph inspected. Arduino's board documentation confirms the Nano ESP32's S3 processor.",
+      "safety": "Unplug USB before soldering or handling the FPC. Preserve the source's 3.3 V wiring and Nano pin-numbering mode. Check continuity and insulate solder joints; no battery, mains modification or GPIO-powered LED strip is part of this build.",
+      "estimatedBuildTime": "One bench session plus printing; estimate, not a measured build time.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/nano-s3-digital-rain-clock-0589c1ee899b967b4fa3.png"
+    },
+    {
+      "id": "qtpy-s3-dual-matrix-alarm",
+      "title": "QT Py S3 Dual-Matrix Character Alarm Clock",
+      "creator": "Liz Clark and the Ruiz Brothers / Adafruit",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Adafruit QT Py ESP32-S3; install the UF2 matching the actual 8 MB/no-PSRAM or 4 MB/2 MB-PSRAM board variant."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "An expressive two-matrix alarm clock in a printed character shell. A rotary encoder handles local adjustments, while an I2S amplifier and speaker play the supplied WAV alarms.",
+      "whyPrint": "The enclosure aligns two small matrices into one face, separates the speaker from the controller, and gives the encoder and removable rear shell defined mounting positions.",
+      "parts": [
+        "Adafruit QT Py ESP32-S3",
+        "Two Adafruit IS31FL3741 13 × 9 RGB LED matrix boards",
+        "QT Py I2S Audio BFF and compatible low-profile headers/sockets",
+        "40 mm 4-ohm speaker rated at least 3 W with PicoBlade pigtail",
+        "Adafruit seesaw I2C rotary encoder and knob",
+        "STEMMA QT cables in the guide's required lengths",
+        "Twelve M2.5 × 5 mm and two M3 × 5 mm screws, plus rubber feet",
+        "USB-C cable and regulated USB power source"
+      ],
+      "steps": [
+        {
+          "title": "Match the QT Py firmware",
+          "body": "Identify the flash/PSRAM variant printed on your QT Py S3 and install its matching CircuitPython UF2. Copy the matching major-version project directory, including the supplied libraries and WAV files."
+        },
+        {
+          "title": "Print and inspect the shell",
+          "body": "Use the creator's Matrix-clock-LABUBU archive, which mixes STL and 3MF files. Check the face openings, rear cover, controller mount and cable routes before installing parts; decorative color changes are optional."
+        },
+        {
+          "title": "Give the matrices different addresses",
+          "body": "With both boards disconnected from USB, keep the first matrix at 0x30 and change the second to 0x31 using its address jumpers. Inspect the cut and solder bridge before connecting the shared STEMMA QT bus."
+        },
+        {
+          "title": "Assemble the audio and controls",
+          "body": "Mount the Audio BFF with the intended QT Py headers and connect the 4-ohm speaker through its pigtail. Chain both matrices and the seesaw encoder with the documented cables, without reversing the small connectors."
+        },
+        {
+          "title": "Configure time and alarms",
+          "body": "Add Wi-Fi settings locally and edit the code's timezone offset. Use compatible WAV alarm files, not the overview's MP3 wording; the supplied source configures a 22.05 kHz mono 16-bit audio mixer."
+        },
+        {
+          "title": "Test before closing",
+          "body": "Check both halves of the display, encoder movement and a short alarm at low volume. Retain the source's low matrix-current setting, secure the wiring clear of the speaker, then attach the rear cover and feet."
+        }
+      ],
+      "printNotes": "Archive downloaded: dome-back.stl and qtpy-mount.stl are valid binary meshes; dome-front.3mf, grid.3mf and tail.3mf contain real triangle geometry. The guide uses 0.2 mm layers and 10% gyroid as a starting profile; tune to your printer.",
+      "firmware": "Adafruit LED_Matrix_Clock CircuitPython source and versioned bundle inspected. Matrix addresses are 0x30/0x31, seesaw encoder 0x36, and I2S BFF uses A0 data, A1 word select and A2 bit clock. The source sets matrix global_current to 0x05. Timezone is a fixed editable offset, not automatic DST. WAV assets are included; no compilation or hardware execution performed.",
+      "sourceUrl": "https://learn.adafruit.com/led-matrix-alarm-clock",
+      "instructionsUrl": "https://learn.adafruit.com/led-matrix-alarm-clock?view=all",
+      "supportingUrls": [
+        "https://github.com/adafruit/Adafruit_Learning_System_Guides/blob/main/LED_Matrix_Clock/code.py",
+        "https://learn.adafruit.com/elements/3199685/download?type=zip"
+      ],
+      "modelUrl": "https://cdn-learn.adafruit.com/assets/assets/000/137/552/original/Matrix-clock-LABUBU.zip?1749695242",
+      "modelSourceUrl": "https://learn.adafruit.com/led-matrix-alarm-clock/3d-printing",
+      "modelStatus": "Direct public archive retrieved. Two STL and three 3MF model payloads structurally inspected; 3MF files are actual geometry, not just project thumbnails.",
+      "images": [
+        {
+          "url": "https://cdn-learn.adafruit.com/assets/assets/000/137/366/medium640thumb/3d_printing_wink-loop.jpg?1749479978",
+          "credit": "Adafruit / Ruiz Brothers — creator photograph of the powered printed alarm clock",
+          "sourceUrl": "https://learn.adafruit.com/led-matrix-alarm-clock"
+        }
+      ],
+      "imageNote": "Original image downloaded and visually reviewed: physical brown character enclosure with illuminated dual-matrix clock display.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Complete primary guide, source initialization/audio format, actual versioned code bundle, downloadable model geometry and matching completed-build photo inspected. Parts count corrected to two matrices based on assembly and code.",
+      "safety": "Solder and change address jumpers only with power removed. Keep the specified speaker impedance and designed amplifier board; do not drive a speaker directly from a GPIO. Start with quiet audio and retain the low LED-current configuration until power and temperature are verified.",
+      "estimatedBuildTime": "One or two assembly sessions plus printing; estimate.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/qtpy-s3-dual-matrix-alarm-789428f4118d3cd41081.jpg"
+    },
+    {
+      "id": "qualia-peppers-ghost-monster-eye",
+      "title": "Pepper's Ghost floating-eye globe",
+      "creator": "Ruiz Brothers and Liz Clark / Adafruit",
+      "category": "Lights & art",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Adafruit Qualia ESP32-S3 with the specified 2.1-inch 480×480 round RGB-666 capacitive-touch display; built-in UP/DOWN buttons control the animation."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "Hide a round display in a printed pedestal and reflect its animated eye into a clear globe. Buttons change the eye artwork or make it disappear and float back into view.",
+      "whyPrint": "A printed reflector clip fixes the optical angle while the display carrier, globe adapter and twist-lock frame keep the illusion aligned. The object depends on this optical and mechanical assembly, not just a board enclosure.",
+      "parts": [
+        "Adafruit Qualia ESP32-S3 RGB-666 driver board",
+        "Adafruit 2.1-inch 480×480 capacitive-touch round RGB TTL display, product 5792",
+        "Adafruit DIY Snow Globe Kit, product 3722, used dry",
+        "0.5 mm clear plastic sheet for the reflector",
+        "Four M2.5×6 mm machine screws",
+        "5 V 1 A USB supply and USB data cable",
+        "PLA frame, bottom cover, button overlay, display case/holder and globe/reflector holders"
+      ],
+      "steps": [
+        {
+          "title": "Check the optical parts before printing",
+          "body": "Use the specified globe and 2.1-inch display so the printed mounts and ribbon route match. Download the complete eight-file 3MF set, including the optional printed cutting template, and inspect each object's orientation in the slicer."
+        },
+        {
+          "title": "Print and cut the reflector",
+          "body": "Follow the PLA profile and tree-support guidance, then remove support remnants from the snap and twist-lock features. Cut the 0.5 mm clear sheet with the supplied 105×103 mm template; preserve its clean surface and verify its flat edge fits the holder."
+        },
+        {
+          "title": "Load the eye graphics first",
+          "body": "Follow the guide's Qualia CircuitPython filesystem procedure. Copy the three artwork folders to CIRCUITPY and move hazel.eye, demon.eye and snake.eye to its root; their referenced bitmap folders must remain intact."
+        },
+        {
+          "title": "Install the specific animation UF2",
+          "body": "Enter TFT_S3BOOT and copy peppersGhostQualia.uf2, which targets this 480×480 display. CircuitPython prepares storage but the finished animation runs as an Arduino program; simply copying a code.py file is not the documented installation."
+        },
+        {
+          "title": "Mount electronics with USB disconnected",
+          "body": "Connect and latch the display ribbon in the creator's photographed orientation. Secure Qualia to the bottom plate, retain the glass with its display holder, align the button overlay and route the cable without pinching it as the frame snaps together."
+        },
+        {
+          "title": "Assemble the dry globe",
+          "body": "Clip the clear reflector into its holder, flex it gently through the globe opening and refit it if it slips loose. Thread the globe adapter into place, align the reflector with the globe seam and engage the pedestal's twist lock."
+        },
+        {
+          "title": "Tune and test the illusion",
+          "body": "Power from the documented 5 V USB supply, rotate the globe holder until the reflected eye sits correctly, then exercise both buttons. Check all three eye styles and the float cycle in the intended room lighting before final placement."
+        }
+      ],
+      "printNotes": "Complete 3MF ZIP downloaded and inspected: Frame, Bottom Cover, Button Overlay, Display Case, Display Holder, Snow Globe Holder, Reflector Holder and Reflector Template. Creator specifies PLA, 0.2 mm layers, 8% gyroid and tree supports with a 30° threshold; minimum build volume 92×92×32 mm. Adapt temperature/speed to the actual filament and printer.",
+      "firmware": "Actual peppersGhostQualia.ino inspected, plus downloadable graphics and the matching UF2. Arduino sketch uses Adafruit_Monster_Eyes and Arduino_GFX, exact 480×480 initialization, root-level .eye configurations and debounced onboard buttons. Graphics ZIP and UF2 downloaded; UF2 magic and ESP32-S3 family header verified. No compilation, flashing or physical acceptance test claimed.",
+      "sourceUrl": "https://learn.adafruit.com/peppers-ghost-monster-eye",
+      "instructionsUrl": "https://learn.adafruit.com/peppers-ghost-monster-eye/assembly",
+      "supportingUrls": [
+        "https://learn.adafruit.com/peppers-ghost-monster-eye/code-the-eye",
+        "https://learn.adafruit.com/peppers-ghost-monster-eye/cad-files",
+        "https://learn.adafruit.com/peppers-ghost-monster-eye/use",
+        "https://github.com/adafruit/Adafruit_Learning_System_Guides/blob/main/Qualia/Qualia_S3_Peppers_Ghost_Monster_Eye/peppersGhostQualia/peppersGhostQualia.ino",
+        "https://cdn-learn.adafruit.com/assets/assets/000/146/638/original/PeppersGhostMonsterEyesGraphics.zip?1790608382",
+        "https://cdn-learn.adafruit.com/assets/assets/000/146/642/original/peppersGhostQualia.uf2?1790610749"
+      ],
+      "modelUrl": "https://cdn-learn.adafruit.com/assets/assets/000/146/703/original/3MF.zip?1790693668",
+      "modelSourceUrl": "https://learn.adafruit.com/peppers-ghost-monster-eye/cad-files",
+      "modelStatus": "Direct creator 3MF archive successfully downloaded; all eight named files inspected, with real millimeter-unit 3MF mesh data. CAD source and separate reflector-template download are linked on the same page. Models were not sliced or printed during research.",
+      "images": [
+        {
+          "url": "https://cdn-learn.adafruit.com/assets/assets/000/146/714/medium640/3d_printing_hero-hazel.jpg?1790703549",
+          "credit": "Ruiz Brothers / Adafruit",
+          "sourceUrl": "https://learn.adafruit.com/peppers-ghost-monster-eye"
+        }
+      ],
+      "imageNote": "Downloaded and visually inspected creator photograph showing the silver printed pedestal, clear globe, reflector and illuminated eye. Original 640×480 JPEG retained without alteration.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Complete primary assembly/CAD/software/use pages, actual Arduino sketch, downloadable 3MFs, graphics and S3 UF2 inspected. Documented 5 V/1 A USB supply and integrated display interface avoid an unverified external LED bus or battery circuit. The printed reflector/globe mechanism distinguishes it from ordinary round-display cases.",
+      "safety": "Keep the globe dry: do not add snow-globe liquid around the display or electronics. Disconnect USB before moving the ribbon connector. Deburr the thin reflector, supervise knife cutting and keep small fasteners away from children. Keep PLA away from heat and direct sun.",
+      "estimatedBuildTime": "Planning estimate: an afternoon of assembly and setup, plus printing.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/qualia-peppers-ghost-monster-eye-09b9bb8adb568c7870ae.jpg"
+    },
+    {
+      "id": "qualia-s3-earth-mars-clock",
+      "title": "Qualia S3 Earth and Mars Space Clock",
+      "creator": "Liz Clark and the Ruiz Brothers / Adafruit",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Adafruit Qualia ESP32-S3 RGB666 #5800 with the 4-inch 720 × 720 non-touch RGB round display #5793."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "A round-screen desktop clock that switches between Earth time and coordinated Mars time. Its large spherical printed housing is a practical exercise in RGB display integration, ribbon-cable routing and multipart assembly.",
+      "whyPrint": "Eight purpose-shaped parts support the circular display, route the long FPC through the neck and retain the controller and arcade button in a stable base.",
+      "parts": [
+        "Adafruit Qualia ESP32-S3 RGB666 #5800",
+        "4-inch 720 × 720 round RGB666 non-touch TFT #5793",
+        "40-pin FPC extension board and 200 mm extension cable",
+        "24 mm arcade button and 3-pin JST-PH STEMMA cable",
+        "Four M2.5 × 6 mm screws",
+        "USB-C cable and regulated 5 V / 1 A USB supply",
+        "Wi-Fi access and an Adafruit IO account for the time API"
+      ],
+      "steps": [
+        {
+          "title": "Use the pinned runtime",
+          "body": "Obtain the Qualia S3 RGB666 CircuitPython 9.2.8 UF2 linked below. Do not blindly install the latest firmware: this clock shares vectorio objects between groups, which newer CircuitPython source rejects."
+        },
+        {
+          "title": "Print the complete structure",
+          "body": "Download the eight-part STL archive and retain the creator's orientations. Dry-fit the display frame, dome, collar and base before trapping the electronics; leave enough room to route the ribbon without a sharp crease."
+        },
+        {
+          "title": "Route the RGB display",
+          "body": "Disconnect power, connect the exact 4-inch panel through the 40-pin extension, and follow the photographed latch/contact orientation. Guide the cable through the neck before fastening the controller in the base."
+        },
+        {
+          "title": "Fit the switch",
+          "body": "Install the 24 mm arcade button and follow the guide's two-wire switch connection. Remove or individually insulate the unused red conductor of the three-wire STEMMA lead; do not connect it to the switch."
+        },
+        {
+          "title": "Install matching assets and libraries",
+          "body": "From Download Project Bundle use only the CircuitPython 9.x directory with the 9.2.8 runtime. Copy code.py, both planet bitmaps, the font and matching libraries; separately install jepler_udecimal from the CircuitPython 9.x Community Bundle."
+        },
+        {
+          "title": "Configure and verify both faces",
+          "body": "Add your own Wi-Fi and Adafruit IO settings locally, then adjust the source's timezone offset for your location. Check Earth/Mars switching and compare Earth time with a reference before securing the bottom cover."
+        }
+      ],
+      "printNotes": "Eight binary STLs downloaded and structurally checked; the creator's support-free layout needs a build volume of at least 132 × 132 × 102 mm. Editable CAD is linked in the guide. Do not substitute the similarly named 2.1-inch display enclosure.",
+      "firmware": "Pin CircuitPython 9.2.8 for adafruit_qualia_s3_rgb666 and the project's CircuitPython 9.x bundle, plus 9.x-compatible jepler_udecimal from the Community Bundle. Official 9.2.8 UF2 returns HTTP 200. Official 9.2.8 displayio code permits the shared vectorio layers used here; current main rejects them. Adafruit IO supplies time and the Mars conversion uses a manually configured timezone. Source-level compatibility review only, no runtime test.",
+      "sourceUrl": "https://learn.adafruit.com/qualia-s3-space-clock",
+      "instructionsUrl": "https://learn.adafruit.com/qualia-s3-space-clock?view=all",
+      "supportingUrls": [
+        "https://github.com/adafruit/Adafruit_Learning_System_Guides/blob/main/Qualia_S3_Space_Clock/code.py",
+        "https://learn.adafruit.com/elements/3160505/download?type=zip",
+        "https://downloads.circuitpython.org/bin/adafruit_qualia_s3_rgb666/en_US/adafruit-circuitpython-adafruit_qualia_s3_rgb666-en_US-9.2.8.uf2",
+        "https://github.com/adafruit/circuitpython/blob/9.2.8/shared-module/displayio/Group.c",
+        "https://circuitpython.org/libraries",
+        "https://github.com/jepler/Jepler_CircuitPython_udecimal"
+      ],
+      "modelUrl": "https://cdn-learn.adafruit.com/assets/assets/000/126/172/original/STLs.zip?1701100049",
+      "modelSourceUrl": "https://learn.adafruit.com/qualia-s3-space-clock/cad-files",
+      "modelStatus": "Public direct ZIP retrieved; eight nonempty binary STL meshes verified. Separate editable CAD ZIP available from the same primary guide.",
+      "images": [
+        {
+          "url": "https://cdn-learn.adafruit.com/assets/assets/000/126/259/large1024/lcds___displays_hero-mars.jpg?1701185419",
+          "credit": "Adafruit / Ruiz Brothers — physical completed-build photograph",
+          "sourceUrl": "https://learn.adafruit.com/qualia-s3-space-clock"
+        }
+      ],
+      "imageNote": "Original creator JPEG visually reviewed. It shows the finished printed clock and illuminated Mars face, not the separate space-background artwork.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Full creator assembly, exact board/display, project bundle, 9.2.8 runtime download, upstream displayio compatibility, STL payloads and original physical photograph inspected. The version pin is essential, not a claim that today's default download runs unchanged.",
+      "safety": "Use the documented regulated USB supply. Unplug before opening RGB ribbon latches; protect the glass and avoid pinching the FPC in the neck. Keep account credentials private. This is a decorative time display, not a precision navigation instrument.",
+      "estimatedBuildTime": "A weekend including multipart printing and assembly; estimate.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/qualia-s3-earth-mars-clock-c10a1ec3b38579256e61.jpg"
+    },
+    {
+      "id": "qualia-s3-moon-flight-tracker",
+      "title": "Qualia S3 Moon-Transit Flight Tracker",
+      "creator": "Pedro Ruiz and the Ruiz Brothers / Adafruit",
+      "category": "Displays & clocks",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Adafruit Qualia ESP32-S3 RGB666 with a 2.1-inch 480 × 480 round capacitive-touch display, product #5792."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "A camera-mountable touch display that combines internet aircraft reports with local Moon calculations to highlight possible photographic transits. Its circular printed case can sit on a tripod or camera accessory mount.",
+      "whyPrint": "The fitted frame protects the round panel, retains the Qualia board and offers interchangeable plain or tripod-ready rear covers with a separate mounting adapter.",
+      "parts": [
+        "Adafruit Qualia ESP32-S3 RGB666",
+        "Adafruit #5792 2.1-inch 480 × 480 round RGB666 capacitive-touch TFT",
+        "M2.5 × 6 mm mounting screws",
+        "3/8-inch to 1/4-inch camera-thread adapter for the tripod option",
+        "Optional cold-shoe/ball-head camera mount",
+        "USB-C cable, regulated 5 V USB source and Wi-Fi access"
+      ],
+      "steps": [
+        {
+          "title": "Match the round touch panel",
+          "body": "Use the 2.1-inch capacitive panel, not the 4-inch Space Clock screen. Identify the Qualia board revision; the supplied code includes a specific I/O-expander-address adjustment for revision B boards."
+        },
+        {
+          "title": "Select the enclosure back",
+          "body": "Download the five-STL archive and choose either the plain lid or tripod-ready lid. Print the matching case and frame; add the separate tripod adapter only for the camera-mount version."
+        },
+        {
+          "title": "Install the panel and board",
+          "body": "Unplug USB while seating the display FPC. Align the screen cable with the printed notch, fit the retaining frame and secure the Qualia with the specified short screws without loading the glass."
+        },
+        {
+          "title": "Install all three Python files",
+          "body": "Load CircuitPython for the exact Qualia and copy the matching bundle folder, including code.py, moon_ephem.py, tl021wvc02.py and its libraries. Use the updated CST8xx library described by the guide for this panel's touch-controller ID."
+        },
+        {
+          "title": "Configure location and networking",
+          "body": "Enter Wi-Fi credentials locally and use the LOC keypad to select the intended US ZIP code. Verify the displayed location and timezone; the stock setup depends on external aircraft, geocoding and time services."
+        },
+        {
+          "title": "Exercise the photography workflow",
+          "body": "Test radar, list, Moon and location screens, including the supplied demo before mounting near a camera. Keep the source's reduced display clock for initial testing and compare any transit estimate with actual conditions; it is not a guaranteed trigger."
+        }
+      ],
+      "printNotes": "All five public STL payloads were downloaded; they are ASCII triangle meshes, including alternative rear covers. Choose the correct lid instead of printing both indiscriminately. Check the threaded camera adapter and USB clearance before final fastening.",
+      "firmware": "Moon_Flight_Tracker CircuitPython bundle contains code.py, moon_ephem.py, tl021wvc02.py and dependencies for 9/10/11 runtimes. Code uses an 8 MHz RGB pixel clock and reduced Wi-Fi transmit power to limit display contention. Internet feeds, not an onboard RF receiver, provide aircraft positions. Stock location entry uses US ZIP codes. Source and assets inspected, not hardware-tested.",
+      "sourceUrl": "https://learn.adafruit.com/moon-flight-tracker",
+      "instructionsUrl": "https://learn.adafruit.com/moon-flight-tracker?view=all",
+      "supportingUrls": [
+        "https://github.com/adafruit/Adafruit_Learning_System_Guides/blob/main/Moon_Flight_Tracker/code.py",
+        "https://learn.adafruit.com/elements/3222858/download?type=zip"
+      ],
+      "modelUrl": "https://cdn-learn.adafruit.com/assets/assets/000/145/072/original/moon-flight-tracker.zip?1785111019",
+      "modelSourceUrl": "https://learn.adafruit.com/moon-flight-tracker/3d-printing",
+      "modelStatus": "Public five-STL archive retrieved: case, retaining frame, plain lid, tripod lid and mount. Actual ASCII mesh payloads inspected; no account required for the direct archive.",
+      "images": [
+        {
+          "url": "https://cdn-learn.adafruit.com/assets/assets/000/145/052/medium640/lcds___displays_hero-radar.jpg?1785095621",
+          "credit": "Adafruit / Ruiz Brothers — physical printed tracker photograph",
+          "sourceUrl": "https://learn.adafruit.com/moon-flight-tracker"
+        }
+      ],
+      "imageNote": "Original creator image visually reviewed: powered round tracker in a layer-lined printed enclosure mounted above a camera. Its downloaded bytes are PNG despite the source URL's .jpg suffix. The pictured screen displays the project's demo, not evidence of a live aircraft transit.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Full primary build, exact Qualia/display pairing, actual source and helper modules, downloadable case variants and matching camera-mounted physical photograph inspected. Distinct application, screen size and camera-mount enclosure from the Earth/Mars clock.",
+      "safety": "For photographic experimentation only: aircraft data may be delayed or missing and predictions assume continuing motion. Never use it for aviation, navigation or collision avoidance. Secure camera mounts and cables; do not point unprotected optics at the Sun. Unplug before touching the FPC and keep the USB-only build dry.",
+      "estimatedBuildTime": "A day including printing, networking and camera-mount checks; estimate.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/qualia-s3-moon-flight-tracker-9d37f6b1326de39c2354.png"
+    },
+    {
+      "id": "xorlent-poesp32-snmp-monitor",
+      "title": "PoE rack environmental monitor",
+      "creator": "Xorlent",
+      "category": "Home & sensing",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "M5Stack Unit PoESP32 U138: classic ESP32-WROOM-32U, 4 MB flash and IP101G Ethernet PHY",
+        "This record uses the documented ENV-IV/SHT40 assembly. Unit-PoE-P4 does not fit these models and is not included."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PETG"
+      ],
+      "summary": "A wired temperature/humidity node for a network rack or workshop cabinet. One Ethernet cable supplies power and carries SNMP readings; settings are compiled into the firmware rather than managed through a web interface.",
+      "whyPrint": "The purpose-built mounting plates hold the controller and sensor apart to reduce heat bias. A 1U version adds cable management and optional clear lightguides for the Ethernet indicators.",
+      "parts": [
+        "M5Stack Unit PoESP32 U138, not Unit-PoE-P4",
+        "M5Stack ENV-IV U001-D with SHT40 sensor and HY2.0 four-wire cable; confirm availability before printing",
+        "M5Stack ESP32 Downloader kit and USB cable",
+        "IEEE 802.3af PoE switch or compliant injector and Ethernet cable",
+        "PETG mounting plate; zip ties or rack hardware suited to the chosen model",
+        "1.5 mm hex key and a small non-damaging case-opening tool"
+      ],
+      "steps": [
+        {
+          "title": "Lock the compatible hardware",
+          "body": "Use the original PoESP32 and ENV-IV configuration. The current sketch uses the SHT4x library; the README's alternative ENV-III/SHT30 is not supported by that inspected driver. Check the exact sensor before ordering."
+        },
+        {
+          "title": "Prepare the printed mount",
+          "body": "Download a STEP plate from 3Dmodels and import it at its original scale. Choose Mini/Mid for tie mounting or the 1RU base for a rack. Dry-fit both original commercial cases and preserve separation around the sensor vents."
+        },
+        {
+          "title": "Set up the firmware",
+          "body": "Follow ARDUINO-SETUP.md: Espressif Arduino core 3.3.x, Rob Tillaart SHT4x 0.1.2, and arduino-timer 3.0.1. Keep both project .ino files together and select ESP32 Dev Module."
+        },
+        {
+          "title": "Set network access",
+          "body": "Edit the hostname, static IP, subnet, gateway, read community and authorized monitoring-host addresses at the top of the sketch. Reserve an unused address on a trusted management network."
+        },
+        {
+          "title": "Flash with PoE disconnected",
+          "body": "Follow the creator's case-opening and programmer-orientation photographs. Keep powered Ethernet disconnected throughout USB programming. After upload, disconnect USB and the programmer before restoring the original enclosure."
+        },
+        {
+          "title": "Connect and verify",
+          "body": "Attach the ENV-IV cable, then power through compliant PoE. Query one OID per request using OIDINFO.md. Temperature in Celsius is returned as tenths; check plausible humidity and compare placement against a separate reference before setting alerts."
+        },
+        {
+          "title": "Mount without trapping heat",
+          "body": "Secure the tested pair to the selected plate without covering sensor vents or stressing the cable. Keep the sensor away from the controller and rack exhaust. Recheck readings after installation; do not treat this hobby node as a safety alarm."
+        }
+      ],
+      "printNotes": "Creator recommends PETG for conditioned indoor installations. Actual STEP geometry was downloaded for the mounting plates, cover and lightguides. Clear filament is optional for the 1U indicator guides. No layer-height or support recipe is supplied; review the chosen geometry in your slicer. The P4 enclosure is explicitly incompatible.",
+      "firmware": "Creator Arduino sketch plus SHT4x_advancedFunctions.ino inspected. Classic-board configuration uses SDA GPIO16/SCL GPIO17 and the onboard IP101G PHY. It exposes SNMPv1/2c read-only values, one OID per request, with no SNMPv3 or web configuration. ENV-IV is identified as end-of-life in a source comment; verify procurement. No build or hardware execution performed.",
+      "sourceUrl": "https://github.com/Xorlent/PoESP32-SNMP-Environmental-Monitor",
+      "instructionsUrl": "https://github.com/Xorlent/PoESP32-SNMP-Environmental-Monitor/blob/main/README.md",
+      "supportingUrls": [
+        "https://github.com/Xorlent/PoESP32-SNMP-Environmental-Monitor/blob/main/ARDUINO-SETUP.md",
+        "https://github.com/Xorlent/PoESP32-SNMP-Environmental-Monitor/blob/main/OIDINFO.md",
+        "https://github.com/Xorlent/PoESP32-SNMP-Environmental-Monitor/blob/main/PORTINFO.md",
+        "https://docs.m5stack.com/en/unit/Unit_PoESP32",
+        "https://docs.m5stack.com/en/unit/Unit_ENV-IV",
+        "https://m5stack-doc.oss-cn-shenzhen.aliyuncs.com/573/Sch_UNIT_ENVIV.pdf"
+      ],
+      "modelUrl": "https://github.com/Xorlent/PoESP32-SNMP-Environmental-Monitor/tree/main/3Dmodels",
+      "modelSourceUrl": "https://github.com/Xorlent/PoESP32-SNMP-Environmental-Monitor/blob/main/3Dmodels/README.md",
+      "modelStatus": "Free STEP payloads downloaded, not just listing pages. Several mounting choices are one project, not separate catalog builds. Physical print fit has not been independently tested.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/Xorlent/PoESP32-SNMP-Environmental-Monitor/main/images/5-Assembled.jpg",
+          "credit": "Xorlent — creator's assembled-node photograph",
+          "sourceUrl": "https://github.com/Xorlent/PoESP32-SNMP-Environmental-Monitor/blob/main/README.md"
+        }
+      ],
+      "imageNote": "Actual creator photograph of the connected PoESP32 and environmental sensor. It does not show a printed bracket; bracket illustrations are CAD renders, and printed fit is untested here.",
+      "checkedAt": "2026-10-16",
+      "evidence": "Inspected creator README, setup, OIDs, port map, both sketch tabs, downloaded STEP geometry and real assembly photograph. Manufacturer documents confirm the classic board and ENV-IV identity; the ENV-IV schematic shows a 3.3 V regulator and I2C pull-ups on its regulated rail despite its 5 V connector supply. Restricted to the source-backed ENV-IV configuration.",
+      "safety": "Never connect powered Ethernet while the USB programmer is attached. Use compliant PoE hardware, not improvised passive injection. Keep SNMPv1/2c on an isolated trusted network; its community string is not encryption. Indoor non-condensing monitoring only, with no independent accuracy, reliability or safety certification.",
+      "estimatedBuildTime": "An afternoon plus printing and network validation; planning estimate, not a measured build time.",
+      "addedAt": "2026-10-16T01:30:22.782Z",
+      "imagePath": "/workshop-images/xorlent-poesp32-snmp-monitor-acb7119c0c7210e066b3.jpg"
     }
   ],
   "meta": {
-    "total": 304,
+    "total": 319,
     "limit": 1000,
     "absoluteLimit": 10000,
-    "lastUpdated": "2026-10-15T19:46:23.109Z",
-    "lastChecked": "2026-10-15T19:46:23.109Z"
+    "lastUpdated": "2026-10-16T01:34:07.072Z",
+    "lastChecked": "2026-10-16T01:34:07.072Z"
   }
 }
