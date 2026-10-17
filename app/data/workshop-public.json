@@ -30972,13 +30972,561 @@
       "estimatedBuildTime": "An afternoon of printing and assembly, followed by calibration and observation; planning estimate, not a measured duration.",
       "addedAt": "2026-10-17T13:23:41.446Z",
       "imagePath": "/workshop-images/wilfredoaristo-feeder-scale-51c0e153f4e952d22700.jpg"
+    },
+    {
+      "id": "dmitry-android-radio-remote",
+      "title": "Android radio remote with an OLED and tuning knob",
+      "creator": "Dmitry Sazonov",
+      "category": "Cameras & audio",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "Classic ESP-WROOM-32 development board; the supplied Fritzing drawing shows a 38-pin ESP32 DEVKIT1 layout. Manufacturer, revision and exact photographed board are unspecified; check the enclosure footprint before buying."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "A USB-powered desk remote for the creator's Flutter Radio Android app. Its screen brings station and track information beside a volume/playback knob and two station keys. The phone supplies streaming and sound; this is neither a self-contained radio nor a universal phone remote.",
+      "whyPrint": "The sloped housing places the OLED below two keys and a large encoder grip. Matching case/cap revisions and a separate knob are supplied, keeping the small control assembly together on a desk.",
+      "parts": [
+        "Classic ESP-WROOM-32 development board matching the supplied drawing and printed footprint; USB data/power cable",
+        "128×64 SSD1306 I²C OLED at address 0x3C, operated from 3.3 V; exact module dimensions must match the model",
+        "Incremental rotary encoder with push switch and compatible shaft; source does not specify a manufacturer part",
+        "Two normally-open momentary switches; the photograph uses keyboard-style switches/keycaps but an exact switch model is not named",
+        "Insulated hookup wire and appropriate mounting supplies; fastener sizes are not specified",
+        "Printed case 1.2, cap 1.2 and encoder-knob",
+        "Android phone running the creator's Flutter Radio 1.2.0 app, a trusted shared Wi-Fi network and internet access for radio streams"
+      ],
+      "steps": [
+        {
+          "title": "Resolve the mechanical parts first",
+          "body": "Inspect the supplied 1.2 case and cap together in your slicer. Compare board, OLED, switch and encoder dimensions with their openings before ordering parts. Keep the USB port accessible; the creator does not identify every mechanical component or a universal DevKit footprint."
+        },
+        {
+          "title": "Prepare the actual phone player",
+          "body": "Use the linked Flutter Radio 1.2.0 release, not an unrelated radio app. Review the third-party APK before installing it on your own Android device. Confirm a station plays, enable its web remote, and note the phone's local address and port 8080."
+        },
+        {
+          "title": "Wire the low-voltage controls",
+          "body": "With USB disconnected, follow the supplied drawing: OLED SDA on GPIO21 and SCL on GPIO22, encoder CLK/DT/SW on GPIO32/33/25, and station buttons on GPIO26/27 to ground. The drawing powers OLED and encoder from 3.3 V even though the encoder symbol labels its supply terminal 5V. Verify actual terminal labels and a common ground."
+        },
+        {
+          "title": "Prepare and upload the remote sketch",
+          "body": "Open the actual esp32_radio_remote_1_0_0.ino file; the README uses a shorter illustrative filename. Install Espressif's classic ESP32 core, Adafruit SSD1306/GFX and ArduinoJson. Library/core versions are not pinned. Compile for your identified board and prove boot/display operation before enclosing it."
+        },
+        {
+          "title": "Pair the two network components",
+          "body": "Provision the remote through its RadioRemote access point, then enter the home Wi-Fi and phone host/port. The stock AP password is 12345678. The inspected app starts with token authentication disabled; leave the remote token empty unless you deliberately configure both ends to agree."
+        },
+        {
+          "title": "Check each interaction before closing",
+          "body": "At a low phone playback volume, test both station keys, turn-to-volume, click-to-play/pause and held-turn tuning. Check that station/title updates come from the phone. Double-click cycles brightness; triple-click shows network information. If a control fails, inspect that single input before changing the whole assembly."
+        },
+        {
+          "title": "Assemble and test recovery",
+          "body": "Fit the proven electronics without pinching wires or pressing on the OLED glass, then close the matching cap and fit the knob. Check free key travel and USB strain relief. Stop the phone app and interrupt Wi-Fi separately: verify the offline indication and reprovisioning behavior instead of assuming unattended recovery."
+        }
+      ],
+      "printNotes": "Seven public STL files include older revisions; selected set is case 1.2, cap 1.2 and encoder-knob. Their downloaded binary triangle counts/lengths are consistent. No creator filament, layer, support, fastening or tolerance profile was found. PLA/PETG are editorial indoor-prototype choices, not tested settings. Inspect orientation, openings and printer-bed fit locally; do not scale the complete case to fit mismatched parts.",
+      "firmware": "Arduino remote sketch v1.0.0 is public; its Espressif core and Adafruit/ArduinoJson versions are unpinned. Linked Android Flutter Radio 1.2.0 supplies the matching /status, /play, /pause, /next, /prev and /volume API. Its public 55,165,804-byte APK was downloaded as inert bytes and matched the release SHA-256. Source locks audio_service 0.18.18 and just_audio 0.10.5, requires Dart >=3.4.0 <4.0.0 and uses Android SDK 36/Java 17. Manual Android builds also need the user's own signing setup: Gradle unconditionally reads an unprovided key.properties. No app installation, compilation or flashing was performed.",
+      "sourceUrl": "https://github.com/DmitrySazonov/esp32_radio_remote",
+      "instructionsUrl": "https://github.com/DmitrySazonov/esp32_radio_remote/blob/main/README.md",
+      "supportingUrls": [
+        "https://github.com/DmitrySazonov/esp32_radio_remote/blob/main/fritzing/esp32_radio_remote.png",
+        "https://github.com/DmitrySazonov/esp32_radio_remote/blob/main/esp32_radio_remote_1_0_0.ino",
+        "https://github.com/DmitrySazonov/flutter_radio",
+        "https://github.com/DmitrySazonov/flutter_radio/releases/tag/1.2.0",
+        "https://github.com/DmitrySazonov/flutter_radio/blob/main/api/openapi.yaml",
+        "https://github.com/DmitrySazonov/flutter_radio/blob/main/pubspec.lock"
+      ],
+      "modelUrl": "https://github.com/DmitrySazonov/esp32_radio_remote/tree/main/stl",
+      "modelStatus": "Free public STL downloads verified in the creator archive without login: case 1.2.stl, cap 1.2.stl and encoder-knob.stl. Older 1.0/1.1 parts are not separate builds. Editable enclosure CAD and an explicit reuse license were not found.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/DmitrySazonov/esp32_radio_remote/main/images/image1.jpg",
+          "credit": "Dmitry Sazonov, creator repository photograph",
+          "sourceUrl": "https://github.com/DmitrySazonov/esp32_radio_remote"
+        }
+      ],
+      "imageNote": "Actual downloaded physical-build photograph, visually checked: dark printed case, two keycaps, encoder knob, operating OLED and USB cable. Internal board revision is not visible.",
+      "checkedAt": "2026-10-17",
+      "evidence": "Creator hardware archive 86449fa9a75bcf2df2a1f1efca7af5b6dc2db951 and phone source b8c6b727136416532814ac6e4f6c54b9ebc9e1b9 inspected. Drawing and sketch agree on controls and 3.3 V peripherals; phone API routes/response fields match the remote. Model and photo downloads are verified, not print fit or end-to-end operation. Exact component dimensions and unpinned Arduino dependencies remain commissioning work.",
+      "safety": "Use ordinary USB power only and disconnect it before soldering. Do not feed 5 V into ESP32 GPIO or peripheral signal pull-ups. Stock config HTTP and OTA have no authentication; the AP has a published default password. The phone's optional token travels over plaintext HTTP and is not TLS; its inspected default is disabled. Keep both devices on a trusted isolated LAN, never forward their ports, and treat custom APK installation as a separate user trust decision.",
+      "estimatedBuildTime": "Not stated by the creator; allow additional time to verify component fit and the Android/Arduino software setup.",
+      "addedAt": "2026-10-17T19:20:52.615Z",
+      "imagePath": "/workshop-images/dmitry-android-radio-remote-1bde848bb07465d84a72.jpg"
+    },
+    {
+      "id": "el-bakkali-cyd-room-monitor",
+      "title": "CYD room monitor with a ventilated sensor back",
+      "creator": "el-bakkali; modular enclosure by DanielB, based on ncmreynolds",
+      "category": "Home & sensing",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "Classic ESP32-2432S028 Cheap Yellow Display, 320×240; the supplied firmware requires ESP32 silicon revision 3.1. Earlier CYDs and unrelated display boards are not drop-in substitutes."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA",
+        "PETG"
+      ],
+      "summary": "A USB-powered desktop display for local CO₂, temperature, humidity and a unitless VOC index, with ESPHome/Home Assistant integration. The printed back adds room and ventilation for two I²C sensor boards.",
+      "whyPrint": "The model chain combines an existing CYD front with a deeper ventilated rear, keeping the touch display accessible while making a coherent enclosure for the added sensors.",
+      "parts": [
+        "ESP32-2432S028 CYD with verified silicon revision 3.1",
+        "SCD40 or SCD41 breakout and SGP40 or SGP41 breakout; source does not identify exact breakout vendors or revisions",
+        "3.3 V-compatible sensor wiring and connectors, plus USB power/data cable and appropriate USB supply",
+        "Printed modified rear and compatible CYD front; optional matching modular spacer",
+        "M3 enclosure screws, with length selected for the assembled stack",
+        "ESPHome build environment, Wi-Fi and a Home Assistant installation for the supplied API-oriented configuration"
+      ],
+      "steps": [
+        {
+          "title": "Check the CYD before ordering the enclosure hardware",
+          "body": "Identify the ESP32-2432S028 and read its silicon revision from existing boot logs or esptool identification. The source sets minimum_chip_revision to 3.1; do not assume every board sold as a CYD meets that requirement."
+        },
+        {
+          "title": "Collect both halves of the model",
+          "body": "Get moddedrearcase.stl from the ventilated-rear listing and CYDEnclosureFront.stl from its linked modular-case parent. Select files for the CYD, not the separate E32R28T variant mentioned by the parent designer. Inspect port openings and sensor clearance in the slicer before committing a full print."
+        },
+        {
+          "title": "Dry-fit the display and sensor boards",
+          "body": "Print a first fit set and assemble it without power. Check that the display sits without bending, USB plugs clear the opening, and the sensors and leads do not obstruct ventilation. Add a compatible modular spacer only if the actual stack needs one; determine screw length from the stack rather than guessing."
+        },
+        {
+          "title": "Wire the shared sensor bus",
+          "body": "With USB disconnected, connect both compatible sensor breakouts to the CYD's 3.3 V and ground, SDA GPIO27 and SCL GPIO22 as documented. Check each purchased breakout's pin labels and supply requirements; the source does not establish compatibility for arbitrary modules bearing the same sensor name."
+        },
+        {
+          "title": "Personalize and validate the firmware",
+          "body": "Start from air-quality-monitor.yaml. Provide private Wi-Fi, encrypted API and OTA secrets; review the London time zone, altitude and temperature-offset placeholders for the installation. Validate and compile using a compatible ESPHome release before performing a first USB installation. No firmware was compiled or flashed during this review."
+        },
+        {
+          "title": "Test the open assembly",
+          "body": "Confirm that both I²C sensors initialize, displayed values update, touch responds and Home Assistant receives the entities. The supplied configuration restarts after 15 minutes without an API client, so operating without Home Assistant produces recurring reboots; Wi-Fi loss has a five-minute timeout, and a weekly restart is also scheduled."
+        },
+        {
+          "title": "Close the case and assess readings conservatively",
+          "body": "Secure the cable without loading a sensor connector, close the case and leave its vents unobstructed. Compare behavior before and after enclosure assembly. Review the configured temperature correction and sensor calibration assumptions; a plausible-looking number or green display is not evidence of calibrated air quality or safety."
+        }
+      ],
+      "printNotes": "The rear designer recommends 0.2 mm layers, 15–20% infill and no supports; PLA or PETG are listed options. Only the rear STL is supplied there. The original modular-case listing supplies the front, a prototyping layer and optional spacers. Geometry listings were inspected, but meshes were not downloaded or mechanically tested.",
+      "firmware": "Public ESPHome YAML uses ESP-IDF, the MIPI SPI CYD display driver, XPT2046 touch and LVGL. CO₂ readings are clamped to 400–5000 ppm and the graphical bar tops out earlier; VOC output is an index, not a gas concentration. The source's old voc key is deprecated in current ESPHome documentation. Read and validate the configuration against the installed ESPHome version rather than treating the README's old version badge as a tested compatibility guarantee.",
+      "sourceUrl": "https://github.com/el-bakkali/esphome-air-quality-monitor",
+      "instructionsUrl": "https://github.com/el-bakkali/esphome-air-quality-monitor#readme",
+      "supportingUrls": [
+        "https://github.com/el-bakkali/esphome-air-quality-monitor/blob/main/air-quality-monitor.yaml",
+        "https://www.printables.com/model/1324890-cyd-cheap-yellow-display-modular-case",
+        "https://www.printables.com/model/1586920-cyd-cheap-yellow-display-modular-mod-rear/files",
+        "https://esphome.io/components/esp32/",
+        "https://esphome.io/components/sensor/scd4x/",
+        "https://esphome.io/components/sensor/sgp4x/"
+      ],
+      "modelUrl": "https://www.printables.com/model/1586920-cyd-cheap-yellow-display-modular-mod-rear",
+      "modelSourceUrl": "https://www.printables.com/model/1324890-cyd-cheap-yellow-display-modular-case",
+      "modelStatus": "Public creator rear listing and files tab verified: moddedrearcase.stl, 1,009,984 bytes. Its actual remix relationship resolves to DanielB's modular-case listing, which identifies CYDEnclosureFront.stl. The two listings are required together; no mesh binaries were downloaded, so download availability and fit were not independently tested.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/el-bakkali/esphome-air-quality-monitor/main/images/device-preview.png",
+          "credit": "el-bakkali, project repository",
+          "sourceUrl": "https://github.com/el-bakkali/esphome-air-quality-monitor"
+        }
+      ],
+      "imageNote": "Creator's photograph of the physical monitor with illuminated screen, downloaded and visually inspected; not a render or an independent reproduction.",
+      "checkedAt": "2026-10-17",
+      "evidence": "Read the complete primary README and 720-line firmware, both creator model descriptions and the rear file listing; visually inspected the corresponding real-device photo. Official ESPHome documentation confirms the silicon-revision boot restriction and unitless VOC-index semantics. Source evidence supports a reproducible hobby build, not independent performance or fit certification.",
+      "safety": "USB low-voltage indoor project. Disconnect power for wiring and prevent shorts; keep the vented case dry. This is not a smoke, carbon-monoxide, oxygen, gas-leak or certified occupational-air monitor. Do not use its colors, filtered/clamped readings or network availability as a safety interlock.",
+      "estimatedBuildTime": "Not established by the creator; printing, fit checks and ESPHome setup depend on the selected hardware and existing environment.",
+      "addedAt": "2026-10-17T19:20:52.615Z",
+      "imagePath": "/workshop-images/el-bakkali-cyd-room-monitor-04f374ccdb339a712fe5.png"
+    },
+    {
+      "id": "hinz-lolin-multiprobe-logger",
+      "title": "Lolin OLED multi-probe temperature logger — paid case files",
+      "creator": "Sebastian Hinz / DIY Temperature Logger",
+      "category": "Home & sensing",
+      "boards": [
+        "ESP32"
+      ],
+      "boardDetails": [
+        "Classic ESP-WROOM-32 Wemos Lolin OLED board, the larger photographed version with top-side EN/BOOT buttons. OLED SDA5/SCL4/reset16. Exact PCB revision is not stated; match the creator's board photos and paid big-case variant."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "A USB-powered logger for several wired DS18B20 temperature probes, with a built-in OLED, microSD records and local browser configuration. It suits noncritical temperature comparisons; its firmware is a legacy 1.2.1 package, not a newly validated software release.",
+      "whyPrint": "The purpose-designed housing retains the SD reader underneath the OLED board, provides a panel socket for the probe bus and offers mounting-ear variants. The printable models are a paid creator product, separate from the freely downloadable firmware.",
+      "parts": [
+        "Larger Wemos Lolin ESP-WROOM-32 OLED board matching the source photographs and pinout",
+        "AZDelivery SPI Reader Micro SD/TF module, source BOM ASIN B06X1DX5WS, with regulator and LVC125A buffer; not a bare SD socket or arbitrary reader",
+        "FAT32 microSD card supported by the reader",
+        "Three-wire DS18B20 probes and 4.7 kΩ bus pull-up resistor",
+        "3.5 mm three-contact panel jack and matching plugs; optional passive audio splitters wired consistently",
+        "Short insulated hookup wire and insulation for socket contacts",
+        "Creator's paid big.stl case variant and 2.2×6.5 mm case screws",
+        "5 V, 1 A USB supply and Micro-USB data/power cable; computer for the documented Windows flashing route"
+      ],
+      "steps": [
+        {
+          "title": "Match the physical board and obtain the correct case",
+          "body": "Compare the board's buttons, OLED and USB position against the creator's large-board photographs before buying the paid models. Use the big-case family for that board; the Small variants are for a different physical layout. Inspect and dry-fit the purchased geometry before attaching electronics."
+        },
+        {
+          "title": "Identify the board with the supplied installer",
+          "body": "Download the creator's 1.2.1 binary archive and inspect its flash.cmd before running it. Keep all bootloader, partition and application files in their supplied folders. Select the actual serial port, use board information first, then the hardware-test image; this process replaces existing firmware. No installer or firmware was executed during this review."
+        },
+        {
+          "title": "Add the specified SD reader",
+          "body": "Disconnect USB. Follow the source wiring: reader VCC to 5 V, ground common, SCK12, MISO15, MOSI13 and CS14. Retain the specified buffered reader—the regulator alone is not evidence of safe signal levels on another module. Insert a FAT32 card and use the hardware test to check card initialization before moving on."
+        },
+        {
+          "title": "Build and label one probe connection first",
+          "body": "Wire the DS18B20 bus with 3.3 V, ground and GPIO25 data, with the documented 4.7 kΩ pull-up to 3.3 V. Verify the actual plug/socket contact correspondence with a meter instead of relying on wire colors. Insulate contacts, test one probe and record its displayed ID before adding further branches."
+        },
+        {
+          "title": "Fit the boards without stressing the wiring",
+          "body": "Mount the SD reader in the lower case as illustrated, then place the OLED board over it. Leave enough wire slack for inspection while keeping leads away from screw tips and the card slot. Secure the panel jack and verify USB/card access before final tightening. Disconnect power whenever inserting or removing probe plugs."
+        },
+        {
+          "title": "Install and configure the logger",
+          "body": "Use the logger-image option after the hardware test passes. Follow its setup access point and local browser page to enter Wi-Fi, sensor names, display order, time server and time zone. Record configuration separately: the creator warns that repeated unsuccessful starts can reset Wi-Fi and eventually clear configuration."
+        },
+        {
+          "title": "Verify stored data before relying on a comparison",
+          "body": "Compare colocated probes, check their IDs and examine a saved file for sensible timestamps and values. Repeat after a power cycle and after adding each cable branch. Keep the legacy HTTP/OTA interfaces on an isolated trusted network; do not expose them to the internet. Use the logger for observation, never heater or freeze-protection control."
+        }
+      ],
+      "printNotes": "Creator reports printing the enclosure in PLA. The paid listing describes eight big/small variants with or without mounting ears/socket hole. Select the large photographed-board variant; layer height, infill, supports and dimensional fit were not independently established. The STL package was not purchased or downloaded.",
+      "firmware": "Creator's GPLv3 source and separate prebuilt 1.2.1 archives were downloaded and inspected. The binary package includes test/logger images, matching partitions, boot files and a Windows installer. Bundled libraries include Basecamp0.1.8, ArduinoJson5.12.0, AsyncTCP1.0.0, ESPAsyncWebServer1.2.0 and OneWire2.3.4. Arduino core version is not pinned; current-core compatibility is not established. Prefer the documented matching image route over assuming an unchanged modern-source build. Android companion-app availability was not verified and is not required for this record's OLED/SD workflow.",
+      "sourceUrl": "https://www.diy-temperature-logger.com/",
+      "instructionsUrl": "https://www.diy-temperature-logger.com/replica/",
+      "supportingUrls": [
+        "https://www.diy-temperature-logger.com/shopping/",
+        "https://www.diy-temperature-logger.com/esp32-wemos-lolin-install-2/",
+        "https://www.diy-temperature-logger.com/basecamp-configuration/",
+        "https://www.diy-temperature-logger.com/download-2/",
+        "https://www.diy-temperature-logger.com/downloads/source_esp32_temperature_logger_v121.zip",
+        "https://www.diy-temperature-logger.com/downloads/bin_esp32_temperature_logger_v121.zip",
+        "https://www.amazon.de/dp/B06X1DX5WS",
+        "https://www.az-delivery.de/products/copy-of-spi-reader-micro-speicherkartenmodul-fur-arduino",
+        "https://cdn.shopify.com/s/files/1/1509/1638/files/SPI_Reader_Micro_Speicherkartenmodul_Arduino_Schematics_b636d48d-56a5-4e52-bbe0-19c7ae77d037.pdf",
+        "https://www.nexperia.com/products/analog-logic-ics/logic/buffers-inverters-transceivers/buffers/serie/74lvc125a/"
+      ],
+      "modelUrl": "https://www.digistore24.com/product/262661",
+      "modelSourceUrl": "https://www.diy-temperature-logger.com/esp32-wemos-lolin-case-stl-3d-model-2/",
+      "modelStatus": "Paid creator STL product: public creator model page and linked Digistore24 product checked. Creator lists eight filenames and a 30-day post-purchase download window, with private-use/no-redistribution terms. No purchase, payment, protected download or binary model inspection performed; current checkout fulfillment and fit remain unverified.",
+      "images": [
+        {
+          "url": "https://www.diy-temperature-logger.com/wp-content/uploads/2018/12/zusammengebaut.jpg",
+          "credit": "Sebastian Hinz / DIY Temperature Logger",
+          "sourceUrl": "https://www.diy-temperature-logger.com/replica/"
+        }
+      ],
+      "imageNote": "Real creator assembly photograph: printed case, SD reader and lifted OLED board with wiring visible. Downloaded and visually inspected; low-resolution source, not a render.",
+      "checkedAt": "2026-10-17",
+      "evidence": "Read creator BOM, assembly, configuration, software and paid-model pages; inspected source, installer and binary inventories. Viewed source wiring and physical case photo. Manufacturer's wiring illustration identifies an LVC125A-buffered reader; its buffer family's 3.3/5 V input compatibility was checked against Nexperia. No signal measurements, compile, flash or physical fit test performed.",
+      "safety": "USB low-voltage observation only. Unplug power before connecting or removing the 3.5 mm probe plugs, which can momentarily short contacts. Keep the PLA electronics case dry and away from hot pipes, boilers and mains equipment; mount only external probes where appropriate. Do not alter heating equipment, sanitation settings or safety controls based on this hobby logger.",
+      "estimatedBuildTime": "Not established; model purchase/printing, soldering and legacy firmware setup vary with available parts and experience.",
+      "addedAt": "2026-10-17T19:20:52.615Z",
+      "imagePath": "/workshop-images/hinz-lolin-multiprobe-logger-1df62c08529d7876bd5f.jpg"
+    },
+    {
+      "id": "makerm0-3plus-v2-tft-macropad",
+      "title": "3Plus v2 triple-screen BLE macropad",
+      "creator": "Maker M0 / M0dular",
+      "category": "Tools & controls",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Custom 3Plus v2.5a PCB; BOM specifies ESP32-S3-WROOM-1-N8R2, not a plug-in development board.",
+        "Reviewed firmware declares hardware 3Plus_2.5 and software 1.2.3; select its esp32s3 environment, not the alternative C3 environment.",
+        "Three 0.85-inch 128×128 NV3023 TFT displays. These are the v2 color screens, not the original 3Plus OLED hardware."
+      ],
+      "difficulty": "Advanced",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "Three moving display keys and a rotary encoder turn this custom S3 board into a compact Bluetooth shortcut controller. This entry covers USB-powered v2.5 hardware and the released Arduino/PlatformIO firmware; it requires PCB assembly and source-level configuration, and its current startup expects Wi-Fi and NTP.",
+      "whyPrint": "The shell, locating plate, three screen-key housings and encoder knob make the unusual display-on-switch mechanism usable as a desk controller. They locate fragile display flex cables as well as the PCB; a generic ESP32 box would not replace these parts.",
+      "parts": [
+        "3Plus v2.5a PCB from hardware/2.5a, fabricated at the creator's specified 1.6 mm thickness; retain that folder's BOM, Gerber and EasyEDA design together.",
+        "ESP32-S3-WROOM-1-N8R2 module and all v2.5a BOM passives, regulators, protection/power-path components, USB-C connector and switches; fine-pitch/SMD assembly equipment or a board-assembly service is required.",
+        "Three matching 0.85-inch 128×128 NV3023 TFT panels and their 12-contact, 0.5 mm-pitch FPC connections. Verify the panel pinout against the design rather than substituting a visually similar TFT.",
+        "Three Kailh CPG151101S11-16 mechanical switches, three XL-4020RGBC-WS2812B LEDs, ALPS EC11J1524413 encoder and SK12D07VG4 slide switch from the published BOM.",
+        "Printed v2.5 outer shell, locating plate, smooth encoder knob, three display housings and cover; use the matching geometry set rather than the original OLED shell.",
+        "USB-C data cable and a regulated USB supply with overcurrent protection; Bluetooth-capable host computer and a trusted Wi-Fi network with reachable NTP.",
+        "No lithium cell is included in this USB-powered recipe. The board has a charging circuit, but cell selection, charging and portable operation are outside this entry.",
+        "The board BOM includes an NS4168 audio amplifier and the creator also discusses MAX98357. Audio playback is not needed for the macropad scope; do not substitute amplifier footprints or attach an unspecified speaker."
+      ],
+      "steps": [
+        {
+          "title": "Keep the three revision sets together",
+          "body": "Download the repository and select hardware/2.5a, mechanical/stl/2.5 and software/v1.2.x_THREE2_ble. Confirm the PCB BOM names N8R2 and the firmware header names 3Plus_2.5. Older C3 settings, OLED 3Plus hardware and resin-shell exports are different options, not interchangeable files."
+        },
+        {
+          "title": "Assemble and inspect the custom PCB",
+          "body": "Use the v2.5a BOM, placement references and EasyEDA schematic for the SMD assembly. Check module orientation, USB pins, display connectors and power-path polarity under magnification. Before inserting displays or applying USB power, check for solder bridges and shorts between the supply rails and ground. Do not connect a battery for this build."
+        },
+        {
+          "title": "Print and dry-fit the display mechanism",
+          "body": "Print the shell, locating plate, cover, encoder knob and three screen housings from the same v2.5 directory. The repository also distinguishes filament/PLA and resin designs; do not mix their geometry. Dry-fit the PCB, switch travel and USB opening before final assembly. The author does not supply a complete v2.5 FDM settings profile, so inspect the slicer preview and test small fit-critical parts first."
+        },
+        {
+          "title": "Fit the switches and three TFT panels",
+          "body": "Seat each screen in its printed housing and route its flex into the matching PCB connector with power removed. Check the contact orientation against the schematic and connector, then operate every mechanical key by hand. The display should travel with its key without its cable being pinched, stretched or folded sharply. Fit the encoder knob only after confirming free rotation and push travel."
+        },
+        {
+          "title": "Prepare the matching firmware and assets",
+          "body": "Open software/v1.2.x_THREE2_ble as a PlatformIO project and select esp32s3. Preserve its 8 MB partition file, LittleFS setting, pin definitions and bundled libraries. Review the data directory as well as the program: screen icons and clock themes require the filesystem assets. The repository also supplies a complete firmware binary, but its existence is not proof that a current local toolchain builds successfully."
+        },
+        {
+          "title": "Commission the network-dependent startup",
+          "body": "After programming through USB, watch all three screens through startup. The current code opens AutoConnectAP when it needs Wi-Fi credentials, provides an encoder factor setting normally set to 2 or 4, then waits for NTP. Configure it on a trusted local network; an unreachable time server can prevent the normal interface from starting. Change the hard-coded UTC+8 offset in source for the intended clock use."
+        },
+        {
+          "title": "Pair Bluetooth and verify harmless actions",
+          "body": "Pair the device with the intended host and first test shortcuts in a disposable text document. Rotate through shortcut pages and verify the three screen labels agree with the sent actions. Long-pressing the encoder returns from the shortcut page. The shipped table's entry labeled F6 actually sends KEY_F5; correct that source entry or avoid assigning it before relying on the labels."
+        },
+        {
+          "title": "Customize, then close the case",
+          "body": "Edit the shortcut table and associated image assets for the actual applications and keyboard layout, keeping labels and key combinations together. Retest every action before fitting the cover. Confirm the USB cable is not loading the connector or trapping a display flex. The existing firmware's weather and PC-state features are disabled or unfinished; do not treat those as commissioned capabilities."
+        }
+      ],
+      "printNotes": "The repository separates resin and filament designs, including PLA-named parts, and supplies a later five-file v2.5 set: outer shell, locating plate, smooth knob, display housing ×3 and cover. A v2.5 shell STL was downloaded and checked as a nonempty binary mesh. No complete v2.5 nozzle/layer/support recipe was established. Preserve the revision and test-fit switch travel, display-flex paths and USB access; do not scale the enclosure to compensate for the wrong PCB.",
+      "firmware": "Open Arduino/PlatformIO source in software/v1.2.x_THREE2_ble; reviewed header is HW3Plus_2.5 / SW1.2.3. Default environment esp32s3 uses Arduino, esp32-s3-devkitc-1 as the build target for the custom N8R2 board, custom_8MB.csv and LittleFS. Libraries are included, notably Arduino_GFX1.4.6/NV3023, ESP32 BLE Keyboard/NimBLE, WiFiManager2.0.16-rc.2, Button2, Encoder, PNGdec, ArduinoJson, U8g2 and ElegantOTA. firmware/PlatformIO/firmware_full.bin is also present. The espressif32 platform is not version-pinned; no compilation or flashing was performed. Startup blocks on Wi-Fi and NTP; timezone is hard-coded UTC+8. Known F6 label sends F5 in the shortcut table. Audio has historical issues, and weather/PC-state functions are not represented as complete. This is BLE HID, not a verified USB HID implementation.",
+      "sourceUrl": "https://github.com/MakerM0/3Plus_v2",
+      "instructionsUrl": "https://www.pcbway.com/project/shareproject/3Plus_v2_A_multifunctional_MacroPad_with_display_061c3c0a.html",
+      "supportingUrls": [
+        "https://github.com/MakerM0/3Plus_v2/tree/main/hardware/2.5a",
+        "https://github.com/MakerM0/3Plus_v2/tree/main/software/v1.2.x_THREE2_ble",
+        "https://github.com/MakerM0/3Plus_v2/blob/main/software/v1.2.x_THREE2_ble/platformio.ini",
+        "https://github.com/MakerM0/3Plus_v2/blob/main/software/v1.2.x_THREE2_ble/src/board_def.h",
+        "https://github.com/MakerM0/3Plus_v2/blob/main/software/v1.2.x_THREE2_ble/src/board_def.cpp",
+        "https://github.com/MakerM0/3Plus_v2/blob/main/software/v1.2.x_THREE2_ble/src/pages/shortcut/shortcut.cpp",
+        "https://www.pcbway.com/project/shareproject/3Plus_v2_A_multifunctional_MacroPad_with_display_Part_3D_Printing_b2ae2848.html"
+      ],
+      "modelUrl": "https://github.com/MakerM0/3Plus_v2/tree/main/mechanical/stl/2.5",
+      "modelSourceUrl": "https://github.com/MakerM0/3Plus_v2/tree/main/mechanical",
+      "modelStatus": "Public repository contains downloadable STL files; the v2.5 shell was retrieved directly without login. Hardware/mechanical project is presented under CC BY-NC-SA. PCBWay also offers fabrication, which is not required to retrieve the repository models. Exact v2.5 fit was not physically tested.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/MakerM0/3Plus_v2/main/documents/images/001.jpg",
+          "credit": "Maker M0 / M0dular — original 3Plus v2 project photograph",
+          "sourceUrl": "https://github.com/MakerM0/3Plus_v2"
+        }
+      ],
+      "imageNote": "Downloaded and visually checked actual assembled v2 project: three working color TFT screen keys, printed housing, orange encoder knob and USB cable. The external photograph does not identify the internal PCB revision; this entry explicitly uses the repository's matched v2.5a/v2.5 files. Location-bearing EXIF metadata was removed from the hosted copy; decoded pixels are identical to the creator image.",
+      "checkedAt": "2026-10-17",
+      "evidence": "Primary creator PCBWay descriptions, full repository tree, v2.5a spreadsheet BOM, EasyEDA project schematic, v2.5 STL, PlatformIO settings and key source files inspected. The schematic establishes VUSB through D1 to VSYS separately from VBAT; USB operation is grounded in that circuit and the photographed cabled build, not a battery-circuit redesign. S3 N8R2 and HW2.5 firmware identity are explicit. Three TFT drivers are NV3023 in code. No physical build, firmware compilation, HID compatibility test, battery qualification or field-reliability claim was made.",
+      "safety": "Low-voltage USB desk build only. Leave the battery connection unused; the source's lithium charging circuit is not qualified here. Assemble and reconnect flex cables only with power removed. Inspect SMD power and USB circuitry before first power. Use the macropad only on an authorized paired host and verify shortcuts in a harmless document. AutoConnectAP is open and OTA is not configured with authentication in the reviewed code; keep setup/updates on a trusted network and do not expose the device to the internet. A printed shell is not a certified electrical or fire enclosure.",
+      "estimatedBuildTime": "Not established; custom PCB fabrication/assembly, printing and firmware commissioning are separate prerequisites.",
+      "addedAt": "2026-10-17T19:20:52.615Z",
+      "imagePath": "/workshop-images/makerm0-3plus-v2-tft-macropad-86723c1f8fe0aeb6a0e6.jpg"
+    },
+    {
+      "id": "michael-black-touchless-page-turner",
+      "title": "Touch-free Bluetooth page turner",
+      "creator": "Michael Black / brushyfork23",
+      "category": "Tools & controls",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Adafruit QT Py S3 product 5700: 4 MB flash and 2 MB PSRAM, not the 8 MB/no-PSRAM variant. APDS9960 STEMMA QT breakout 3595 and LiPoly Charger BFF 5397. The creator's August 2025 assembly predates the BFF's December 2025 revision."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PETG"
+      ],
+      "summary": "Pass a finger over a small infrared sensor to advance an ebook on a paired iPad or compatible reader app. Current firmware sends a Bluetooth space key. The creator's working case uses PCTG; PETG is only an untested material alternative requiring renewed optical and mechanical fit checks.",
+      "whyPrint": "The case locates the optical sensor, board stack and battery, while a switch cap and light pipe expose the controls. The sensor aperture is functional: internal infrared leakage caused false triggers during development.",
+      "parts": [
+        "Adafruit QT Py S3 product 5700, 4 MB flash/2 MB PSRAM; USB-C data and charging cable",
+        "Adafruit APDS9960 STEMMA QT proximity/gesture breakout 3595, using the post-2020 rectangular QT footprint",
+        "Adafruit LiIon/LiPoly Charger BFF 5397 with its stock 200 mA charge rate and onboard switch; verify new-revision switch clearance",
+        "Adafruit 3898 protected single-cell 3.7 V/4.2 V 400 mAh LiPoly battery, approximately 36×17×7.8 mm with 25 mm JST-PH lead; no generic polarity substitution",
+        "Adafruit 4399 50 mm JST-SH 4-pin STEMMA QT cable, header pins and roughly 38 mm of insulated interrupt wire",
+        "Matching heat-set inserts and screws selected by measuring the supplied CAD; the creator does not specify thread or lengths",
+        "Printed case base/top, switch cap and light pipe; creator used opaque and translucent PCTG, with no validated PETG profile",
+        "A BLE-keyboard-capable reader/tablet and an app where a space key advances the page"
+      ],
+      "steps": [
+        {
+          "title": "Check the reader and exact hardware",
+          "body": "First test a normal keyboard's space key in the intended reading app. Identify QT Py product 5700 and compare the sensor, BFF switch and battery against the CAD. A compatible BLE connection alone does not prove that an app maps space to page advance."
+        },
+        {
+          "title": "Export and test the optical enclosure",
+          "body": "Import the separate STEP base, top, cap and light pipe into a STEP-capable slicer or CAD tool. Test-print the sensor aperture before the full case. Use the creator's PCTG material path where practical; PETG is an untested substitute and must pass a new fit and false-trigger test. Do not scale the entire assembly."
+        },
+        {
+          "title": "Build the board stack without power",
+          "body": "Disconnect USB and battery. Solder the APDS9960 INT wire to QT Py A3 through the backs of the boards, leaving A3 out of the header stack. Install the remaining headers and BFF in the photographed orientation, then connect the 50 mm STEMMA QT cable. Inspect for bridges before attaching the battery."
+        },
+        {
+          "title": "Preserve the supplied library variants",
+          "body": "Open page_turner.ino for the QT Py S3 4 MB/2 MB target. Use the repository's NeoPixel, APDS9960 and modified ESP32-BLE-Keyboard copies; also install Adafruit BusIO for Adafruit_I2CDevice.h. The Arduino core and BusIO version are not pinned. Compile and verify startup before installing electronics in the case."
+        },
+        {
+          "title": "Pair and prove the current input behavior",
+          "body": "Pair the device named Page Turner with your own reader in a trusted setting. The sketch uses SDA on GPIO41 and SCL on GPIO40 on the QT connector and A3/GPIO8 for the interrupt. Pass a finger, remove it, and check one advance. Holding a finger in place can retrigger; the unused 1500 ms helper is not an active debounce guarantee."
+        },
+        {
+          "title": "Close only after sensor and switch checks",
+          "body": "Fit the battery without bending, squeezing or trapping its lead. Install the inserts with electronics removed and use screws that cannot contact the cell or boards. Confirm switch-cap travel, status-light visibility and an unblocked charging-indicator opening, then repeat the proximity test with the lid fitted."
+        },
+        {
+          "title": "Verify charging and recovery conservatively",
+          "body": "Charge the specified protected Adafruit cell through the BFF and QT Py USB connection under supervision. Stock 200 mA charging is below the cell's 400 mA maximum. Check pairing after a power cycle and reconnection after the reader sleeps. Startup colors are a rough voltage indication, not a calibrated percentage or a reliable USB/charging detector."
+        }
+      ],
+      "printNotes": "The creator's reported successful material is PCTG, including translucent PCTG for the light pipe. The PETG catalog tag denotes an untested editorial alternative, not creator validation. Optical seating is critical: a sensor-to-aperture gap allowed infrared light into the enclosure and produced false triggers. No numeric layer/infill/support profile or insert specification is supplied. STEP files require direct STEP support or mesh export; no ready STL set is present. Fit-test changed board revisions and the aperture before a full print.",
+      "firmware": "Public page_turner.ino and bundled library sources inspected at 77abf85488e773b8a296d83b5f32ccdf18d670a9. Bundled NeoPixel is 1.12.4 and APDS9960 is 1.3.0; BLE-Keyboard metadata says 0.3.2 but the creator modifies it to Arduino String and ESP_LE_AUTH_BOND. Preserve that copy instead of assuming stock upstream compatibility. Adafruit BusIO is additionally required and not bundled. Espressif Arduino core is unpinned. Current proximity logic writes 0x20 (space), not arrow keys or bidirectional gestures. No compile, flash, battery-life or physical validation was performed.",
+      "sourceUrl": "https://www.michaelblackmade.com/2025/08/25/page-turner.html",
+      "instructionsUrl": "https://www.michaelblackmade.com/2025/08/25/page-turner.html",
+      "supportingUrls": [
+        "https://github.com/brushyfork23/page_turner",
+        "https://github.com/brushyfork23/page_turner/blob/main/page_turner.ino",
+        "https://github.com/brushyfork23/page_turner/tree/main/libraries",
+        "https://www.adafruit.com/product/5700",
+        "https://www.adafruit.com/product/3595",
+        "https://www.adafruit.com/product/5397",
+        "https://www.adafruit.com/product/3898",
+        "https://www.adafruit.com/product/4399",
+        "https://learn.adafruit.com/adafruit-qt-py-esp32-s3/pinouts"
+      ],
+      "modelUrl": "https://github.com/brushyfork23/page_turner/tree/main/models",
+      "modelStatus": "Free public downloads verified without login: Case - Base.step, Case - Top.step, Switch Cap.step and Light Pipe.step, plus Page Turner.step assembly and editable Page Turner.f3d. Four separate parts contain STEP solid-representation records and millimetre units. Not sliced or physically fitted; no explicit project-wide reuse license was found.",
+      "images": [
+        {
+          "url": "https://www.michaelblackmade.com/assets/page_turner/page_turner_mid.jpg",
+          "credit": "Michael Black, physical-build photograph",
+          "sourceUrl": "https://www.michaelblackmade.com/2025/08/25/page-turner.html"
+        }
+      ],
+      "imageNote": "Actual downloaded 600×450 creator photograph, visually checked: blue printed enclosure with exposed optical sensor, switch cap and status/charging openings. This shows the creator's PCTG build, not an independently printed PETG version.",
+      "checkedAt": "2026-10-17",
+      "evidence": "Full creator article, repository README, complete sketch, relevant bundled library code and four exact Adafruit electronic part pages inspected. The code's A3/GPIO8 and I²C GPIO41/40 mapping agrees with the official board variant. BFF 200 mA versus battery 400 mA maximum is source-supported; runtime, charging temperature, firmware compilation and print tolerances are not independently tested. The BFF gained external-switch pads in December 2025, after this build; verify revision fit.",
+      "safety": "Use only the specified protected Adafruit-polarity cell and stock charger settings. Keep the pouch away from screw tips, hot inserts, sharp solder and compression; never charge unattended or use a swollen/damaged cell. Disconnect all power for soldering. Pair only with your own device in a trusted setting: the supplied BLE stack uses bonding but does not establish MITM-resistant authenticated pairing. This is a convenience input device, not safety-critical assistive equipment.",
+      "estimatedBuildTime": "Not stated; budget extra iterations for the sensor aperture and library/toolchain commissioning.",
+      "addedAt": "2026-10-17T19:20:52.615Z",
+      "imagePath": "/workshop-images/michael-black-touchless-page-turner-0f7c07ac636cf590bd98.jpg"
+    },
+    {
+      "id": "tigertag-tigerspool-desktop-rfid",
+      "title": "TigerSpool desktop RFID filament reader",
+      "creator": "TigerTag Project / Benoit",
+      "category": "Tools & controls",
+      "boards": [
+        "ESP32-S3"
+      ],
+      "boardDetails": [
+        "Waveshare ESP32-S3-Touch-LCD-2: ESP32-S3R8, 16 MB flash, 8 MB octal PSRAM, 2.0-inch 240×320 IPS display and CST816S touch.",
+        "Common red PN532 V3 breakout in HSU/UART mode: 3.3 V power, RX on GPIO44 and TX on GPIO43. Similar Waveshare display sizes are not compatible substitutes.",
+        "Reviewed source version 1.72.0; firmware/platformio.ini production environment is tigerspool, with qio_opi memory and native USB-CDC enabled."
+      ],
+      "difficulty": "Intermediate",
+      "materials": [
+        "PLA"
+      ],
+      "summary": "A printed stand positions an NFC-tagged filament spool beside a small touchscreen. TigerSpool can inspect TigerTag data or send its material metadata to a selected printer slot. This USB-powered desktop build requires Tiger Studio Manager and a TigerTag account; printer addresses and access credentials are stored with that account. Compatibility is model- and firmware-dependent, not universal.",
+      "whyPrint": "The three-part stand holds the display at a usable angle and locates the PN532 beside the spool, separated from the display's metal back. Its printed retainers replace screws and inserts. The left and right versions solve desk placement, but are one underlying project rather than separate builds.",
+      "parts": [
+        "One Waveshare ESP32-S3-Touch-LCD-2, checked by its silkscreen and 16 MB flash / 8 MB octal-PSRAM specification.",
+        "One red PN532 V3 NFC breakout supporting HSU/UART, with its four-wire jumper harness; use the module's own mode-switch legend.",
+        "One USB-A to USB-C data cable and a USB power source. No battery is required or included in this recipe.",
+        "PLA for the left-hand desktop base, display housing and display cover from the matching 3MF set; a second PLA color is optional.",
+        "A TigerTag-formatted NFC tag on a spool. Blank generic NFC tags are not a substitute for the expected encoded filament data.",
+        "Tiger Studio Manager on a computer, a TigerTag account, Wi-Fi and an owner-authorized compatible printer. Confirm willingness to store printer connection details in the account before building.",
+        "For the documented FlashForge AD5X LAN example: the printer's serial number and check code, entered through Tiger Studio Manager. Other models need their own compatibility review."
+      ],
+      "steps": [
+        {
+          "title": "Choose the printer and account scope first",
+          "body": "Read the exact model's compatibility notes before buying hardware. A creator-documented example is FlashForge AD5X on its local network; Bambu cloud access is read-only, and some other paths have conflicting or incomplete documentation. Decide whether the TigerTag account's storage of printer credentials is acceptable. Do not assume a brand name alone establishes a working write path."
+        },
+        {
+          "title": "Print one complete desktop geometry set",
+          "body": "Use Model3D/0.Desktop/BambuStudio/tigerspool-desk-left-full.3mf for the pictured left-spool version, or its separately matched right set. The inspected left project uses PLA, a 0.4 mm nozzle, 0.20 mm layers, two walls, 15% infill and no supports. Review the imported printer and material settings before slicing; bare-part 3MF files are available for another slicer."
+        },
+        {
+          "title": "Wire the reader with USB disconnected",
+          "body": "Connect PN532 VCC to 3V3 and GND to GND. Cross its TXD to GPIO44 and RXD to GPIO43; leave RSTO and IRQ unconnected. Select HSU, normally both DIP switches OFF on the specified red V3 board, checking its actual legend. Do not use the early GPIO6/7 wiring or feed the reader 5 V."
+        },
+        {
+          "title": "Install the production firmware",
+          "body": "Use the creator's browser installer on a computer with a data-capable USB cable, or the repository's firmware PlatformIO project with environment tigerspool. Keep the 16 MB partition and qio_opi memory configuration. Native USB-CDC frees GPIO43/44 for the reader; removing those build flags breaks the wiring. Do not use the bench environment as the normal release or erase saved settings unintentionally."
+        },
+        {
+          "title": "Check repeated NFC reads before closing",
+          "body": "With the boards still accessible, confirm the PN532 initializes and repeatedly reads the same known TigerTag consistently. Do not diagnose random UIDs by rewriting the tag: inspect mode, power and UART wiring first. The driver is locally patched for this module, so substituting a stock PN532 library is not a neutral change. Use tag-inspection mode for this check rather than assigning a printer slot."
+        },
+        {
+          "title": "Seat the electronics and close the stand",
+          "body": "Follow the desktop assembly photographs to slide the reader into its printed side retainers and seat the touchscreen in its housing. Route the short harness without pressing it against the antenna or trapping it under the cover. Fit the printed pieces together and confirm USB access. Recheck tag reads through the assembled shell; the author has not characterized read distance for every enclosure."
+        },
+        {
+          "title": "Pair the account and verify machine identity",
+          "body": "Configure the printer in Tiger Studio Manager, then complete TigerSpool's Wi-Fi and account setup on a trusted network. Compare the imported printer and slot names against the actual printer. The source keys some settings by list position, so reordering printers in the account can attach settings to the wrong machine; recheck every affected setting after any list change."
+        },
+        {
+          "title": "Make one deliberate idle-printer assignment",
+          "body": "With the printer idle, select the intended slot and only then present the tagged spool: a successful scan sends the assignment without a second confirmation. Read the resulting material and temperature metadata back on the printer itself before printing. Expect supported palette or material-name substitutions. Physically load the spool into that same slot; TigerSpool does not load filament or operate the extruder."
+        },
+        {
+          "title": "Treat updates and credentials as maintenance",
+          "body": "Keep this controller on a trusted local network and review its printer/account access before sharing or disposing of it. The reviewed update code validates a TLS-delivered checksum, but firmware images are not signed. Do not infer signed-image or encrypted-storage guarantees from older aspirational security text. Revalidate printer metadata operations after firmware changes on either device."
+        }
+      ],
+      "printNotes": "Pictured and qualified geometry is the left desktop stand, not a printer-specific clip. Its downloaded Bambu Studio 3MF contains three mesh objects and settings matching the desktop README: A1 mini, PLA, 0.4 mm nozzle, 0.20 mm layers, two walls, 15% infill, no supports. Inspect and adapt printer settings without changing the designed component clearances. A second color is cosmetic. The right and Creality Print projects have different wall/layer/support settings, so do not apply the left profile blindly to them. No screws or heat-set inserts are specified.",
+      "firmware": "Open source in firmware/; reviewed version.h is 1.72.0 at ea47d6cedb69bb0df086478e755e1ada73e9718d. GitHub release v1.72.0 was published October 12, 2026 with firmware and boot assets. Production environment tigerspool uses espressif32@^6.9.0, Arduino, esp32-s3-devkitc-1 build definition with 16 MB flash and qio_opi octal PSRAM. Dependencies: LovyanGFX ^1.2.0, LVGL ^8.3.11, WebSockets ^2.6.1, ArduinoJson ^7.2.0, PubSubClient ^2.8 and the included patched PN532 HSU driver. Installer and USB build/flash instructions are public. No firmware was compiled or flashed during research. Account pairing is required. Some compatibility/security documents retain old design-stage statements; current README and implementation explicitly do not provide image signatures. Do not assume every listed printer's write operation is verified.",
+      "sourceUrl": "https://github.com/TigerTag-Project/TigerSpool-RFID",
+      "instructionsUrl": "https://github.com/TigerTag-Project/TigerSpool-RFID/blob/main/docs/WIRING.md",
+      "supportingUrls": [
+        "https://github.com/TigerTag-Project/TigerSpool-RFID/blob/main/hardware/BOM.md",
+        "https://github.com/TigerTag-Project/TigerSpool-RFID/blob/main/hardware/pinout.md",
+        "https://github.com/TigerTag-Project/TigerSpool-RFID/tree/main/Model3D/0.Desktop",
+        "https://github.com/TigerTag-Project/TigerSpool-RFID/blob/main/firmware/platformio.ini",
+        "https://github.com/TigerTag-Project/TigerSpool-RFID/blob/main/firmware/include/version.h",
+        "https://github.com/TigerTag-Project/TigerSpool-RFID/blob/main/docs/PRINTER-COMPATIBILITY.md",
+        "https://github.com/TigerTag-Project/TigerSpool-RFID/blob/main/docs/ACCOUNT-DATA.md",
+        "https://github.com/TigerTag-Project/TigerSpool-RFID/blob/main/docs/OTA.md",
+        "https://github.com/TigerTag-Project/TigerSpool-RFID/blob/main/firmware/src/net/ota.cpp",
+        "https://github.com/TigerTag-Project/TigerTag-Studio-Manager",
+        "https://tigertag-project.github.io/TigerSpool-RFID/",
+        "https://github.com/TigerTag-Project/TigerSpool-RFID/releases/tag/v1.72.0"
+      ],
+      "modelUrl": "https://github.com/TigerTag-Project/TigerSpool-RFID/blob/main/Model3D/0.Desktop/BambuStudio/tigerspool-desk-left-full.3mf",
+      "modelSourceUrl": "https://github.com/TigerTag-Project/TigerSpool-RFID/tree/main/Model3D/0.Desktop",
+      "modelStatus": "Public direct-download 3MF verified: full left desktop project, separate bare-part 3MF files and Fusion source are present. Download requires no account or purchase. MakerWorld is an optional alternate listing, not needed for access. Printer-specific shells and mirrored stands are not separate admissions.",
+      "images": [
+        {
+          "url": "https://raw.githubusercontent.com/TigerTag-Project/TigerSpool-RFID/main/Model3D/0.Desktop/Images/Left/tigerspool-desk-left-photo-front.jpg",
+          "credit": "TigerTag Project — original TigerSpool left desktop stand photograph",
+          "sourceUrl": "https://github.com/TigerTag-Project/TigerSpool-RFID/tree/main/Model3D/0.Desktop"
+        }
+      ],
+      "imageNote": "Actual downloaded and visually checked photograph of the left desktop stand, a spool and an active touchscreen; not the repository's adjacent rendered preview. Interior reader-retainer and finished-assembly photographs were also inspected.",
+      "checkedAt": "2026-10-17",
+      "evidence": "Current primary README, desktop instructions, BOM, exact wiring/pinout, PlatformIO settings, version header, compatibility/account/OTA/security documents and OTA source inspected. Downloaded full desktop 3MF and checked its mesh/settings archive; viewed real matching final and assembly photos. This is a distinct RFID-to-printer-slot controller, not the existing Tiger-Scale weighing device. Prior research listed it only as an uninspected lead. Claimed printer successes remain creator reports; no account, printer, credential or physical device was accessed here.",
+      "safety": "USB-only, low-voltage build; leave the optional battery absent. Disconnect power before wiring, use 3.3 V for the PN532, and avoid antenna/metal contact. Account-stored printer access codes and device session data are sensitive. Use only authorized printers on a trusted network; setup AP is open. A selected slot is written immediately on reading a tag, so keep the printer idle and verify its identity, slot, material and temperatures by readback before printing. Recheck settings after account list reordering. Firmware images lack cryptographic signatures; no certified security or printer-safety claim is made. This device sets metadata, not filament loading or temperature control.",
+      "estimatedBuildTime": "Not established; printing, account setup and printer-specific validation vary.",
+      "addedAt": "2026-10-17T19:20:52.615Z",
+      "imagePath": "/workshop-images/tigertag-tigerspool-desktop-rfid-56596ff263b04683c7fc.jpg"
     }
   ],
   "meta": {
-    "total": 382,
+    "total": 388,
     "limit": 1000,
     "absoluteLimit": 10000,
-    "lastUpdated": "2026-10-17T13:23:41.446Z",
-    "lastChecked": "2026-10-17T13:23:41.446Z"
+    "lastUpdated": "2026-10-17T19:20:52.615Z",
+    "lastChecked": "2026-10-17T19:20:52.615Z"
   }
 }
