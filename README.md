@@ -45,7 +45,7 @@ The Mnemes homepage has one canonical owner at `app/components/mnemes/MnemesHome
 - `app/components/mnemes/MnemesHome.tsx` — Mnemes homepage
 - `app/data/published-crates.json` — dated public crate snapshot
 - `app/data/library-catalog-public.json` — allowlisted public Library Atlas projection
-- `app/data/workshop-public.json` and `public/workshop-images/` — allowlisted public maker catalog and project photos
+- `app/data/workshop-public.json` and `public/workshop-images/` — allowlisted public maker catalog and project images
 - `app/lib/workshop-query.ts` and `app/api/workshop/route.ts` — catalog filtering, exact-build lookup, and bounded pagination over the public projection
 - `app/bridge/page.tsx` — checks the format of an optional build ID for the private Bridge handoff; private workspace records are not part of the public catalog
 
