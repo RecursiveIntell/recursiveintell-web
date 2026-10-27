@@ -1,3 +1,5 @@
+<!-- last-verified: 2026-10-26 -->
+
 # RecursiveIntell Web
 
 Public website for Josh Stevenson and RecursiveIntell. The site has two explicit product surfaces:
