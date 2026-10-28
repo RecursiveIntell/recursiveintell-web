@@ -15,7 +15,7 @@ const paths = [
       "ares desktop",
       "ares status",
     ],
-    note: "Choose your provider and model in the local wizard, then enter an API key or use supported OAuth. OpenAI is optional. Builds may request sudo and take several minutes. See the setup notes below for platform options and Agent Graph’s separate daemon setup.",
+    note: "Choose your provider and model in the local wizard, then enter an API key or use supported OAuth. OpenAI is optional. The first run builds Desktop, Rust bindings, and the native enhancements from source: it may request sudo and takes roughly 15–45 minutes depending on CPU and network (re-runs are much faster). A lighter CLI-only install: add --no-desktop. See the setup notes below for platform options and Agent Graph’s separate daemon setup.",
   },
   {
     id: "server",
