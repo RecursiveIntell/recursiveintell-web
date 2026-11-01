@@ -217,7 +217,15 @@ export PATH="$UV_INSTALL_DIR:$ARES_BIN_DIR:$HOME/.local/bin:$CARGO_HOME/bin:$HOM
 curl -fsSL https://astral.sh/uv/install.sh -o "$TEMP_DIR/uv-install.sh"
 UV_NO_MODIFY_PATH=1 sh "$TEMP_DIR/uv-install.sh"
 command -v uv >/dev/null 2>&1 || die "uv provisioning failed."
-export CARGO_BUILD_JOBS="${CARGO_BUILD_JOBS:-2}"
+# Parallelism for the native enhancement builds. "2" is a safe floor for the
+# smallest VPS, but on typical dev machines it leaves most cores idle during
+# the longest phase of the install. Derive from the core count with a cap so
+# a 64-core box does not outrun its RAM; an operator-set value always wins.
+_BUILD_JOBS="$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 2)" || _BUILD_JOBS=2
+case "$_BUILD_JOBS" in (*[!0-9]*|'') _BUILD_JOBS=2 ;; esac
+[ "$_BUILD_JOBS" -ge 1 ] 2>/dev/null || _BUILD_JOBS=2
+[ "$_BUILD_JOBS" -gt 8 ] && _BUILD_JOBS=8
+export CARGO_BUILD_JOBS="${CARGO_BUILD_JOBS:-$_BUILD_JOBS}"
 if [[ "$EXTRAS" == true ]]; then
   if [[ ! -x "$CARGO_HOME/bin/rustup" ]]; then
     curl -fsSL https://sh.rustup.rs -o "$TEMP_DIR/rustup.sh"
