@@ -8,6 +8,47 @@ import test from "node:test";
 const installer = new URL("../public/ares/install.sh", import.meta.url);
 const legacy = new URL("../public/hermes/install.sh", import.meta.url);
 const source = readFileSync(installer, "utf8");
+
+test("native build jobs follow detected CPUs with a cap, fallback and explicit override", () => {
+  const start = source.indexOf('_BUILD_JOBS="$(nproc');
+  const end = source.indexOf('\nif [[ "$EXTRAS"', start);
+  assert.ok(start >= 0 && end > start, "actual installer CPU block must be found");
+  const block = source.slice(start, end);
+  const cases = [
+    ["4", 0, "12", 0, undefined, "4"],
+    ["8", 0, "12", 0, undefined, "8"],
+    ["64", 0, "12", 0, undefined, "8"],
+    ["1", 0, "12", 0, undefined, "1"],
+    ["0", 0, "12", 0, undefined, "2"],
+    ["abc", 0, "12", 0, undefined, "2"],
+    ["-3", 0, "12", 0, undefined, "2"],
+    ["", 0, "12", 0, undefined, "2"],
+    ["", 1, "6", 0, undefined, "6"],
+    ["", 1, "12", 0, undefined, "8"],
+    ["", 1, "0", 0, undefined, "2"],
+    ["", 1, "", 1, undefined, "2"],
+    ["64", 0, "12", 0, "3", "3"],
+    ["64", 0, "12", 0, "16", "16"],
+    ["64", 0, "12", 0, "0", "0"],
+    ["64", 0, "12", 0, "", "8"],
+  ];
+  const directory = mkdtempSync(join(tmpdir(), "ares-cpu-jobs-"));
+  try {
+    for (const [cpu, cpuExit, sysctl, sysctlExit, override, expected] of cases) {
+      for (const [name, output, exit] of [["nproc", cpu, cpuExit], ["sysctl", sysctl, sysctlExit]]) {
+        const path = join(directory, name);
+        writeFileSync(path, `#!/bin/sh\n[ ${exit} -eq 0 ] && printf '%s\\n' '${output}'\nexit ${exit}\n`);
+        chmodSync(path, 0o755);
+      }
+      const env = { ...process.env, PATH: directory };
+      delete env.CARGO_BUILD_JOBS;
+      if (override !== undefined) env.CARGO_BUILD_JOBS = override;
+      const result = spawnSync("/bin/bash", ["-c", `set -euo pipefail\n${block}\nprintf '%s' "$CARGO_BUILD_JOBS"`], { encoding: "utf8", env });
+      assert.equal(result.status, 0, result.stderr);
+      assert.equal(result.stdout, expected, JSON.stringify({cpu, cpuExit, sysctl, sysctlExit, override}));
+    }
+  } finally { rmSync(directory, { recursive: true, force: true }); }
+});
 const programs = [...source.matchAll(/<<'PY'\n([\s\S]*?)\nPY/g)].map((match) => match[1]);
 const restoreProgram = programs.find((program) => program.includes("manifest = backup/'files.json'"));
 const launcherProgram = programs.find((program) => program.includes("unrecognized launcher"));
