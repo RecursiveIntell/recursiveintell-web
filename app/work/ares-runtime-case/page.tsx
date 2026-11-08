@@ -24,7 +24,7 @@ export default function AresRuntimeCase() {
     <main className="business-page">
       <BusinessHeader />
       <BusinessPageIntro
-        index="CASE / CURRENT"
+        index="CASE / 2026-09-06 SNAPSHOT"
         eyebrow="PYTHON + RUST / AGENT RUNTIME / EXECUTION INTEGRITY"
         title="Keep the execution path"
         accent="bound from context to outcome."
@@ -34,7 +34,7 @@ export default function AresRuntimeCase() {
         <div className="business-shell work-case-list">
           <article className="work-case">
             <div>
-              <span>THE ARCHITECTURE</span>
+              <span>THE ARCHITECTURE AT THIS SNAPSHOT</span>
               <h2>One execution path. Several explicit owners.</h2>
             </div>
             <dl>
@@ -131,7 +131,7 @@ export default function AresRuntimeCase() {
                 <dd>
                   The earlier Ares approvals case remains published separately.
                   It is a dated proof artifact for permit-to-outcome settlement,
-                  not the current description of the whole runtime.
+                  not a description of the whole runtime at this snapshot.
                 </dd>
               </div>
             </dl>
@@ -168,7 +168,7 @@ export default function AresRuntimeCase() {
                 <dd><code>{aresSetupRepair}</code></dd>
               </div>
               <div>
-                <dt>Current boundary</dt>
+                <dt>Boundary at this snapshot</dt>
                 <dd>
                   These merges establish public source and the reported validation
                   scope. They do not establish live-provider quality, production
@@ -192,7 +192,7 @@ export default function AresRuntimeCase() {
                 target="_blank"
                 rel="noreferrer"
               >
-                Inspect current Ares merge head ↗
+                Inspect Ares setup-repair merge ↗
               </a>
               <a
                 href={`https://github.com/RecursiveIntell/recursive-agent/commit/${recursiveAgentMerge}`}
