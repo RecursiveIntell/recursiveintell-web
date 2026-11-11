@@ -1,4 +1,4 @@
-<!-- last-verified: 2026-10-26 -->
+<!-- last-verified: 2026-10-28; scope: local development path -->
 
 # RecursiveIntell Web
 
@@ -85,11 +85,13 @@ npm run validate:artifact
 
 `npm test` runs the installer regressions, Workshop catalog and component-logic checks (`npm run test:workshop`), game regressions, the canonical production build, the rendered HTML and public-data boundary suite, and the game route/asset checks. The Workshop interaction tests do not establish browser layout or behavior.
 
-For local development:
+For local development, run the server from the repository root:
 
 ```bash
 npm run dev
 ```
+
+Once the dev server reports it is ready, open `http://localhost:3000` to view the homepage. If port 3000 is occupied, use the port shown in the server output.
 
 For a local production server after building:
 
