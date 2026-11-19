@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync, mkdtempSync, rmSync, readdirSync, writeFileSync, mkdirSync, chmodSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -9,46 +10,32 @@ const installer = new URL("../public/ares/install.sh", import.meta.url);
 const legacy = new URL("../public/hermes/install.sh", import.meta.url);
 const source = readFileSync(installer, "utf8");
 
-test("native build jobs follow detected CPUs with a cap, fallback and explicit override", () => {
-  const start = source.indexOf('_BUILD_JOBS="$(nproc');
-  const end = source.indexOf('\nif [[ "$EXTRAS"', start);
-  assert.ok(start >= 0 && end > start, "actual installer CPU block must be found");
-  const block = source.slice(start, end);
-  const cases = [
-    ["4", 0, "12", 0, undefined, "4"],
-    ["8", 0, "12", 0, undefined, "8"],
-    ["64", 0, "12", 0, undefined, "8"],
-    ["1", 0, "12", 0, undefined, "1"],
-    ["0", 0, "12", 0, undefined, "2"],
-    ["abc", 0, "12", 0, undefined, "2"],
-    ["-3", 0, "12", 0, undefined, "2"],
-    ["", 0, "12", 0, undefined, "2"],
-    ["", 1, "6", 0, undefined, "6"],
-    ["", 1, "12", 0, undefined, "8"],
-    ["", 1, "0", 0, undefined, "2"],
-    ["", 1, "", 1, undefined, "2"],
-    ["64", 0, "12", 0, "3", "3"],
-    ["64", 0, "12", 0, "16", "16"],
-    ["64", 0, "12", 0, "0", "0"],
-    ["64", 0, "12", 0, "", "8"],
-  ];
-  const directory = mkdtempSync(join(tmpdir(), "ares-cpu-jobs-"));
-  try {
-    for (const [cpu, cpuExit, sysctl, sysctlExit, override, expected] of cases) {
-      for (const [name, output, exit] of [["nproc", cpu, cpuExit], ["sysctl", sysctl, sysctlExit]]) {
-        const path = join(directory, name);
-        writeFileSync(path, `#!/bin/sh\n[ ${exit} -eq 0 ] && printf '%s\\n' '${output}'\nexit ${exit}\n`);
-        chmodSync(path, 0o755);
-      }
-      const env = { ...process.env, PATH: directory };
-      delete env.CARGO_BUILD_JOBS;
-      if (override !== undefined) env.CARGO_BUILD_JOBS = override;
-      const result = spawnSync("/bin/bash", ["-c", `set -euo pipefail\n${block}\nprintf '%s' "$CARGO_BUILD_JOBS"`], { encoding: "utf8", env });
-      assert.equal(result.status, 0, result.stderr);
-      assert.equal(result.stdout, expected, JSON.stringify({cpu, cpuExit, sysctl, sysctlExit, override}));
-    }
-  } finally { rmSync(directory, { recursive: true, force: true }); }
+test("published Ares installer is the reviewed source artifact", () => {
+  const contract = JSON.parse(readFileSync(new URL("../public/ares/source-lock.json", import.meta.url), "utf8"));
+  const blobSha = createHash("sha1").update(`blob ${Buffer.byteLength(source, "utf8")}\0`).update(source).digest("hex");
+  assert.equal(blobSha, contract.source_git_blob_sha, "Website installer no longer matches pinned Ares source; update source lock and copy together");
+  assert.match(contract.source_commit, /^[0-9a-f]{40}$/);
+  assert.equal(contract.source_repository, "RecursiveIntell/Ares");
+  assert.match(source, /UV_PIN="0\.12\.24"/);
+  assert.match(source, /uv python install 3\.14/);
+  assert.match(source, /RELEASE_MANIFEST_PATH=/);
+  assert.match(source, /checkout_exact Libraries/);
+  assert.match(source, /verify_manifest_submodule/);
 });
+
+test("native build jobs follow the canonical conservative default", () => {
+  const line = source.match(/^export CARGO_BUILD_JOBS="\$\{CARGO_BUILD_JOBS:-2\}"$/m)?.[0];
+  assert.ok(line, "Expected manifest-qualified source's conservative build-jobs default");
+  for (const [override, expected] of [[undefined, "2"], ["4", "4"], ["8", "8"]]) {
+    const env = { ...process.env };
+    if (override === undefined) delete env.CARGO_BUILD_JOBS;
+    else env.CARGO_BUILD_JOBS = override;
+    const result = spawnSync("/bin/bash", ["-c", `set -euo pipefail\n${line}\nprintf '%s' "$CARGO_BUILD_JOBS"`], { env, encoding: "utf8" });
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(result.stdout, expected);
+  }
+});
+
 const programs = [...source.matchAll(/<<'PY'\n([\s\S]*?)\nPY/g)].map((match) => match[1]);
 const restoreProgram = programs.find((program) => program.includes("manifest = backup/'files.json'"));
 const launcherProgram = programs.find((program) => program.includes("unrecognized launcher"));
@@ -156,14 +143,15 @@ with tempfile.TemporaryDirectory() as temp:
     for name in ['context-governor','semantic-memory-mcp','claim-ledger-mcp','agent-graph-mcp','agent-graph-mcpd','agent-graph-operator','cea-graph','pilot-bridge']:
         (binaries/name).write_bytes(b'fixture-tool')
     (root/'installer-sources'/'agent-memory-kits').mkdir(parents=True)
-    os.environ.update(ARES_HOME=temp, ARES_INSTALL_EXTRAS='true', ARES_INSTALL_DESKTOP='true', ARES_INSTALL_WHEELS=temp, ARES_INSTALL_SOURCE=temp, ARES_INSTALL_RECIPE_VERSION='fixture')
+    os.environ.update(ARES_HOME=temp, ARES_INSTALL_EXTRAS='true', ARES_INSTALL_DESKTOP='true', ARES_INSTALL_WHEELS=temp, ARES_INSTALL_SOURCE=temp, ARES_INSTALL_RECIPE_VERSION='fixture', RELEASE_MANIFEST_SHA256='f'*64, ARES_RELEASE_LIBRARIES_SHA='a'*40, ARES_RELEASE_KITS_SHA='b'*40, ARES_RELEASE_GRAPH_SHA='c'*40, ARES_RELEASE_MCP_SHA='d'*40, ARES_RECURSIVE_AGENT_MODE='disabled', ARES_RECURSIVE_AGENT_SOURCE_SHA='', ARES_PYTHON_RUNTIME='3.14', ARES_MANIFEST_PYTHON='3.14', ARES_RUST_TOOLCHAIN='stable')
+    import subprocess
+    subprocess.run = lambda *args, **kwargs: types.SimpleNamespace(stdout='fixture tool version')
     exec(program, {})
-    assert events[0][:2] == ['cargo','install'], events
-    assert events[1] == 'base-sync', events
-    assert '--extra' in events[2] and 'wake' in events[2] and 'voice' in events[2], events
-    assert 'mcp==2.2.0' in events[3] and '--no-deps' in events[3], events
-    assert events[5][:3] == ['uv','pip','install'], events
-    assert '-c' in events[6] and events[7] == 'sealed-inactive', events
+    assert events[0] == 'base-sync', events
+    assert '--extra' in events[1] and 'wake' in events[1] and 'voice' in events[1], events
+    assert 'mcp==2.2.0' in events[2] and '--no-deps' in events[2], events
+    assert events[4][:3] == ['uv','pip','install'], events
+    assert '-c' in events[5] and events[6] == 'sealed-inactive', events
     import json
     receipt = json.loads((root/'install-receipts/latest.json').read_text())
     assert len(receipt['native_wheels']) == 3 and receipt['sdk_dependencies'] == ['mcp==2.2.0','mcp-types==2.2.0'], receipt
@@ -176,7 +164,7 @@ with tempfile.TemporaryDirectory() as temp:
         assert 'immutable release was preserved' in str(error), error
     else:
         raise AssertionError('Existing incomplete release was not rejected')
-    assert events == [['cargo','install','--list','--root',str(root/'enhancements')]], events
+    assert events == [], events
 `], { input: buildProgram, encoding: "utf8" });
   assert.equal(result.status, 0, result.stderr);
 });
