@@ -153,6 +153,9 @@ export default function Home() {
           <Link className="studio-text-link" href="/work">
             All selected work <span>↗</span>
           </Link>
+          <Link className="studio-text-link" href="/systems">
+            Systems architecture and evidence boundaries <span>↗</span>
+          </Link>
           <Link className="studio-text-link" href="/portfolio">
             Explore the repository library <span>↗</span>
           </Link>

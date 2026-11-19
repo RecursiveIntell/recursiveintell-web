@@ -27,6 +27,7 @@ const builtPagePath = new Map([
   ["/mnemes", "../.next/server/app/mnemes.html"],
   ["/services", "../.next/server/app/services.html"],
   ["/work", "../.next/server/app/work.html"],
+  ["/systems", "../.next/server/app/systems.html"],
   [
     "/work/ares-approval-case",
     "../.next/server/app/work/ares-approval-case.html",
@@ -843,3 +844,22 @@ test("contact paths name their intent without pretending to submit a form", asyn
   assert.doesNotMatch(html, /<form\b/);
 });
 
+
+test("renders source-backed portfolio and system owner map without client API", async () => {
+  const [systems, portfolio, home] = await Promise.all([
+    readBuiltPage("/systems"), readBuiltPage("/portfolio"), readBuiltPage("/"),
+  ]);
+  assert.match(systems, /One stack\./);
+  assert.match(systems, /Recursive Agent/);
+  assert.match(systems, /continuous device-owned replica protocol is not a completed/);
+  assert.match(portfolio, /The engineering, readable without JavaScript/);
+  for (const name of ["Ares", "recursive-agent", "Gloss", "ClawGuard", "esp32-s3-lstm-proof", "proveKV"]) {
+    assert.ok(portfolio.includes(`href="https://github.com/RecursiveIntell/${name}"`), `Missing public source ${name}`);
+  }
+  for (const name of ["ClaimLedger", "recursiveintell-operations-journal", "agent-integration-kit"]) {
+    assert.ok(!portfolio.includes(`href="https://github.com/RecursiveIntell/${name}"`), `Private repository URL leaked: ${name}`);
+  }
+  assert.match(home, /href="\/systems"/);
+  assert.ok(sitemap().some(x => x.url === "https://recursiveintell.com/systems"));
+  assert.ok(sitemap().every(x => x.lastModified === undefined), "Do not invent sitemap update dates for unrelated pages");
+});
