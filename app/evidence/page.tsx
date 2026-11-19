@@ -18,7 +18,7 @@ export default function EvidencePage() {
       <section className="studio-section studio-shell" aria-labelledby="evidence-records">
         <div className="studio-section-heading">
           <div><p className="studio-eyebrow">01 / VERIFIED REFERENCES</p><h2 id="evidence-records">What changed.<br /><em>What it proves.</em></h2></div>
-          <p>Each record identifies its external source, admitted scope and remaining gap. A repository's public description does not become evidence of customer adoption or universal correctness.</p>
+          <p>Each record identifies its external source, admitted scope and remaining gap. A public repository description does not become evidence of customer adoption or universal correctness.</p>
         </div>
         <div className="ri-architecture-grid">
           {publicEvidence.map((item) => (
