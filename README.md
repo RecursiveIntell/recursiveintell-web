@@ -16,6 +16,8 @@ Public website for Josh Stevenson and RecursiveIntell. The site has two explicit
 - `/services` — bounded service offers and technical consulting
 - `/work` — artifact-grounded engineering cases
 - `/systems` — source-linked architecture, canonical owners and admission states
+- `/evidence` — curated public merge and evidence records with explicit claim limits
+- `/changes` — source-linked dated change history; curated, not an automated complete changelog
 - `/about` — Josh Stevenson and RecursiveIntell
 - `/contact` — hiring, consulting and collaboration contact options
 - `/privacy` — current website data boundary
@@ -43,6 +45,7 @@ The Mnemes homepage has one canonical owner at `app/components/mnemes/MnemesHome
 - `app/data/services.ts` — consulting and implementation offers
 - `app/data/work.ts` — curated public case studies and their evidence boundaries
 - `app/data/public-highlights.ts` — source-reviewed public portfolio highlights
+- `app/data/public-evidence.ts` — canonical public merge/evidence records and website change history
 - `app/data/public-repositories.json` — dated public-only GitHub repository snapshot; never project private repository metadata
 - `app/components/StudioChrome.tsx` and `app/components/Studio.tsx` — current studio shell, shared sections and selected-project rendering
 - `app/components/business/*` — retained business components; follow the active page imports before treating these as the current shell

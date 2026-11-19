@@ -51,6 +51,8 @@ export default function SystemsPage() {
           <li><strong>Operationally qualified:</strong> real-workload, failure, recovery and support gates were satisfied independently.</li>
         </ol>
         <p>Unadmitted areas include continuous device-owned replica sync, unattended recursive self-improvement, some native integrations and measured compression quality gates.</p>
+        <Link className="studio-text-link" href="/evidence">Inspect merged evidence ↗</Link>
+        <Link className="studio-text-link" href="/changes">Review public change history ↗</Link>
         <Link className="studio-text-link" href="/portfolio">Browse the public repository index ↗</Link>
       </section>
       <StudioCTA />

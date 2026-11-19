@@ -141,6 +141,8 @@ export function StudioFooter() {
             <small>EXPLORE</small>
             <Link href="/work">Selected work</Link>
             <Link href="/ares">Ares workbench</Link>
+            <Link href="/evidence">Engineering evidence</Link>
+            <Link href="/changes">Change history</Link>
             <Link href="/systems">Architecture map</Link>
             <Link href="/portfolio">Repository library</Link>
             <Link href="/workshop">Circuit Workshop</Link>

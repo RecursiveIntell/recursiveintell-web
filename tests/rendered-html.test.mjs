@@ -29,6 +29,8 @@ const builtPagePath = new Map([
   ["/work", "../.next/server/app/work.html"],
   ["/systems", "../.next/server/app/systems.html"],
   ["/ares", "../.next/server/app/ares.html"],
+  ["/evidence", "../.next/server/app/evidence.html"],
+  ["/changes", "../.next/server/app/changes.html"],
   [
     "/work/ares-approval-case",
     "../.next/server/app/work/ares-approval-case.html",
@@ -873,4 +875,24 @@ test("Ares capability page separates inherited, owned and unadmitted features", 
   assert.match(ares, /end-to-end free-route physical-send enforcement/i);
   assert.match(home, /href="\/ares"/);
   assert.ok(sitemap().some(x => x.url === "https://recursiveintell.com/ares"));
+});
+
+test("public evidence and change history render source-linked bounded facts", async () => {
+  const [evidence, changes, home] = await Promise.all([
+    readBuiltPage("/evidence"), readBuiltPage("/changes"), readBuiltPage("/"),
+  ]);
+  assert.match(evidence, /Show the source/);
+  assert.match(evidence, /NVIDIA PAIR: persisted endorsement notifications/);
+  assert.match(evidence, /https:\/\/github\.com\/NVIDIA\/Personal-AI-Router\/pull\/62/);
+  assert.match(evidence, /does not imply NVIDIA employment/i);
+  assert.match(changes, /Ares installer restored to canonical source/);
+  assert.match(changes, /bounded tranche/i);
+  assert.match(changes, /not a comprehensive automated changelog/i);
+  for (const path of ["/evidence", "/changes"]) {
+    assert.ok(home.includes(`href="${path}"`));
+    assert.ok(sitemap().some(entry => entry.url === `https://recursiveintell.com${path}`));
+  }
+  for (const html of [evidence, changes]) {
+    assert.doesNotMatch(html, /https:\/\/github\.com\/RecursiveIntell\/(?:ClaimLedger|recursiveintell-operations-journal|agent-integration-kit)(?:\/|")/);
+  }
 });
