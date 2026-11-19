@@ -147,12 +147,11 @@ with tempfile.TemporaryDirectory() as temp:
     import subprocess
     subprocess.run = lambda *args, **kwargs: types.SimpleNamespace(stdout='fixture tool version')
     exec(program, {})
-    assert events[0][:2] == ['cargo','install'], events
-    assert events[1] == 'base-sync', events
-    assert '--extra' in events[2] and 'wake' in events[2] and 'voice' in events[2], events
-    assert 'mcp==2.2.0' in events[3] and '--no-deps' in events[3], events
-    assert events[5][:3] == ['uv','pip','install'], events
-    assert '-c' in events[6] and events[7] == 'sealed-inactive', events
+    assert events[0] == 'base-sync', events
+    assert '--extra' in events[1] and 'wake' in events[1] and 'voice' in events[1], events
+    assert 'mcp==2.2.0' in events[2] and '--no-deps' in events[2], events
+    assert events[4][:3] == ['uv','pip','install'], events
+    assert '-c' in events[5] and events[6] == 'sealed-inactive', events
     import json
     receipt = json.loads((root/'install-receipts/latest.json').read_text())
     assert len(receipt['native_wheels']) == 3 and receipt['sdk_dependencies'] == ['mcp==2.2.0','mcp-types==2.2.0'], receipt
@@ -165,7 +164,7 @@ with tempfile.TemporaryDirectory() as temp:
         assert 'immutable release was preserved' in str(error), error
     else:
         raise AssertionError('Existing incomplete release was not rejected')
-    assert events == [['cargo','install','--list','--root',str(root/'enhancements')]], events
+    assert events == [], events
 `], { input: buildProgram, encoding: "utf8" });
   assert.equal(result.status, 0, result.stderr);
 });
