@@ -13,6 +13,10 @@
 
 Do not reintroduce the retired Vinext/Sites Worker build, `.openai/hosting.json`, D1 example, or Cloudflare binding stubs unless an explicitly authorized migration establishes a new dual-target contract with independent build and test gates.
 
+## Ares installer source integrity
+
+The website-served `public/ares/install.sh` must match the exact Ares revision declared in `public/ares/source-lock.json`. Do not use a moving `main` reference as a purported content identity. CI verifies this mirror against the immutable canonical source; separately verify full native installation and rollback before publishing a new installer recipe. Keep `public/ares/README.md` and `/install` wording consistent with Python 3.14, pinned source revisions and optional daemon activation.
+
 ## Required invariants
 
 1. `/` remains business-first.
