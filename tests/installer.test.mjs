@@ -12,19 +12,19 @@ const source = readFileSync(installer, "utf8");
 
 test("published Ares installer is the reviewed source artifact", () => {
   const contract = JSON.parse(readFileSync(new URL("../public/ares/source-lock.json", import.meta.url), "utf8"));
-  const blobSha = createHash("sha1").update(`blob ${Buffer.byteLength(source, "utf8")}\\0`).update(source).digest("hex");
+  const blobSha = createHash("sha1").update(`blob ${Buffer.byteLength(source, "utf8")}\0`).update(source).digest("hex");
   assert.equal(blobSha, contract.source_git_blob_sha, "Website installer no longer matches pinned Ares source; update source lock and copy together");
   assert.match(contract.source_commit, /^[0-9a-f]{40}$/);
   assert.equal(contract.source_repository, "RecursiveIntell/Ares");
-  assert.match(source, /UV_PIN="0\\.12\\.24"/);
-  assert.match(source, /uv python install 3\\.14/);
+  assert.match(source, /UV_PIN="0\.12\.24"/);
+  assert.match(source, /uv python install 3\.14/);
   assert.match(source, /RELEASE_MANIFEST_PATH=/);
   assert.match(source, /checkout_exact Libraries/);
   assert.match(source, /verify_manifest_submodule/);
 });
 
 test("native build jobs follow the canonical conservative default", () => {
-  const line = source.match(/^export CARGO_BUILD_JOBS="\\$\\{CARGO_BUILD_JOBS:-2\\}"$/m)?.[0];
+  const line = source.match(/^export CARGO_BUILD_JOBS="\$\{CARGO_BUILD_JOBS:-2\}"$/m)?.[0];
   assert.ok(line, "Expected manifest-qualified source's conservative build-jobs default");
   for (const [override, expected] of [[undefined, "2"], ["4", "4"], ["8", "8"]]) {
     const env = { ...process.env };
@@ -143,7 +143,9 @@ with tempfile.TemporaryDirectory() as temp:
     for name in ['context-governor','semantic-memory-mcp','claim-ledger-mcp','agent-graph-mcp','agent-graph-mcpd','agent-graph-operator','cea-graph','pilot-bridge']:
         (binaries/name).write_bytes(b'fixture-tool')
     (root/'installer-sources'/'agent-memory-kits').mkdir(parents=True)
-    os.environ.update(ARES_HOME=temp, ARES_INSTALL_EXTRAS='true', ARES_INSTALL_DESKTOP='true', ARES_INSTALL_WHEELS=temp, ARES_INSTALL_SOURCE=temp, ARES_INSTALL_RECIPE_VERSION='fixture')
+    os.environ.update(ARES_HOME=temp, ARES_INSTALL_EXTRAS='true', ARES_INSTALL_DESKTOP='true', ARES_INSTALL_WHEELS=temp, ARES_INSTALL_SOURCE=temp, ARES_INSTALL_RECIPE_VERSION='fixture', RELEASE_MANIFEST_SHA256='f'*64, ARES_RELEASE_LIBRARIES_SHA='a'*40, ARES_RELEASE_KITS_SHA='b'*40, ARES_RELEASE_GRAPH_SHA='c'*40, ARES_RELEASE_MCP_SHA='d'*40, ARES_RECURSIVE_AGENT_MODE='disabled', ARES_RECURSIVE_AGENT_SOURCE_SHA='', ARES_PYTHON_RUNTIME='3.14', ARES_MANIFEST_PYTHON='3.14', ARES_RUST_TOOLCHAIN='stable')
+    import subprocess
+    subprocess.run = lambda *args, **kwargs: types.SimpleNamespace(stdout='fixture tool version')
     exec(program, {})
     assert events[0][:2] == ['cargo','install'], events
     assert events[1] == 'base-sync', events
