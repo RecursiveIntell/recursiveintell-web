@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "source_repository": "RecursiveIntell/Ares",
-  "source_commit": "4318fe506c60be78e868403d3d9a83b1e704ce33",
+  "source_commit": "833de24362196ffe545a9f03642dfd3696060694",
   "source_path": "install.sh",
-  "source_git_blob_sha": "486ab291ae00d9683642088cdf29cf838a4e5a3c",
+  "source_git_blob_sha": "60440b2a92d21d668923f1f07ffc5d8d4b65c9d6",
   "observed_utc": "2026-11-19",
-  "publication_note": "Website script is an exact snapshot of the named Ares commit; source HEAD and live deployment may differ. Review current Ares source and manifest before promoting."
+  "publication_note": "Website script mirrors proposed Ares PR #264. This exact source is not yet merged into Ares main; do not promote until its source revision is accepted and website CI plus disposable install have been qualified."
 }
