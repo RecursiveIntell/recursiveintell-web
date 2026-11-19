@@ -21,7 +21,7 @@ export const contact = {
 
 export const businessNavigation = [
   { href: "/work", label: "Work" },
-  { href: "/mnemes", label: "Systems" },
+  { href: "/systems", label: "Systems" },
   { href: "/portfolio", label: "Library" },
   { href: "/workshop", label: "Workshop" },
   { href: "/about", label: "About" },

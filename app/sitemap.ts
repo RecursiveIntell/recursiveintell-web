@@ -6,6 +6,8 @@ const routes = [
   "/josh",
   "/services",
   "/work",
+  "/systems",
+  "/ares",
   "/workshop",
   "/work/ares-runtime-case",
   "/work/ares-approval-case",
@@ -26,7 +28,6 @@ const routes = [
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route, index) => ({
     url: `${siteUrl}${route}`,
-    lastModified: new Date("2026-10-02"),
     changeFrequency: index === 0 ? "weekly" : "monthly",
     priority:
       index === 0

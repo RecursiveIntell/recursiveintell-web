@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "observed_date": "2026-11-18",
+  "source": "GitHub RecursiveIntell connected repository inventory, public visibility only; dated snapshot, not complete evidence of ownership or product readiness",
+  "total_public_repositories": 47,
+  "repositories": [
+    {
+      "name": "agent-graph-mcp",
+      "url": "https://github.com/RecursiveIntell/agent-graph-mcp",
+      "archived": false
+    },
+    {
+      "name": "agent-memory-kits",
+      "url": "https://github.com/RecursiveIntell/agent-memory-kits",
+      "archived": false
+    },
+    {
+      "name": "Aphelion",
+      "url": "https://github.com/RecursiveIntell/Aphelion",
+      "archived": false
+    },
+    {
+      "name": "Ares",
+      "url": "https://github.com/RecursiveIntell/Ares",
+      "archived": false
+    },
+    {
+      "name": "AresParts-",
+      "url": "https://github.com/RecursiveIntell/AresParts-",
+      "archived": false
+    },
+    {
+      "name": "awesome-mcp-servers",
+      "url": "https://github.com/RecursiveIntell/awesome-mcp-servers",
+      "archived": false
+    },
+    {
+      "name": "bitemporal-runtime",
+      "url": "https://github.com/RecursiveIntell/bitemporal-runtime",
+      "archived": false
+    },
+    {
+      "name": "boundary-compiler",
+      "url": "https://github.com/RecursiveIntell/boundary-compiler",
+      "archived": false
+    },
+    {
+      "name": "ClawGuard",
+      "url": "https://github.com/RecursiveIntell/ClawGuard",
+      "archived": false
+    },
+    {
+      "name": "codex-openai",
+      "url": "https://github.com/RecursiveIntell/codex-openai",
+      "archived": false
+    },
+    {
+      "name": "cpu-router-cargo-automation",
+      "url": "https://github.com/RecursiveIntell/cpu-router-cargo-automation",
+      "archived": false
+    },
+    {
+      "name": "esp32-max-lm-training",
+      "url": "https://github.com/RecursiveIntell/esp32-max-lm-training",
+      "archived": false
+    },
+    {
+      "name": "esp32-reusable",
+      "url": "https://github.com/RecursiveIntell/esp32-reusable",
+      "archived": false
+    },
+    {
+      "name": "esp32-s3-lstm-proof",
+      "url": "https://github.com/RecursiveIntell/esp32-s3-lstm-proof",
+      "archived": false
+    },
+    {
+      "name": "esp32-sensor-hub",
+      "url": "https://github.com/RecursiveIntell/esp32-sensor-hub",
+      "archived": false
+    },
+    {
+      "name": "esp32-sentinel",
+      "url": "https://github.com/RecursiveIntell/esp32-sentinel",
+      "archived": false
+    },
+    {
+      "name": "esp32s3-edge-ai",
+      "url": "https://github.com/RecursiveIntell/esp32s3-edge-ai",
+      "archived": false
+    },
+    {
+      "name": "fib-quant",
+      "url": "https://github.com/RecursiveIntell/fib-quant",
+      "archived": false
+    },
+    {
+      "name": "forge-memory-bridge",
+      "url": "https://github.com/RecursiveIntell/forge-memory-bridge",
+      "archived": false
+    },
+    {
+      "name": "Gloss",
+      "url": "https://github.com/RecursiveIntell/Gloss",
+      "archived": false
+    },
+    {
+      "name": "hermes-official-plugins",
+      "url": "https://github.com/RecursiveIntell/hermes-official-plugins",
+      "archived": false
+    },
+    {
+      "name": "Hootie",
+      "url": "https://github.com/RecursiveIntell/Hootie",
+      "archived": false
+    },
+    {
+      "name": "kv-lossless-11x",
+      "url": "https://github.com/RecursiveIntell/kv-lossless-11x",
+      "archived": true
+    },
+    {
+      "name": "Libraries",
+      "url": "https://github.com/RecursiveIntell/Libraries",
+      "archived": false
+    },
+    {
+      "name": "llama.cpp",
+      "url": "https://github.com/RecursiveIntell/llama.cpp",
+      "archived": false
+    },
+    {
+      "name": "llm-pipeline",
+      "url": "https://github.com/RecursiveIntell/llm-pipeline",
+      "archived": false
+    },
+    {
+      "name": "local-llm-backend",
+      "url": "https://github.com/RecursiveIntell/local-llm-backend",
+      "archived": false
+    },
+    {
+      "name": "mnemes",
+      "url": "https://github.com/RecursiveIntell/mnemes",
+      "archived": false
+    },
+    {
+      "name": "pal",
+      "url": "https://github.com/RecursiveIntell/pal",
+      "archived": false
+    },
+    {
+      "name": "parameter-golf",
+      "url": "https://github.com/RecursiveIntell/parameter-golf",
+      "archived": false
+    },
+    {
+      "name": "Personal-AI-Router",
+      "url": "https://github.com/RecursiveIntell/Personal-AI-Router",
+      "archived": false
+    },
+    {
+      "name": "PortalDoctor",
+      "url": "https://github.com/RecursiveIntell/PortalDoctor",
+      "archived": false
+    },
+    {
+      "name": "proveKV",
+      "url": "https://github.com/RecursiveIntell/proveKV",
+      "archived": false
+    },
+    {
+      "name": "recursive-agent",
+      "url": "https://github.com/RecursiveIntell/recursive-agent",
+      "archived": false
+    },
+    {
+      "name": "Recursive-Linux",
+      "url": "https://github.com/RecursiveIntell/Recursive-Linux",
+      "archived": false
+    },
+    {
+      "name": "recursiveintell-web",
+      "url": "https://github.com/RecursiveIntell/recursiveintell-web",
+      "archived": false
+    },
+    {
+      "name": "ri-agent-graph",
+      "url": "https://github.com/RecursiveIntell/ri-agent-graph",
+      "archived": false
+    },
+    {
+      "name": "Rip",
+      "url": "https://github.com/RecursiveIntell/Rip",
+      "archived": false
+    },
+    {
+      "name": "semantic-memory",
+      "url": "https://github.com/RecursiveIntell/semantic-memory",
+      "archived": true
+    },
+    {
+      "name": "semantic-memory-forge",
+      "url": "https://github.com/RecursiveIntell/semantic-memory-forge",
+      "archived": false
+    },
+    {
+      "name": "semantic-memory-mcp",
+      "url": "https://github.com/RecursiveIntell/semantic-memory-mcp",
+      "archived": false
+    },
+    {
+      "name": "semantic-memory-plugin",
+      "url": "https://github.com/RecursiveIntell/semantic-memory-plugin",
+      "archived": false
+    },
+    {
+      "name": "Server-Monitor",
+      "url": "https://github.com/RecursiveIntell/Server-Monitor",
+      "archived": false
+    },
+    {
+      "name": "StableMaster",
+      "url": "https://github.com/RecursiveIntell/StableMaster",
+      "archived": false
+    },
+    {
+      "name": "tiered-edge-ai",
+      "url": "https://github.com/RecursiveIntell/tiered-edge-ai",
+      "archived": false
+    },
+    {
+      "name": "turbo-quant",
+      "url": "https://github.com/RecursiveIntell/turbo-quant",
+      "archived": false
+    },
+    {
+      "name": "VisionForge",
+      "url": "https://github.com/RecursiveIntell/VisionForge",
+      "archived": false
+    }
+  ]
+}

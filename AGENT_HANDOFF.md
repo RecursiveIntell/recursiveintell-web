@@ -6,6 +6,8 @@
 - Default public identity: RecursiveIntell
 - Mnemes canonical home: `/mnemes`
 - Business-card conversion route: `/josh`
+- Public systems ownership route: `/systems` (not the existing Mnemes `/platform` route)
+- Public portfolio SSR owners: `app/data/public-highlights.ts` and `app/data/public-repositories.json`, filtered to public GitHub repositories only
 - Public contact owner: `app/config/site.ts`
 - Public data projections: `app/data/published-crates.json` and `app/data/library-catalog-public.json`
 
@@ -18,10 +20,11 @@ Do not reintroduce the retired Vinext/Sites Worker build, `.openai/hosting.json`
 3. `/mnemes` preserves the Mnemes product story and `SoftwareApplication` metadata.
 4. Existing Mnemes URLs remain stable.
 5. No duplicate Mnemes homepage or second contact configuration is created.
-6. Portfolio API query refusal and public allowlist tests continue to pass.
-7. No customer, testimonial, revenue, funding, compliance, certification, production-readiness, security, or benchmark-superiority claim is added without new dated evidence.
-8. Teknium's public post may be described only within the boundary in `app/data/business.ts`.
-9. Analytics must not collect inquiry text, email content, phone numbers, or other free-form PII. No analytics provider is implemented in the current source.
+6. Portfolio API query refusal and public allowlist tests continue to pass. The static portfolio must remain visible without client JavaScript and must never leak private repository URLs.
+7. Never stamp an invented shared `lastModified` date across unrelated sitemap entries. A date requires page-specific evidence; omitting the field is valid.
+8. No customer, testimonial, revenue, funding, compliance, certification, production-readiness, security, or benchmark-superiority claim is added without new dated evidence.
+9. Teknium's public post may be described only within the boundary in `app/data/business.ts`.
+10. Analytics must not collect inquiry text, email content, phone numbers, or other free-form PII. No analytics provider is implemented in the current source.
 
 ## Validation
 

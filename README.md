@@ -15,11 +15,12 @@ Public website for Josh Stevenson and RecursiveIntell. The site has two explicit
 - `/josh` — mobile-first business-card landing page
 - `/services` — bounded service offers and technical consulting
 - `/work` — artifact-grounded engineering cases
+- `/systems` — source-linked architecture, canonical owners and admission states
 - `/about` — Josh Stevenson and RecursiveIntell
 - `/contact` — hiring, consulting and collaboration contact options
 - `/privacy` — current website data boundary
 - `/pro` — transparent proposed-product status
-- `/portfolio` — public repository and crate projection
+- `/portfolio` — server-rendered public repository snapshot and reviewed case index, enhanced by live API data
 - `/workshop` — public Circuit Workshop catalog and build guides; see [Workshop and Bridge maintenance](docs/workshop-and-bridge.md)
 - `/api/workshop` — read-only queries over the public maker-data projection
 - `/bridge` — noindex entrance to the existing owner-private Bridge, using its ChatGPT owner sign-in
@@ -41,6 +42,8 @@ The Mnemes homepage has one canonical owner at `app/components/mnemes/MnemesHome
 - `app/components/BrandMark.tsx` — inline brand mark; `scripts/sync-brand.mjs` produces its downloadable SVGs and favicon
 - `app/data/services.ts` — consulting and implementation offers
 - `app/data/work.ts` — curated public case studies and their evidence boundaries
+- `app/data/public-highlights.ts` — source-reviewed public portfolio highlights
+- `app/data/public-repositories.json` — dated public-only GitHub repository snapshot; never project private repository metadata
 - `app/components/StudioChrome.tsx` and `app/components/Studio.tsx` — current studio shell, shared sections and selected-project rendering
 - `app/components/business/*` — retained business components; follow the active page imports before treating these as the current shell
 - `app/lib/page-metadata.ts` — shared route metadata
@@ -57,7 +60,7 @@ Public repositories, packages, tests, and demonstrations show implementation sco
 
 The NVIDIA PAIR contribution links merged upstream PR #62 and its September 23, 2026 merge record. It does not imply NVIDIA employment, sponsorship, or partnership. The Teknium note links the original public highlight, Josh's later Ares update, and the repost feed. Social recognition is an observed interaction, with no invented exact repost date or customer/endorsement claim.
 
-The October 2026 refresh evidence, changed claims, and validation receipt are in [docs/site-refresh-20261001](docs/site-refresh-20261001/VALIDATION_RECEIPT.md). The recursive sculpture is conceptual brand artwork, not a product photograph or architecture diagram.
+The November 2026 source-backed portfolio adds a static, crawlable public-only repository index and architecture map. Its 2026-11-18 snapshot is historical and must never be labeled live or complete for all accessible private repositories. The October 2026 refresh evidence, changed claims, and validation receipt are in [docs/site-refresh-20261001](docs/site-refresh-20261001/VALIDATION_RECEIPT.md). The recursive sculpture is conceptual brand artwork, not a product photograph or architecture diagram.
 
 To regenerate the brand SVGs after changing their canonical geometry:
 

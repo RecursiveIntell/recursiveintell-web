@@ -32,6 +32,10 @@ export const achievements = [
         label: "Read the merged contribution",
         href: nvidiaContribution.pullRequest,
       },
+      {
+        label: "NVIDIA release-note acknowledgment",
+        href: "https://docs.nvidia.com/local-ai/nvpair/release-notes/",
+      },
     ],
   },
   {
