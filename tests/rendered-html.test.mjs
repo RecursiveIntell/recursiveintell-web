@@ -28,6 +28,7 @@ const builtPagePath = new Map([
   ["/services", "../.next/server/app/services.html"],
   ["/work", "../.next/server/app/work.html"],
   ["/systems", "../.next/server/app/systems.html"],
+  ["/ares", "../.next/server/app/ares.html"],
   [
     "/work/ares-approval-case",
     "../.next/server/app/work/ares-approval-case.html",
@@ -862,4 +863,14 @@ test("renders source-backed portfolio and system owner map without client API", 
   assert.match(home, /href="\/systems"/);
   assert.ok(sitemap().some(x => x.url === "https://recursiveintell.com/systems"));
   assert.ok(sitemap().every(x => x.lastModified === undefined), "Do not invent sitemap update dates for unrelated pages");
+});
+
+test("Ares capability page separates inherited, owned and unadmitted features", async () => {
+  const [ares, home] = await Promise.all([readBuiltPage("/ares"), readBuiltPage("/")]);
+  assert.match(ares, /independent RecursiveIntell downstream distribution of Hermes Agent/);
+  assert.match(ares, /Automatic context continuity/);
+  assert.match(ares, /Bounded recursive improvement research/);
+  assert.match(ares, /end-to-end free-route physical-send enforcement/i);
+  assert.match(home, /href="\/ares"/);
+  assert.ok(sitemap().some(x => x.url === "https://recursiveintell.com/ares"));
 });
