@@ -29,7 +29,7 @@ export const workCases = [
     built:
       "An isolated Ares launcher and runtime control plane with immutable releases, atomic runtime selection, doctor/status checks, rollback, and opt-in RecursiveIntell integrations.",
     evidence:
-      "Source reviewed October 1, 2026 at Ares revision fadd47d7330445969cd99863e736c9b5dbfced54. The repository documents inherited Hermes surfaces, Ares-owned lifecycle code, gated execution, and external services separately. The September integration case remains available as a dated historical snapshot.",
+      "The October 1 source review remains a dated case study. A separate November 16, 2026 source review at Ares revision 4318fe506c60be78e868403d3d9a83b1e704ce33 identified Ares-owned continuity, collaboration, authority and managed-runtime modules alongside inherited Hermes and separately gated Rust integrations. Neither source inspection establishes a completed install or production acceptance.",
     boundary:
       "Ares is an independent RecursiveIntell downstream distribution, not an official Nous Research product. Source presence does not establish installed activation, every provider/platform combination, or production fitness.",
     source: "https://github.com/RecursiveIntell/Ares",

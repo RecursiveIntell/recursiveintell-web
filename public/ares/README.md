@@ -6,9 +6,9 @@ Run this in a local terminal:
 curl -fsSL https://recursiveintell.com/ares/install.sh | bash
 ```
 
-The installer fetches the latest `RecursiveIntell/Ares` main branch, provisions the build tools and managed Python/Rust, builds the managed Ares runtime, Desktop, voice dependencies, and RecursiveIntell enhancements. It then opens Ares's local provider/model wizard. Enter the selected provider's API key or use a supported OAuth flow there. Your credentials never pass through this website. An OpenAI API key is optional.
+The installer fetches the latest `RecursiveIntell/Ares` main branch, provisions the reviewed `uv` bootstrap, Python 3.14, manifest-qualified Rust toolchain and native build tools, builds the managed Ares runtime, Desktop, voice dependencies, and RecursiveIntell enhancements. It then opens Ares's local provider/model wizard. Enter the selected provider's API key or use a supported OAuth flow there. Your credentials never pass through this website. An OpenAI API key is optional.
 
-The script is a byte-identical mirror of the canonical installer in the [`RecursiveIntell/Ares`](https://github.com/RecursiveIntell/Ares) repository (`install.sh`); update both together.
+The script is a reviewed, byte-identical snapshot of the canonical [`RecursiveIntell/Ares/install.sh`](https://github.com/RecursiveIntell/Ares/blob/main/install.sh). The exact Ares source commit and Git blob identity are in [`source-lock.json`](source-lock.json). Website publication CI checks the bytes against that immutable source revision. Do not assume that the published website script or dependency graph automatically matches a newer Ares `main` until the lock and mirror are explicitly refreshed.
 
 Open a new terminal after installation:
 
@@ -22,25 +22,28 @@ Use Linux or macOS. Windows users can use WSL2 with `--no-desktop --no-gateway`.
 
 ## Included defaults
 
+The full enhancement build first validates `Ares/scripts/ci/release-manifest.json`, checks out exact source revisions for Libraries, memory kits and Agent Graph, verifies the bound MCP submodule, and records source/toolchain identities in the installation receipt. When these cannot be proven, installation stops rather than silently substituting a different package. The current conservative `CARGO_BUILD_JOBS` default is 2 unless overridden for the operator's available RAM and CPU.
+
+
 | Component | Setup |
 | --- | --- |
 | Ares runtime | Isolated `~/.ares` home, managed releases, `ares` launcher |
 | Desktop and voice | Desktop build plus voice/wake dependencies |
 | Context Governor | Current Rust CLI, configured strict engine, Ares-owned key initialization |
-| Local semantic memory | Current published MCP package with its packaged lockfile; local store under `~/.ares/memory` |
+| Local semantic memory | Manifest-bound `semantic-memory-mcp` source from the pinned Libraries submodule; local store under `~/.ares/memory` |
 | ClaimLedger | Local MCP and ledger under `~/.ares/claim-ledger` |
 | Native enhancements | `llm-pipeline`, `agent-graph`, and `poly-kv` Python bindings, verified before activation |
 | Agent Graph | Proxy and daemon binaries installed; remote execution awaits its provider/daemon setup below |
 | CEA and Pilot Bridge | Installed CLIs; their jobs require your own workspace/database inputs |
 | Memory kit and optional skills | Current kit helpers and skills installed; unmodified installer-owned skills refresh on update while customized copies are preserved |
-| Recursive Agent plugin | Plugin payload installed by default and a checkout auto-provisioned under `~/.ares/recursive-agent-src`; the Recursive Agent daemon remains operator-managed and is never installed or started |
+| Recursive Agent plugin | Plugin payload installed by default and a manifest-pinned checkout under `~/.ares/installer-sources/recursive-agent`; the Recursive Agent daemon remains operator-managed and is never installed or started |
 | Linux gateway | Separate `ares-full-gateway.service` starts after the wizard on a host with a working user systemd session |
 
 The configured Context Governor engine uses the current Rust CLI. Ares documents a separate legacy PyO3 compressor; its current source does not build against the current Governor API, so this installer does not select or ship that legacy lane.
 
 Rust binaries and kit helpers are bundled into each inactive Ares release before it is activated. The agent uses the tools in its selected release. Mutable source/build caches stay separate.
 
-The recipe installs the published MCP SDK and wire-types packages at `2.2.0` after Ares's base locked dependencies. This recorded override fixes valid boolean tool sub-schemas rejected by the older SDK in Ares's lock. It preserves the remaining locked dependencies and is checked before activation.
+The recipe also installs the published MCP SDK and wire-types packages at `2.2.0` after Ares's base locked dependencies. This recorded override fixes valid boolean tool sub-schemas rejected by the older SDK in Ares's lock. It preserves the remaining locked dependencies and is checked before activation.
 
 ## Options and unattended setup
 
