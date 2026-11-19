@@ -1,0 +1,32 @@
+name: Website source and publish gates
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  website:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Check exact installer provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          source_sha="$(node -p "JSON.parse(require('fs').readFileSync('public/ares/source-lock.json','utf8')).source_commit")"
+          curl --fail --silent --show-error --location --retry 3 "https://raw.githubusercontent.com/RecursiveIntell/Ares/${source_sha}/install.sh" -o /tmp/ares-upstream-install.sh
+          cmp public/ares/install.sh /tmp/ares-upstream-install.sh
+          bash -n public/ares/install.sh
+      - run: npm ci
+      - run: npm run lint
+      - run: npx tsc --noEmit
+      - run: npm test
+      - run: npm run validate:artifact
