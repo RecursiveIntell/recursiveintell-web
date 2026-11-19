@@ -25,12 +25,12 @@ test("published Ares installer is the reviewed source artifact", () => {
 
 test("published installer guide tracks manifest and source ownership", () => {
   const guide = readFileSync(new URL("../public/ares/README.md", import.meta.url), "utf8");
-  assert.match(guide, /source-lock\\.json/);
-  assert.match(guide, /Python 3\\.14/);
+  assert.match(guide, /source-lock\.json/);
+  assert.match(guide, /Python 3\.14/);
   assert.match(guide, /manifest-qualified/);
   assert.match(guide, /Libraries submodule/);
   assert.doesNotMatch(guide, /Current published MCP package with its packaged lockfile/);
-  assert.doesNotMatch(guide, /\\.ares\\/recursive-agent-src/);
+  assert.doesNotMatch(guide, /\.ares\/recursive-agent-src/);
 });
 
 test("native build jobs follow the canonical conservative default", () => {
