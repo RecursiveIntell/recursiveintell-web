@@ -35,8 +35,24 @@ export default function EvidencePage() {
           ))}
         </div>
       </section>
+      <section className="studio-section studio-shell" aria-labelledby="classification-research">
+        <div className="studio-section-heading">
+          <div>
+            <p className="studio-eyebrow">02 / OWNER-RECORDED RESEARCH</p>
+            <h2 id="classification-research">Experimental records.<br /><em>Unverified outcomes.</em></h2>
+          </div>
+          <p>Research artifacts can demonstrate a controlled observation without becoming independently validated credentials. Original source custody and verified decisions are separate gates.</p>
+        </div>
+        <article className="ri-architecture-card">
+          <p className="studio-eyebrow">November 21, 2026 / ADVISORY CLASSIFICATION CORPUS</p>
+          <h3>8,069 hashed classification sidecars inspected</h3>
+          <p>A private local experiment produced 8,069 parseable, distinct advisory/candidate-only records. A separately recorded count of 9,861 remains unreconciled; no label accuracy or agent decision improvement is established.</p>
+          <p><strong>Evidence boundary:</strong> The original ZIP is not public. This source-linked aggregate inspection is not an independently reproducible benchmark, a published receipt corpus, or proof that Ares uses these decisions live.</p>
+          <a className="studio-text-link" href="https://github.com/RecursiveIntell/recursiveintell-web/blob/main/docs/research/2026-11-21-classification-receipts.md" target="_blank" rel="noreferrer">Inspect the dated research methodology and limitations ↗</a>
+        </article>
+      </section>
       <section className="studio-section studio-shell">
-        <p className="studio-eyebrow">02 / EVIDENCE RULE</p>
+        <p className="studio-eyebrow">03 / EVIDENCE RULE</p>
         <h2>A receipt is evidence of an observation, not proof of every claim.</h2>
         <p>Implementation, tests, runtime activation, security and commercial fitness have distinct acceptance gates. The source-linked status of one area does not promote a related experimental subsystem.</p>
         <Link className="studio-text-link" href="/changes">See dated engineering changes ↗</Link>
