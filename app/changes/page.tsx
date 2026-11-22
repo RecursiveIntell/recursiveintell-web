@@ -35,7 +35,7 @@ export default function ChangesPage() {
   return (
     <main className="studio-page">
       <StudioHeader />
-      <StudioIntro label="PUBLIC HISTORY / SELECTED EVENTS" title="What changed." accent="With a revision attached." body="A curated timeline of source-grounded merged changes, not a comprehensive automated changelog or proof of production deployment. Dates reflect GitHub merge records; older events remain historical." />
+      <StudioIntro label="PUBLIC HISTORY / SELECTED EVENTS" title="What changed." accent="With a revision attached." body="A curated timeline of accepted changes, upstream reviews and independent coverage—not a comprehensive changelog or proof of production deployment. Dates reflect each source event; publication and review are not merges." />
       <section className="studio-section studio-shell">
         <div className="ri-architecture-grid">
           {timeline.map((event) => (
@@ -44,14 +44,14 @@ export default function ChangesPage() {
               <h3>{event.title}</h3>
               <p>{event.scope}</p>
               <div><strong>Limit of evidence</strong><p>{event.boundary}</p></div>
-              <a className="studio-text-link" href={event.source} target="_blank" rel="noreferrer">Inspect merged change ↗</a>
-              <small>Revision: <code>{event.revision.slice(0, 12)}</code></small>
+              <a className="studio-text-link" href={event.source} target="_blank" rel="noreferrer">Inspect original source ↗</a>
+              {event.revision && <small>Reviewed or merged revision: <code>{event.revision.slice(0, 12)}</code></small>}
             </article>
           ))}
         </div>
       </section>
       <section className="studio-section studio-shell">
-        <p>This list is manually curated to avoid treating every upstream fork update, open draft, or documentation change as a shipped feature. Use the <Link href="/portfolio">source repository directory</Link> for broader exploration.</p>
+        <p>This list is manually curated; open drafts, review comments and media mentions are explicitly not shipped features. Use the <Link href="/portfolio">source repository directory</Link> for broader exploration.</p>
       </section>
       <StudioCTA />
       <StudioFooter />
