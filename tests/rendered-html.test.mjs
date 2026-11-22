@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import {
@@ -26,6 +26,7 @@ const builtPagePath = new Map([
   ["/", "../.next/server/app/index.html"],
   ["/mnemes", "../.next/server/app/mnemes.html"],
   ["/services", "../.next/server/app/services.html"],
+  ["/contact", "../.next/server/app/contact.html"],
   ["/work", "../.next/server/app/work.html"],
   ["/systems", "../.next/server/app/systems.html"],
   ["/ares", "../.next/server/app/ares.html"],
@@ -229,7 +230,7 @@ test("renders the engineer profile with inspectable work and complete social met
     /does not establish factual truth, production fitness, or model-level prompt-injection resistance/i,
   );
   assert.match(html, /\(256\) 470-2816/);
-  assert.match(html, /j\.stevenson\.cs@gmail\.com/);
+  assert.match(html, /josh@recursiveintell\.com/);
   assert.match(
     html,
     /rel="canonical" href="https:\/\/recursiveintell\.com\/josh"/i,
@@ -941,4 +942,34 @@ test("public credentials distinguish accepted merges from external mentions and 
   for (const html of [evidence, home, josh]) {
     assert.doesNotMatch(html, /NVIDIA partner|NVIDIA employee|independently validated TurboQuant speedup/i);
   }
+});
+
+test("public contact address is canonical across rendered pages and source files", async () => {
+  const destination = "josh@recursiveintell.com";
+  // Keep obsolete bytes out of public sources, including docs and test fixtures.
+  const previous = ["j.stevenson.cs", "gmail.com"].join("@");
+  const pages = await Promise.all(
+    [...builtPagePath.keys()].map((path) => readBuiltPage(path)),
+  );
+  for (const html of pages) {
+    assert.ok(!html.includes(previous), "A rendered page still contains the old Gmail address");
+  }
+  for (const path of ["/", "/josh", "/contact", "/mnemes", "/install", "/node", "/services"]) {
+    assert.ok((await readBuiltPage(path)).includes(destination), `${path} missing the new contact address`);
+  }
+  const root = new URL("../", import.meta.url);
+  const allowedExtensions = /\.(?:ts|tsx|js|jsx|json|css|md|mdx|mjs|cjs|html|svg|txt|sh|yml|yaml|toml)$/i;
+  const skip = new Set([".git", ".next", "node_modules", ".vinext"]);
+  async function scan(dir) {
+    for (const entry of await readdir(dir, { withFileTypes: true })) {
+      if (skip.has(entry.name)) continue;
+      const path = new URL(entry.name + (entry.isDirectory() ? "/" : ""), dir);
+      if (entry.isDirectory()) await scan(path);
+      else if (entry.isFile() && allowedExtensions.test(entry.name)) {
+        const body = await readFile(path, "utf8");
+        assert.ok(!body.includes(previous), `Legacy email still exists in ${path.pathname}`);
+      }
+    }
+  }
+  await scan(root);
 });
