@@ -15,6 +15,7 @@ const timeline = [
     key: item.id,
     date: item.date,
     title: item.title,
+    status: item.status,
     scope: item.summary,
     boundary: item.boundary,
     source: item.source,
@@ -24,6 +25,7 @@ const timeline = [
     key: item.revision,
     date: item.date,
     title: item.title,
+    status: "Merged website source",
     scope: item.scope,
     boundary: item.boundary,
     source: item.source,
@@ -42,6 +44,7 @@ export default function ChangesPage() {
             <article key={event.key} className="ri-architecture-card">
               <p className="studio-eyebrow">{event.date}</p>
               <h3>{event.title}</h3>
+              <p><strong>State:</strong> {event.status}</p>
               <p>{event.scope}</p>
               <div><strong>Limit of evidence</strong><p>{event.boundary}</p></div>
               <a className="studio-text-link" href={event.source} target="_blank" rel="noreferrer">Inspect original source ↗</a>
