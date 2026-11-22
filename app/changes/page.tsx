@@ -35,7 +35,7 @@ export default function ChangesPage() {
   return (
     <main className="studio-page">
       <StudioHeader />
-      <StudioIntro label="PUBLIC HISTORY / SELECTED EVENTS" title="What changed." accent="With a revision attached." body="A curated timeline of accepted changes, upstream reviews and independent coverage—not a comprehensive changelog or proof of production deployment. Dates reflect each source event; publication and review are not merges." />
+      <StudioIntro label="PUBLIC HISTORY / SELECTED EVENTS" title="What changed." accent="With a revision attached." body="A curated timeline of accepted changes, upstream reviews and independent coverage—not a comprehensive automated changelog or proof of production deployment. Dates reflect each source event; publication and review are not merges." />
       <section className="studio-section studio-shell">
         <div className="ri-architecture-grid">
           {timeline.map((event) => (
