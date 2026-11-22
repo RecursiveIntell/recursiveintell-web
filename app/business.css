@@ -1,6 +1,6 @@
 /*
  * RecursiveIntell business surface.
- * Visual authority: August 5, 2026 business-card package.
+ * Business route composition is preserved; palette is inherited from studio.css.
  * Mnemes retains its own dark observatory system in globals.css.
  */
 
@@ -38,7 +38,7 @@
   inset: 0 0 auto;
   z-index: 80;
   border-bottom: 1px solid var(--business-rule);
-  background: rgba(248, 242, 229, 0.94);
+  background: rgba(9, 12, 18, 0.96);
   backdrop-filter: blur(18px);
 }
 
@@ -105,7 +105,7 @@
   padding: 0 16px;
   border: 1px solid var(--business-ink);
   color: var(--business-cream);
-  background: var(--business-ink);
+  background: var(--studio-dark);
 }
 
 .business-header nav .business-nav-cta:hover {
@@ -126,7 +126,7 @@
   width: 19px;
   height: 2px;
   margin: 5px auto;
-  background: var(--business-ink);
+  background: var(--studio-dark);
 }
 
 .business-page a:focus-visible,
@@ -276,9 +276,9 @@
 }
 
 .business-button:hover { transform: translateY(-2px); }
-.business-button-primary { color: white; background: var(--business-ink); }
+.business-button-primary { color: white; background: var(--studio-dark); }
 .business-button-primary:hover { border-color: var(--business-purple); background: var(--business-purple); }
-.business-button-secondary { background: rgba(255, 255, 255, 0.34); }
+.business-button-secondary { background: rgba(246, 227, 193, 0.06); }
 .business-button-light { color: white; border-color: rgba(255, 255, 255, 0.5); }
 .business-button-light:hover { color: var(--business-ink); background: white; }
 
@@ -313,7 +313,7 @@
   padding: 42px 38px 34px 58px;
   overflow: hidden;
   color: white;
-  background: var(--business-ink);
+  background: var(--studio-dark);
   box-shadow: 22px 22px 0 rgba(125, 71, 166, 0.16);
 }
 
@@ -456,7 +456,7 @@
   overflow: hidden;
   border-right: 1px solid var(--business-rule);
   border-bottom: 1px solid var(--business-rule);
-  background: rgba(255, 250, 241, 0.35);
+  background: rgba(246, 227, 193, 0.06);
 }
 
 .business-service-grid article::after {
@@ -513,7 +513,7 @@
 
 .business-consulting-home {
   color: white;
-  background: var(--business-ink);
+  background: var(--studio-dark);
 }
 
 .business-consulting-layout {
@@ -589,7 +589,7 @@
   min-height: 202px;
   padding: 21px;
   border: 1px solid var(--business-rule);
-  background: rgba(255, 255, 255, 0.42);
+  background: rgba(246, 227, 193, 0.06);
 }
 
 .workflow-path article:not(:last-child)::after {
@@ -604,16 +604,16 @@
   place-items: center;
   border-radius: 50%;
   color: white;
-  background: var(--business-ink);
+  background: var(--studio-dark);
 }
 
 .workflow-path article > span { color: var(--business-pink-ink); font: 760 9px/1 var(--font-geist-mono), monospace; }
 .workflow-path article small { display: block; margin: 18px 0 11px; color: var(--business-purple); font: 760 9px/1.3 var(--font-geist-mono), monospace; letter-spacing: 0.1em; }
 .workflow-path article p { margin: 0; font-size: 13px; line-height: 1.55; }
-.workflow-boundary { display: flex; justify-content: space-between; gap: 30px; padding: 18px 21px; color: var(--business-cream); background: var(--business-ink); font-size: 11px; line-height: 1.45; }
+.workflow-boundary { display: flex; justify-content: space-between; gap: 30px; padding: 18px 21px; color: var(--business-cream); background: var(--studio-dark); font-size: 11px; line-height: 1.45; }
 .workflow-boundary strong { color: var(--business-pink); }
 
-.business-process-section { color: white; background: var(--business-ink); }
+.business-process-section { color: white; background: var(--studio-dark); }
 .business-process-section .business-index { color: var(--business-pink); }
 .business-process-section h2 { color: white; }
 .business-process-section h2 em { color: var(--business-pink); }
@@ -628,7 +628,7 @@
 .business-card-first-project,
 .engagement-boundaries,
 .work-proof-law,
-.about-studio { background: var(--business-lavender); }
+.about-studio { background: #242936; }
 
 .business-boundary-section .business-index,
 .business-card-first-project .business-index,
@@ -642,7 +642,7 @@
 .business-card-first-project .business-card-project-grid li p,
 .engagement-boundaries .business-boundary-grid > div:last-child > p,
 .work-proof-law .business-boundary-grid > div:last-child > p,
-.about-studio p { color: #45474d; }
+.about-studio p { color: var(--studio-muted); }
 
 .business-boundary-grid,
 .business-founder-grid,
@@ -674,7 +674,7 @@
   padding: 34px;
   border-left: 10px solid var(--business-purple);
   color: white;
-  background: var(--business-ink);
+  background: var(--studio-dark);
 }
 
 .business-recognition-mark {
@@ -715,7 +715,7 @@
 .business-direct-contact { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 27px; }
 .business-direct-contact a { color: white; font-size: 12px; }
 
-.business-footer { padding: 76px 0 24px; color: #ddd; background: var(--business-ink); }
+.business-footer { padding: 76px 0 24px; color: #ddd; background: var(--studio-dark); }
 .business-footer .business-wordmark { color: white; }
 .business-footer .business-wordmark strong { color: var(--business-pink); }
 .business-footer-grid { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 58px; }
@@ -783,7 +783,7 @@
 .business-card-project-grid li > span { color: var(--business-purple-ink); font: 760 10px/1.3 var(--font-geist-mono), monospace; }
 .business-card-project-grid strong { font-size: 17px; }
 .business-card-project-grid p { margin: 7px 0 0; color: var(--business-muted); line-height: 1.6; }
-.business-inline-recognition { display: grid; gap: 10px; margin: 20px 0 24px; padding: 22px; border-left: 7px solid var(--business-pink); color: white; background: var(--business-ink); }
+.business-inline-recognition { display: grid; gap: 10px; margin: 20px 0 24px; padding: 22px; border-left: 7px solid var(--business-pink); color: white; background: var(--studio-dark); }
 .business-inline-recognition span { color: var(--business-pink); font: 760 9px/1.4 var(--font-geist-mono), monospace; letter-spacing: 0.1em; }
 .business-inline-recognition strong { font-size: 18px; line-height: 1.4; }
 .conference-proof-section,
@@ -842,7 +842,7 @@
   margin-top: 22px;
   padding: 16px;
   border-left: 5px solid var(--business-pink);
-  background: rgba(255, 255, 255, 0.48);
+  background: rgba(246, 227, 193, 0.06);
 }
 .conference-proof-grid article > div strong {
   display: block;
@@ -867,7 +867,7 @@
   padding: 34px;
   border-left: 10px solid var(--business-pink);
   color: white;
-  background: var(--business-ink);
+  background: var(--studio-dark);
 }
 .conference-demo-band > div:first-child > span { color: var(--business-pink); }
 .conference-demo-band h3 { margin: 16px 0 0; color: white; font-size: 28px; line-height: 1.08; }
@@ -976,7 +976,7 @@
   .policy-copy article:last-child { grid-column: auto; }
   .card-contact-card { display: none; }
   .card-page { padding-bottom: 58px; }
-  .card-mobile-actions { position: fixed; z-index: 90; inset: auto 0 0; display: grid; grid-template-columns: repeat(3, 1fr); background: var(--business-ink); }
+  .card-mobile-actions { position: fixed; z-index: 90; inset: auto 0 0; display: grid; grid-template-columns: repeat(3, 1fr); background: var(--studio-dark); }
   .card-mobile-actions a { min-height: 52px; display: grid; place-items: center; border-right: 1px solid rgba(255, 255, 255, 0.18); color: white; font: 760 10px/1 var(--font-geist-mono), monospace; letter-spacing: 0.08em; text-decoration: none; text-transform: uppercase; }
 }
 
@@ -989,3 +989,21 @@
     animation: none !important;
   }
 }
+
+/* Shared dark-first treatment for retained privacy/pro business pages. */
+.business-page { color-scheme:dark; }
+.business-header, .business-header nav { background: var(--studio-dark); color: var(--studio-ink); }
+.business-header nav .business-nav-cta,
+.business-button-primary { background: var(--studio-accent); color: var(--studio-accent-ink); border-color: var(--studio-accent); }
+.business-header nav .business-nav-cta:hover,
+.business-button-primary:hover { background: var(--studio-brass-soft); color: var(--studio-accent-ink); }
+.business-button-secondary, .business-button-light { background: var(--studio-white); color: var(--studio-ink); }
+.business-button-light:hover { background: #242c39; color: var(--studio-ink); }
+.business-footer { background: var(--studio-dark); color: var(--studio-ink); }
+.business-footer .business-wordmark { color: var(--studio-ink); }
+.business-boundary-section, .business-card-first-project, .engagement-boundaries,
+.business-page-intro { background: var(--studio-white); color: var(--studio-ink); }
+.business-closing { background: #1c222d; color: var(--studio-ink); }
+.business-closing h2, .business-closing .business-index, .business-closing h2 em { color: var(--studio-ink); }
+.workflow-tabs button[aria-pressed="true"] { color: var(--studio-accent-ink); background: var(--studio-accent); }
+.business-page :is(a,button,input,select):focus-visible { outline:3px solid var(--studio-brass-soft); outline-offset:4px; }

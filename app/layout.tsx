@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./business.css";
@@ -11,6 +11,12 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+// The site is permanently dark-first; browser UI and native controls match its canvas.
+export const viewport: Viewport = {
+  themeColor: "#090c12",
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   title: {
