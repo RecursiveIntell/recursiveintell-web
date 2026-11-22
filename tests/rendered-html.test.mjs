@@ -922,6 +922,13 @@ test("public credentials distinguish accepted merges from external mentions and 
   assert.match(evidence, /issuecomment-5624529181/);
   assert.match(evidence, /pullrequestreview-5024436809/);
   assert.match(evidence, /reviewed, not merged/i);
+  assert.match(evidence, /id="turboquant-video"/);
+  assert.match(evidence, /youtube\.com\/watch\?v=4S5NIE_294U/);
+  assert.match(evidence, /id="classification-research"/);
+  assert.match(evidence, /8,069 hashed classification sidecars inspected/);
+  assert.match(evidence, /9,861 remains unreconciled/);
+  assert.match(evidence, /not an independently reproducible benchmark/);
+  assert.match(evidence, /2026-11-21-classification-receipts\.md/);
   assert.match(evidence, /id="hermes-digest-20260805"/);
   assert.match(evidence, /hermes-agent-news-fr/);
   assert.match(evidence, /id="hermes-plugin-362"/);
