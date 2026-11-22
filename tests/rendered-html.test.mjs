@@ -29,6 +29,8 @@ const builtPagePath = new Map([
   ["/work", "../.next/server/app/work.html"],
   ["/systems", "../.next/server/app/systems.html"],
   ["/ares", "../.next/server/app/ares.html"],
+  ["/evidence", "../.next/server/app/evidence.html"],
+  ["/changes", "../.next/server/app/changes.html"],
   [
     "/work/ares-approval-case",
     "../.next/server/app/work/ares-approval-case.html",
@@ -873,4 +875,70 @@ test("Ares capability page separates inherited, owned and unadmitted features", 
   assert.match(ares, /end-to-end free-route physical-send enforcement/i);
   assert.match(home, /href="\/ares"/);
   assert.ok(sitemap().some(x => x.url === "https://recursiveintell.com/ares"));
+});
+
+test("public evidence and change history render source-linked bounded facts", async () => {
+  const [evidence, changes, home] = await Promise.all([
+    readBuiltPage("/evidence"), readBuiltPage("/changes"), readBuiltPage("/"),
+  ]);
+  assert.match(evidence, /Show the source/);
+  assert.match(evidence, /NVIDIA PAIR: persisted endorsement notifications/);
+  assert.match(evidence, /https:\/\/github\.com\/NVIDIA\/Personal-AI-Router\/pull\/62/);
+  assert.match(evidence, /does not imply NVIDIA employment/i);
+  assert.match(changes, /Ares installer restored to canonical source/);
+  assert.match(changes, /bounded tranche/i);
+  assert.match(changes, /not a comprehensive automated changelog/i);
+  for (const path of ["/evidence", "/changes"]) {
+    assert.ok(home.includes(`href="${path}"`));
+    assert.ok(sitemap().some(entry => entry.url === `https://recursiveintell.com${path}`));
+  }
+  for (const html of [evidence, changes]) {
+    assert.doesNotMatch(html, /https:\/\/github\.com\/RecursiveIntell\/(?:ClaimLedger|recursiveintell-operations-journal|agent-integration-kit)(?:\/|")/);
+  }
+});
+
+test("public credentials distinguish accepted merges from external mentions and open reviews", async () => {
+  const [evidence, changes, home, josh, work] = await Promise.all([
+    readBuiltPage("/evidence"),
+    readBuiltPage("/changes"),
+    readBuiltPage("/"),
+    readBuiltPage("/josh"),
+    readBuiltPage("/work"),
+  ]);
+
+  for (const html of [evidence, changes, home, josh, work]) {
+    assert.match(html, /NVIDIA\/Personal-AI-Router\/pull\/139/);
+  }
+  assert.match(home, /Two merged NVIDIA PAIR PRs/);
+  assert.match(home, /href="\/evidence#nvidia-pair-62"/);
+
+  assert.match(evidence, /id="nvidia-pair-139"/);
+  assert.match(evidence, /19018b8f5978/);
+  assert.match(evidence, /disabling the flush deadline/);
+  assert.match(evidence, /id="turboquant-article"/);
+  assert.match(evidence, /michael\.hannecke\/googles-turboquant/);
+  assert.match(evidence, /independent article mention/i);
+  assert.match(evidence, /id="hermes-review"/);
+  assert.match(evidence, /issuecomment-5624529181/);
+  assert.match(evidence, /pullrequestreview-5024436809/);
+  assert.match(evidence, /reviewed, not merged/i);
+  assert.match(evidence, /id="turboquant-video"/);
+  assert.match(evidence, /youtube\.com\/watch\?v=4S5NIE_294U/);
+  assert.match(evidence, /id="classification-research"/);
+  assert.match(evidence, /8,069 hashed classification sidecars inspected/);
+  assert.match(evidence, /9,861 remains unreconciled/);
+  assert.match(evidence, /not an independently reproducible benchmark/);
+  assert.match(evidence, /2026-11-21-classification-receipts\.md/);
+  assert.match(evidence, /id="hermes-digest-20260805"/);
+  assert.match(evidence, /hermes-agent-news-fr/);
+  assert.match(evidence, /id="hermes-plugin-362"/);
+  assert.match(evidence, /Draft; dependency blocked/);
+
+  assert.match(changes, /Published external mention/);
+  assert.match(changes, /Reviewed, not merged/);
+  assert.doesNotMatch(changes, /Inspect merged change/);
+  assert.match(work, /NVIDIA PAIR: reliable real-socket deadline regression/);
+  for (const html of [evidence, home, josh]) {
+    assert.doesNotMatch(html, /NVIDIA partner|NVIDIA employee|independently validated TurboQuant speedup/i);
+  }
 });

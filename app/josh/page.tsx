@@ -89,7 +89,7 @@ export default function Josh() {
             </h2>
           </div>
           <p>
-            Start with the accepted NVIDIA PAIR fix, then explore Ares, memory,
+            Start with two accepted NVIDIA PAIR contributions and public Hermes reviews, then explore Ares, memory,
             and the supporting systems. Each project makes its evidence and
             development status visible.
           </p>

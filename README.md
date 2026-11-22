@@ -1,4 +1,4 @@
-<!-- last-verified: 2026-10-26 -->
+<!-- last-verified: 2026-11-21 (public contribution/coverage ledger only) -->
 
 # RecursiveIntell Web
 
@@ -16,6 +16,8 @@ Public website for Josh Stevenson and RecursiveIntell. The site has two explicit
 - `/services` — bounded service offers and technical consulting
 - `/work` — artifact-grounded engineering cases
 - `/systems` — source-linked architecture, canonical owners and admission states
+- `/evidence` — curated NVIDIA merges, Hermes reviews, independent articles and community coverage with explicit claim limits
+- `/changes` — dated accepted changes, reviews and coverage; status-specific, curated, not an automated complete changelog
 - `/about` — Josh Stevenson and RecursiveIntell
 - `/contact` — hiring, consulting and collaboration contact options
 - `/privacy` — current website data boundary
@@ -37,12 +39,13 @@ The Mnemes homepage has one canonical owner at `app/components/mnemes/MnemesHome
 
 - `app/config/site.ts` — site identity, public contact, business navigation
 - `app/data/business.ts` — service categories, process, deterministic workflow fixtures
-- `app/data/achievements.ts` — source-linked upstream contribution and community recognition, shared across public pages
+- `app/data/achievements.ts` — single owner for NVIDIA accepted contributions, Hermes review pointers and externally published coverage shown on the business pages
 - `app/config/brand.json` — canonical Recursive Cube vector geometry and asset colors
 - `app/components/BrandMark.tsx` — inline brand mark; `scripts/sync-brand.mjs` produces its downloadable SVGs and favicon
 - `app/data/services.ts` — consulting and implementation offers
 - `app/data/work.ts` — curated public case studies and their evidence boundaries
 - `app/data/public-highlights.ts` — source-reviewed public portfolio highlights
+- `app/data/public-evidence.ts` — curated records for `/evidence` and `/changes`, importing shared outside-credibility facts from `achievements.ts`
 - `app/data/public-repositories.json` — dated public-only GitHub repository snapshot; never project private repository metadata
 - `app/components/StudioChrome.tsx` and `app/components/Studio.tsx` — current studio shell, shared sections and selected-project rendering
 - `app/components/business/*` — retained business components; follow the active page imports before treating these as the current shell
@@ -58,7 +61,7 @@ The Mnemes homepage has one canonical owner at `app/components/mnemes/MnemesHome
 
 Public repositories, packages, tests, and demonstrations show implementation scope. They do not establish customers, revenue, funding, compliance, certification, production readiness, security, universal correctness, or fitness for a particular business.
 
-The NVIDIA PAIR contribution links merged upstream PR #62 and its September 23, 2026 merge record. It does not imply NVIDIA employment, sponsorship, or partnership. The Teknium note links the original public highlight, Josh's later Ares update, and the repost feed. Social recognition is an observed interaction, with no invented exact repost date or customer/endorsement claim.
+NVIDIA PAIR PRs #62 (September 23, 2026) and #139 (October 30, 2026) are both accepted upstream changes; the second is test-only. The official NVIDIA 1.0 release notes credit @RecursiveIntell for #62, not for #139. Neither implies NVIDIA employment, sponsorship or partnership. Hermes #91293/#94878 are still unmerged; maintainer acknowledgment and historical review of architecture do not constitute current-head approval. The Singularity companion #362 remains a dependency-blocked draft. Michael Hannecke's TurboQuant article and the Hermes community digest are external mentions, not independent benchmark validation. The separate Teknium social record links the original public highlight, Josh's later Ares update and the repost feed; no unverified exact repost date or product endorsement is inferred.
 
 The November 2026 source-backed portfolio adds a static, crawlable public-only repository index and architecture map. Its 2026-11-18 snapshot is historical and must never be labeled live or complete for all accessible private repositories. The October 2026 refresh evidence, changed claims, and validation receipt are in [docs/site-refresh-20261001](docs/site-refresh-20261001/VALIDATION_RECEIPT.md). The recursive sculpture is conceptual brand artwork, not a product photograph or architecture diagram.
 

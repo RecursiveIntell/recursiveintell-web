@@ -8,6 +8,8 @@ const routes = [
   "/work",
   "/systems",
   "/ares",
+  "/evidence",
+  "/changes",
   "/workshop",
   "/work/ares-runtime-case",
   "/work/ares-approval-case",
