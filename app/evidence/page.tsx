@@ -18,11 +18,11 @@ export default function EvidencePage() {
       <section className="studio-section studio-shell" aria-labelledby="evidence-records">
         <div className="studio-section-heading">
           <div><p className="studio-eyebrow">01 / VERIFIED REFERENCES</p><h2 id="evidence-records">What changed.<br /><em>What it proves.</em></h2></div>
-          <p>Each record identifies its external source, admitted scope and remaining gap. A public repository description does not become evidence of customer adoption or universal correctness.</p>
+          <p>Each record identifies its source, acceptance state and remaining gap. Independent coverage, historical reviews and merged changes are deliberately distinct. A public repository description does not become evidence of customer adoption or universal correctness.</p>
         </div>
         <div className="ri-architecture-grid">
           {publicEvidence.map((item) => (
-            <article className="ri-architecture-card" key={item.id}>
+            <article className="ri-architecture-card" key={item.id} id={item.id}>
               <p className="studio-eyebrow">{item.dateLabel} / {item.category}</p>
               <h3>{item.title}</h3>
               <p><strong>State:</strong> {item.status}</p>
@@ -30,7 +30,7 @@ export default function EvidencePage() {
               <div><strong>Claim boundary</strong><p>{item.boundary}</p></div>
               <a className="studio-text-link" href={item.source} target="_blank" rel="noreferrer">{item.sourceLabel} ↗</a>
               {item.supportingSource && <a className="studio-text-link" href={item.supportingSource} target="_blank" rel="noreferrer">{item.supportingLabel} ↗</a>}
-              <small>Revision: <code>{item.revision.slice(0, 12)}</code></small>
+              {item.revision && <small>Reviewed or merged revision: <code>{item.revision.slice(0, 12)}</code></small>}
             </article>
           ))}
         </div>
