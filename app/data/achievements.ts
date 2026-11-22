@@ -48,7 +48,7 @@ export const turboQuantCoverage = {
 export const hermesReviewEvidence = {
   title: "Hermes profile-isolation work examined in public review",
   date: "2026-09-10",
-  dateLabel: "August–November 2026",
+  dateLabel: "September 10, 2026",
   maintainerComment:
     "https://github.com/NousResearch/hermes-agent/pull/83007#issuecomment-5624529181",
   provenancePR: "https://github.com/NousResearch/hermes-agent/pull/91293",
