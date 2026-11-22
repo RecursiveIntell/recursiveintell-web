@@ -1,3 +1,5 @@
+import { contactEmail } from "./config/site";
+
 export const coreLinks = {
   mnemesGithub: "https://github.com/RecursiveIntell/mnemes",
   mnemesCrate: "https://crates.io/crates/mnemes",
@@ -11,8 +13,8 @@ export const coreLinks = {
   recursiveIntell: "https://recursiveintell.com",
   recursiveGithub: "https://github.com/RecursiveIntell",
   recursiveCrates: "https://crates.io/users/RecursiveIntell",
-  email: "mailto:j.stevenson.cs@gmail.com",
-  nodeInterest: "mailto:j.stevenson.cs@gmail.com?subject=Mnemes%20Node%20R1%20custom%20build",
+  email: `mailto:${contactEmail}`,
+  nodeInterest: `mailto:${contactEmail}?subject=Mnemes%20Node%20R1%20custom%20build`,
   arduinoUnoQ: "https://docs.arduino.cc/hardware/uno-q",
   hermesGithub: "https://github.com/NousResearch/hermes-agent",
   qwenModel: "https://huggingface.co/Qwen/Qwen3.5-0.8B",
