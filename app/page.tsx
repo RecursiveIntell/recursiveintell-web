@@ -9,7 +9,6 @@ import {
 } from "./components/Studio";
 import { contact, site } from "./config/site";
 import { Achievements } from "./components/Achievements";
-import { nvidiaContribution } from "./data/achievements";
 import { serviceOffers } from "./data/services";
 
 export const metadata: Metadata = pageMetadata("/", {
@@ -113,13 +112,11 @@ export default function Home() {
             </div>
             <a
               className="studio-contributor"
-              href={nvidiaContribution.pullRequest}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span aria-hidden="true">↗</span> NVIDIA PAIR contributor{" "}
+              href="/evidence#nvidia-pair-62"
+              >
+              <span aria-hidden="true">↗</span> Two merged NVIDIA PAIR PRs{" "}
               <span className="contributor-detail">
-                Merged upstream · September 2026
+                Merged upstream · September &amp; October 2026
               </span>
             </a>
           </div>
