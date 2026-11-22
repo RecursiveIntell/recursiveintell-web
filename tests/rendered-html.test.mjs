@@ -896,3 +896,42 @@ test("public evidence and change history render source-linked bounded facts", as
     assert.doesNotMatch(html, /https:\/\/github\.com\/RecursiveIntell\/(?:ClaimLedger|recursiveintell-operations-journal|agent-integration-kit)(?:\/|")/);
   }
 });
+
+test("public credentials distinguish accepted merges from external mentions and open reviews", async () => {
+  const [evidence, changes, home, josh, work] = await Promise.all([
+    readBuiltPage("/evidence"),
+    readBuiltPage("/changes"),
+    readBuiltPage("/"),
+    readBuiltPage("/josh"),
+    readBuiltPage("/work"),
+  ]);
+
+  for (const html of [evidence, changes, home, josh, work]) {
+    assert.match(html, /NVIDIA\/Personal-AI-Router\/pull\/139/);
+  }
+  assert.match(home, /Two merged NVIDIA PAIR PRs/);
+  assert.match(home, /href="\/evidence#nvidia-pair-62"/);
+
+  assert.match(evidence, /id="nvidia-pair-139"/);
+  assert.match(evidence, /19018b8f5978/);
+  assert.match(evidence, /disabling the flush deadline/);
+  assert.match(evidence, /id="turboquant-article"/);
+  assert.match(evidence, /michael\.hannecke\/googles-turboquant/);
+  assert.match(evidence, /independent article mention/i);
+  assert.match(evidence, /id="hermes-review"/);
+  assert.match(evidence, /issuecomment-5624529181/);
+  assert.match(evidence, /pullrequestreview-5024436809/);
+  assert.match(evidence, /reviewed, not merged/i);
+  assert.match(evidence, /id="hermes-digest-20260805"/);
+  assert.match(evidence, /hermes-agent-news-fr/);
+  assert.match(evidence, /id="hermes-plugin-362"/);
+  assert.match(evidence, /Draft; dependency blocked/);
+
+  assert.match(changes, /Published external mention/);
+  assert.match(changes, /Reviewed, not merged/);
+  assert.doesNotMatch(changes, /Inspect merged change/);
+  assert.match(work, /NVIDIA PAIR: reliable real-socket deadline regression/);
+  for (const html of [evidence, home, josh]) {
+    assert.doesNotMatch(html, /NVIDIA partner|NVIDIA employee|independently validated TurboQuant speedup/i);
+  }
+});
