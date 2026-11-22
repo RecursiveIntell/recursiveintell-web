@@ -119,6 +119,23 @@ export const workCases = [
     sourceLabel: "Inspect the accepted NVIDIA contribution",
   },
   {
+    number: "14",
+    title: "NVIDIA PAIR: reliable real-socket deadline regression",
+    summary:
+      "Merged test-only upstream patch ensuring proxy flush timeouts are exercised under real socket backpressure.",
+    maturity: "Merged upstream / October 30, 2026",
+    problem:
+      "An unbounded socket buffer could let the original flush test exhaust its five-second window without reaching blocked I/O.",
+    built:
+      "Bounded the test's socket buffers and preserved real sockets, pacing, idle deadlines and cancellation assertions without modifying production proxy behavior.",
+    evidence:
+      "NVIDIA PAIR PR #139 was merged October 30, 2026. A reviewer independently reproduced the negative control by disabling the flush timeout and observing the revised regression fail.",
+    boundary:
+      "Test reliability is established for this accepted patch; this is not a production proxy fix, performance benchmark, or NVIDIA employment/partnership claim.",
+    source: "https://github.com/NVIDIA/Personal-AI-Router/pull/139",
+    sourceLabel: "Inspect the merged regression and review",
+  },
+  {
     "number": "08",
     "title": "Gloss: source-grounded desktop research",
     "summary": "Local-first research notebooks, citations and provider boundaries in a Rust/Tauri desktop app.",
@@ -195,6 +212,7 @@ export const workCases = [
 // One hiring-oriented order shared by the identity and selected-work pages.
 export const careerWorkCases = [
   "07",
+  "14",
   "02",
   "11",
   "10",
