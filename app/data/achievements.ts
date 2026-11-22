@@ -45,6 +45,18 @@ export const turboQuantCoverage = {
     "An independent article mention, not a peer review or performance certification of this particular implementation. The author's general TurboQuant performance claims must not be attributed to RecursiveIntell's benchmarks.",
 } as const;
 
+export const turboQuantVideoCoverage = {
+  title: "TurboQuant repository linked by Tonbi's AI Garage",
+  date: "2026-03-30",
+  dateLabel: "March 30, 2026",
+  video: "https://www.youtube.com/watch?v=4S5NIE_294U",
+  repository: "https://github.com/RecursiveIntell/turbo-quant",
+  summary:
+    "Tonbi's AI Garage listed RecursiveIntell/turbo-quant in the community implementation resources for its TurboQuant follow-up video.",
+  boundary:
+    "The video cites the repository as a community resource. Its experiments and performance results apply to Tonbi's implementation, not as third-party validation of RecursiveIntell's codecs.",
+} as const;
+
 export const hermesReviewEvidence = {
   title: "Hermes profile-isolation work examined in public review",
   date: "2026-09-10",
@@ -136,6 +148,20 @@ export const achievements = [
     links: [
       { label: "Read Michael Hannecke's article", href: turboQuantCoverage.article },
       { label: "Inspect the Rust implementation", href: turboQuantCoverage.repository },
+    ],
+  },
+  {
+    id: "turboquant-video",
+    label: "THIRD-PARTY RESOURCE CITATION",
+    date: turboQuantVideoCoverage.date,
+    dateLabel: turboQuantVideoCoverage.dateLabel,
+    mark: "TURBOQUANT / VIDEO",
+    title: turboQuantVideoCoverage.title,
+    body: turboQuantVideoCoverage.summary,
+    boundary: turboQuantVideoCoverage.boundary,
+    links: [
+      { label: "Watch Tonbi's follow-up", href: turboQuantVideoCoverage.video },
+      { label: "Inspect the linked repository", href: turboQuantVideoCoverage.repository },
     ],
   },
   {
