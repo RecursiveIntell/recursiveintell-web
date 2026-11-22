@@ -18,7 +18,7 @@ export default function Work() {
         label="THE ENGINEERING PORTFOLIO"
         title="Follow the idea."
         accent="Inspect the work."
-        body="An accepted NVIDIA PAIR contribution, the current Hermes integration path in Ares, persistent memory, and the supporting Rust systems. Each project explains what was built and where the evidence stops."
+        body="Two accepted NVIDIA PAIR contributions, the review-visible Hermes integration path in Ares, persistent memory, and the supporting Rust systems. Each project explains what was built and where the evidence stops."
       />
       <section className="studio-shell studio-work-section">
         <div className="studio-work-index">
