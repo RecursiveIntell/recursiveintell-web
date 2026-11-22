@@ -16,8 +16,8 @@ export function Achievements() {
           </h2>
         </div>
         <p>
-          Accepted upstream code and public recognition from the agent
-          community. Follow the original sources.
+          Merged NVIDIA contributions, independently published coverage, and
+          source-linked Hermes engineering reviews. Every status is scoped.
         </p>
       </div>
       <div className="achievement-grid">
@@ -48,7 +48,7 @@ export function Achievements() {
             </div>
             <details className="achievement-scope">
               <summary>
-                About this recognition <span aria-hidden="true">+</span>
+                Evidence boundary <span aria-hidden="true">+</span>
               </summary>
               <p>{item.boundary}</p>
             </details>
